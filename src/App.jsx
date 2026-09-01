@@ -126,6 +126,7 @@ const TR = {
     symbols:"symboles", seeOnSite:"🌐 Voir sur rurucube.com",
     savantsTile:"LE SAVOIR", savantsTileSub:"Décode les 6 faces des génies",
     savantsTapHint:"Touche un symbole pour afficher sa définition",
+    bioBirth:"Naissance", bioDeath:"Décès", bioPath:"Parcours", bioVision:"Vision",
     chooseGame:"Choisis ton jeu", switchCube:"Changer de cube",
     speedFace:"SPEED FACE", speedFaceSub:"Joue avec ton propre cube 3×3",
     scienceCube:"LE CUBE SCIENTIFIQUE", scienceCubeSub:"6 génies · 48 symboles à découvrir",
@@ -197,6 +198,7 @@ const TR = {
     symbols:"symbols", seeOnSite:"🌐 See on rurucube.com",
     savantsTile:"KNOWLEDGE", savantsTileSub:"Decode the 6 faces of the geniuses",
     savantsTapHint:"Tap a symbol to reveal its definition",
+    bioBirth:"Born", bioDeath:"Died", bioPath:"Path", bioVision:"Vision",
     chooseGame:"Choose your game", switchCube:"Switch cube",
     speedFace:"SPEED FACE", speedFaceSub:"Play with your own 3×3 cube",
     scienceCube:"THE SCIENCE CUBE", scienceCubeSub:"6 geniuses · 48 symbols to explore",
@@ -973,7 +975,7 @@ const GALILEE_TILES = ["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDA
 
 /* ═══ LE COFFRET DES SCIENTIFIQUES — 6 faces, 6 génies, 8 symboles chacun ═══ */
 const SAVANTS = [
-  { id:"einstein", name:"Albert Einstein", emoji:"🧠", color:"#ffd23f", tag:"Relativité · Physique moderne", tiles:EINSTEIN_TILES, order:[5,3,7,0,-1,2,6,1,4], items:[
+  { id:"einstein", name:"Albert Einstein", emoji:"🧠", color:"#ffd23f", tag:"Relativité · Physique moderne", bio:{birth:"14 mars 1879 à Ulm, Allemagne",death:"18 avril 1955 à Princeton, États-Unis",path:"Employé au bureau des brevets de Berne, il publie en 1905 plusieurs articles qui bouleversent la physique. Professeur à Zurich, Prague puis Berlin, il fuit l'Allemagne nazie en 1933 pour Princeton, où il termine sa carrière.",vision:"Il croyait en la simplicité et l'harmonie des lois de la nature, et défendait la paix et l'usage responsable de la science."}, tiles:EINSTEIN_TILES, order:[5,3,7,0,-1,2,6,1,4], items:[
     {t:"La découverte de l'einsteinium", d:"Cet élément porte le nom d'Albert Einstein, même s'il n'a pas été découvert par lui. Il a été nommé en son honneur en raison de l'importance de ses travaux pour la physique moderne. L'einsteinium, de numéro atomique 99, a été identifié en 1952 dans les débris d'une explosion thermonucléaire."},
     {t:"La théorie de la relativité restreinte", d:"Publiée en 1905, elle a profondément transformé notre compréhension de l'espace et du temps. Elle montre que l'espace et le temps sont liés, et que leur mesure dépend du mouvement de l'observateur. Lorsqu'un objet se déplace à une vitesse proche de celle de la lumière, le temps s'écoule plus lentement pour lui et les longueurs se contractent dans la direction du mouvement. Cette théorie a aussi conduit à la célèbre relation entre masse et énergie : E = mc²."},
     {t:"Les ouvrages scientifiques d'Einstein", d:"Albert Einstein a écrit de nombreux articles scientifiques majeurs, ainsi que plusieurs ouvrages et recueils de conférences consacrés à la relativité et à d'autres grands concepts de la physique. Parmi ses titres les plus connus figure La signification de la relativité. Ces publications ont contribué à faire connaître ses idées sur l'espace-temps, l'énergie, la lumière et la structure de l'univers."},
@@ -983,7 +985,7 @@ const SAVANTS = [
     {t:"L'explication de l'effet photoélectrique", d:"En 1905, Einstein a donné une explication décisive de l'effet photoélectrique en proposant que la lumière soit constituée de quanta d'énergie, aujourd'hui appelés photons. Il a montré que chaque photon transporte une quantité précise d'énergie, ce qui permet d'expliquer l'émission d'électrons par certains matériaux exposés à la lumière. Cette contribution lui a valu le prix Nobel de physique en 1921."},
     {t:"Le mouvement brownien", d:"En 1905, Einstein a fourni une explication théorique du mouvement aléatoire de petites particules en suspension dans un fluide. Il a montré que ce phénomène résulte des chocs incessants avec les molécules du fluide. Son travail a constitué une preuve importante de l'existence des atomes et des molécules, et a joué un rôle majeur dans le développement de la théorie atomique de la matière."},
   ]},
-  { id:"curie", name:"Marie Curie", emoji:"⚗️", color:"#b8aed0", tag:"Radioactivité · Deux prix Nobel", tiles:CURIE_TILES, order:[7,1,0,2,-1,3,5,6,4], items:[
+  { id:"curie", name:"Marie Curie", emoji:"⚗️", color:"#b8aed0", tag:"Radioactivité · Deux prix Nobel", bio:{birth:"7 novembre 1867 à Varsovie, Pologne",death:"4 juillet 1934 en Haute-Savoie, France",path:"Venue étudier à Paris, elle devient la première femme professeure à la Sorbonne. Avec Pierre Curie, elle découvre le polonium et le radium, puis fonde l'Institut du radium.",vision:"Elle voulait mettre la science au service de l'humanité, rendre la recherche accessible aux femmes, et l'a prouvé en équipant des unités mobiles de radiographie pendant la guerre."}, tiles:CURIE_TILES, order:[7,1,0,2,-1,3,5,6,4], items:[
     {t:"Le flacon expérimental", d:"Il symbolise ses recherches pionnières sur la radioactivité. Avec Pierre Curie, elle a mené de nombreuses expériences sur des substances radioactives qui ont conduit à la découverte du polonium et du radium en 1898. Ce type d'objet représente les longues heures de travail, la rigueur scientifique et les conditions difficiles dans lesquelles elle a travaillé. Certains objets et documents liés à son laboratoire sont encore radioactifs aujourd'hui."},
     {t:"La découverte du radium", d:"Marie Curie, avec Pierre Curie, a découvert le radium en 1898 au cours de recherches sur les substances radioactives. Le couple a mis au point des méthodes de séparation à partir de minerais d'uranium, ce qui a permis d'identifier puis d'étudier cet élément. Le radium a joué un rôle majeur dans le développement de la recherche sur la radioactivité et a ensuite trouvé des applications médicales, avant que ses dangers ne soient mieux compris."},
     {t:"La découverte du polonium", d:"Marie Curie, avec Pierre Curie, a identifié le polonium en 1898 dans le cadre de ses travaux sur les substances radioactives. Elle a choisi ce nom en hommage à son pays natal, la Pologne. Cette découverte a renforcé l'idée que la radioactivité est une propriété de l'atome lui-même, et non simplement le résultat d'une réaction chimique."},
@@ -993,7 +995,7 @@ const SAVANTS = [
     {t:"Les prix Nobel", d:"Marie Curie a reçu deux prix Nobel. En 1903, elle a partagé le prix Nobel de physique avec Pierre Curie et Henri Becquerel pour leurs travaux sur les phénomènes de rayonnement. En 1911, elle a reçu le prix Nobel de chimie pour la découverte du polonium et du radium, ainsi que pour l'isolement du radium et l'étude de ses composés. Elle est la seule femme à avoir reçu deux prix Nobel, et la seule personne à avoir remporté des Nobel dans deux sciences différentes."},
     {t:"Les voitures radiologiques", d:"Durant la Première Guerre mondiale, Marie Curie fit équiper des voitures radiologiques mobiles afin d'apporter la radiographie au plus près des zones de combat. Surnommés plus tard les « petites Curies », ces véhicules permirent de mieux soigner les blessés en aidant les chirurgiens à repérer rapidement les projectiles et les lésions internes. Ils représentent l'engagement de Marie Curie au service de la science, mais aussi de la médecine de guerre."},
   ]},
-  { id:"tesla", name:"Nikola Tesla", emoji:"⚡", color:"#ff9f43", tag:"Électricité · Courant alternatif", tiles:TESLA_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
+  { id:"tesla", name:"Nikola Tesla", emoji:"⚡", color:"#ff9f43", tag:"Électricité · Courant alternatif", bio:{birth:"10 juillet 1856 à Smiljan, Empire austro-hongrois",death:"7 janvier 1943 à New York, États-Unis",path:"Ingénieur émigré aux États-Unis, il travaille brièvement pour Edison avant de développer seul le système à courant alternatif et de déposer des centaines de brevets.",vision:"Visionnaire, il rêvait d'une énergie sans fil accessible à tous et pensait que la technologie pouvait libérer l'humanité."}, tiles:TESLA_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
     {t:"Les nombres 3, 6 et 9", d:"Nikola Tesla accordait une importance particulière aux nombres 3, 6 et 9. Il leur attribuait une signification presque mystique, estimant qu'ils révélaient certains schémas fondamentaux de l'univers. Cette idée relève davantage de sa pensée personnelle et philosophique que d'une théorie scientifique démontrée. Elle continue néanmoins à intriguer et à alimenter de nombreuses discussions autour de sa personnalité."},
     {t:"Le courant alternatif", d:"Le courant alternatif est un courant électrique dont le sens de circulation change régulièrement. Contrairement au courant continu, il oscille d'un côté puis de l'autre, ce qui permet de transporter l'électricité efficacement sur de longues distances. Ce principe est au cœur des réseaux électriques modernes et des grandes avancées de Nikola Tesla."},
     {t:"La tour de Wardenclyffe", d:"Nikola Tesla s'intéressait vivement à la transmission sans fil de l'énergie et de l'information. La tour de Wardenclyffe fut conçue dans le but d'expérimenter la transmission sans fil sur de longues distances. Même si le projet n'a jamais été achevé ni exploité comme Tesla l'espérait, il illustre l'audace de sa vision et son désir de transformer les communications et l'accès à l'énergie."},
@@ -1003,7 +1005,7 @@ const SAVANTS = [
     {t:"Les signaux radio", d:"Nikola Tesla fut l'un des pionniers des transmissions sans fil. Il mena des expériences montrant qu'il était possible de transmettre des signaux à distance sans fil, contribuant ainsi au développement des technologies radio. Même si l'invention de la radio a ensuite fait l'objet de débats historiques et de reconnaissances partagées, les travaux de Tesla ont joué un rôle important dans l'émergence des communications radio modernes."},
     {t:"Le champ magnétique tournant", d:"Mis en évidence par Tesla en 1882, il a joué un rôle fondamental dans le développement du courant alternatif. Un champ magnétique tournant est produit lorsque des courants alternatifs circulent dans plusieurs bobines disposées de façon appropriée, créant un champ qui tourne dans l'espace. Ce principe est à la base du fonctionnement des moteurs électriques modernes et de nombreux systèmes d'alimentation en énergie."},
   ]},
-  { id:"newton", name:"Isaac Newton", emoji:"🍎", color:"#4ea8ff", tag:"Gravitation · Mécanique classique", tiles:NEWTON_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
+  { id:"newton", name:"Isaac Newton", emoji:"🍎", color:"#4ea8ff", tag:"Gravitation · Mécanique classique", bio:{birth:"4 janvier 1643 à Woolsthorpe, Angleterre",death:"31 mars 1727 à Londres, Angleterre",path:"Professeur à Cambridge, il publie en 1687 les Principia Mathematica, devient plus tard directeur de la Monnaie royale et président de la Royal Society.",vision:"Il pensait que l'univers obéit à des lois mathématiques universelles, rationnelles et accessibles à la raison humaine."}, tiles:NEWTON_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
     {t:"Le newton, unité de force", d:"Le newton, symbole N, est l'unité de force du Système international. Il porte le nom d'Isaac Newton en hommage à ses travaux sur les lois du mouvement. Un newton correspond à la force nécessaire pour accélérer une masse de 1 kilogramme de 1 mètre par seconde carrée. Cette unité est utilisée en physique, en ingénierie et dans de nombreux calculs liés aux forces."},
     {t:"La pomme, symbole des découvertes", d:"La pomme est devenue le symbole le plus célèbre associé à Isaac Newton. Selon la tradition, l'observation d'une pomme tombant d'un arbre aurait nourri sa réflexion sur la gravitation. Même si l'anecdote relève en partie de la légende, elle représente bien l'esprit scientifique de Newton : observer un phénomène simple pour en tirer une loi universelle. Depuis, la pomme symbolise la curiosité, l'observation et la découverte scientifique."},
     {t:"Les expériences avec le prisme", d:"Dans les années 1660, Newton a mené des expériences avec des prismes pour étudier la lumière. En faisant passer la lumière du Soleil à travers un prisme, il a montré qu'elle se décompose en plusieurs couleurs, formant le spectre visible. Il en a conclu que la lumière blanche est composée de toutes ces couleurs. Ses travaux ont joué un rôle majeur dans le développement de l'optique."},
@@ -1013,7 +1015,7 @@ const SAVANTS = [
     {t:"Le pendule de Newton", d:"Le pendule de Newton est un objet devenu célèbre pour illustrer le transfert de quantité de mouvement et d'énergie lors des collisions. Bien qu'il porte son nom en hommage à ses travaux sur la mécanique, il n'a pas été inventé par Isaac Newton lui-même. Il permet de visualiser simplement certains principes liés aux lois du mouvement et à la conservation de l'énergie."},
     {t:"Le télescope de Newton", d:"En 1668, Newton a conçu un télescope à réflexion utilisant un miroir plutôt que des lentilles pour recueillir et focaliser la lumière. Ce système permettait de réduire les aberrations chromatiques observées dans certains télescopes à lentilles. Le télescope de Newton a marqué une avancée importante dans l'histoire de l'astronomie et a inspiré de nombreux instruments d'observation modernes."},
   ]},
-  { id:"darwin", name:"Charles Darwin", emoji:"🐢", color:"#3ddc84", tag:"Évolution · Sélection naturelle", tiles:DARWIN_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
+  { id:"darwin", name:"Charles Darwin", emoji:"🐢", color:"#3ddc84", tag:"Évolution · Sélection naturelle", bio:{birth:"12 février 1809 à Shrewsbury, Angleterre",death:"19 avril 1882 à Downe, Angleterre",path:"Naturaliste, il embarque cinq ans à bord du HMS Beagle, puis passe plus de vingt ans à affiner sa théorie avant de publier L'Origine des espèces en 1859.",vision:"Il pensait que toutes les espèces partagent des ancêtres communs et évoluent par sélection naturelle, à partir d'une observation patiente et minutieuse du vivant."}, tiles:DARWIN_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
     {t:"L'arbre de la vie", d:"L'arbre de la vie est une image utilisée par Charles Darwin pour représenter les relations entre les êtres vivants. Il montre que les espèces partagent des ancêtres communs et se diversifient au fil du temps en de multiples lignées. Cette représentation illustre l'idée de « descendance avec modification », au cœur de la pensée de Darwin sur l'évolution."},
     {t:"Le poisson de Darwin", d:"Le « poisson de Darwin » est un symbole moderne associé à la théorie de l'évolution. Il représente généralement un poisson muni de pattes, en référence à l'idée que les espèces se transforment au fil du temps. Ce n'est pas un dessin de Darwin lui-même, mais un emblème contemporain souvent utilisé pour évoquer l'évolution, la science et la pensée critique."},
     {t:"L'étude des fossiles", d:"Darwin a étudié les fossiles pour mieux comprendre l'histoire de la vie sur Terre. Les fossiles, restes ou traces d'êtres vivants anciens conservés dans les roches, lui ont montré que de nombreuses espèces avaient existé avant les formes actuelles. Leur étude a contribué à renforcer l'idée que les êtres vivants changent au cours du temps, et que certaines espèces disparaissent tandis que d'autres se transforment progressivement."},
@@ -1023,7 +1025,7 @@ const SAVANTS = [
     {t:"Le HMS Beagle", d:"Le HMS Beagle est le navire à bord duquel Charles Darwin a voyagé de 1831 à 1836. Au cours de cette expédition, il a observé de nombreux paysages, fossiles, plantes et animaux, notamment en Amérique du Sud et dans les îles Galápagos. Ces observations ont profondément nourri sa réflexion et ont joué un rôle majeur dans l'élaboration de ses idées sur l'évolution."},
     {t:"L'observation de la nature", d:"Darwin a consacré une grande partie de son travail à observer attentivement les animaux, les plantes et leurs variations. En comparant les espèces, leurs formes et leurs adaptations, il a peu à peu compris que le vivant change au fil du temps. Cette observation minutieuse de la nature a nourri sa réflexion et l'a conduit à élaborer la théorie de l'évolution par sélection naturelle."},
   ]},
-  { id:"galilee", name:"Galileo Galilei", emoji:"🔭", color:"#ff5e5e", tag:"Astronomie · Méthode expérimentale", tiles:GALILEE_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
+  { id:"galilee", name:"Galileo Galilei", emoji:"🔭", color:"#ff5e5e", tag:"Astronomie · Méthode expérimentale", bio:{birth:"15 février 1564 à Pise, Italie",death:"8 janvier 1642 à Arcetri, près de Florence, Italie",path:"Professeur de mathématiques à Pise puis Padoue, il perfectionne la lunette et fait des découvertes qui soutiennent l'héliocentrisme, ce qui lui vaut un procès de l'Inquisition en 1633.",vision:"Pionnier de la méthode scientifique, il pensait que la nature est écrite en langage mathématique et défendait la vérité par l'observation, malgré les dogmes de son époque."}, tiles:GALILEE_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
     {t:"Les quatre lunes de Jupiter", d:"En 1610, Galilée découvrit les quatre plus grands satellites de Jupiter, aujourd'hui appelés lunes galiléennes : Io, Europe, Ganymède et Callisto. Cette observation fut capitale, car elle prouva que certains astres pouvaient tourner autour d'une autre planète que la Terre."},
     {t:"Le compas de Galilée", d:"Galilée conçut et améliora un compas géométrique et militaire, un instrument de calcul servant notamment à mesurer, tracer et effectuer diverses opérations utiles en mathématiques, en artillerie et en navigation. Il s'agissait d'un instrument mathématique polyvalent, et non d'une simple amélioration du compas de direction classique."},
     {t:"L'observation des anneaux de Saturne", d:"Galilée fut le premier à observer Saturne avec une lunette en 1610, mais son instrument ne lui permit pas de distinguer clairement ses anneaux. Il crut d'abord voir deux « compagnons » de part et d'autre de la planète. Plus tard, les astronomes comprirent qu'il s'agissait en réalité des anneaux de Saturne."},
@@ -1102,15 +1104,20 @@ function SavantsScreen({ onBack, t }){
           // Position i de la face. s.order[i] = index de la fiche (-1 = centre)
           const idx = s.order ? s.order[i] : (i===4 ? -1 : (i<4 ? i : i-1));
           const tile = s.tiles ? s.tiles[i] : null;
-          if(idx===-1) return (
-            <div key={i} style={{borderRadius:12,overflow:"hidden",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",fontSize:30,
+          if(idx===-1){
+            const isBioOpen = open==="bio";
+            return (
+            <button key={i} type="button" onClick={()=>setOpen(isBioOpen?null:"bio")}
+              style={{border:"none",cursor:"pointer",padding:0,margin:0,WebkitAppearance:"none",appearance:"none",
+              width:"100%",aspectRatio:"1",borderRadius:12,overflow:"hidden",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",fontSize:30,
               background:tile?"transparent":`linear-gradient(180deg,${shade(s.color,30)},${s.color} 55%)`,
-              boxShadow:tile?"none":"inset 0 2px 4px rgba(255,255,255,.45)"}}>
-              {tile?<img src={tile} alt={s.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>:s.emoji}
-              <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:"rgba(0,0,0,.6)",
-                color:"#fff",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>5</span>
-            </div>
-          );
+              boxShadow:isBioOpen?`0 0 0 3px ${s.color} inset`:(tile?"none":"inset 0 2px 4px rgba(255,255,255,.45)"),
+              transition:"all .15s",transform:isBioOpen?"scale(0.94)":"scale(1)"}}>
+              {tile?<img src={tile} alt={s.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",filter:isBioOpen?"none":"saturate(.92)"}}/>:s.emoji}
+              <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:isBioOpen?s.color:"rgba(0,0,0,.6)",
+                color:isBioOpen?"#1a1228":"#fff",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>5</span>
+            </button>
+          );}
           const isOpen = open===idx;
           return (
             <button key={i} onClick={()=>setOpen(isOpen?null:idx)}
@@ -1133,7 +1140,25 @@ function SavantsScreen({ onBack, t }){
 
       {/* Définition de la case sélectionnée, juste sous la face */}
       <div style={{width:"100%",maxWidth:380}}>
-        {open!=null ? (
+        {open==="bio" && s.bio ? (
+          <div style={{background:PAL.card,borderRadius:18,padding:"14px 18px",
+            boxShadow:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${s.color}`,animation:"pop .3s ease-out"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
+              <span style={{width:28,height:28,borderRadius:9,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",
+                background:s.color,color:"#1a1228",fontWeight:700,fontSize:14}}>5</span>
+              {s.tiles&&<img src={s.tiles[4]} alt="" draggable={false} style={{width:34,height:34,borderRadius:9,objectFit:"cover",flexShrink:0}}/>}
+              <span style={{flex:1,fontWeight:700,fontSize:16,color:PAL.text,lineHeight:1.3}}>{s.name}</span>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {[["🎂",t.bioBirth,s.bio.birth],["🕊️",t.bioDeath,s.bio.death],["🧭",t.bioPath,s.bio.path],["💡",t.bioVision,s.bio.vision]].map(([icon,label,val])=>(
+                <div key={label}>
+                  <div style={{fontSize:11,letterSpacing:1,fontWeight:700,color:s.color,textTransform:"uppercase",marginBottom:2}}>{icon} {label}</div>
+                  <div style={{fontSize:14,color:"#ffffff",fontWeight:500,lineHeight:1.5}}>{val}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : open!=null ? (
           <div style={{background:PAL.card,borderRadius:18,padding:"14px 18px",
             boxShadow:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${s.color}`,animation:"pop .3s ease-out"}}>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
@@ -1182,9 +1207,6 @@ function ClassicEmblem({ small }){
 
 /* ═══ ACCUEIL — choisir son jeu ═════════════════════════════════ */
 function HomeScreen({ t, setSkin, launch, openHelp }){
-  const data = loadS();
-  const dailyOf = k => data[k]?.daily?.days?.[todayKey()] ?? null;
-  const bestOf = k => data[k]?.challenge?.best ?? null;
   const games = [
     { id:"monstro", uni:true, img:MONSTRO_BTN, alt:t.monstro },
     { id:"sudoku",  uni:true, img:SUDO_BTN,    alt:t.sudo },
@@ -1198,13 +1220,10 @@ function HomeScreen({ t, setSkin, launch, openHelp }){
 
       <SectionLabel>{t.chooseGame}</SectionLabel>
       <div className="stagger" style={{width:"100%",maxWidth:380,display:"flex",flexDirection:"column",gap:10}}>
-        {games.map(g=>{
-          const best = g.uni ? bestOf(g.id) : null;
-          const daily = g.uni ? dailyOf(g.id) : null;
-          const badge = daily!=null ? `🗓️ ${t.dailyDone} ${fmt(daily)}` : (best!=null ? `⭐ ${t.record} ${fmt(best)}` : null);
-          return <LogoBtn key={g.id} img={g.img} alt={g.alt} badge={badge}
-            onClick={()=>{ if(g.uni){ setSkin(g.id); launch("univers"); } else launch(g.id); }}/>;
-        })}
+        {games.map(g=>(
+          <LogoBtn key={g.id} img={g.img} alt={g.alt}
+            onClick={()=>{ if(g.uni){ setSkin(g.id); launch("univers"); } else launch(g.id); }}/>
+        ))}
       </div>
 
       <button onClick={openHelp} style={{marginTop:18,background:`${PAL.purple}22`,border:`2px solid ${PAL.gold}`,borderRadius:16,padding:"13px 22px",color:"#ffffff",fontWeight:700,fontSize:16,cursor:"pointer",boxShadow:`0 4px 0 ${PAL.bg2}`}}>{t.howTo}</button>
