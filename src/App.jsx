@@ -340,10 +340,12 @@ const TR = {
     howTo:"❓ Comment jouer", howToTitle:"Comment jouer",
     themeLight:"Thème clair", themeDark:"Thème sombre",
     civiComingTitle:"Bientôt disponible !", civiComingSub:"On prépare ce nouveau monde avec soin. Reviens vite pour découvrir Civilisation Ancienne.",
-    htGeneral:"Le principe", htGeneralTxt:"L'appli te montre une face de cube. Tu dois la reproduire sur ton cube physique le plus vite possible. Le chrono s'arrête quand tu tapes la grille.",
-    htChallenge:"🎯 Challenge", htChallengeTxt:"Mode Face : reproduis la face au chrono. Mode Reverse : même chose, mais avec un temps limite (60/45/30/15/5 s). Bats ton record et débloque les objectifs 🐌🚶🏃⚡.",
+    htGeneral:"Le principe", htGeneralTxt:"L'appli te montre une face de cube. Tu dois la reproduire sur ton cube physique le plus vite possible. Le chrono s'arrête quand tu tapes la grille. Quatre modes t'attendent ci-dessous.",
+    htFace:"🎯 Face à Face", htFaceTxt:"Reproduis la face affichée le plus vite possible. Le chrono s'arrête dès que tu tapes la grille. Simple, rapide, parfait pour battre ton record.",
+    htReverse:"⏳ Reverse", htReverseTxt:"Même principe, mais à l'envers : choisis un temps limite (60/45/30/15/5 s) et reproduis la face avant qu'il ne s'écoule.",
     htDuel:"⚔️ Duel", htDuelTxt:"2 joueurs, 5 manches. Posez le téléphone entre vous. Chacun mélange le cube de l'autre. Au GO, reproduisez la face. Le premier fini tape J'AI FINI. Face fausse ? Tapez le temps du joueur → +30 s de pénalité 😈. Le total le plus bas gagne.",
-    htChrono:"🧩 Chrono Cube", htChronoTxt:"Chronomètre ta résolution complète du cube. 3-2-1-GO, résous, tape le cube quand c'est fait.",
+    htBlind:"🙈 Blind", htBlindTxt:"Mémorise la face affichée avant qu'elle ne disparaisse derrière un voile, puis reproduis-la de mémoire. Choisis ton temps de mémorisation, de 2 à 8 secondes.",
+    htChrono:"🧩 Chrono Cube", htChronoTxt:"Chronomètre ta résolution complète du cube, du mélange à la dernière pièce. Compte à rebours de 5 secondes avant le top départ. Disponible sur les 3 cubes : Monstro, Classique et Sudo.",
     htDaily:"🗓️ Défi du jour", htDailyTxt:"Une face identique pour tous les joueurs du monde aujourd'hui. Un seul essai chrono par jour — compare ton temps avec tes amis !",
     htTip:"💡 Astuce", htTipTxt:"Tu n'as pas besoin de savoir résoudre le cube ! Il suffit de reproduire la face affichée. Parfait pour débuter.",
     gotIt:"J'ai compris",
@@ -417,10 +419,12 @@ const TR = {
     howTo:"❓ How to play", howToTitle:"How to play",
     themeLight:"Light theme", themeDark:"Dark theme",
     civiComingTitle:"Coming soon!", civiComingSub:"We're carefully building this new world. Check back soon to discover Ancient Civilisation.",
-    htGeneral:"The idea", htGeneralTxt:"The app shows you a cube face. Reproduce it on your physical cube as fast as you can. The timer stops when you tap the grid.",
-    htChallenge:"🎯 Challenge", htChallengeTxt:"Face mode: match the face against the clock. Reverse mode: same, but with a time limit (60/45/30/15/5 s). Beat your record and unlock goals 🐌🚶🏃⚡.",
+    htGeneral:"The idea", htGeneralTxt:"The app shows you a cube face. Reproduce it on your physical cube as fast as you can. The timer stops when you tap the grid. Four modes await below.",
+    htFace:"🎯 Face to Face", htFaceTxt:"Match the face shown as fast as you can. The timer stops the moment you tap the grid. Simple, fast, perfect for beating your record.",
+    htReverse:"⏳ Reverse", htReverseTxt:"Same idea, in reverse: pick a time limit (60/45/30/15/5 s) and match the face before it runs out.",
     htDuel:"⚔️ Duel", htDuelTxt:"2 players, 5 rounds. Lay the phone between you. Each scrambles the other's cube. At GO, match the face. First done taps I'M DONE. Wrong face? Tap the player's time → +30 s penalty 😈. Lowest total wins.",
-    htChrono:"🧩 Cube Timer", htChronoTxt:"Time your full cube solve. 3-2-1-GO, solve, tap the cube when done.",
+    htBlind:"🙈 Blind", htBlindTxt:"Memorize the face before it vanishes behind a veil, then rebuild it from memory. Choose your memorizing time, from 2 to 8 seconds.",
+    htChrono:"🧩 Cube Timer", htChronoTxt:"Time your full cube solve, from scramble to the last piece. 5-second countdown before go. Available on all 3 cubes: Monstro, Classic and Sudo.",
     htDaily:"🗓️ Daily challenge", htDailyTxt:"The same face for every player in the world today. One timed try per day — compare with your friends!",
     htTip:"💡 Tip", htTipTxt:"You don't need to know how to solve the cube! Just match the face shown. Perfect for beginners.",
     gotIt:"Got it",
@@ -604,20 +608,13 @@ function Bg(){
 }
 function AgeToggle({ kids, toggleKids, t, color }){
   return (
-    <div style={{width:"100%",maxWidth:360,marginBottom:14}}>
-      <div style={{display:"flex",gap:8,marginBottom:8}}>
-        {[{v:false,label:t.teenLabel},{v:true,label:t.kidsLabel}].map(o=>(
-          <button key={String(o.v)} onClick={()=>toggleKids(o.v)} style={{flex:1,padding:"9px 6px",border:"none",borderRadius:14,cursor:"pointer",
-            background:kids===o.v?`linear-gradient(180deg,${shade(color,30)},${color} 45%)`:PAL.card,
-            color:kids===o.v?"#1a1228":PAL.textDim,fontWeight:700,fontSize:13,
-            boxShadow:kids===o.v?`0 3px 0 ${shade(color,-40)}`:`0 3px 0 ${PAL.bg2}, 0 0 0 2px ${PAL.gold}`}}>{o.label}</button>
-        ))}
-      </div>
-      <div style={{display:"flex",alignItems:"flex-start",gap:8,background:`${color}22`,borderRadius:14,padding:"11px 14px",
-        boxShadow:`0 0 0 2px ${color}55`}}>
-        <span style={{fontSize:20,flexShrink:0}}>💡</span>
-        <span style={{fontSize:15,color:"#ffffff",fontWeight:600,lineHeight:1.45}}>{t.ageToggleHint}</span>
-      </div>
+    <div style={{width:"100%",maxWidth:360,marginBottom:14,display:"flex",gap:8}}>
+      {[{v:false,label:t.teenLabel},{v:true,label:t.kidsLabel}].map(o=>(
+        <button key={String(o.v)} onClick={()=>toggleKids(o.v)} style={{flex:1,padding:"10px 6px",border:"none",borderRadius:14,cursor:"pointer",
+          background:kids===o.v?`linear-gradient(180deg,${shade(color,35)},${color} 50%)`:"#f5efe2",
+          color:"#2a2012",fontWeight:700,fontSize:13,
+          boxShadow:kids===o.v?`0 3px 0 ${shade(color,-40)}, 0 0 0 2px ${PAL.gold}`:`0 3px 0 #b9ac93, 0 0 0 2px ${PAL.gold}`}}>{o.label}</button>
+      ))}
     </div>
   );
 }
@@ -777,30 +774,43 @@ function Hint({ children, color, icon }){
 }
 
 /* ─── Modale "Comment jouer" ──────────────────────────────────── */
-function HowToPlay({ t, onClose }){
+function HowToPlay({ t, onClose, skin }){
+  const neon = skin==="sudoku", wood = skin==="classic", paper = skin==="monstro";
+  const isLight = wood || paper;
+  const theme = neon ? SKINS.sudoku.color : wood ? "#8a6539" : paper ? "#132a4d" : PAL.gold;
+  const modalBg = neon ? "#140004" : wood ? "#fdf6ea" : paper ? "#ffffff" : PAL.card;
+  const modalBorder = neon ? SKINS.sudoku.color : wood ? "#c69c6d" : paper ? "#2a4570" : PAL.gold;
+  const titleColor = isLight ? "#2a2012" : "#ffffff";
+  const bodyColor = isLight ? "#2a2012" : "#ffffff";
+  const sectionBg = neon ? "#1a0008" : wood ? "#f3e6d0" : paper ? "#eef2f7" : PAL.bg2;
+  const closeBg = isLight ? "#e7dcc4" : PAL.bg2;
+  const closeColor = isLight ? "#2a2012" : PAL.textDim;
+
   const sections = [
-    {h:t.htGeneral, p:t.htGeneralTxt, c:PAL.gold},
-    {h:t.htChallenge, p:t.htChallengeTxt, c:PAL.gold},
+    {h:t.htGeneral, p:t.htGeneralTxt, c:theme},
+    {h:t.htFace, p:t.htFaceTxt, c:PAL.gold},
+    {h:t.htReverse, p:t.htReverseTxt, c:PAL.orange},
     {h:t.htDuel, p:t.htDuelTxt, c:PAL.green},
-    {h:t.htChrono, p:t.htChronoTxt, c:PAL.blue},
+    {h:t.htBlind, p:t.htBlindTxt, c:PAL.blue},
+    {h:t.htChrono, p:t.htChronoTxt, c:theme},
     {h:t.htDaily, p:t.htDailyTxt, c:PAL.purple},
     {h:t.htTip, p:t.htTipTxt, c:PAL.pink},
   ];
   return (
     <div onClick={onClose} style={{position:"fixed",inset:0,zIndex:70,background:"rgba(13,11,26,.82)",backdropFilter:"blur(6px)",display:"flex",alignItems:"flex-end",justifyContent:"center"}}>
-      <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:480,maxHeight:"88vh",overflowY:"auto",background:PAL.card,border:`3px solid ${PAL.gold}`,borderBottom:"none",borderRadius:"28px 28px 0 0",padding:"22px 20px 30px",boxShadow:"0 -10px 40px rgba(0,0,0,.5)",animation:"slideUp .3s ease-out"}}>
-        <div style={{width:44,height:5,borderRadius:3,background:PAL.cardHi,margin:"0 auto 16px"}}/>
+      <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:480,maxHeight:"88vh",overflowY:"auto",background:modalBg,border:`3px solid ${modalBorder}`,borderBottom:"none",borderRadius:"28px 28px 0 0",padding:"22px 20px 30px",boxShadow:"0 -10px 40px rgba(0,0,0,.5)",animation:"slideUp .3s ease-out"}}>
+        <div style={{width:44,height:5,borderRadius:3,background:modalBorder,margin:"0 auto 16px",opacity:.5}}/>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-          <div style={{fontWeight:700,fontSize:26,color:"#ffffff"}}>{t.howToTitle}</div>
-          <button onClick={onClose} style={{background:PAL.bg2,border:"none",borderRadius:12,width:36,height:36,color:PAL.textDim,fontSize:18,cursor:"pointer",fontWeight:700}}>✕</button>
+          <div style={{fontWeight:700,fontSize:26,color:titleColor}}>{t.howToTitle}</div>
+          <button onClick={onClose} style={{background:closeBg,border:"none",borderRadius:12,width:36,height:36,color:closeColor,fontSize:18,cursor:"pointer",fontWeight:700}}>✕</button>
         </div>
         {sections.map((s,i)=>(
-          <div key={i} style={{background:PAL.bg2,borderLeft:`5px solid ${s.c}`,borderRadius:14,padding:"14px 16px",marginBottom:12}}>
+          <div key={i} style={{background:sectionBg,borderLeft:`5px solid ${s.c}`,borderRadius:14,padding:"14px 16px",marginBottom:12}}>
             <div style={{fontWeight:700,fontSize:18,color:s.c,marginBottom:6}}>{s.h}</div>
-            <div style={{fontSize:16,color:"#ffffff",fontWeight:500,lineHeight:1.6}}>{s.p}</div>
+            <div style={{fontSize:16,color:bodyColor,fontWeight:500,lineHeight:1.6}}>{s.p}</div>
           </div>
         ))}
-        <div style={{marginTop:14}}><CandyBtn onClick={onClose} color={PAL.gold}>{t.gotIt}</CandyBtn></div>
+        <div style={{marginTop:14}}><CandyBtn onClick={onClose} color={theme}>{t.gotIt}</CandyBtn></div>
       </div>
     </div>
   );
@@ -825,7 +835,8 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
   const sprites = S.sprites();
   const [mode,setMode] = useState(forceMode||"normal");  // normal | reverse | blind
   const [memoLimit,setMemoLimit] = useState(5);
-  const [ph,setPh] = useState("ready");             // ready | playing | done
+  const [ph,setPh] = useState("ready");             // ready | count | playing | done
+  const [count,setCount] = useState(5);
   const [face,setFace] = useState(null);
   const [ms,setMs] = useState(0);
   const [limit,setLimit] = useState(60);
@@ -844,17 +855,25 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
   useEffect(()=>()=>clearInterval(timer.current),[]);
 
   function begin(){
-    const f = daily ? dailyFace(skin) : S.gen();
-    setFace(f); setFailed(false); setIsRecord(false); setMs(0);
-    setPh("playing");
-    startRef.current = Date.now();
+    setCount(5); setPh("count");
+    let c = 5;
     clearInterval(timer.current);
     timer.current = setInterval(()=>{
-      const el = Date.now()-startRef.current;
-      if(mode==="reverse" && !daily && el >= limit*1000){
-        clearInterval(timer.current); setMs(limit*1000); setFailed(true); setPh("done");
-      } else setMs(el);
-    }, 47);
+      c -= 1;
+      if(c<=0){
+        clearInterval(timer.current);
+        const f = daily ? dailyFace(skin) : S.gen();
+        setFace(f); setFailed(false); setIsRecord(false); setMs(0);
+        setPh("playing");
+        startRef.current = Date.now();
+        timer.current = setInterval(()=>{
+          const el = Date.now()-startRef.current;
+          if(mode==="reverse" && !daily && el >= limit*1000){
+            clearInterval(timer.current); setMs(limit*1000); setFailed(true); setPh("done");
+          } else setMs(el);
+        }, 47);
+      } else setCount(c);
+    }, 900);
   }
   function stop(){
     if(ph!=="playing") return;
@@ -934,6 +953,10 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
       <div style={{fontWeight:700,fontSize:52,color,lineHeight:1,margin:"6px 0 14px",fontVariantNumeric:"tabular-nums",textShadow:`0 0 22px ${color}44`}}>
         {mode==="reverse"&&!daily&&ph==="playing" ? fmt(Math.max(0,limit*1000-ms)) : fmt(ms)}
       </div>
+
+      {ph==="count"&&(
+        <div style={{fontWeight:700,fontSize:110,color,animation:"pop .3s ease-out",textShadow:`0 0 40px ${color}66`,margin:"30px 0"}}>{count}</div>
+      )}
 
       {ph==="ready"&&(
         <>
@@ -1025,7 +1048,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
 function ChronoScreen({ onBack, t, skin }){
   const [ph,setPh] = useState("ready");   // ready | count | playing | done
   const [ms,setMs] = useState(0);
-  const [count,setCount] = useState(3);
+  const [count,setCount] = useState(5);
   const [isRecord,setIsRecord] = useState(false);
   const timer = useRef(null);
   const startRef = useRef(0);
@@ -1036,8 +1059,8 @@ function ChronoScreen({ onBack, t, skin }){
   useEffect(()=>()=>clearInterval(timer.current),[]);
 
   function begin(){
-    setIsRecord(false); setMs(0); setCount(3); setPh("count");
-    let c = 3;
+    setIsRecord(false); setMs(0); setCount(5); setPh("count");
+    let c = 5;
     timer.current = setInterval(()=>{
       c -= 1;
       if(c<=0){
@@ -1114,7 +1137,8 @@ function DuelScreen({ onBack, t, skin }){
   const R = 5;
   const [showRules,setShowRules] = useState(true);
   const [round,setRound] = useState(1);
-  const [ph,setPh] = useState("ready");  // ready | playing | roundDone | over
+  const [ph,setPh] = useState("ready");  // ready | count | playing | roundDone | over
+  const [count,setCount] = useState(5);
   const [face,setFace] = useState(null);
   const [p1,setP1] = useState({d:false,v:null,pen:false});
   const [p2,setP2] = useState({d:false,v:null,pen:false});
@@ -1125,10 +1149,18 @@ function DuelScreen({ onBack, t, skin }){
   useEffect(()=>()=>clearInterval(tick.current),[]);
 
   function go(){
-    setFace(S.gen()); setP1({d:false,v:null,pen:false}); setP2({d:false,v:null,pen:false});
-    startRef.current = Date.now(); setMs(0); setPh("playing");
+    setCount(5); setPh("count");
+    let c = 5;
     clearInterval(tick.current);
-    tick.current = setInterval(()=>setMs(Date.now()-startRef.current), 47);
+    tick.current = setInterval(()=>{
+      c -= 1;
+      if(c<=0){
+        clearInterval(tick.current);
+        setFace(S.gen()); setP1({d:false,v:null,pen:false}); setP2({d:false,v:null,pen:false});
+        startRef.current = Date.now(); setMs(0); setPh("playing");
+        tick.current = setInterval(()=>setMs(Date.now()-startRef.current), 47);
+      } else setCount(c);
+    }, 900);
   }
   const PEN = 30000;
   function done(who){
@@ -1211,6 +1243,18 @@ function DuelScreen({ onBack, t, skin }){
         <CandyBtn onClick={reset} color={paper?"#ffffff":PAL.green} ring={paper?"#132a4d":undefined}>{t.revenge}</CandyBtn>
         <GhostBtn onClick={onBack}>{t.menu}</GhostBtn>
       </div>
+    </div>
+  );
+
+  if(ph==="count") return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
+      {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
+        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+      {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
+        background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
+      {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
+        background:"radial-gradient(circle at 50% -10%, #ffffff 0%, #eef1f4 55%, #dfe3e8 100%)"}}/>}
+      <div style={{fontWeight:700,fontSize:120,color:PAL.green,animation:"pop .3s ease-out",textShadow:`0 0 40px ${PAL.green}66`}}>{count}</div>
     </div>
   );
 
@@ -1372,7 +1416,7 @@ const CIVI = [
     {t:"Manutara", d:"Oiseau sacré des Rapa Nui, son nom signifie « oiseau de chance ». Son arrivée annonçait le renouveau de la vie et le passage des saisons : la nourriture revenait en abondance et le peuple pouvait perdurer.", dKid:"Un oiseau porte-bonheur ! Quand il arrivait sur l'île, ça voulait dire que la nourriture allait être abondante."},
     {t:"Make Make", d:"Cette figure est communément associée au dieu créateur Make Make. Selon la légende, il aurait créé la Terre puis, en fécondant l'argile rouge sous lui, donné naissance à l'homme puis à la femme, liant ainsi ce dieu à la création, à la fertilité et à l'autorité spirituelle.", dKid:"C'est le dieu créateur des Rapa Nui. On raconte qu'il a créé la Terre, puis les premiers hommes et femmes."}
   ]},
-  { id:"maya", name:"Civilisation Maya", emoji:"🐆", color:"#e8a317", tag:"Mésoamérique · Calendrier et cités-états",
+  { id:"maya", name:"Civilisation Maya", emoji:"🐆", color:"#ffd23f", tag:"Mésoamérique · Calendrier et cités-états",
     bio:{birth:"Vers 2000 av. J.-C., dans les forêts du Yucatán, du Guatemala et du Belize actuels.",
       death:"Le déclin des grandes cités du sud commence vers 800-900 apr. J.-C., pour des raisons encore débattues (sécheresses, guerres, épuisement des sols) ; le nord maya perdure jusqu'à la conquête espagnole du XVIe siècle.",
       path:"Les Mayas ont bâti des cités-États rivales ornées de pyramides et de stèles, développé une écriture hiéroglyphique complexe et un système de numération utilisant le zéro.",
@@ -1387,7 +1431,7 @@ const CIVI = [
     {t:"Dieu Soleil", d:"Ce symbole représente l'idée maya du soleil, un dieu vivant qui transforme son apparence au fil de son voyage. Il est l'œil du ciel, veillant sans cesse sur les Mayas et jugeant la terre en contrebas.", dKid:"Pour les Mayas, le soleil était un dieu vivant qui observait tout depuis le ciel."},
     {t:"Witz (la montagne)", d:"Élément central de la société maya, le Witz représente les montagnes de la terre. Considérées comme des êtres vivants sacrés, les montagnes étaient perçues comme les gardiennes du monde.", dKid:"Les Mayas pensaient que les montagnes étaient vivantes et qu'elles protégeaient la Terre."}
   ]},
-  { id:"rome", name:"Rome Antique", emoji:"🦅", color:"#4f7cac", tag:"Empire romain · Droit et légions",
+  { id:"rome", name:"Rome Antique", emoji:"🦅", color:"#4ea8ff", tag:"Empire romain · Droit et légions",
     bio:{birth:"Selon la légende, en 753 av. J.-C. par Romulus ; la République est fondée en 509 av. J.-C., suivie de l'Empire en 27 av. J.-C.",
       death:"L'Empire romain d'Occident s'effondre en 476 apr. J.-C., tandis que sa partie orientale, byzantine, perdure encore près d'un millénaire.",
       path:"De cité italienne à empire méditerranéen, Rome a légué son droit, son ingénierie (routes, aqueducs), son armée organisée en légions et sa langue, le latin, à une grande partie de l'Europe.",
@@ -1402,7 +1446,7 @@ const CIVI = [
     {t:"SPQR", d:"Symbole du double pouvoir de la civilisation romaine, SPQR signifie « Senatus Populusque Romanus », le Sénat et le peuple de Rome. Présent dans toute la société, il illustrait l'équilibre unique entre le Sénat et les citoyens romains.", dKid:"Ces quatre lettres veulent dire « le Sénat et le peuple romain ». Elles étaient partout à Rome !"},
     {t:"Amphore", d:"Vase emblématique de la Rome antique, l'amphore remplissait deux rôles essentiels. En terre cuite, elle stockait et transportait vin, huile et grain, souvent marquée de sceaux reflétant le quotidien et le commerce romains.", dKid:"Ce grand vase en terre servait à transporter du vin, de l'huile ou du blé."}
   ]},
-  { id:"egypt", name:"Égypte Ancienne", emoji:"𓁿", color:"#d9722d", tag:"Vallée du Nil · Pharaons et pyramides",
+  { id:"egypt", name:"Égypte Ancienne", emoji:"𓁿", color:"#ff9f43", tag:"Vallée du Nil · Pharaons et pyramides",
     bio:{birth:"Vers 3100 av. J.-C., avec l'unification de la Haute et de la Basse-Égypte sous un même pharaon.",
       death:"L'Égypte perd son indépendance en 30 av. J.-C., à la mort de Cléopâtre VII, dernière reine de la dynastie ptolémaïque, absorbée par Rome.",
       path:"Pendant près de trois mille ans, les Égyptiens ont bâti pyramides et temples le long du Nil, inventé une écriture hiéroglyphique et développé des savoirs avancés en médecine et en astronomie.",
@@ -1417,7 +1461,7 @@ const CIVI = [
     {t:"Scarabée", d:"Le scarabée était associé au dieu Khépri, censé faire rouler le soleil dans le ciel chaque jour, comme l'insecte roule sa boule de bouse sur le sol. Chaque cycle symbolisait une chance de renaissance et de transformation.", dKid:"Ce petit insecte représentait le renouveau. Les Égyptiens pensaient qu'il aidait le soleil à se lever chaque jour."},
     {t:"Plume de Maât", d:"Objet essentiel de l'au-delà égyptien, la plume de Maât était placée sur une balance face au cœur du défunt, jugeant l'âme digne ou non de la vie éternelle. Ce symbole de vérité et d'équilibre occupait une place centrale dans la culture égyptienne.", dKid:"Après la mort, le cœur d'une personne était pesé avec cette plume pour savoir si elle avait été juste."}
   ]},
-  { id:"meso", name:"Mésopotamie", emoji:"𒀭", color:"#4f8f5e", tag:"Sumer, Babylone, Assyrie · Écriture cunéiforme",
+  { id:"meso", name:"Mésopotamie", emoji:"𒀭", color:"#3ddc84", tag:"Sumer, Babylone, Assyrie · Écriture cunéiforme",
     bio:{birth:"Vers 3500 av. J.-C. en Mésopotamie, dans l'actuel Irak, berceau des premières cités comme Uruk et Ur.",
       death:"La région perd son indépendance politique après la conquête perse achéménide en 539 av. J.-C., même si son influence culturelle perdure longtemps après.",
       path:"Les Sumériens, Babyloniens puis Assyriens ont inventé l'écriture cunéiforme, l'un des plus anciens systèmes d'écriture connus, ainsi que les premiers codes de lois écrits, comme celui d'Hammurabi.",
@@ -1432,7 +1476,7 @@ const CIVI = [
     {t:"Lamassu", d:"Souvent perçu comme une divinité protectrice, le lamassu gardait palais et cités contre le mal. Son corps de lion évoque la force, ses ailes d'aigle la rapidité, et sa tête humaine la sagesse capable d'arrêter le chaos.", dKid:"Cette immense statue, moitié taureau, moitié humain avec des ailes, protégeait les palais contre le danger."},
     {t:"Symbole de la Terre", d:"Ce signe fondamental désignait la terre elle-même. Il évoque la stabilité et le monde physique, ancrant la civilisation au sol sur lequel elle reposait.", dKid:"Ce symbole représentait simplement la terre elle-même, le sol sur lequel vivaient les gens."}
   ]},
-  { id:"china", name:"Chine Impériale", emoji:"🐉", color:"#c23b3b", tag:"Dynasties chinoises · Sagesse et invention",
+  { id:"china", name:"Chine Impériale", emoji:"🐉", color:"#ff5e5e", tag:"Dynasties chinoises · Sagesse et invention",
     bio:{birth:"Vers 2070 av. J.-C. selon la tradition, avec la dynastie Xia, dont les origines exactes restent débattues par les historiens.",
       death:"Contrairement aux autres civilisations de cette galerie, la civilisation chinoise ne s'est jamais éteinte : elle s'est transformée à travers les dynasties jusqu'à aujourd'hui.",
       path:"Berceau de la soie, du papier, de la boussole et de l'imprimerie, la Chine impériale a aussi vu naître des philosophies durables comme le confucianisme et le taoïsme.",
@@ -1460,14 +1504,20 @@ function SavantsScreen({ onBack, t, kids, toggleKids }){
   if(!s) return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #2b2b38 0%, #101015 55%, #060608 100%)"}}/>
-      <Header onBack={onBack} t={t} color={PAL.gold} title={`🔬 ${t.savants}`} sub={t.savantsSub}/>
+        background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
+      <Header onBack={onBack} t={t} color={PAL.gold} bg="#4a3520" border={PAL.gold} shadow="#241a10" title={`🔬 ${t.savants}`} sub={t.savantsSub}/>
       <img src={SAVANTS_PHOTO} alt={t.savants} style={{width:"100%",maxWidth:140,borderRadius:14,marginBottom:10,
         boxShadow:`0 3px 0 ${PAL.bg2}, 0 0 0 3px ${PAL.gold}, 0 6px 14px rgba(0,0,0,.5)`}}/>
+      <div style={{width:"100%",maxWidth:360,display:"flex",alignItems:"flex-start",gap:8,background:`${PAL.gold}22`,borderRadius:14,padding:"11px 14px",marginBottom:10,
+        boxShadow:`0 0 0 2px ${PAL.gold}55`}}>
+        <span style={{fontSize:20,flexShrink:0}}>💡</span>
+        <span style={{fontSize:15,color:"#ffffff",fontWeight:600,lineHeight:1.45}}>{t.ageToggleHint}</span>
+      </div>
       <AgeToggle kids={kids} toggleKids={toggleKids} t={t} color={PAL.gold}/>
-      <div style={{maxWidth:360,width:"100%",marginBottom:16}}>
+      <div style={{maxWidth:360,width:"100%",marginBottom:14}}>
         <Hint color={PAL.gold} icon="🎓">{t.savantsIntro}</Hint>
       </div>
+      <div style={{fontSize:24,color:PAL.gold,animation:"floaty 2s ease-in-out infinite",marginBottom:6}}>⌄</div>
       <div className="stagger" style={{width:"100%",maxWidth:380,display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:12}}>
         {SAVANTS.map(sv=>(
           <button key={sv.id} onClick={()=>{setSel(sv.id);setOpen(null);}}
@@ -1502,7 +1552,7 @@ function SavantsScreen({ onBack, t, kids, toggleKids }){
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #2b2b38 0%, #101015 55%, #060608 100%)"}}/>
+        background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
       <div style={{width:"100%",maxWidth:380,display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
         <GhostBtn onClick={()=>setSel(null)} color={s.color}>←</GhostBtn>
         <div style={{display:"flex",alignItems:"center",gap:10}}>
@@ -1688,6 +1738,7 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
     { id:"reverse",   icon:"⏳", title:t.reverseTile, sub:t.reverseTileSub, color:PAL.orange },
     { id:"duel",      icon:"⚔️", title:t.duel,        sub:t.duelSub,        color:PAL.green },
     { id:"blind",     icon:"🙈", title:t.blind,       sub:t.blindSub,       color:PAL.blue },
+    { id:"chrono",    icon:"🧩", title:t.chrono,      sub:t.chronoSub,      color:PAL.purple },
   ];
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 48px",minHeight:"100vh",position:"relative",zIndex:1}}>
@@ -1789,16 +1840,22 @@ function CiviScreen({ onBack, t, kids, toggleKids }){
 
   if(!s) return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <Header onBack={onBack} t={t} color={PAL.gold} title={`🏛️ ${t.civi}`} sub={t.civiSub}/>
+      <Header onBack={onBack} t={t} color={PAL.gold} bg="#4a3520" border={PAL.gold} shadow="#241a10" title={`🏛️ ${t.civi}`} sub={t.civiSub}/>
       {/* Ambiance chaude assortie à la photo */}
       <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3d2c17 0%, #1f150c 55%, #100b06 100%)"}}/>
+        background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
       <img src={CIVI_PHOTO} alt={t.civi} style={{width:"100%",maxWidth:230,borderRadius:16,marginBottom:10,
         boxShadow:`0 3px 0 ${PAL.bg2}, 0 0 0 3px ${PAL.gold}, 0 6px 14px rgba(0,0,0,.4)`}}/>
+      <div style={{width:"100%",maxWidth:360,display:"flex",alignItems:"flex-start",gap:8,background:`${PAL.gold}22`,borderRadius:14,padding:"11px 14px",marginBottom:10,
+        boxShadow:`0 0 0 2px ${PAL.gold}55`}}>
+        <span style={{fontSize:20,flexShrink:0}}>💡</span>
+        <span style={{fontSize:15,color:"#ffffff",fontWeight:600,lineHeight:1.45}}>{t.ageToggleHint}</span>
+      </div>
       <AgeToggle kids={kids} toggleKids={toggleKids} t={t} color={PAL.gold}/>
-      <div style={{maxWidth:360,width:"100%",marginBottom:16}}>
+      <div style={{maxWidth:360,width:"100%",marginBottom:14}}>
         <Hint color={PAL.gold} icon="🌍">{t.civiIntro}</Hint>
       </div>
+      <div style={{fontSize:24,color:PAL.gold,animation:"floaty 2s ease-in-out infinite",marginBottom:6}}>⌄</div>
       <div className="stagger" style={{width:"100%",maxWidth:380,display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:12}}>
         {CIVI.map(sv=>(
           <button key={sv.id} onClick={()=>{setSel(sv.id);setOpen(null);}}
@@ -1827,7 +1884,7 @@ function CiviScreen({ onBack, t, kids, toggleKids }){
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3d2c17 0%, #1f150c 55%, #100b06 100%)"}}/>
+        background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
       <div style={{width:"100%",maxWidth:380,display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
         <GhostBtn onClick={()=>setSel(null)} color={s.color}>←</GhostBtn>
         <div style={{display:"flex",alignItems:"center",gap:10}}>
@@ -1982,7 +2039,7 @@ export default function App(){
       <div style={{position:"fixed",top:0,bottom:0,right:0,width:5,zIndex:55,pointerEvents:"none",
         background:`linear-gradient(270deg,${shade(PAL.gold,-90)},${shade(PAL.gold,45)} 45%,${PAL.gold})`,
         boxShadow:`-2px 0 12px ${PAL.gold}44`}}/>
-      {showHelp&&<HowToPlay t={t} onClose={()=>setShowHelp(false)}/>}
+      {showHelp&&<HowToPlay t={t} skin={skin} onClose={()=>setShowHelp(false)}/>}
       {screen==="home"&&<HomeScreen t={t} setSkin={setSkin} launch={setScreen} openHelp={()=>setShowHelp(true)} lang={lang} toggleLang={toggleLang}/>}
       {screen==="univers"&&<UniversScreen t={t} skin={skin} setSkin={setSkin} launch={setScreen} onBack={()=>setScreen("home")} openHelp={()=>setShowHelp(true)}/>}
       {screen==="face"&&<ChallengeScreen onBack={toUnivers} t={t} skin={skin} forceMode="normal"/>}
