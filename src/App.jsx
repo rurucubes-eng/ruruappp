@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 /* ─── Imports des assets (images) ─────────────────────────────── */
 import RURU_LOGO from "./assets/ruru_logo.webp";
@@ -2050,6 +2051,7 @@ export default function App(){
       {screen==="civi"&&<CiviScreen onBack={()=>setScreen("home")} t={t} kids={kids} toggleKids={toggleKids}/>}
       {screen==="chrono"&&<ChronoScreen onBack={back} t={t} skin={skin}/>}
       {screen==="savants"&&<SavantsScreen onBack={back} t={t} kids={kids} toggleKids={toggleKids}/>}
+      <Analytics />
     </div>
   );
 }
