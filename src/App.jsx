@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import SPLASH_IMG from "./assets/splash.webp";
 
 /* ─── Imports des assets (images) ─────────────────────────────── */
 import RURU_LOGO from "./assets/ruru_logo.webp";
 import LOGO from "./assets/logo.webp";
-import SUDOCUBE_LOGO from "./assets/sudocube_logo.webp";
 import CLASSIC_LOGO from "./assets/classic_logo.webp";
 import MONSTRO_BTN from "./assets/monstro_btn.webp";
 import SUDO_BTN from "./assets/sudo_btn.webp";
@@ -249,6 +247,8 @@ import MD_REVERSE from "./assets/mode_reverse.webp";
 import MD_DUEL from "./assets/mode_duel.webp";
 import MD_BLIND from "./assets/mode_blind.webp";
 import MD_CHRONO from "./assets/mode_chrono.webp";
+import MD_CUBE3D from "./assets/mode_cube3d.webp";
+import IL_CUBE3D from "./assets/il_cube3d.webp";
 
 /* ─── Visuels des modes (univers Monstro) ───────────────────── */
 import MN_FACE from "./assets/mn_face.webp";
@@ -268,7 +268,6 @@ import SD_CHRONO from "./assets/sd_chrono.webp";
 /* ─── Boutons « Ma progression » ────────────────────────────── */
 import PROG_PAPER from "./assets/prog_paper.webp";
 import PROG_MONSTRO from "./assets/prog_monstro.webp";
-import PROG_NEON from "./assets/prog_neon.webp";
 
 /* ─── Univers Illusion ────────────────────────────────────────── */
 import ILLUSION_SPRITES_white_0 from "./assets/illus_white_0.webp";
@@ -326,6 +325,38 @@ import ILLUSION_SPRITES_teal_6 from "./assets/illus_teal_6.webp";
 import ILLUSION_SPRITES_teal_7 from "./assets/illus_teal_7.webp";
 import ILLUSION_SPRITES_teal_8 from "./assets/illus_teal_8.webp";
 import HC_ILLUSION from "./assets/home_illusion.webp";
+import HC_CHESS3D from "./assets/home_chess3d.webp";
+import HC_SUDOMONO from "./assets/home_sudomono.webp";
+import HA_MONSTRO from "./assets/hc_art_monstro.webp";
+import HA_CLASSIC from "./assets/hc_art_classic.webp";
+import HA_SUDOKU from "./assets/hc_art_sudoku.webp";
+import HA_ILLUSION from "./assets/hc_art_illusion.webp";
+import HA_CHESS3D from "./assets/hc_art_chess3d.webp";
+import HA_SUDOMONO from "./assets/hc_art_sudomono.webp";
+import HA_SAVANTS from "./assets/hc_art_savants.webp";
+import HA_CIVI from "./assets/hc_art_civi.webp";
+import LG_MONSTRO from "./assets/logo_monstro.webp";
+import LG_CLASSIC from "./assets/logo_classic.webp";
+import LG_SUDOKU from "./assets/logo_sudoku.webp";
+import LG_ILLUSION from "./assets/logo_illusion.webp";
+import LG_CHESSCUBE from "./assets/logo_chesscube.webp";
+import LG_SUDOMONO from "./assets/logo_sudomono.webp";
+import LG_SAVANTS from "./assets/logo_savants.webp";
+import LG_CIVI from "./assets/logo_civi.webp";
+import SUDOMONO_LOGO from "./assets/sudomono_logo.webp";
+import CHESS_LOGO from "./assets/chess_logo.webp";
+import SM_U from "./assets/sm_u.webp";
+import SM_D from "./assets/sm_d.webp";
+import SM_F from "./assets/sm_f.webp";
+import SM_B from "./assets/sm_b.webp";
+import SM_R from "./assets/sm_r.webp";
+import SM_L from "./assets/sm_l.webp";
+import CH3D_U from "./assets/ch3d_u.webp";
+import CH3D_D from "./assets/ch3d_d.webp";
+import CH3D_F from "./assets/ch3d_f.webp";
+import CH3D_B from "./assets/ch3d_b.webp";
+import CH3D_R from "./assets/ch3d_r.webp";
+import CH3D_L from "./assets/ch3d_l.webp";
 import ILLUSION_LOGO from "./assets/illusion_logo.webp";
 
 /* ─── Cartes Scientifique et Civilisation de l'accueil ────────── */
@@ -437,6 +468,46 @@ const TR = {
     classic:"Classique", monstro:"Monstro", sudo:"Sudo",
     illusion:"Illusion", illusionSub:"Des motifs qui trompent l'œil",
     hcIllusionSub:"Perception\net observation",
+    hcChess3dSub:"Résolution complète\nchrono, duel & 3D",
+    chesscube:"RUR'U' Chess", chesscubeSub:"Une pièce d'échecs géante sur chaque face",
+    chesscubeRuleTitle:"♞ Le cube RUR'U' Chess", chesscubeRule:"Chaque face porte une grande pièce d'échecs (cavalier, roi, dame, fou, tour, pion). Le cube est résolu quand les 6 images sont complètes et à l'endroit, centres compris. Ici, on le résout en entier : chrono, compte à rebours, duel ou cube 3D.",
+    sudomono:"Sudocube Mono", sudomonoSub:"Le même motif sur les 6 faces", hcSudomonoSub:"Résolution complète\nchrono & duel",
+    sudomonoRuleTitle:"🔢 Le Sudocube Mono", sudomonoRule:"Les 6 faces portent le même motif. Le cube est résolu quand chaque face affiche les chiffres 1 à 9 dans l'ordre, tous à l'endroit. Ici, on le résout en entier : chrono, compte à rebours, duel ou cube 3D.",
+    revChronoTile:"REVERSE CHRONO", revChronoSub:"Résous tout le cube avant la fin du temps", revChronoPick:"Temps limite",
+    revChronoReady:"Mélange ton cube, choisis ton temps limite, puis appuie sur GO", revChronoLeft:"temps restant",
+    revChronoFail:"Temps écoulé !", revChronoWin:"Résolu à temps !", revChronoWins:"Réussites",
+    duelSolveSub:"Résolution complète · 1 contre 1", ctxDuelSolve:"Résolvez vos cubes ! Tape ton bouton dès que le tien est résolu",
+    duelSolveRules:["Chaque joueur mélange le cube de l'autre","Au GO, résolvez votre cube en entier","Tape J'AI FINI dès que ton cube est résolu","Cube pas vraiment résolu ? Tape le temps du joueur → +30s 😈","Le plus rapide au total sur 3 manches gagne !"],
+    sudo3dTitle:"SUDOCUBE 3D",
+    cube3dTitle:"CLASSIQUE 3D", cube3dTile:"CUBE 3D", cube3dSub:"Résous-le au doigt, sur l'écran",
+    duelSolveTile:"DUEL RÉSOLUTION", knowSolveTitle:"Résous le cube", knowChronoSub:"Résolution complète au chrono",
+    randomScrambleTitle:"Mélange", randomScramble:"Mélange ton cube au hasard, comme tu veux : pas de formule de mélange à suivre.",
+    ch3Move:"coup", ch3Moves:"coups", ch3Solved:"Résolu", ch3Mixed:"Mélangé", ch3Win:"Bravo, cube résolu !",
+    ch3Loading:"Chargement du cube 3D…", ch3Error:"Impossible de charger le cube 3D. Vérifie ta connexion internet, puis reviens sur cette page.",
+    ch3Hint:"Glisse sur le cube pour tourner une couronne · glisse à côté pour tourner autour",
+    ch3Scramble:"Mélanger", ch3Undo:"Annuler", ch3Reset:"Réinitialiser", ch3Flip:"Retourner", ch3Recenter:"Recentrer", ch3Left:"Tourner le cube vers la gauche", ch3Right:"Tourner le cube vers la droite", ch3Up:"Basculer le cube vers le haut", ch3Down:"Basculer le cube vers le bas",
+    hcAlgosSub:"F2L, OLL, PLL\nsimplifié ou avancé",
+    alTitle:"ALGOS", alSub:"Tous les algorithmes du CFOP, avec un schéma pour chaque cas.",
+    alSimple:"Simplifié", alSimpleSub:"24 algos · 2-look", alAdv:"Avancé", alAdvSub:"119 algos · complet",
+    alCases:"cas", alLearned:"appris", alIsLearned:"Appris !", alMarkLearned:"Marquer comme appris", alAlt:"VARIANTE",
+    alNotation:"Lire la notation",
+    alNotationRows:[["R","Tourner la face de droite d'un quart de tour, vers le haut"],["R'","L'apostrophe = même face, dans l'autre sens"],["R2","Le 2 = un demi-tour"],["U · D · L · F · B","Haut · bas · gauche · avant · arrière"],["r · f","Minuscule = la face ET la tranche du milieu ensemble"],["M","Tranche du milieu, dans le sens de L"],["x · y","Tourner tout le cube (x comme R, y comme U)"]],
+    alHold:"Tiens le cube jaune en haut, face verte devant, exactement comme sur le schéma. Tourne la face du haut (U) si besoin pour retrouver le cas.",
+    alHoldF2l:"Jaune en haut, vert devant : la paire va dans l'emplacement avant-droit. Les cases grises n'ont pas d'importance.",
+    alIntro_f2l:"F2L : on place ensemble un coin du bas et son arête pour finir les deux premières couronnes.",
+    alIntro_oll:"OLL : on oriente la dernière couronne pour que toute la face du haut soit jaune.",
+    alIntro_pll:"PLL : on permute les pièces du haut pour finir le cube. Les flèches montrent où va chaque pièce.",
+    alF2lS1:"Insertions directes", alF2lS1n:"La paire est déjà prête : un seul geste pour l'insérer.",
+    alF2lS2:"Paires à préparer", alF2lS2n:"Les cas les plus fréquents : on forme la paire en haut, puis on l'insère.",
+    alOllS1:"Étape 1 · la croix jaune", alOllS1n:"Regarde seulement les arêtes : point, petit L ou ligne. Les coins gris n'ont pas d'importance.",
+    alOllS2:"Étape 2 · la face jaune", alOllS2n:"La croix est faite : compte les coins jaunes et choisis parmi ces 7 cas.",
+    alPllS1:"Étape 1 · les coins", alPllS1n:"Cherche les « phares » (2 coins de même couleur sur un côté) : mets-les à gauche et fais la T-perm. Pas de phares : Y-perm.",
+    alPllS2:"Étape 2 · les arêtes", alPllS2n:"Les coins sont placés : il ne reste que 4 cas d'arêtes.",
+    alE_point:"Point", alE_L:"Petit L", alE_ligne:"Ligne", alPhares:"Phares", alNoeud:"Nœud papillon", alPhares2:"Phares à gauche", alDiag:"Diagonale",
+    alGroups:{ basic:"Insertions directes", topTop:"Coin et arête en haut", cornerDown:"Coin en bas", edgeDown:"Arête en bas", inSlot:"Les deux dans l'emplacement",
+      ocll:"Croix déjà faite", corners:"Coins déjà orientés", dot:"Point", line:"Ligne", t:"T", p:"P", square:"Carré", lightning:"Éclair", fish:"Poisson",
+      knight:"Cavalier", awkward:"Bizarre", c:"C", w:"W", smallL:"Petit L",
+      edges:"Arêtes seulement", adj:"Échange de coins voisins", diag:"Échange en diagonale" },
     classicSub:"Ton cube 3×3 à toi", monstroSub:"54 monstres rigolos", sudoSub:"Chiffres 1 à 9",
     challenge:"CHALLENGE", challengeSub:"Reproduis la face au chrono",
     faceTile:"SOLO", faceTileSub:"Reproduis la face au chrono",
@@ -459,7 +530,7 @@ const TR = {
     splitRaceRunComplete:"COURSE TERMINÉE 🏁", splitRaceSplits:"Splits", splitRaceTotal:"TOTAL",
     splitRaceBestSplit:"Meilleur split", splitRaceLongestPhase:"Étape la plus longue",
     splitRaceShareOf:"part du temps", splitRaceBestTotal:"Meilleur total",
-    splitRaceRetry:"↻ Rejouer (même scramble)", splitRaceNewScrambleBtn:"🔀 Nouveau scramble", splitRaceExit:"← Quitter",
+    splitRaceRetry:"↻ Rejouer", splitRaceNewScrambleBtn:"🔀 Nouveau scramble", splitRaceExit:"← Quitter",
     splitRaceTimeOut:"⏰ TEMPS ÉCOULÉ", splitRaceLastCompleted:"Dernière étape terminée",
     splitRaceNotCompleted:"Non terminé", splitRaceExitConfirm:"Quitter la course en cours ? Ta progression sera perdue.",
     splitRaceCtxReady:"Mélange ton cube, puis appuie sur GO", splitRaceCtxSolving:"Résous cette étape, puis appuie sur TERMINER",
@@ -599,6 +670,46 @@ const TR = {
     classic:"Classic", monstro:"Monstro", sudo:"Sudo",
     illusion:"Illusion", illusionSub:"Patterns that fool the eye",
     hcIllusionSub:"Perception\nand focus",
+    hcChess3dSub:"Full solve\ntimer, duel & 3D",
+    chesscube:"RUR'U' Chess", chesscubeSub:"A giant chess piece on every face",
+    chesscubeRuleTitle:"♞ The RUR'U' Chess cube", chesscubeRule:"Each face carries a big chess piece (knight, king, queen, bishop, rook, pawn). The cube is solved when all 6 pictures are complete and upright, centres included. Here you solve it completely: timer, countdown, duel or 3D cube.",
+    sudomono:"Sudocube Mono", sudomonoSub:"The same pattern on all 6 faces", hcSudomonoSub:"Full solve\ntimer & duel",
+    sudomonoRuleTitle:"🔢 The Sudocube Mono", sudomonoRule:"All 6 faces carry the same pattern. The cube is solved when every face shows the digits 1 to 9 in order, all upright. Here you solve it completely: timer, countdown, duel or 3D cube.",
+    revChronoTile:"REVERSE TIMER", revChronoSub:"Solve the whole cube before time runs out", revChronoPick:"Time limit",
+    revChronoReady:"Scramble your cube, pick your time limit, then tap GO", revChronoLeft:"time left",
+    revChronoFail:"Time's up!", revChronoWin:"Solved in time!", revChronoWins:"Successes",
+    duelSolveSub:"Full solve · 1 vs 1", ctxDuelSolve:"Solve your cubes! Tap your button as soon as yours is solved",
+    duelSolveRules:["Each player scrambles the other's cube","At GO, solve your whole cube","Tap I'M DONE as soon as your cube is solved","Not really solved? Tap the player's time → +30s 😈","Fastest total over 3 rounds wins!"],
+    sudo3dTitle:"SUDOCUBE 3D",
+    cube3dTitle:"CLASSIC 3D", cube3dTile:"3D CUBE", cube3dSub:"Solve it with your finger, on screen",
+    duelSolveTile:"SOLVE DUEL", knowSolveTitle:"Solve the cube", knowChronoSub:"Timed full solve",
+    randomScrambleTitle:"Scramble", randomScramble:"Scramble your cube randomly, any way you like: no scramble sequence to follow.",
+    ch3Move:"move", ch3Moves:"moves", ch3Solved:"Solved", ch3Mixed:"Scrambled", ch3Win:"Well done, cube solved!",
+    ch3Loading:"Loading the 3D cube…", ch3Error:"Couldn't load the 3D cube. Check your internet connection, then come back to this page.",
+    ch3Hint:"Swipe on the cube to turn a layer · swipe beside it to look around",
+    ch3Scramble:"Scramble", ch3Undo:"Undo", ch3Reset:"Reset", ch3Flip:"Flip", ch3Recenter:"Recenter", ch3Left:"Turn the cube left", ch3Right:"Turn the cube right", ch3Up:"Tilt the cube up", ch3Down:"Tilt the cube down",
+    hcAlgosSub:"F2L, OLL, PLL\nbeginner or full",
+    alTitle:"ALGS", alSub:"Every CFOP algorithm, with a diagram for each case.",
+    alSimple:"Beginner", alSimpleSub:"24 algs · 2-look", alAdv:"Advanced", alAdvSub:"119 algs · full",
+    alCases:"cases", alLearned:"learned", alIsLearned:"Learned!", alMarkLearned:"Mark as learned", alAlt:"ALTERNATIVE",
+    alNotation:"How to read the notation",
+    alNotationRows:[["R","Turn the right face a quarter turn, upwards"],["R'","Apostrophe = same face, the other way"],["R2","2 = a half turn"],["U · D · L · F · B","Up · down · left · front · back"],["r · f","Lowercase = the face AND the middle slice together"],["M","Middle slice, turned like L"],["x · y","Rotate the whole cube (x like R, y like U)"]],
+    alHold:"Hold the cube yellow on top, green in front, exactly as in the diagram. Turn the top face (U) if needed to find the case.",
+    alHoldF2l:"Yellow on top, green in front: the pair goes into the front-right slot. Grey stickers don't matter.",
+    alIntro_f2l:"F2L: pair a bottom corner with its edge to finish the first two layers.",
+    alIntro_oll:"OLL: orient the last layer so the whole top face is yellow.",
+    alIntro_pll:"PLL: permute the top pieces to finish the cube. Arrows show where each piece goes.",
+    alF2lS1:"Direct inserts", alF2lS1n:"The pair is already built: one move sequence inserts it.",
+    alF2lS2:"Pairs to build", alF2lS2n:"The most common cases: build the pair on top, then insert it.",
+    alOllS1:"Step 1 · yellow cross", alOllS1n:"Look at the edges only: dot, small L or line. Grey corners don't matter.",
+    alOllS2:"Step 2 · yellow face", alOllS2n:"The cross is done: count the yellow corners and pick one of these 7 cases.",
+    alPllS1:"Step 1 · corners", alPllS1n:"Look for “headlights” (2 matching corners on one side): put them on the left and do the T-perm. No headlights: Y-perm.",
+    alPllS2:"Step 2 · edges", alPllS2n:"Corners are placed: only 4 edge cases left.",
+    alE_point:"Dot", alE_L:"Small L", alE_ligne:"Line", alPhares:"Headlights", alNoeud:"Bowtie", alPhares2:"Headlights left", alDiag:"Diagonal",
+    alGroups:{ basic:"Direct inserts", topTop:"Corner and edge on top", cornerDown:"Corner in the bottom", edgeDown:"Edge in the slot", inSlot:"Both in the slot",
+      ocll:"Cross already done", corners:"Corners already oriented", dot:"Dot", line:"Line", t:"T", p:"P", square:"Square", lightning:"Lightning", fish:"Fish",
+      knight:"Knight", awkward:"Awkward", c:"C", w:"W", smallL:"Small L",
+      edges:"Edges only", adj:"Adjacent corner swap", diag:"Diagonal swap" },
     classicSub:"Your own 3×3 cube", monstroSub:"54 funny monsters", sudoSub:"Digits 1 to 9",
     challenge:"CHALLENGE", challengeSub:"Match the face against the clock",
     faceTile:"SOLO", faceTileSub:"Match the face against the clock",
@@ -621,7 +732,7 @@ const TR = {
     splitRaceRunComplete:"RUN COMPLETE 🏁", splitRaceSplits:"Splits", splitRaceTotal:"TOTAL",
     splitRaceBestSplit:"Best split", splitRaceLongestPhase:"Longest phase",
     splitRaceShareOf:"share of total", splitRaceBestTotal:"Best total",
-    splitRaceRetry:"↻ Retry (same scramble)", splitRaceNewScrambleBtn:"🔀 New scramble", splitRaceExit:"← Exit",
+    splitRaceRetry:"↻ Play again", splitRaceNewScrambleBtn:"🔀 New scramble", splitRaceExit:"← Exit",
     splitRaceTimeOut:"⏰ TIME OUT", splitRaceLastCompleted:"Last completed stage",
     splitRaceNotCompleted:"Not completed", splitRaceExitConfirm:"Exit the current run? Your progress will be lost.",
     splitRaceCtxReady:"Scramble your cube, then press GO", splitRaceCtxSolving:"Solve this stage, then tap COMPLETE",
@@ -934,53 +1045,6 @@ function ProfileModal({ t, onClose, onChange }){
   );
 }
 
-/* ─── Écran de bienvenue : image en entier + choix de langue ────── */
-function WelcomeScreen({ t, lang, toggleLang, onFinish }){
-  const wide = useWide();
-  if(wide) return (
-    <div style={{minHeight:"100vh",display:"flex",flexDirection:"row",position:"relative",background:"#0d0b1a"}}>
-      <div style={{flex:"0 1 56%",minWidth:0,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
-        <img src={SPLASH_IMG} alt="RUR'U'" style={{maxWidth:"100%",maxHeight:"92vh",objectFit:"contain",
-          borderRadius:18,boxShadow:"0 20px 60px rgba(0,0,0,.6)"}}/>
-      </div>
-      <div style={{flex:"0 1 44%",minWidth:280,display:"flex",flexDirection:"column",alignItems:"center",
-        justifyContent:"center",gap:18,padding:"20px 40px"}}>
-        <button onClick={toggleLang} style={{display:"flex",alignItems:"center",gap:6,border:"none",cursor:"pointer",
-          borderRadius:20,padding:"8px 14px",background:"rgba(255,255,255,.06)",
-          boxShadow:`0 0 0 2px ${PAL.gold}aa`,color:"#fff",fontWeight:800,fontSize:13}}>
-          {lang==="fr"?"🇫🇷 FR":"🇬🇧 EN"}
-        </button>
-        <button onClick={()=>onFinish("", "")} style={{width:"100%",maxWidth:280,border:"none",cursor:"pointer",borderRadius:16,
-          padding:"15px 8px",background:`linear-gradient(180deg,${shade(PAL.gold,30)},${PAL.gold})`,
-          color:"#3a2a00",fontWeight:800,fontSize:15.5,boxShadow:`0 4px 0 ${shade(PAL.gold,-70)}, 0 6px 22px rgba(0,0,0,.55)`}}>
-          {t.obStart}
-        </button>
-      </div>
-    </div>
-  );
-  return (
-    <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",position:"relative",background:"#0d0b1a"}}>
-      <div style={{position:"fixed",inset:0,zIndex:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
-        <img src={SPLASH_IMG} alt="RUR'U'" style={{width:"100%",height:"100%",objectFit:"contain"}}/>
-      </div>
-
-      <div style={{position:"relative",zIndex:1,marginTop:"auto",padding:"0 18px calc(env(safe-area-inset-bottom,0px) + 20px)",
-        display:"flex",flexDirection:"column",alignItems:"center",gap:14}}>
-        <button onClick={toggleLang} style={{display:"flex",alignItems:"center",gap:6,border:"none",cursor:"pointer",
-          borderRadius:20,padding:"8px 14px",background:"rgba(13,11,26,.72)",backdropFilter:"blur(4px)",
-          boxShadow:`0 0 0 2px ${PAL.gold}aa`,color:"#fff",fontWeight:800,fontSize:13}}>
-          {lang==="fr"?"🇫🇷 FR":"🇬🇧 EN"}
-        </button>
-
-        <button onClick={()=>onFinish("", "")} style={{width:"100%",border:"none",cursor:"pointer",borderRadius:16,
-          padding:"15px 8px",background:`linear-gradient(180deg,${shade(PAL.gold,30)},${PAL.gold})`,
-          color:"#3a2a00",fontWeight:800,fontSize:15.5,boxShadow:`0 4px 0 ${shade(PAL.gold,-70)}, 0 6px 22px rgba(0,0,0,.55)`}}>
-          {t.obStart}
-        </button>
-      </div>
-    </div>
-  );
-}
 
 /* ─── Simulateur de cube (faces physiquement valides) ─────────── */
 const CUBE_FACES = ["U","L","F","R","B","D"];
@@ -1127,12 +1191,19 @@ function motifFace(rng){
   return m.g.split("").map((c,i)=>({ colorId: c==="#" ? forme : fond, typeId:i }));
 }
 
+/* Sudocube : fond indigo avec des halos aux couleurs du logo (rouge, bleu, vert, jaune, orange) */
+const SUDO_BG = "radial-gradient(circle at 0% 0%, rgba(255,59,92,.42), transparent 42%), radial-gradient(circle at 100% 6%, rgba(47,123,255,.5), transparent 44%), radial-gradient(circle at 0% 60%, rgba(47,212,107,.36), transparent 40%), radial-gradient(circle at 100% 72%, rgba(255,214,10,.36), transparent 40%), radial-gradient(circle at 50% 104%, rgba(255,138,26,.42), transparent 46%), linear-gradient(180deg,#1d1748,#100c2c)";
 const SKINS = {
   classic: { name:"classic", sprites:()=>CLASSIC_SPRITES, gen:classicFace, color:"#c69c6d", emoji:"🎨" },
   monstro: { name:"monstro", sprites:()=>MONSTER_SPRITES, gen:monstroFace, color:PAL.green, emoji:"👾" },
-  sudoku:  { name:"sudoku",  sprites:()=>SUDOKUBE_SPRITES, gen:sudoFace,   color:"#ff1440",  emoji:"🔢" },
+  sudoku:  { name:"sudoku",  sprites:()=>SUDOKUBE_SPRITES, gen:sudoFace,   color:"#38b6ff",  emoji:"🔢" },
   illusion:{ name:"illusion",sprites:()=>ILLUSION_SPRITES, gen:illusionFace, color:"#8b5cf6", emoji:"🌀" },
+  /* Sudocube Mono : 6 faces identiques -> uniquement des modes de résolution complète */
+  sudomono:{ name:"sudomono", sprites:()=>SUDOKUBE_SPRITES, gen:sudoFace, color:"#ff3b4e", emoji:"🔢" },
+  chesscube:{ name:"chesscube", sprites:()=>SUDOKUBE_SPRITES, gen:sudoFace, color:"#ffcc33", emoji:"♞" },
 };
+/* univers où l'on résout le cube en entier (pas de face à reproduire) */
+const FULL_SOLVE = ["sudomono","chesscube"];
 function todayKey(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 function dailyFace(skin){ const rng = mulberry32(strSeed(todayKey()+"·"+skin)); return SKINS[skin].gen(rng); }
 
@@ -1489,15 +1560,17 @@ function HowToPlay({ t, onClose, skin }){
   const neon = skin==="sudoku", wood = skin==="classic", paper = skin==="monstro";
   const isLight = wood || paper;
   const theme = neon ? SKINS.sudoku.color : wood ? "#8a6539" : paper ? "#132a4d" : PAL.gold;
-  const modalBg = neon ? "#140004" : wood ? "#fdf6ea" : paper ? "#ffffff" : PAL.card;
+  const modalBg = neon ? "#1a1540" : wood ? "#fdf6ea" : paper ? "#ffffff" : PAL.card;
   const modalBorder = neon ? SKINS.sudoku.color : wood ? "#c69c6d" : paper ? "#2a4570" : PAL.gold;
   const titleColor = isLight ? "#2a2012" : "#ffffff";
   const bodyColor = isLight ? "#2a2012" : "#ffffff";
-  const sectionBg = neon ? "#1a0008" : wood ? "#f3e6d0" : paper ? "#eef2f7" : PAL.bg2;
+  const sectionBg = neon ? "#221c52" : wood ? "#f3e6d0" : paper ? "#eef2f7" : PAL.bg2;
   const closeBg = isLight ? "#e7dcc4" : PAL.bg2;
   const closeColor = isLight ? "#2a2012" : PAL.textDim;
 
   const sections = [
+    ...(skin==="sudomono" ? [{h:t.sudomonoRuleTitle, p:t.sudomonoRule, c:SKINS.sudomono.color}] : []),
+    ...(skin==="chesscube" ? [{h:t.chesscubeRuleTitle, p:t.chesscubeRule, c:SKINS.chesscube.color}] : []),
     {h:t.htGeneral, p:t.htGeneralTxt, c:theme},
     {h:t.htFace, p:t.htFaceTxt, c:PAL.gold},
     {h:t.htReverse, p:t.htReverseTxt, c:PAL.orange},
@@ -1540,7 +1613,7 @@ function PlayerBadge({ tone, t }){
         borderRadius:999,padding:"5px 11px 5px 8px",maxWidth:150,
         background: tone==="paper" ? "#ffffff"
                  : tone==="wood"  ? "#fbeed8"
-                 : tone==="neon"  ? "#12030a" : PAL.card,
+                 : tone==="neon"  ? "#1c1745" : PAL.card,
         boxShadow: tone==="paper" ? "0 0 0 2px #2a4570"
                  : tone==="wood"  ? "0 0 0 2px #c69c6d"
                  : tone==="neon"  ? `0 0 0 1.5px ${SKINS.sudoku.color}, 0 0 10px ${SKINS.sudoku.color}55`
@@ -1669,7 +1742,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {mono&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
@@ -1775,9 +1848,9 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
               <>
                 {th&&<ClStats th={th} t={t} stats={stats}/>}
                 {!th&&<div style={{display:"flex",gap:10,marginTop:18}}>
-                  <StatChip label={t.record} value={fmt(stats.best)} color={color} bg={neon?"#0a0006":(wood?"#fbeed8":(paper?"#eef2f7":undefined))} ring={neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":undefined))} labelColor={wood?"#4a3418":(paper?"#2a4570":undefined)}/>
-                  <StatChip label={t.games} value={stats.games||0} color={PAL.green} bg={neon?"#0a0006":(wood?"#fbeed8":(paper?"#eef2f7":undefined))} ring={neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":undefined))} labelColor={wood?"#4a3418":(paper?"#2a4570":undefined)}/>
-                  <StatChip label={t.streak} value={`${stats.streak||0}🔥`} color={PAL.orange} bg={neon?"#0a0006":(wood?"#fbeed8":(paper?"#eef2f7":undefined))} ring={neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":undefined))} labelColor={wood?"#4a3418":(paper?"#2a4570":undefined)}/>
+                  <StatChip label={t.record} value={fmt(stats.best)} color={color} bg={neon?"#161236":(wood?"#fbeed8":(paper?"#eef2f7":undefined))} ring={neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":undefined))} labelColor={wood?"#4a3418":(paper?"#2a4570":undefined)}/>
+                  <StatChip label={t.games} value={stats.games||0} color={PAL.green} bg={neon?"#161236":(wood?"#fbeed8":(paper?"#eef2f7":undefined))} ring={neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":undefined))} labelColor={wood?"#4a3418":(paper?"#2a4570":undefined)}/>
+                  <StatChip label={t.streak} value={`${stats.streak||0}🔥`} color={PAL.orange} bg={neon?"#161236":(wood?"#fbeed8":(paper?"#eef2f7":undefined))} ring={neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":undefined))} labelColor={wood?"#4a3418":(paper?"#2a4570":undefined)}/>
                 </div>}
                 {th&&mode==="normal"&&<ClObjectifs th={th} t={t} stats={stats}/>}
                 {!th&&mode==="normal"&&(
@@ -1786,7 +1859,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
                     <div style={{display:"flex",gap:8}}>
                       {t.obj.map((o,i)=>{
                         const ok = stats.best!=null && stats.best<=objTimes[i];
-                        const tileBg = neon?"#0a0006":(wood?"#fbeed8":(paper?"#eef2f7":PAL.card));
+                        const tileBg = neon?"#161236":(wood?"#fbeed8":(paper?"#eef2f7":PAL.card));
                         const tileRing = neon?SKINS.sudoku.color:(wood?"#c69c6d":(paper?"#2a4570":PAL.gold));
                         const tileLabel = wood?"#4a3418":(paper?"#132a4d":PAL.textDim);
                         return <div key={i} style={{flex:1,background:tileBg,borderRadius:12,padding:"10px 4px",textAlign:"center",opacity:ok?1:.45,boxShadow:ok?`0 0 0 2px ${tileRing}`:"none"}}>
@@ -1825,7 +1898,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
           {hidden ? (
             <div onClick={stop} style={{width:Math.min(300,window.innerWidth-60),height:Math.min(300,window.innerWidth-60),
               borderRadius:22,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",
-              background:neon?`linear-gradient(160deg,${shade(SKINS.sudoku.color,-70)},#000)`:(wood?`linear-gradient(160deg,#fffdf8,#fbeed8)`:`linear-gradient(160deg,${shade(PAL.blue,-70)},${PAL.dark})`),
+              background:neon?`linear-gradient(160deg,${shade(SKINS.sudoku.color,-70)},#100c2c)`:(wood?`linear-gradient(160deg,#fffdf8,#fbeed8)`:`linear-gradient(160deg,${shade(PAL.blue,-70)},${PAL.dark})`),
               boxShadow:neon?`0 0 30px ${SKINS.sudoku.color}, 0 10px 30px rgba(0,0,0,.6), 0 0 0 2px ${SKINS.sudoku.color}`:(wood?`0 0 22px #c69c6d66, 0 8px 22px rgba(120,90,50,.25), 0 0 0 2px #c69c6d`:`0 0 28px ${PAL.blue}55, 0 10px 30px rgba(0,0,0,.45), 0 0 0 2px ${PAL.gold}`),
               animation:"pop .35s ease-out"}}>
               <span style={{fontSize:64,filter:"drop-shadow(0 4px 10px rgba(0,0,0,.5))"}}>🙈</span>
@@ -1833,7 +1906,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
           ) : (
             <CubeFace cells={face} size={Math.min(300,window.innerWidth-60)} glow={neon?SKINS.sudoku.color:(wood?"#c69c6d":color)} sprites={sprites} onClick={mode==="blind"?undefined:stop} dark={neon} light={wood}/>
           )}
-          <div style={{marginTop:14,fontSize:16,color:th?th.ink:"#ffffff",fontWeight:700}}>
+          <div style={{marginTop:14,fontSize:16,color:th?(th.pageInk||th.ink):"#ffffff",fontWeight:700}}>
             {t.tapGrid}{isDesktop&&<span style={{opacity:.8,fontSize:13,fontWeight:600}}> {t.spaceStop}</span>}
           </div>
         </>
@@ -1882,6 +1955,42 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
 }
 
 /* ═══ ÉCRAN CHRONO CUBE (résolution complète) ═══════════════════ */
+/* ─── Le cube du challenge en 3D qui tourne (chronos de résolution complète) ───
+   Faces du vrai cube : cases images (Monstro, Sudocube, Illusion, Savants, Civilisations),
+   grandes images (Chess, Sudocube Mono) ou couleurs unies (Classique). */
+function SkinSpinCube({ skin, size=150, glow, onClick }){
+  const s=size, half=s/2;
+  const tiles = (typeof tiles3d==="function") ? tiles3d(skin) : null;
+  const big = skin==="chesscube" ? CHESS3D_IMG : (skin==="sudomono" ? SUDOMONO_IMG : null);
+  const face = k=>{
+    if(tiles) return tiles[k].map((src,i)=>(
+      <img key={i} src={src} alt="" draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:Math.max(2,s*.035),display:"block"}}/>));
+    if(big) return null;
+    return Array.from({length:9},(_,i)=>(
+      <div key={i} style={{background:CLASSIC3D_COLORS[k],borderRadius:Math.max(2,s*.04),
+        boxShadow:"inset 0 -2px 3px rgba(0,0,0,.25), inset 0 2px 2px rgba(255,255,255,.3)"}}/>));
+  };
+  const st = (k,transform)=>({position:"absolute",width:s,height:s,transform,boxSizing:"border-box",backfaceVisibility:"hidden",
+    background:"#0c0c0c",borderRadius:s*.06,overflow:"hidden",
+    ...(big ? {backgroundImage:`url(${big[k]})`,backgroundSize:"cover",backgroundPosition:"center",border:`${Math.max(3,s*.03)}px solid #0c0c0c`}
+            : {display:"grid",gridTemplateColumns:"repeat(3,1fr)",gridTemplateRows:"repeat(3,1fr)",gap:Math.max(2,s*.025),padding:Math.max(3,s*.035)})});
+  return (
+    <div onClick={onClick} style={{width:s*1.55,height:s*1.6,perspective:s*5,display:"flex",alignItems:"center",justifyContent:"center",
+      cursor:onClick?"pointer":"default",animation:"floaty 3s ease-in-out infinite",
+      filter:`drop-shadow(0 0 26px ${glow||"#ffffff"}66) drop-shadow(0 10px 16px rgba(0,0,0,.5))`}}>
+      <style>{`@keyframes skinspin{from{transform:rotateX(-24deg) rotateY(0deg);}to{transform:rotateX(-24deg) rotateY(360deg);}}`}</style>
+      <div style={{width:s,height:s,position:"relative",flexShrink:0,transformStyle:"preserve-3d",animation:"skinspin 9s linear infinite"}}>
+        <div style={st("U",`rotateX(90deg) translateZ(${half}px)`)}>{face("U")}</div>
+        <div style={st("D",`rotateX(-90deg) translateZ(${half}px)`)}>{face("D")}</div>
+        <div style={st("F",`translateZ(${half}px)`)}>{face("F")}</div>
+        <div style={st("B",`rotateY(180deg) translateZ(${half}px)`)}>{face("B")}</div>
+        <div style={st("R",`rotateY(90deg) translateZ(${half}px)`)}>{face("R")}</div>
+        <div style={st("L",`rotateY(-90deg) translateZ(${half}px)`)}>{face("L")}</div>
+      </div>
+    </div>
+  );
+}
+
 function ChronoScreen({ onBack, t, skin }){
   const wide = useWide();
   const [ph,setPh] = useState("ready");   // ready | count | playing | done
@@ -1973,7 +2082,7 @@ function ChronoScreen({ onBack, t, skin }){
       )}
       {ph==="playing"&&(
         <>
-          <div onClick={stop} style={{fontSize:120,cursor:"pointer",animation:"floaty 3s ease-in-out infinite",filter:`drop-shadow(0 0 30px ${PAL.blue}66)`}}>🧩</div>
+          <SkinSpinCube skin={skin} size={Math.min(170,window.innerWidth*.42)} glow={PAL.blue} onClick={stop}/>
           <div style={{marginTop:8,fontSize:18,color:"#ffffff",fontWeight:700}}>{t.cubePlay}</div>
           <div style={{fontSize:15,color:"#ffffff",fontWeight:600,marginTop:6,opacity:.9}}>
             {t.tapCube}{isDesktop&&<span style={{opacity:.8,fontSize:13}}> {t.spaceStop}</span>}
@@ -2195,19 +2304,10 @@ function SplitRaceScreen({ onBack, t }){
     }, 47);
   }
 
+  /* plus de compte à rebours 3-2-1 : l'étape démarre tout de suite */
   function startCountdownFor(idx){
     setPendingIdx(idx);
-    setCount(3); setPh("count");
-    let c = 3;
-    clearInterval(timer.current);
-    timer.current = setInterval(()=>{
-      c -= 1;
-      if(c<=0){
-        clearInterval(timer.current);
-        setCount(0);                                // affiche "GO"
-        setTimeout(()=>beginStage(idx), 550);
-      } else setCount(c);
-    }, 700);
+    beginStage(idx);
   }
 
   function startRun(){
@@ -2288,13 +2388,14 @@ function SplitRaceScreen({ onBack, t }){
             <div style={{marginBottom:14,width:"100%",display:"flex",justifyContent:"center"}}>
               <Hint color={PAL.red} icon="🏁">{t.splitRaceTagline}</Hint>
             </div>
-            <div style={{width:"100%",maxWidth:340,background:PAL.card,borderRadius:16,padding:"13px 15px",marginBottom:14,
-              boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
-              <div style={{fontSize:11,fontWeight:700,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:6}}>{t.splitRaceScramble}</div>
-              <div style={{fontSize:16,fontWeight:700,color:PAL.text,lineHeight:1.5,fontFamily:"monospace",letterSpacing:.5}}>{scramble}</div>
+            <div style={{width:"100%",maxWidth:340,background:PAL.card,borderRadius:16,padding:"13px 15px",marginBottom:16,
+              boxShadow:`0 0 0 2px ${PAL.cardHi}`,display:"flex",alignItems:"center",gap:12,textAlign:"left"}}>
+              <span style={{fontSize:30,lineHeight:1,flexShrink:0}}>🎲</span>
+              <div>
+                <div style={{fontSize:11,fontWeight:700,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{t.randomScrambleTitle}</div>
+                <div style={{fontSize:14,fontWeight:700,color:PAL.text,lineHeight:1.45}}>{t.randomScramble}</div>
+              </div>
             </div>
-            <button onClick={()=>setScramble(genScramble())} style={{border:"none",background:"transparent",cursor:"pointer",
-              color:PAL.textDim,fontWeight:700,fontSize:12.5,marginBottom:16}}>{t.splitRaceNewScramble}</button>
             <div style={{width:"100%",maxWidth:300}}>
               <CandyBtn onClick={startRun} color={PAL.red}>{t.go}</CandyBtn>
             </div>
@@ -2452,7 +2553,6 @@ function SplitRaceScreen({ onBack, t }){
 
             <div style={{width:"100%",maxWidth:300,display:"flex",flexDirection:"column",gap:10}}>
               <CandyBtn onClick={retry} color={PAL.red}>{t.splitRaceRetry}</CandyBtn>
-              <GhostBtn onClick={newScramble} color={PAL.red}>{t.splitRaceNewScrambleBtn}</GhostBtn>
               <GhostBtn onClick={onBack} color={PAL.textDim}>{t.splitRaceExit}</GhostBtn>
             </div>
           </div>
@@ -2623,16 +2723,8 @@ function StageDrillScreen({ onBack, t, targetIdx }){
     timer.current = setInterval(()=> setElapsed(performance.now()-startRef.current), 47);
   }
 
-  function beginRep(){
-    setCount(3); setPh("count");
-    let c=3;
-    clearInterval(timer.current);
-    timer.current = setInterval(()=>{
-      c-=1;
-      if(c<=0){ clearInterval(timer.current); setCount(0); setTimeout(startTimer,550); }
-      else setCount(c);
-    },700);
-  }
+  /* plus de compte à rebours 3-2-1 : le chrono part tout de suite */
+  function beginRep(){ startTimer(); }
 
   function complete(){
     if(ph!=="stage") return;
@@ -2674,13 +2766,14 @@ function StageDrillScreen({ onBack, t, targetIdx }){
             <div style={{marginBottom:14,width:"100%",display:"flex",justifyContent:"center"}}>
               <Hint color={color} icon="🎯">{t.drillHint}</Hint>
             </div>
-            <div style={{width:"100%",maxWidth:340,background:PAL.card,borderRadius:16,padding:"13px 15px",marginBottom:14,
-              boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
-              <div style={{fontSize:11,fontWeight:700,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:6}}>{t.splitRaceScramble}</div>
-              <div style={{fontSize:16,fontWeight:700,color:PAL.text,lineHeight:1.5,fontFamily:"monospace",letterSpacing:.5}}>{scramble}</div>
+            <div style={{width:"100%",maxWidth:340,background:PAL.card,borderRadius:16,padding:"13px 15px",marginBottom:16,
+              boxShadow:`0 0 0 2px ${PAL.cardHi}`,display:"flex",alignItems:"center",gap:12,textAlign:"left"}}>
+              <span style={{fontSize:30,lineHeight:1,flexShrink:0}}>🎲</span>
+              <div>
+                <div style={{fontSize:11,fontWeight:700,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{t.randomScrambleTitle}</div>
+                <div style={{fontSize:14,fontWeight:700,color:PAL.text,lineHeight:1.45}}>{t.randomScramble}</div>
+              </div>
             </div>
-            <button onClick={()=>setScramble(genScramble())} style={{border:"none",background:"transparent",cursor:"pointer",
-              color:PAL.textDim,fontWeight:700,fontSize:12.5,marginBottom:16}}>{t.splitRaceNewScramble}</button>
             <div style={{width:"100%",maxWidth:300}}>
               <CandyBtn onClick={beginRep} color={color}>{t.go}</CandyBtn>
             </div>
@@ -2766,13 +2859,14 @@ function StageDrillScreen({ onBack, t, targetIdx }){
   );
 }
 
-function DuelScreen({ onBack, t, skin }){
+function DuelScreen({ onBack, t, skin, full }){
   const wide = useWide();
   const S = SKINS[skin]; const sprites = S.sprites();
   const neon = skin==="sudoku";
   const wood = skin==="classic";
   const paper = skin==="monstro";
-  const R = 5;
+  const R = full ? 3 : 5;                 /* résolution complète : 3 manches */
+  const DK = full ? "duelsolve" : "duel"; /* clé de progression */
   const [profs,setProfs] = useState(listProfiles);
   const [pick,setPick] = useState(true);
   const [idA,setIdA] = useState(()=>currentProfile().id);
@@ -2833,13 +2927,13 @@ function DuelScreen({ onBack, t, skin }){
     if(!id) return;
     saveProfileData(id, d=>{
       const sd = d[skin] || {};
-      const st = sd.duel || { best:null, games:0, wins:0, sessions:[] };
+      const st = sd[DK] || { best:null, games:0, wins:0, sessions:[] };
       st.games = (st.games||0)+1;
       if(monTotal < advTotal) st.wins = (st.wins||0)+1;
       if(st.best==null || monTotal < st.best) st.best = monTotal;
       st.sessions = [...(st.sessions||[]),
         { date:Date.now(), time:monTotal, won:monTotal<advTotal, opp:advNom }].slice(-50);
-      sd.duel = st; d[skin] = sd; return d;
+      sd[DK] = st; d[skin] = sd; return d;
     });
   }
   function next(){
@@ -2864,7 +2958,7 @@ function DuelScreen({ onBack, t, skin }){
   if(pick) return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
@@ -2879,7 +2973,7 @@ function DuelScreen({ onBack, t, skin }){
       {[{k:"a",label:t.playerOne,val:idA,set:setIdA,autre:idB,color:PAL.blue},
         {k:"b",label:t.playerTwo,val:idB,set:setIdB,autre:idA,color:PAL.pink}].map(col=>(
         <div key={col.k} style={{width:"100%",flex:wide?1:undefined,marginBottom:wide?0:14,
-          background:neon?"#12030a":(wood?"#fffaf0":(paper?"#ffffff":PAL.card)),
+          background:neon?"#1c1745":(wood?"#fffaf0":(paper?"#ffffff":PAL.card)),
           borderRadius:18,padding:"13px 13px 14px",
           boxShadow:`0 0 0 2px ${col.color}`}}>
           <div style={{fontWeight:800,fontSize:13,color:col.color,marginBottom:9,letterSpacing:.5}}>{col.label}</div>
@@ -2893,7 +2987,7 @@ function DuelScreen({ onBack, t, skin }){
                   style={{display:"flex",alignItems:"center",gap:7,border:"none",borderRadius:999,
                     padding:"9px 13px",cursor:prisAilleurs?"default":"pointer",
                     opacity:prisAilleurs?.35:1,
-                    background:actif?col.color:(wood?"#f3e3c8":(paper?"#eef2f7":(neon?"#25060f":PAL.bg2))),
+                    background:actif?col.color:(wood?"#f3e3c8":(paper?"#eef2f7":(neon?"#2c2563":PAL.bg2))),
                     color:actif?"#ffffff":(wood?"#4a3418":(paper?"#132a4d":PAL.text)),
                     fontWeight:800,fontSize:13,fontFamily:"inherit"}}>
                   <span style={{fontSize:16}}>{p.emoji}</span>{p.name}
@@ -2926,15 +3020,15 @@ function DuelScreen({ onBack, t, skin }){
   if(showRules) return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #ffffff 0%, #eef1f4 55%, #dfe3e8 100%)"}}/>}
       <Header onBack={onBack} t={t} color={PAL.green} title={`⚔️ ${t.duel}`}/>
       <div style={{background:PAL.card,borderRadius:20,padding:"20px 18px",maxWidth:340,width:"100%",boxShadow:`0 0 0 2px ${PAL.gold}`}}>
-        {t.duelRules.map((r,i)=>(
-          <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",marginBottom:i<t.duelRules.length-1?12:0}}>
+        {(full?t.duelSolveRules:t.duelRules).map((r,i,arr)=>(
+          <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",marginBottom:i<arr.length-1?12:0}}>
             <span style={{width:28,height:28,borderRadius:"50%",background:PAL.green,color:"#1a1228",fontWeight:700,fontSize:15,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{i+1}</span>
             <span style={{fontSize:16,color:"#ffffff",fontWeight:600,lineHeight:1.5}}>{r}</span>
           </div>
@@ -2947,7 +3041,7 @@ function DuelScreen({ onBack, t, skin }){
   if(ph==="over") return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
@@ -2981,7 +3075,7 @@ function DuelScreen({ onBack, t, skin }){
   if(ph==="count") return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
@@ -3015,8 +3109,10 @@ function DuelScreen({ onBack, t, skin }){
     const center = (
       <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12}}>
         <div style={{fontWeight:700,fontSize:46,color:PAL.green,lineHeight:1,fontVariantNumeric:"tabular-nums",textShadow:`0 0 20px ${PAL.green}44`}}>{fmt(ms)}</div>
-        <CubeFace cells={face} size={sz} glow={neon?SKINS.sudoku.color:(wood?"#c69c6d":(ph==="playing"?PAL.green:null))} sprites={sprites} dark={neon} light={wood}/>
-        <Hint color={ph==="roundDone"?PAL.gold:PAL.green} icon={ph==="roundDone"?"🔍":"⚡"}>{ph==="roundDone"?t.ctxDuelDone:t.ctxDuelPlaying}</Hint>
+        {full
+          ? <SkinSpinCube skin={skin} size={Math.min(sz*.6,150)} glow={PAL.green}/>
+          : <CubeFace cells={face} size={sz} glow={neon?SKINS.sudoku.color:(wood?"#c69c6d":(ph==="playing"?PAL.green:null))} sprites={sprites} dark={neon} light={wood}/>}
+        <Hint color={ph==="roundDone"?PAL.gold:PAL.green} icon={ph==="roundDone"?"🔍":"⚡"}>{ph==="roundDone"?t.ctxDuelDone:(full?t.ctxDuelSolve:t.ctxDuelPlaying)}</Hint>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
           <GhostBtn onClick={onBack} color={PAL.green}>✕</GhostBtn>
           <span style={{fontWeight:700,fontSize:14,color:PAL.green,letterSpacing:1}}>⚔️ {t.round} {round}/{R}</span>
@@ -3033,7 +3129,7 @@ function DuelScreen({ onBack, t, skin }){
       <div style={{display:"flex",flexDirection:wide?"row":"column",alignItems:"center",justifyContent:"center",
         minHeight:"100vh",position:"relative",zIndex:1,padding:wide?"20px 24px":"12px 14px",gap:wide?20:10}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
@@ -3249,7 +3345,7 @@ const CIVI = [
 
 
 /* ═══ ÉCRAN COFFRET DES SCIENTIFIQUES ══════════════════════════ */
-function SavantsScreen({ onBack, t, kids, toggleKids }){
+function SavantsScreen({ onBack, t, kids, toggleKids, onChrono, on3d }){
   const wide = useWide();
   const W = wide?760:420;
   const [sel,setSel] = useState(null);
@@ -3281,6 +3377,9 @@ function SavantsScreen({ onBack, t, kids, toggleKids }){
       <img src={SAVANTS_PHOTO} alt={t.savants} draggable={false}
         style={{width:"100%",maxWidth:W,borderRadius:20,marginBottom:14,display:"block",
           boxShadow:"0 0 0 3px #ffcf3f, 0 6px 18px rgba(19,42,77,.25)"}}/>
+
+      {/* Résoudre le cube : chrono résolution complète + cube 3D */}
+      <KnowSolveModes t={t} W={W} onChrono={onChrono} on3d={on3d}/>
 
       {/* Mode d'emploi */}
       <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"flex-start",gap:11,marginBottom:12,
@@ -3532,7 +3631,57 @@ function HomeLabel({ children }){
 }
 
 /* Grande carte verticale d'un cube : visuel + accroche + bouton JOUER */
-function CubeCard({ img, emoji, title, sub, color, cta, onClick, framed, btnText, glow }){
+/* ─── Petite face mélangée sous chaque logo de l'accueil ───────────
+   Cubes à motifs : une vraie face du générateur de l'univers.
+   Cubes à images (Chess, Sudocube Mono) et cubes du savoir : 9 cases tirées
+   au hasard en respectant la nature des pièces (coin -> case de coin,
+   arête -> case d'arête, centre -> case centrale). */
+const MINI_SAVANTS = [[EINSTEIN_TILES_0,EINSTEIN_TILES_1,EINSTEIN_TILES_2,EINSTEIN_TILES_3,EINSTEIN_TILES_4,EINSTEIN_TILES_5,EINSTEIN_TILES_6,EINSTEIN_TILES_7,EINSTEIN_TILES_8],[CURIE_TILES_0,CURIE_TILES_1,CURIE_TILES_2,CURIE_TILES_3,CURIE_TILES_4,CURIE_TILES_5,CURIE_TILES_6,CURIE_TILES_7,CURIE_TILES_8],[TESLA_TILES_0,TESLA_TILES_1,TESLA_TILES_2,TESLA_TILES_3,TESLA_TILES_4,TESLA_TILES_5,TESLA_TILES_6,TESLA_TILES_7,TESLA_TILES_8],[NEWTON_TILES_0,NEWTON_TILES_1,NEWTON_TILES_2,NEWTON_TILES_3,NEWTON_TILES_4,NEWTON_TILES_5,NEWTON_TILES_6,NEWTON_TILES_7,NEWTON_TILES_8],[DARWIN_TILES_0,DARWIN_TILES_1,DARWIN_TILES_2,DARWIN_TILES_3,DARWIN_TILES_4,DARWIN_TILES_5,DARWIN_TILES_6,DARWIN_TILES_7,DARWIN_TILES_8],[GALILEE_TILES_0,GALILEE_TILES_1,GALILEE_TILES_2,GALILEE_TILES_3,GALILEE_TILES_4,GALILEE_TILES_5,GALILEE_TILES_6,GALILEE_TILES_7,GALILEE_TILES_8]];
+const MINI_CIVI = [[RAPANUI_TILES_0,RAPANUI_TILES_1,RAPANUI_TILES_2,RAPANUI_TILES_3,RAPANUI_TILES_4,RAPANUI_TILES_5,RAPANUI_TILES_6,RAPANUI_TILES_7,RAPANUI_TILES_8],[MAYA_TILES_0,MAYA_TILES_1,MAYA_TILES_2,MAYA_TILES_3,MAYA_TILES_4,MAYA_TILES_5,MAYA_TILES_6,MAYA_TILES_7,MAYA_TILES_8],[ROME_TILES_0,ROME_TILES_1,ROME_TILES_2,ROME_TILES_3,ROME_TILES_4,ROME_TILES_5,ROME_TILES_6,ROME_TILES_7,ROME_TILES_8],[EGYPT_TILES_0,EGYPT_TILES_1,EGYPT_TILES_2,EGYPT_TILES_3,EGYPT_TILES_4,EGYPT_TILES_5,EGYPT_TILES_6,EGYPT_TILES_7,EGYPT_TILES_8],[MESO_TILES_0,MESO_TILES_1,MESO_TILES_2,MESO_TILES_3,MESO_TILES_4,MESO_TILES_5,MESO_TILES_6,MESO_TILES_7,MESO_TILES_8],[CHINA_TILES_0,CHINA_TILES_1,CHINA_TILES_2,CHINA_TILES_3,CHINA_TILES_4,CHINA_TILES_5,CHINA_TILES_6,CHINA_TILES_7,CHINA_TILES_8]];
+function miniFaceCells(id){
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+  const kind=i=>i===4?[4]:([0,2,6,8].includes(i)?[0,2,6,8]:[1,3,5,7]);
+  if(["monstro","classic","sudoku","illusion"].includes(id)){
+    const sp=SKINS[id].sprites(); return SKINS[id].gen().map((c,i)=>({img:sp[c.colorId]?.[c.typeId??i]}));
+  }
+  if(id==="chess3d"){   /* Chess Cube : une face entière, non mélangée (la dame) */
+    return Array.from({length:9},(_,i)=>({ bg:{ backgroundImage:`url(${CHESS3D_IMG.F})`, backgroundSize:"300% 300%",
+      backgroundPosition:`${(i%3)*50}% ${Math.floor(i/3)*50}%` } }));
+  }
+  if(id==="sudomono"){
+    const faces=Object.values(SUDOMONO_IMG);
+    return Array.from({length:9},(_,i)=>{ const cell=pick(kind(i));
+      return { bg:{ backgroundImage:`url(${pick(faces)})`, backgroundSize:"300% 300%",
+        backgroundPosition:`${(cell%3)*50}% ${Math.floor(cell/3)*50}%`, transform:`rotate(${pick([0,90,180,270])}deg)` } }; });
+  }
+  if(id==="savants"||id==="civi"){
+    const S=id==="savants"?MINI_SAVANTS:MINI_CIVI;
+    return Array.from({length:9},(_,i)=>({img:pick(S)[pick(kind(i))]}));
+  }
+  return null;
+}
+function HomeMiniFace({ id, color, pressed }){
+  const [cells] = useState(()=>miniFaceCells(id));
+  if(!cells) return null;
+  return (
+    <div style={{width:"50%",aspectRatio:"1",display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:3,padding:4,boxSizing:"border-box",
+      background:"#0d0d0f",borderRadius:11,margin:"0 auto 10px",transform:`rotate(-5deg) scale(${pressed?.94:1})`,transition:"transform .12s",
+      boxShadow:`0 0 0 1.5px ${color}99, 0 6px 14px rgba(0,0,0,.5), 0 0 16px ${color}44`}}>
+      {cells.map((c,i)=>(
+        <div key={i} style={{borderRadius:4,overflow:"hidden",...(c.bg||{})}}>
+          {c.img&&<img src={c.img} alt="" draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* Logos des cartes d'accueil (fond transparent), par identifiant de carte */
+/* Visuels carrés des cartes de l'accueil (logo + cube) */
+const HOME_ART = { monstro:HA_MONSTRO, classic:HA_CLASSIC, sudoku:HA_SUDOKU, illusion:HA_ILLUSION, chess3d:HA_CHESS3D, sudomono:HA_SUDOMONO, savants:HA_SAVANTS, civi:HA_CIVI };
+const HOME_LOGOS = { monstro:LG_MONSTRO, classic:LG_CLASSIC, sudoku:LG_SUDOKU, illusion:LG_ILLUSION,
+  chess3d:LG_CHESSCUBE, sudomono:LG_SUDOMONO, savants:LG_SAVANTS, civi:LG_CIVI };
+function CubeCard({ img, art, logo, faceId, emoji, title, sub, color, cta, onClick, framed, btnText, glow }){
   const [p,setP] = useState(false);
   /* Visuel qui a déjà son propre cadre néon : pas de contour ajouté,
      halo + bouton accordés à la couleur du cadre */
@@ -3568,6 +3717,22 @@ function CubeCard({ img, emoji, title, sub, color, cta, onClick, framed, btnText
               <span style={{fontSize:44}}>{emoji}</span>
               {title&&<span style={{fontSize:13,fontWeight:800,color:"#fff",textAlign:"center",padding:"0 10px",
                 textShadow:"0 2px 4px rgba(0,0,0,.4)",lineHeight:1.25}}>{title}</span>}
+            </div>
+          : art
+          ? <div style={{width:"100%",padding:"7px 7px 6px",boxSizing:"border-box",background:"transparent"}}>
+              <img src={art} alt="" draggable={false} style={{width:"100%",aspectRatio:"1",objectFit:"cover",display:"block",
+                filter:`drop-shadow(0 5px 8px rgba(0,0,0,.5)) drop-shadow(0 0 10px ${color}55)`,
+                transform:p?"scale(.95)":"scale(1)",transition:"transform .12s"}}/>
+            </div>
+          : logo
+          ? <div style={{width:"100%",background:`radial-gradient(80% 60% at 50% 40%, ${color}40, ${color}10 55%, transparent 75%)`}}>
+            <div style={{width:"100%",aspectRatio:"16 / 9",display:"flex",alignItems:"center",justifyContent:"center",
+              padding:"8px 7px 4px",boxSizing:"border-box"}}>
+              <img src={logo} alt="" draggable={false} style={{width:"100%",maxHeight:"100%",objectFit:"contain",display:"block",
+                filter:`drop-shadow(0 5px 8px rgba(0,0,0,.55)) drop-shadow(0 0 12px ${color}66)`,
+                transform:p?"scale(.93)":"scale(1)",transition:"transform .12s"}}/>
+            </div>
+            {faceId&&<HomeMiniFace id={faceId} color={color} pressed={p}/>}
             </div>
           : <img src={img} alt="" draggable={false} style={{width:"100%",display:"block"}}/>}
         <div style={{padding:"9px 7px 11px",display:"flex",flexDirection:"column",alignItems:"center",gap:9,flex:1,
@@ -3623,6 +3788,8 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
     { id:"classic", img:HC_CLASSIC, sub:t.hcClassicSub, color:"#2f7bff", onClick:()=>openUni("classic") },
     { id:"sudoku",  img:HC_SUDOKU,  sub:t.hcSudoSub,    color:"#ff2b2b", onClick:()=>openUni("sudoku") },
     { id:"illusion",img:HC_ILLUSION,sub:t.hcIllusionSub, color:"#ffd60a", btnText:"#3a2c00", onClick:()=>openUni("illusion") },
+    { id:"chess3d", img:HC_CHESS3D, sub:t.hcChess3dSub,  color:"#ffcc33", btnText:"#2a1c00", onClick:()=>openUni("chesscube") },
+    { id:"sudomono",img:HC_SUDOMONO,sub:t.hcSudomonoSub, color:"#ff3b4e", onClick:()=>openUni("sudomono") },
   ];
   const savoirs = [
     { id:"savants", img:HC_SAVANTS, sub:t.hcSavantsSub, color:"#a066ff", onClick:()=>launch("savants") },
@@ -3663,9 +3830,16 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
       <HomeLabel>{t.hcChooseCube}</HomeLabel>
       <div className="stagger" style={{width:"100%",display:"grid",
         gridTemplateColumns:wide?"1fr 1fr 1fr 1fr":(cubes.length>3?"1fr 1fr":"1fr 1fr 1fr"),gap:10,alignItems:"stretch"}}>
-        {cubes.map(c=>(
-          <CubeCard key={c.id} img={c.img} sub={c.sub} color={c.color} cta={t.hcPlay} onClick={c.onClick} framed={c.framed} btnText={c.btnText} glow={c.glow}/>
-        ))}
+        {cubes.map((c,i)=>{
+          const card = <CubeCard key={c.id} img={c.img} art={HOME_ART[c.id]} logo={HOME_LOGOS[c.id]} faceId={c.id} sub={c.sub} color={c.color} cta={t.hcPlay} onClick={c.onClick} framed={c.framed} btnText={c.btnText} glow={c.glow}/>;
+          const cols = wide?4:2;
+          const alone = i===cubes.length-1 && cubes.length%cols===1;   /* dernière carte seule : centrée */
+          return alone
+            ? <div key={c.id} style={{gridColumn:"1 / -1",display:"flex",justifyContent:"center"}}>
+                <div style={{width:`calc((100% - ${(cols-1)*10}px) / ${cols})`,display:"flex"}}>{card}</div>
+              </div>
+            : card;
+        })}
       </div>
 
       {/* Découvrir */}
@@ -3673,16 +3847,23 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
       <div style={{width:"100%",display:"grid",gridTemplateColumns:wide?"repeat(2,calc((100% - 30px) / 4))":"1fr 1fr",justifyContent:"center",
         gap:10,alignItems:"stretch",marginBottom:12}}>
         {savoirs.map(c=>(
-          <CubeCard key={c.id} img={c.img} sub={c.sub} color={c.color} cta={t.hcConsult} onClick={c.onClick} framed={c.framed} btnText={c.btnText} glow={c.glow}/>
+          <CubeCard key={c.id} img={c.img} art={HOME_ART[c.id]} logo={HOME_LOGOS[c.id]} faceId={c.id} sub={c.sub} color={c.color} cta={t.hcConsult} onClick={c.onClick} framed={c.framed} btnText={c.btnText} glow={c.glow}/>
         ))}
       </div>
 
       <HomeLabel>{t.hcTraining}</HomeLabel>
       <div style={{width:"100%",display:"grid",gridTemplateColumns:wide?"1fr 1fr 1fr 1fr":"1fr 1fr",
         gap:10,alignItems:"stretch"}}>
-        {discover.map(d=>(
-          <CubeCard key={d.id} img={d.thumb} sub={d.sub} color={d.color} cta={t.hcConsult} onClick={d.onClick} btnText={d.btnText}/>
-        ))}
+        {discover.map((d,i)=>{
+          const card = <CubeCard key={d.id} img={d.thumb} sub={d.sub} color={d.color} cta={t.hcConsult} onClick={d.onClick} btnText={d.btnText}/>;
+          const cols = wide?4:2;
+          const alone = i===discover.length-1 && discover.length%cols===1;   /* dernière carte seule : centrée */
+          return alone
+            ? <div key={d.id} style={{gridColumn:"1 / -1",display:"flex",justifyContent:"center"}}>
+                <div style={{width:`calc((100% - ${(cols-1)*10}px) / ${cols})`,display:"flex"}}>{card}</div>
+              </div>
+            : card;
+        })}
       </div>
 
       {/* Boutique */}
@@ -3830,7 +4011,7 @@ function SudoModeTile({ art, glow, title, sub, onClick }){
       style={{width:"100%",border:"none",padding:0,cursor:"pointer",background:"transparent",
         transform:p?"translateY(3px)":"none",transition:"transform .12s"}}>
       <div style={{display:"flex",alignItems:"stretch",borderRadius:22,overflow:"hidden",
-        background:"linear-gradient(90deg,#050203,#0b0508 55%,#050203)",
+        background:`linear-gradient(100deg,${glow}40,#1c1745 52%,#161236)`,
         boxShadow:`0 0 0 2px ${glow}, 0 0 14px ${glow}88, 0 0 26px ${glow}44, inset 0 0 22px ${glow}22`}}>
 
         <img src={art} alt="" draggable={false}
@@ -3872,20 +4053,27 @@ function ProgressScreen({ t, skin, onBack, launch }){
     ? { bg:"linear-gradient(180deg,#fdf6e7 0%,#f5e4c3 100%)", card:"#fffaf0",
         ring:"#c69c6d", ink:"#4a3418", dim:"#8a6539", ring2:"#e6d3b0" }
     : neon
-    ? { bg:"linear-gradient(180deg,#140208 0%,#080004 100%)", card:"#12030a",
-        ring:SKINS.sudoku.color, ink:"#ffffff", dim:"#c89aa6", ring2:"#3a0d18" }
+    ? { bg:SUDO_BG, card:"#1c1745",
+        ring:SKINS.sudoku.color, ink:"#ffffff", dim:"#b3aee0", ring2:"#3a3380" }
     : { bg:`radial-gradient(120% 80% at 50% 0%,${PAL.bg2},${PAL.dark} 75%)`, card:PAL.card,
         ring:PAL.gold, ink:PAL.text, dim:PAL.textDim, ring2:PAL.cardHi };
 
-  const uniLabel = { classic:t.speedFace, monstro:t.monstro, sudoku:t.sudo, illusion:t.illusion }[skin] || "";
+  const uniLabel = { classic:t.speedFace, monstro:t.monstro, sudoku:t.sudo, illusion:t.illusion, sudomono:t.sudomono, chesscube:t.chesscube }[skin] || "";
 
-  const modes = [
+  const modes = FULL_SOLVE.includes(skin) ? [
+    { key:"chrono",    icon:"🧩", label:t.chrono,        color:PAL.purple, go:"chrono" },
+    { key:"chronorev", icon:"⏳", label:t.revChronoTile, color:PAL.orange, go:"chronorev" },
+    { key:"duelsolve", icon:"⚔️", label:t.duel,          color:PAL.green,  go:"duelsolve" },
+    { key:"cube3d",    icon:"👆", label:t.cube3dTile,    color:SKINS[skin].color, go:skin==="chesscube"?"chess3d":"sudo3d" },
+  ] : [
     { key:"challenge", icon:"🎯", label:t.faceTile,    color:PAL.gold,   go:"face" },
     { key:"reverse",   icon:"⏳", label:t.reverseTile, color:PAL.orange, go:"reverse" },
     { key:"blind",     icon:"🙈", label:t.blind,       color:PAL.blue,   go:"blind" },
     { key:"chrono",    icon:"🧩", label:t.chrono,      color:PAL.purple, go:"chrono" },
     { key:"motifs",    icon:"🔤", label:t.motifs,      color:PAL.pink,   go:"motifs" },
     { key:"duel",      icon:"⚔️", label:t.duel,        color:PAL.green,  go:"duel" },
+    { key:"duelsolve", icon:"🏆", label:t.duelSolveTile, color:"#14b8a6", go:"duelsolve" },
+    { key:"cube3d",    icon:"👆", label:t.cube3dTile,  color:"#3cc4b4",  go:"cube3d" },
     { key:"daily",     icon:"🗓️", label:t.daily,       color:PAL.green,  go:"daily" },
   ];
 
@@ -4096,7 +4284,7 @@ const SKIN_UI = {
   illusion:{
     plaque1:"#ffffff", plaque2:"#e8e8ea",
     plaqueRing:"inset 0 2px 0 #ffffff, 0 0 0 3px #ffffff, 0 0 22px rgba(255,255,255,.25), 0 6px 18px rgba(0,0,0,.6)",
-    ink:"#0d0d0d", ink2:"#5b6270", ink3:"#8a8a8f",
+    ink:"#0d0d0d", ink2:"#5b6270", ink3:"#8a8a8f", pageInk:"#ffffff", pageInk2:"#b0b0b6",
     carte:"#ffffff", carte2:"#efeff1", bord:"#ffffff",
     carteOmbre:"0 0 0 2px #ffffff, 0 4px 12px rgba(0,0,0,.5)",
     btnHaut:"#ffffff", btnMil:"#ededf0", btnBas:"#d7d7dc",
@@ -4107,20 +4295,20 @@ const SKIN_UI = {
     panel1:"#1a1a1c", panel2:"#000000", panelRing:"#3a3a40",
     panelIco:"#ffffff", panelSub:"#b0b0b6", badge:"#000000", chart:"#ffffff",
   },
-  /* Sudocube — noir, néon rouge */
+  /* Sudocube — indigo et couleurs vives */
   sudoku:{
-    plaque1:"#1a0308", plaque2:"#080003",
-    plaqueRing:"inset 0 1px 0 #ff144033, 0 0 0 2px #ff1440, 0 0 22px #ff144066, 0 6px 18px rgba(0,0,0,.6)",
-    ink:"#ffffff", ink2:"#e6a8b4", ink3:"#9c6f79",
-    carte:"#12030a", carte2:"#1d0610", bord:"#3a0d18",
-    carteOmbre:"0 0 0 1.5px #ff1440, 0 0 12px #ff144044",
-    btnHaut:"#ff6d84", btnMil:"#ff1440", btnBas:"#c1002a",
-    btnBord:"#ff1440", btnBordBas:"#8c0a22", btnRelief:"#4d0512", btnInk:"#ffffff",
-    accent:"#ff1440",
-    objOn1:"#ff6d84", objOn2:"#ff1440", objRing:"#ff1440",
+    plaque1:"#221c52", plaque2:"#100c2c",
+    plaqueRing:"inset 0 1px 0 #38b6ff33, 0 0 0 2px #38b6ff, 0 0 22px #38b6ff66, 0 6px 18px rgba(0,0,0,.6)",
+    ink:"#ffffff", ink2:"#c9c4f2", ink3:"#8f89c4",
+    carte:"#1c1745", carte2:"#251f58", bord:"#3a3380",
+    carteOmbre:"0 0 0 1.5px #38b6ff, 0 0 12px #38b6ff44",
+    btnHaut:"#ffe46b", btnMil:"#ffc61a", btnBas:"#f29a0c",
+    btnBord:"#38b6ff", btnBordBas:"#1f5fa8", btnRelief:"#123a6b", btnInk:"#2a1c00",
+    accent:"#38b6ff",
+    objOn1:"#8fd3ff", objOn2:"#38b6ff", objRing:"#38b6ff",
     statCols:["#ffc63a","#3ddc84","#ff5e5e"],
-    panel1:"#12030a", panel2:"#050002", panelRing:"#3a0d18",
-    panelIco:"#1d0610", panelSub:"#c89aa6", badge:"#1d0610", chart:"#ff1440",
+    panel1:"#1c1745", panel2:"#0c0a24", panelRing:"#3a3380",
+    panelIco:"#251f58", panelSub:"#b3aee0", badge:"#251f58", chart:"#ffc61a",
   },
 };
 
@@ -4141,7 +4329,7 @@ function ClTimer({ th, valeur, sousTitre }){
       {sousTitre&&(
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:9,whiteSpace:"nowrap"}}>
           <span style={{color:th.accent,fontWeight:800,fontSize:15}}>»</span>
-          <span style={{fontWeight:700,fontSize:15,color:th.ink2}}>{sousTitre}</span>
+          <span style={{fontWeight:700,fontSize:15,color:th.pageInk2||th.ink2}}>{sousTitre}</span>
           <span style={{color:th.accent,fontWeight:800,fontSize:15}}>«</span>
         </div>
       )}
@@ -4287,7 +4475,7 @@ async function carteResultat({ skin, face, sprites, ms, t }){
   const th = SKIN_UI[skin] || SKIN_UI.classic;
 
   const fond = g.createLinearGradient(0,0,0,H);
-  if(skin==="sudoku"){ fond.addColorStop(0,"#2a0009"); fond.addColorStop(1,"#000000"); }
+  if(skin==="sudoku"){ fond.addColorStop(0,"#2a2370"); fond.addColorStop(1,"#100c2c"); }
   else if(skin==="monstro"){ fond.addColorStop(0,"#f4faff"); fond.addColorStop(1,"#d9eafa"); }
   else { fond.addColorStop(0,"#fefbe8"); fond.addColorStop(1,"#f3ddb8"); }
   g.fillStyle=fond; g.fillRect(0,0,W,H);
@@ -4304,7 +4492,7 @@ async function carteResultat({ skin, face, sprites, ms, t }){
 
   /* la face du jour */
   const taille=560, x0=(W-taille)/2, y0=300, gap=16, cell=(taille-gap*2-24)/3;
-  g.fillStyle = skin==="sudoku" ? "#000" : (skin==="monstro" ? "#ffffff" : "#fdf6ea");
+  g.fillStyle = skin==="sudoku" ? "#100c2c" : (skin==="monstro" ? "#ffffff" : "#fdf6ea");
   arrondi(g, x0, y0, taille, taille, 34); g.fill();
   if(face&&sprites){
     for(let i=0;i<9;i++){
@@ -4425,6 +4613,539 @@ function IllusionModeTile({ icon, color, title, sub, onClick }){
 
 
 
+/* ═══ CUBE 3D AU DOIGT — RUR'U' Chess (faces illustrées) et Classique ══
+   Moteur repris de l'artefact « Rubik's Cube Échecs » (three.js r128,
+   chargé à la demande depuis le CDN : rien à ajouter dans package.json).
+   Glisser sur le cube = tourner une couronne · glisser à côté = pivoter.
+   Chrono : démarre au 1er coup après « Mélanger », s'arrête quand c'est résolu.
+   ═══════════════════════════════════════════════════════════════ */
+const CHESS3D_IMG = { U:CH3D_U, D:CH3D_D, F:CH3D_F, B:CH3D_B, R:CH3D_R, L:CH3D_L };
+/* Classique : jaune en haut, vert devant (même orientation que la page Algos) */
+/* vrai schéma de couleurs : jaune dessus, vert devant -> orange à droite, rouge à gauche */
+const CLASSIC3D_COLORS = { U:"#ffd500", D:"#f5f5f5", F:"#2bbf3f", B:"#2b8cff", R:"#ff8c1a", L:"#e62b2b" };
+let threePromise = null;
+function loadThree(){
+  if(window.THREE) return Promise.resolve(window.THREE);
+  if(threePromise) return threePromise;
+  const urls = ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+                "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"];
+  threePromise = new Promise((ok, ko)=>{
+    const tryUrl = i=>{
+      if(i>=urls.length){ threePromise=null; ko(new Error("three")); return; }
+      const s=document.createElement("script"); s.src=urls[i]; s.async=true;
+      s.onload=()=> window.THREE ? ok(window.THREE) : tryUrl(i+1);
+      s.onerror=()=>{ s.remove(); tryUrl(i+1); };
+      document.head.appendChild(s);
+    };
+    tryUrl(0);
+  });
+  return threePromise;
+}
+function cube3dBest(k){ try{ return JSON.parse(localStorage.getItem(k)||"{}").best ?? null; }catch(e){ return null; } }
+function cube3dSaveBest(k, ms){ try{ const v=JSON.parse(localStorage.getItem(k)||"{}"); v.best=ms; v.solves=(v.solves||0)+1; localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+/* chaque résolution chronométrée au doigt compte aussi dans la page Progression de l'univers */
+const cube3dProgress = skinKey => ms => { const d=loadS(); const sd=d[skinKey]||{}; const st=sd.cube3d||{ best:null, games:0, sessions:[] };
+  if(st.best==null||ms<st.best) st.best=ms; st.games=(st.games||0)+1;
+  st.sessions=[...(st.sessions||[]),{date:Date.now(),time:ms}].slice(-50); sd.cube3d=st; d[skinKey]=sd; saveS(d); };
+function ChessCubeScreen({ onBack, t }){
+  return <Cube3DScreen onBack={onBack} t={t} title="♞ RUR'U' CHESS" accent="#ffcc33" faces={CHESS3D_IMG} lsKey="rurucube_chess3d" onSolved={cube3dProgress("chesscube")}/>;
+}
+function ClassicCubeScreen({ onBack, t }){
+  return <Cube3DScreen onBack={onBack} t={t} title={"🎨 "+t.cube3dTitle} accent="#3cc4b4" colors={CLASSIC3D_COLORS} lsKey="rurucube_classic3d"/>;
+}
+
+/* Cubes à cases : 9 images par face, dans l'ordre de lecture (haut-gauche -> bas-droite) */
+function tiles3d(id){
+  const col = S=>({ U:S.yellow, D:S.white, F:S.green, B:S.teal, R:S.orange, L:S.red });   /* même schéma que CUBE_COLOR */
+  if(id==="monstro") return col(MONSTER_SPRITES);
+  if(id==="sudoku")  return col(SUDOKUBE_SPRITES);
+  if(id==="illusion")return col(ILLUSION_SPRITES);
+  if(id==="savants") return { U:EINSTEIN_TILES, F:CURIE_TILES, R:TESLA_TILES, B:NEWTON_TILES, L:DARWIN_TILES, D:GALILEE_TILES };
+  if(id==="civi")    return { U:RAPANUI_TILES, F:MAYA_TILES, R:ROME_TILES, B:EGYPT_TILES, L:MESO_TILES, D:CHINA_TILES };
+  return null;
+}
+function TilesCubeScreen({ onBack, t, id }){
+  const info = { monstro:["👾 MONSTRO 3D","#2fd46b"], sudoku:["🔢 SUDOCUBE 3D","#38b6ff"], illusion:["🌀 ILLUSION 3D","#8b5cf6"],
+    savants:["🔬 "+t.savants+" 3D","#a066ff"], civi:["🏛️ "+t.civi.toUpperCase()+" 3D","#ff8a1a"] }[id];
+  return <Cube3DScreen onBack={onBack} t={t} title={info[0]} accent={info[1]} tiles={tiles3d(id)} uniform={id==="illusion"}
+    lsKey={"rurucube_"+id+"3d"} onSolved={cube3dProgress(id)}/>;
+}
+const SUDOMONO_IMG = { U:SM_U, D:SM_D, F:SM_F, B:SM_B, R:SM_R, L:SM_L };
+function SudoMonoCubeScreen({ onBack, t }){
+  return <Cube3DScreen onBack={onBack} t={t} title={"🔢 "+t.sudo3dTitle} accent="#ff3b4e" faces={SUDOMONO_IMG} sameFaces lsKey="rurucube_sudomono3d" onSolved={cube3dProgress("sudomono")}/>;
+}
+
+/* faces = 6 images (une grande image par face) · colors = 6 couleurs unies */
+function Cube3DScreen({ onBack, t, title, accent, faces, colors, tiles, uniform, lsKey, sameFaces, onSolved }){
+  /* tiles = 9 images par face (case par case) · uniform = les 9 cases d'une face sont pareilles */
+  const pictured = !!faces || (!!tiles && !uniform);
+  const stageRef = useRef(null);
+  const api = useRef({});                         /* fonctions exposées par le moteur 3D */
+  const [status,setStatus] = useState("loading"); /* loading | ready | error */
+  const [moves,setMoves] = useState(0);
+  const [solved,setSolved] = useState(true);
+  const [busy,setBusy] = useState(false);
+  const [win,setWin] = useState(null);            /* {ms, moves, record} */
+  const [ms,setMs] = useState(0);
+  const [best,setBest] = useState(()=>cube3dBest(lsKey));
+  const [seq,setSeq] = useState([]);
+  const [viewMoved,setViewMoved] = useState(false);   /* la vue a été pivotée -> bouton « Recentrer » */              /* derniers coups joués, en notation */
+  const chrono = useRef({ armed:false, start:0, running:false });
+
+  /* affichage du chrono */
+  useEffect(()=>{
+    const id = setInterval(()=>{ const c=chrono.current; if(c.running) setMs(Date.now()-c.start); }, 47);
+    return ()=>clearInterval(id);
+  },[]);
+
+  useEffect(()=>{
+    let dead=false, raf=0; const cleanups=[];
+    loadThree().then(THREE=>{
+      if(dead) return;
+      const stage = stageRef.current;
+      const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      Object.assign(renderer.domElement.style,{position:"absolute",inset:"0",width:"100%",height:"100%",display:"block"});
+      stage.appendChild(renderer.domElement);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(32,1,0.1,100);
+      scene.add(new THREE.AmbientLight(0xffffff,.55));
+      const dl = new THREE.DirectionalLight(0xffffff,.8); dl.position.set(4,6,5); scene.add(dl);
+
+      /* repères de chaque face : n = normale, r = droite de l'image, u = haut de l'image */
+      const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+      const FACES={
+        F:{n:V(0,0,1),r:V(1,0,0),u:V(0,1,0)}, B:{n:V(0,0,-1),r:V(-1,0,0),u:V(0,1,0)},
+        R:{n:V(1,0,0),r:V(0,0,-1),u:V(0,1,0)}, L:{n:V(-1,0,0),r:V(0,0,1),u:V(0,1,0)},
+        U:{n:V(0,1,0),r:V(1,0,0),u:V(0,0,-1)}, D:{n:V(0,-1,0),r:V(1,0,0),u:V(0,0,1)}
+      };
+      const loader=new THREE.TextureLoader(), maxAniso=renderer.capabilities.getMaxAnisotropy();
+      const MAT={}, disposables=[];
+      const TMAT={};
+      const tileMat=url=>{ if(!TMAT[url]){ const tx=loader.load(url); tx.encoding=THREE.sRGBEncoding; tx.anisotropy=maxAniso;
+        TMAT[url]=new THREE.MeshBasicMaterial({map:tx}); disposables.push(tx,TMAT[url]); } return TMAT[url]; };
+      for(const k in FACES){ if(tiles) continue;
+        if(faces){ const tx=loader.load(faces[k]); tx.encoding=THREE.sRGBEncoding; tx.anisotropy=maxAniso;
+          MAT[k]=new THREE.MeshBasicMaterial({map:tx}); disposables.push(tx); }
+        else MAT[k]=new THREE.MeshBasicMaterial({color:new THREE.Color(colors[k]).convertSRGBToLinear()});
+        disposables.push(MAT[k]); }
+      const bodyMat=new THREE.MeshStandardMaterial({color:0x0c0c0c,roughness:.45,metalness:.1});
+      const bodyGeo=new THREE.BoxGeometry(.97,.97,.97); disposables.push(bodyMat,bodyGeo);
+
+      /* autocollant aux coins arrondis */
+      const S=.45,RAD=.08,shape=new THREE.Shape();
+      shape.moveTo(-S+RAD,-S);shape.lineTo(S-RAD,-S);shape.quadraticCurveTo(S,-S,S,-S+RAD);
+      shape.lineTo(S,S-RAD);shape.quadraticCurveTo(S,S,S-RAD,S);shape.lineTo(-S+RAD,S);
+      shape.quadraticCurveTo(-S,S,-S,S-RAD);shape.lineTo(-S,-S+RAD);shape.quadraticCurveTo(-S,-S,-S+RAD,-S);
+      const baseSticker=new THREE.ShapeGeometry(shape,6);
+
+      const cubies=[],pickables=[],stickers=[];
+      for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++){
+        if(!x&&!y&&!z)continue;
+        const c=new THREE.Group();c.position.set(x,y,z);c.userData.home=V(x,y,z);
+        const body=new THREE.Mesh(bodyGeo,bodyMat);body.userData.cubie=c;c.add(body);pickables.push(body);
+        for(const k in FACES){const f=FACES[k];if(c.position.dot(f.n)!==1)continue;
+          const i=c.position.dot(f.r)+1,j=c.position.dot(f.u)+1;
+          const g=baseSticker.clone(),pos=g.attributes.position,uv=g.attributes.uv;
+          for(let q=0;q<pos.count;q++)uv.setXY(q, tiles?.5+pos.getX(q)/(2*S):(i+.5+pos.getX(q))/3, tiles?.5+pos.getY(q)/(2*S):(j+.5+pos.getY(q))/3);
+          uv.needsUpdate=true; disposables.push(g);
+          const m=new THREE.Mesh(g,tiles?tileMat(tiles[k][(2-j)*3+i]):MAT[k]); m.userData.src=tiles?k:(faces?faces[k]:colors[k]); m.userData.cell=[i,j]; stickers.push(m);
+          m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(f.r,f.u,f.n));
+          m.position.copy(f.n).multiplyScalar(.487);m.userData.cubie=c;c.add(m);pickables.push(m);}
+        scene.add(c);cubies.push(c);
+      }
+
+      /* caméra en orbite */
+      const THETA0=.65, PHI0=1.05;
+      let theta=THETA0,phi=PHI0,dist=11.5, camAnim=null;
+      const placeCam=()=>{camera.position.set(dist*Math.sin(phi)*Math.sin(theta),dist*Math.cos(phi),dist*Math.sin(phi)*Math.cos(theta));camera.lookAt(0,0,0)};
+      const resize=()=>{const w=stage.clientWidth,h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false);camera.aspect=w/h;
+        dist=w/h<1?11.5/(w/h)*.64+2:11.5;camera.updateProjectionMatrix();placeCam()};
+      const ro=new ResizeObserver(resize); ro.observe(stage); resize(); cleanups.push(()=>ro.disconnect());
+
+      /* mouvements */
+      const AX=['x','y','z'],queue=[],history=[];let anim=null,nMoves=0,scrambling=false,wasSolved=true,seqArr=[];
+      /* notation : face (couche ±1) ou tranche (couche 0 : M suit L, E suit D, S suit F) */
+      /* Notation RELATIVE À TA VUE : F = la face qui te regarde, U = celle du haut à l'écran,
+         R = celle de droite. Recalculé à chaque coup d'après la position de la caméra,
+         donc si tu fais pivoter le cube, R reste toujours la face à ta droite. */
+      const AXV=[V(1,0,0),V(0,1,0),V(0,0,1)];
+      const nearestAxis=(v,skip=[])=>{ let best=null;
+        for(let i=0;i<3;i++){ if(skip.includes(i)) continue; const d=v.getComponent(i);
+          if(!best||Math.abs(d)>Math.abs(best.d)) best={i,d}; }
+        return { i:best.i, s:best.d>=0?1:-1 }; };
+      const viewFrame=()=>{
+        camera.updateMatrixWorld(); const e=camera.matrixWorld.elements;
+        const toCam=V(e[8],e[9],e[10]), up=V(e[4],e[5],e[6]);
+        const F=nearestAxis(toCam), U=nearestAxis(up,[F.i]);
+        const rv=AXV[U.i].clone().multiplyScalar(U.s).cross(AXV[F.i].clone().multiplyScalar(F.s));   /* R = U × F (repère direct) */
+        const R=nearestAxis(rv);
+        return { R, U, F };
+      };
+      /* face (R L U D F B) -> [axe, couche, sens] ; sens horaire vu de l'extérieur de la face */
+      const faceToMove=(letter,prime)=>{
+        const v=viewFrame(), base={R:v.R,L:v.R,U:v.U,D:v.U,F:v.F,B:v.F}[letter];
+        const sg=("LDB".includes(letter)?-1:1)*base.s;          /* normale sortante = sg sur l'axe */
+        return [AX[base.i], sg, prime?sg:-sg];
+      };
+      /* nom d'un coup fait en glissant, lui aussi relatif à la vue */
+      const moveName=(axis,layer,dir)=>{
+        const v=viewFrame(), i=AX.indexOf(axis);
+        const k=["R","U","F"].find(n=>v[n].i===i), s=v[k].s;
+        let face, sg;
+        if(layer===0){ face={R:"M",U:"E",F:"S"}[k]; sg=(k==="F"?1:-1)*s; }   /* M suit L, E suit D, S suit F */
+        else if(layer===s){ face=k; sg=s; }
+        else { face={R:"L",U:"D",F:"B"}[k]; sg=-s; }
+        return face+(dir===-sg?"":"'");
+      };
+      const pushSeq=n=>{ seqArr=[...seqArr,n].slice(-16); setSeq(seqArr); };
+      const pivot=new THREE.Group();scene.add(pivot);
+      const enqueue=(axis,layer,dir,opts={})=>queue.push({axis,layer,dir,dur:opts.dur||190,record:opts.record!==false,count:opts.count!==false,name:opts.name});
+      const startNext=()=>{const mv=queue.shift();if(!mv)return;
+        pivot.rotation.set(0,0,0);pivot.updateMatrixWorld();
+        mv.items=mv.layer==='all'?cubies.slice():cubies.filter(c=>Math.round(c.position[mv.axis])===mv.layer);
+        mv.items.forEach(c=>pivot.attach(c));mv.t0=performance.now();anim=mv;
+        /* le chrono part au premier vrai coup après le mélange */
+        const ch=chrono.current; if(mv.count && ch.armed && !ch.running){ ch.running=true; ch.start=Date.now(); }};
+      const snap=c=>{c.position.set(Math.round(c.position.x),Math.round(c.position.y),Math.round(c.position.z));
+        const m=new THREE.Matrix4().makeRotationFromQuaternion(c.quaternion),e=m.elements;
+        for(const i of [0,1,2,4,5,6,8,9,10])e[i]=Math.round(e[i]);c.quaternion.setFromRotationMatrix(m)};
+      /* Résolu = ce que l'on VOIT est juste, face par face :
+         · couleurs unies (Classique) : chaque face d'une seule couleur ;
+         · images (Chess, Sudocube Mono) : chaque autocollant montre la bonne case de l'image,
+           à l'endroit, et (si les 6 images diffèrent) la même image que le centre de sa face.
+         sameFaces = les 6 faces portent le même motif -> seules les cases comptent. */
+      const ex=V(1,0,0), ey=V(0,1,0), ez=V(0,0,1);
+      /* les 24 orientations possibles du cube entier (matrices de permutation signées, déterminant +1) */
+      const ORIENTS=(()=>{ const out=[], P=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
+        for(const p of P) for(let sx=-1;sx<=1;sx+=2) for(let sy=-1;sy<=1;sy+=2) for(let sz=-1;sz<=1;sz+=2){
+          const M=[[0,0,0],[0,0,0],[0,0,0]], sg=[sx,sy,sz]; for(let i=0;i<3;i++) M[i][p[i]]=sg[i];
+          const det=M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])-M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])+M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0]);
+          if(det===1) out.push(M); }
+        return out; })();
+      const mul=(M,v)=>V(M[0][0]*v.x+M[0][1]*v.y+M[0][2]*v.z, M[1][0]*v.x+M[1][1]*v.y+M[1][2]*v.z, M[2][0]*v.x+M[2][1]*v.y+M[2][2]*v.z);
+      const tr=M=>[[M[0][0],M[1][0],M[2][0]],[M[0][1],M[1][1],M[2][1]],[M[0][2],M[1][2],M[2][2]]];
+      const isSolved=()=>{
+        scene.updateMatrixWorld(true);
+        const groups={};
+        for(const m of stickers){
+          const q=new THREE.Quaternion(); m.getWorldQuaternion(q);
+          const n=ez.clone().applyQuaternion(q), up=ey.clone().applyQuaternion(q), rt=ex.clone().applyQuaternion(q);
+          const key=[Math.round(n.x),Math.round(n.y),Math.round(n.z)].join();
+          const cp=new THREE.Vector3(); m.parent.getWorldPosition(cp);
+          (groups[key]=groups[key]||[]).push({m,n,up,rt,cp:V(Math.round(cp.x),Math.round(cp.y),Math.round(cp.z))});
+        }
+        const centers={};
+        for(const key in groups){
+          const g=groups[key]; if(g.length!==9) return false;
+          const N=V(...key.split(',').map(Number));
+          const c=g.find(x=>x.cp.equals(N)); if(!c) return false; centers[key]={N,c};
+          for(const x of g){
+            if(!pictured){ if(x.m.userData.src!==c.m.userData.src) return false; continue; }
+            if(!sameFaces && x.m.userData.src!==c.m.userData.src) return false;
+            if(x.up.dot(c.up)<.99) return false;                 /* à l'endroit */
+            const rel=x.cp.clone().sub(N), di=Math.round(rel.dot(c.rt)), dj=Math.round(rel.dot(c.up));
+            const [ci,cj]=c.m.userData.cell, [i,j]=x.m.userData.cell;
+            if(i!==ci+di || j!==cj+dj) return false;              /* la bonne case de l'image */
+          }
+        }
+        if(!pictured) return true;
+        /* images : les 6 faces doivent être à l'endroit dans UNE même orientation du cube
+           (retourner tout le cube reste résolu ; un quart de tour d'une seule face non) */
+        return ORIENTS.some(M=>{ const Mi=tr(M);
+          return Object.values(centers).every(({N,c})=>{
+            const n0=mul(Mi,N); const k=Object.keys(FACES).find(f=>FACES[f].n.distanceTo(n0)<.01);
+            const upExp=mul(M,FACES[k].u);
+            return c.up.dot(upExp)>.99 && (sameFaces || c.m.userData.src===(faces?faces[k]:k)); }); });
+      };
+      const updateUI=userMove=>{
+        setMoves(nMoves); const s=isSolved(); setSolved(s);
+        const ch=chrono.current;
+        if(s && !wasSolved && userMove && nMoves>0){
+          let rec=false, el=null;
+          if(ch.running){ el=Date.now()-ch.start; ch.running=false; ch.armed=false; setMs(el);
+            const b=cube3dBest(lsKey); if(b==null||el<b){ rec=true; setBest(el); } cube3dSaveBest(lsKey, rec?el:(b??el)); }
+          setWin({ms:el, moves:nMoves, record:rec});
+          if(el!=null && onSolved) onSolved(el, nMoves);
+        }
+        wasSolved=s;
+      };
+      const finish=mv=>{pivot.rotation[mv.axis]=mv.dir*Math.PI/2;pivot.updateMatrixWorld();
+        mv.items.forEach(c=>{scene.attach(c);snap(c)});anim=null;
+        if(mv.record)history.push(mv);
+        if(mv.count){ nMoves++; pushSeq(mv.name||moveName(mv.axis,mv.layer,mv.dir)); }
+        else if(mv.record && mv.name) pushSeq(mv.name);          /* rotation du cube entier : notée, pas comptée */
+        if(!queue.length){ if(scrambling){ scrambling=false; nMoves=0; setBusy(false); chrono.current.armed=true; } updateUI(mv.count); }};
+      const loop=now=>{
+        if(camAnim){ const tt=Math.min(1,(now-camAnim.t0)/320), e=1-Math.pow(1-tt,3);
+          theta=camAnim.th+(THETA0-camAnim.th)*e; phi=camAnim.ph+(PHI0-camAnim.ph)*e; placeCam(); if(tt>=1) camAnim=null; }
+        if(!anim&&queue.length)startNext();
+        if(anim){const tt=Math.min(1,(now-anim.t0)/anim.dur),e=tt<.5?2*tt*tt:1-Math.pow(-2*tt+2,2)/2;
+          pivot.rotation[anim.axis]=anim.dir*Math.PI/2*e;if(tt>=1)finish(anim)}
+        renderer.render(scene,camera); raf=requestAnimationFrame(loop)};
+      raf=requestAnimationFrame(loop);
+
+      /* doigt / souris : glisser un autocollant = tourner, glisser le fond = pivoter */
+      const ray=new THREE.Raycaster();let drag=null;
+      const cv=renderer.domElement;
+      const ndc=e=>{const r=cv.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*2-1,y:-(e.clientY-r.top)/r.height*2+1,px:e.clientX-r.left,py:e.clientY-r.top}};
+      const toScreen=v=>{const p=v.clone().project(camera),r=cv.getBoundingClientRect();return {x:(p.x+1)/2*r.width,y:(1-p.y)/2*r.height}};
+      const onDown=e=>{try{cv.setPointerCapture(e.pointerId);}catch(_){} const p=ndc(e);ray.setFromCamera(p,camera);
+        const hit=ray.intersectObjects(pickables)[0];
+        if(hit&&!scrambling){const n=hit.face.normal.clone().transformDirection(hit.object.matrixWorld);
+          n.set(Math.round(n.x),Math.round(n.y),Math.round(n.z));
+          drag={mode:'layer',x:p.px,y:p.py,point:hit.point.clone(),n,cubie:hit.object.userData.cubie,done:false}}
+        else drag={mode:'orbit',x:p.px,y:p.py};cv.style.cursor='grabbing'};
+      const onMove=e=>{if(!drag)return;const p=ndc(e),dx=p.px-drag.x,dy=p.py-drag.y;
+        if(drag.mode==='orbit'){ camAnim=null; theta-=dx*.009; phi=Math.max(.3,Math.min(2.84,phi-dy*.009)); placeCam();
+          drag.x=p.px; drag.y=p.py; setViewMoved(true); return; }
+        if(drag.done||Math.hypot(dx,dy)<12)return;
+        let bestT=null;const s0=toScreen(drag.point);
+        for(const tv of [V(1,0,0),V(0,1,0),V(0,0,1)]){if(Math.abs(tv.dot(drag.n))>.5)continue;
+          const s1=toScreen(drag.point.clone().add(tv));let vx=s1.x-s0.x,vy=s1.y-s0.y;const L=Math.hypot(vx,vy)||1;
+          const d=(dx*vx+dy*vy)/L/Math.hypot(dx,dy);if(!bestT||Math.abs(d)>Math.abs(bestT.d))bestT={t:tv,d}}
+        const tw=bestT.t.clone().multiplyScalar(Math.sign(bestT.d)),a=drag.n.clone().cross(tw);
+        const i=Math.abs(a.x)>.5?0:Math.abs(a.y)>.5?1:2,axis=AX[i],sa=Math.sign(a.getComponent(i));
+        enqueue(axis,Math.round(drag.cubie.position[axis]),sa);drag.done=true};
+      const onUp=()=>{drag=null;cv.style.cursor='grab'};
+      cv.style.cursor='grab'; cv.style.touchAction='none';
+      cv.addEventListener('pointerdown',onDown); cv.addEventListener('pointermove',onMove); window.addEventListener('pointerup',onUp);
+      /* clavier (ordinateur) : U D L R F B, Maj = sens inverse */
+      /* tourner tout le cube d'un quart de tour (caméra fixe) :
+         x = vers le haut (comme R), x' = vers le bas, y = vers la gauche (comme U), y' = vers la droite, x2 = retourner */
+      const turnCube=k=>{ if(scrambling) return; const v=viewFrame();
+        if(k==='x2'){ enqueue(AX[v.R.i],'all',2,{count:false,dur:420,name:"x2"}); return; }
+        const b=k[0]==='x'?v.R:v.U, prime=k.endsWith("'");
+        enqueue(AX[b.i],'all',prime?b.s:-b.s,{count:false,dur:260,name:k}); };
+      const playFace=(letter,prime)=>{ if(scrambling) return; const [a,l,d]=faceToMove(letter,prime); enqueue(a,l,d,{name:letter+(prime?"'":"")}); };
+      const onKey=e=>{const k=(e.key||"").toUpperCase(); if(!"RLUDFB".includes(k)||k.length!==1||e.metaKey||e.ctrlKey)return; playFace(k,e.shiftKey)};
+      window.addEventListener('keydown',onKey);
+      cleanups.push(()=>{ cv.removeEventListener('pointerdown',onDown); cv.removeEventListener('pointermove',onMove);
+        window.removeEventListener('pointerup',onUp); window.removeEventListener('keydown',onKey); });
+
+      api.current = {
+        move(face,prime){ playFace(face,prime); },
+        /* retourner le cube : demi-tour autour de l'axe gauche-droite de ta vue (x2) */
+        flip(){ turnCube('x2'); },
+        recenter(){ camAnim={t0:performance.now(),th:theta,ph:phi}; setViewMoved(false); },
+        turn(k){ turnCube(k); },
+        scramble(){ if(scrambling)return; scrambling=true; setBusy(true); setWin(null); history.length=0;
+          const ch=chrono.current; ch.running=false; ch.armed=false; setMs(0); seqArr=[]; setSeq([]);
+          let last=null;for(let n=0;n<25;n++){let a,l;do{a=AX[Math.random()*3|0];l=[-1,1][Math.random()*2|0]}while(last&&last[0]===a&&last[1]===l);
+            last=[a,l];enqueue(a,l,Math.random()<.5?1:-1,{dur:85,record:false,count:false})} },
+        undo(){ if(scrambling||anim||queue.length)return;const m=history.pop();
+          if(m){enqueue(m.axis,m.layer,-m.dir,{record:false,count:false,dur:m.layer==='all'?420:190}); if(m.count){nMoves=Math.max(0,nMoves-1);setMoves(nMoves);}
+            seqArr=seqArr.slice(0,-1); setSeq(seqArr)} },
+        reset(){ if(scrambling||anim)return;queue.length=0;history.length=0;
+          cubies.forEach(c=>{c.position.copy(c.userData.home);c.quaternion.identity()});nMoves=0;wasSolved=true;seqArr=[];setSeq([]);
+          const ch=chrono.current; ch.running=false; ch.armed=false; setMs(0); setWin(null); updateUI(false) },
+      };
+      cleanups.push(()=>{ cancelAnimationFrame(raf); disposables.forEach(d=>d.dispose&&d.dispose()); baseSticker.dispose();
+        renderer.dispose(); if(renderer.domElement.parentNode) renderer.domElement.parentNode.removeChild(renderer.domElement); });
+      setStatus("ready");
+    }).catch(()=>{ if(!dead) setStatus("error"); });
+    return ()=>{ dead=true; cleanups.forEach(f=>f()); api.current={}; };
+  },[]);
+
+  const pill = (txt, bg, fg)=>(
+    <span style={{background:bg||PAL.card,color:fg||PAL.text,borderRadius:999,padding:"7px 12px",fontWeight:800,fontSize:13,
+      fontVariantNumeric:"tabular-nums",whiteSpace:"nowrap",boxShadow:`0 0 0 1.5px ${PAL.cardHi}`}}>{txt}</span>
+  );
+  const btn = (label, onClick, primary)=>(
+    <button onClick={onClick} disabled={busy||status!=="ready"} style={{flex:primary?1.3:1,minWidth:0,border:"none",cursor:"pointer",borderRadius:16,padding:"13px 4px",
+      fontWeight:800,fontSize:13.5,whiteSpace:"nowrap",opacity:(busy||status!=="ready")?.5:1,
+      background:primary?`linear-gradient(180deg,${shade(accent,30)},${accent} 55%)`:PAL.card,
+      color:primary?"#2a1c00":PAL.text,
+      boxShadow:primary?`0 4px 0 ${shade(accent,-90)}`:`0 4px 0 ${PAL.bg2}, 0 0 0 1.5px ${PAL.cardHi}`}}>{label}</button>
+  );
+
+  return (
+    <div style={{height:"100dvh",minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",padding:"16px 14px calc(14px + env(safe-area-inset-bottom))",
+      boxSizing:"border-box",position:"relative",zIndex:1,overflow:"hidden",
+      background:"radial-gradient(circle at 50% 42%, #2a2250 0%, #141026 55%, #0b0916 100%)"}}>
+      <div style={{width:"100%",maxWidth:560,display:"flex",alignItems:"center",gap:10}}>
+        <GhostBtn onClick={onBack} color={accent}>{t.menu}</GhostBtn>
+        <div style={{flex:1,textAlign:"right",fontWeight:800,fontSize:22,letterSpacing:1.5,color:accent,textShadow:`0 3px 0 ${PAL.bg2}`}}>{title}</div>
+      </div>
+
+      <div style={{width:"100%",maxWidth:560,display:"flex",gap:6,justifyContent:"center",flexWrap:"wrap",marginTop:12}}>
+        {pill("⏱ "+(ms/1000).toFixed(2)+"s")}
+        {pill(moves+" "+(moves>1?t.ch3Moves:t.ch3Move))}
+        {pill(solved?t.ch3Solved:t.ch3Mixed, solved?PAL.green:"#e8461e", solved?"#0b2a15":"#fff")}
+        {best!=null&&pill("🏆 "+(best/1000).toFixed(2)+"s")}
+      </div>
+
+      <div ref={stageRef} style={{flex:1,minHeight:0,width:"100%",maxWidth:620,position:"relative",touchAction:"none"}}>
+        {status!=="ready"&&(
+          <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center",
+            color:PAL.textDim,fontWeight:700,fontSize:14,padding:20,lineHeight:1.5}}>
+            {status==="loading"?t.ch3Loading:t.ch3Error}
+          </div>
+        )}
+        {viewMoved&&status==="ready"&&(
+          <button onClick={()=>api.current.recenter&&api.current.recenter()} style={{position:"absolute",right:6,bottom:8,border:"none",cursor:"pointer",
+            borderRadius:999,padding:"8px 13px",fontWeight:800,fontSize:12.5,color:"#1a1228",background:accent,
+            boxShadow:`0 3px 0 ${shade(accent,-80)}, 0 6px 14px rgba(0,0,0,.35)`,animation:"pop .25s ease-out",touchAction:"manipulation"}}>⌖ {t.ch3Recenter}</button>
+        )}
+        {win&&(
+          <div style={{position:"absolute",left:"50%",top:10,transform:"translateX(-50%)",background:PAL.green,color:"#0b2a15",
+            fontWeight:800,padding:"9px 18px",borderRadius:999,whiteSpace:"nowrap",animation:"pop .3s ease-out",boxShadow:"0 6px 18px rgba(0,0,0,.4)"}}>
+            {win.record?"🏆 ":"🎉 "}{t.ch3Win}{win.ms!=null?` · ${(win.ms/1000).toFixed(2)}s`:""}
+          </div>
+        )}
+      </div>
+
+      {/* derniers coups joués */}
+      <div style={{minHeight:22,maxWidth:"100%",display:"flex",gap:4,justifyContent:"center",flexWrap:"nowrap",overflow:"hidden",margin:"2px 0 6px"}}>
+        {seq.length===0
+          ? <span style={{fontSize:11.5,color:PAL.textDim,fontWeight:600,textAlign:"center",lineHeight:1.4}}>{t.ch3Hint}</span>
+          : seq.slice(-10).map((m,i,a)=>(
+            <span key={seq.length-a.length+i} style={{fontFamily:"ui-monospace,Menlo,monospace",fontWeight:800,fontSize:13,padding:"3px 6px",borderRadius:7,
+              background:i===a.length-1?accent:"#2a2343",color:i===a.length-1?"#1a1228":PAL.text,opacity:.35+.65*(i+1)/a.length}}>{m}</span>))}
+      </div>
+      {/* tourner tout le cube d'un quart de tour, ou le retourner */}
+      <div style={{width:"100%",maxWidth:460,display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr 1.6fr",gap:6,marginBottom:6}}>
+        {[["y","◀",t.ch3Left],["x","▲",t.ch3Up],["x'","▼",t.ch3Down],["y'","▶",t.ch3Right],["x2","🔃 "+t.ch3Flip,t.ch3Flip]].map(([k,lab,aria])=>(
+          <button key={k} aria-label={aria} title={aria} onClick={()=>api.current.turn&&api.current.turn(k)} disabled={busy||status!=="ready"}
+            style={{border:"none",cursor:"pointer",borderRadius:12,padding:"9px 2px",fontWeight:800,fontSize:k==="x2"?13.5:17,lineHeight:1.1,
+              color:PAL.text,background:"#2a2343",opacity:(busy||status!=="ready")?.5:1,whiteSpace:"nowrap",
+              boxShadow:`0 3px 0 ${PAL.bg2}, 0 0 0 1.5px ${accent}99`,touchAction:"manipulation"}}>{lab}</button>
+        ))}
+      </div>
+      {/* pavé de notation : appuie sur R, U, F… pour tourner la face */}
+      <div style={{width:"100%",maxWidth:460,display:"grid",gridTemplateColumns:"repeat(6,1fr)",gap:6,marginBottom:8}}>
+        {[false,true].map(prime=>["R","U","F","L","D","B"].map(f=>(
+          <button key={f+prime} onClick={()=>api.current.move&&api.current.move(f,prime)} disabled={busy||status!=="ready"}
+            style={{border:"none",cursor:"pointer",borderRadius:12,padding:"10px 0",fontFamily:"ui-monospace,Menlo,monospace",
+              fontWeight:800,fontSize:17,lineHeight:1,color:prime?PAL.text:"#1a1228",opacity:(busy||status!=="ready")?.5:1,
+              background:prime?"#2a2343":`linear-gradient(180deg,${shade(accent,35)},${shade(accent,5)})`,
+              boxShadow:prime?`0 3px 0 ${PAL.bg2}, 0 0 0 1.5px ${accent}66`:`0 3px 0 ${shade(accent,-80)}`,
+              touchAction:"manipulation"}}>{f}{prime?"'":""}</button>
+        )))}
+      </div>
+      <div style={{width:"100%",maxWidth:460,display:"flex",gap:8}}>
+        {btn("🔀 "+t.ch3Scramble, ()=>api.current.scramble&&api.current.scramble(), true)}
+        {btn("↶ "+t.ch3Undo, ()=>api.current.undo&&api.current.undo())}
+        {btn("⟲ "+t.ch3Reset, ()=>api.current.reset&&api.current.reset())}
+      </div>
+    </div>
+  );
+}
+
+/* ═══ REVERSE CHRONO — résolution complète contre un compte à rebours ═══
+   Le joueur choisit un temps limite, mélange son vrai cube, appuie sur GO
+   et doit le résoudre en entier avant la fin. Statistiques : data[skin].chronorev
+   (record = meilleur temps réussi ; les échecs comptent comme parties).
+   ═══════════════════════════════════════════════════════════════ */
+const REV_LIMITS = [60,120,180,300];
+function ChronoRevScreen({ onBack, t, skin }){
+  const wide = useWide();
+  const C = PAL.orange;
+  const [ph,setPh] = useState("ready");          // ready | count | playing | done
+  const [limit,setLimit] = useState(()=>{ const s=(loadS()[skin]||{}).chronorev; return (s&&s.limit)||120; });
+  const [ms,setMs] = useState(0);
+  const [count,setCount] = useState(5);
+  const [failed,setFailed] = useState(false);
+  const [isRecord,setIsRecord] = useState(false);
+  const timer = useRef(null);
+  const startRef = useRef(0);
+  const stats = (loadS()[skin]||{}).chronorev || { best:null, games:0, wins:0, sessions:[] };
+  useEffect(()=>()=>clearInterval(timer.current),[]);
+
+  function save(el, ok){
+    const d=loadS(); const s2=d[skin]||{}; const st=s2.chronorev||{ best:null, games:0, wins:0, sessions:[] };
+    let rec=false;
+    if(ok){ st.wins=(st.wins||0)+1; if(st.best==null||el<st.best){ st.best=el; rec=true; } }
+    st.games=(st.games||0)+1; st.limit=limit;
+    st.sessions=[...(st.sessions||[]),{date:Date.now(),time:el,won:ok,limit:limit*1000}].slice(-50);
+    s2.chronorev=st; d[skin]=s2; saveS(d); return rec;
+  }
+  function begin(){
+    setIsRecord(false); setFailed(false); setMs(0); setCount(5); setPh("count");
+    let c=5; clearInterval(timer.current);
+    timer.current=setInterval(()=>{
+      c-=1;
+      if(c<=0){
+        clearInterval(timer.current); setPh("playing"); startRef.current=Date.now();
+        timer.current=setInterval(()=>{
+          const el=Date.now()-startRef.current;
+          if(el>=limit*1000){ clearInterval(timer.current); setMs(limit*1000); setFailed(true); save(limit*1000,false); setPh("done"); }
+          else setMs(el);
+        },47);
+      } else setCount(c);
+    },900);
+  }
+  function stop(){
+    if(ph!=="playing") return;
+    clearInterval(timer.current);
+    const el=Date.now()-startRef.current; setMs(el);
+    setIsRecord(save(el,true)); setPh("done");
+  }
+  useSpaceKey(()=>{ if(ph==="ready") begin(); else if(ph==="playing") stop(); else if(ph==="done") setPh("ready"); });
+
+  const left = Math.max(0, limit*1000-ms);
+  const danger = ph==="playing" && left<15000;
+  const mmss = v=>{ const s=Math.ceil(v/1000); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); };
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
+      <Header onBack={onBack} t={t} color={C} title={`⏳ ${t.revChronoTile}`} sub={t.revChronoSub}/>
+      <div style={{fontWeight:700,fontSize:62,lineHeight:1,margin:"8px 0 4px",fontVariantNumeric:"tabular-nums",
+        color:danger?PAL.red:C,textShadow:`0 0 22px ${danger?PAL.red:C}44`,animation:danger?"wiggle .6s ease-in-out infinite":"none"}}>
+        {ph==="done"&&!failed ? fmt(ms) : mmss(ph==="ready"?limit*1000:left)}
+      </div>
+      {ph==="playing"&&<div style={{fontSize:12.5,fontWeight:700,color:PAL.textDim,marginBottom:10}}>{t.revChronoLeft}</div>}
+
+      {ph==="ready"&&(
+        <>
+          <div style={{marginTop:10,marginBottom:14,width:"100%",display:"flex",justifyContent:"center"}}>
+            <Hint color={C} icon="⏳">{t.revChronoReady}</Hint>
+          </div>
+          <div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,marginBottom:8}}>{t.revChronoPick.toUpperCase()}</div>
+          <div style={{display:"flex",gap:8,width:"100%",maxWidth:340,marginBottom:16}}>
+            {REV_LIMITS.map(v=>{ const on=limit===v; return (
+              <button key={v} onClick={()=>setLimit(v)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:14,padding:"12px 2px",
+                fontWeight:800,fontSize:16,fontFamily:"inherit",color:on?"#1a1228":PAL.textDim,
+                background:on?`linear-gradient(180deg,${shade(C,30)},${C} 50%)`:PAL.card,
+                boxShadow:on?`0 4px 0 ${shade(C,-60)}`:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${C}55`}}>{mmss(v*1000)}</button>); })}
+          </div>
+          <div style={{width:"100%",maxWidth:300}}><CandyBtn onClick={begin} color={C}>{t.go}</CandyBtn></div>
+          {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint}}>{t.spaceStart}</div>}
+          <div style={{display:"flex",gap:10,marginTop:18}}>
+            <StatChip label={t.record} value={fmt(stats.best)} color={C}/>
+            <StatChip label={t.games} value={stats.games||0} color={PAL.green}/>
+            <StatChip label={t.revChronoWins} value={stats.wins||0} color={PAL.gold}/>
+          </div>
+          <ProgressPanel t={t} stats={{...stats,sessions:(stats.sessions||[]).filter(s=>s.won)}} color={C}/>
+        </>
+      )}
+      {ph==="count"&&(
+        <div style={{fontWeight:700,fontSize:110,color:PAL.gold,animation:"pop .3s ease-out",textShadow:`0 0 40px ${PAL.gold}66`}}>{count}</div>
+      )}
+      {ph==="playing"&&(
+        <>
+          <SkinSpinCube skin={skin} size={Math.min(170,window.innerWidth*.42)} glow={C} onClick={stop}/>
+          <div style={{marginTop:8,fontSize:18,color:"#ffffff",fontWeight:700}}>{t.cubePlay}</div>
+          <div style={{fontSize:15,color:"#ffffff",fontWeight:600,marginTop:6,opacity:.9}}>
+            {t.tapCube}{isDesktop&&<span style={{opacity:.8,fontSize:13}}> {t.spaceStop}</span>}
+          </div>
+        </>
+      )}
+      {ph==="done"&&(
+        <div style={{textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center"}}>
+          {isRecord&&<Confetti/>}
+          <div style={{fontSize:64}}>{failed?"⌛":"🎉"}</div>
+          <div style={{fontWeight:700,fontSize:19,color:failed?PAL.red:PAL.green,marginTop:6}}>{failed?t.revChronoFail:t.revChronoWin}</div>
+          {isRecord&&<div style={{fontWeight:700,fontSize:17,color:PAL.gold,marginTop:8,animation:"wiggle .6s ease-in-out 3"}}>{t.newRecord}</div>}
+          <div style={{marginTop:16,width:"100%",maxWidth:300}}><CandyBtn onClick={()=>setPh("ready")} color={C}>{t.replay}</CandyBtn></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ═══ ÉCRAN UNIVERS — un cube, ses modes, bascule rapide ════════ */
 function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
   const wide = useWide();
@@ -4434,8 +5155,10 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
   const defs = {
     classic:{ logo:CLASSIC_LOGO, label:t.speedFace, sub:t.speedFaceSub },
     monstro:{ logo:LOGO, label:t.monstro, sub:t.monstroSub },
-    sudoku: { logo:SUDOCUBE_LOGO, label:t.sudo, sub:t.sudoSub },
+    sudoku: { logo:LG_SUDOKU, label:t.sudo, sub:t.sudoSub },
     illusion:{ logo:ILLUSION_LOGO, label:t.illusion, sub:t.illusionSub },
+    sudomono:{ logo:SUDOMONO_LOGO, label:t.sudomono, sub:t.sudomonoSub },
+    chesscube:{ logo:CHESS_LOGO, label:t.chesscube, sub:t.chesscubeSub },
   };
   const cur = defs[skin]; const c = SKINS[skin].color;
   const neon = skin==="sudoku";
@@ -4455,11 +5178,21 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
       mArt:MN_FACE,    mFrom:"#fdd3e6", mTo:"#fde8f2", mArrow:"#e0479a", sArt:SD_FACE,    sGlow:"#ff5ea8", iIco:IL_MOTIFS, iCol:"#ff3d9a" },
     { id:"chrono",  icon:"🧩", title:t.chrono,      sub:t.chronoSub,      color:PAL.purple, art:MD_CHRONO,  banner:"#b879e1",
       mArt:MN_CHRONO,  mFrom:"#e1bffd", mTo:"#eeddfe", mArrow:"#8b3fd4", sArt:SD_CHRONO,  sGlow:"#c65cff", iIco:IL_CHRONO,  iCol:"#a855f7" },
+    { id:"duelsolve", icon:"🏆", title:t.duelSolveTile, sub:t.duelSolveSub, color:"#14b8a6", art:MD_DUEL,  banner:"#3fb5a0",
+      mArt:MN_DUEL,    mFrom:"#b8f3ea", mTo:"#dcfaf5", mArrow:"#0f9d8f", sArt:SD_DUEL,    sGlow:"#2ee6cf", iIco:IL_DUEL,    iCol:"#14b8a6" },
+    { id:"cube3d",  icon:"👆", title:t.cube3dTile,  sub:t.cube3dSub,      color:"#3cc4b4",  art:MD_CUBE3D,  banner:"#5fd3c4",
+      mArt:MD_CUBE3D,  mFrom:"#c4f1ec", mTo:"#e0f8f5", mArrow:"#0f9d8f", sArt:MD_CUBE3D,  sGlow:"#3ce0cf", iIco:IL_CUBE3D,  iCol:"#3cc4b4" },
   ];
+  /* Sudocube Mono : seulement de la résolution complète */
+  if(FULL_SOLVE.includes(skin)){ const ch=modes.find(m=>m.id==="chrono"); modes.splice(0,modes.length,
+    ch,
+    { id:"chronorev", icon:"⏳", title:t.revChronoTile, sub:t.revChronoSub, color:PAL.orange },
+    { id:"duelsolve", icon:"⚔️", title:t.duel,          sub:t.duelSolveSub, color:PAL.green },
+    { id:skin==="chesscube"?"chess3d":"sudo3d", icon:"👆", title:t.cube3dTile, sub:t.cube3dSub, color:SKINS[skin].color }); }
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 48px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #3a0010 0%, #0a0004 55%, #000 100%)"}}/>}
+        background:SUDO_BG}}/>}
       {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
       {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
@@ -4494,7 +5227,7 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
 
       {paper
         ? <MonstroHelpCard art={MN_HELP} title={t.helpCardTitle} sub={t.helpCardSub} onClick={openHelp}/>
-        : <button onClick={openHelp} style={{marginBottom:20,background:mono?"#ffffff":neon?"#0a0006":(wood?"#fbeed8":(paper?"#eef2f7":`linear-gradient(135deg,${PAL.purple}55,${PAL.card})`)),border:`2px solid ${mono?"#ffffff":neon?c:(wood?"#c69c6d":(paper?"#2a4570":PAL.gold))}`,borderRadius:16,padding:"12px 22px",color:mono?"#0d0d0d":wood?"#4a3418":(paper?"#132a4d":"#ffffff"),fontWeight:700,fontSize:15,cursor:"pointer",boxShadow:mono?"0 4px 0 #8a8a8f":neon?`0 4px 0 ${PAL.bg2}, 0 0 14px ${c}55`:(wood?`0 4px 0 #8a6539`:(paper?`0 4px 0 #2a4570`:`0 4px 0 ${PAL.bg2}`))}}>{t.howTo}</button>}
+        : <button onClick={openHelp} style={{marginBottom:20,background:mono?"#ffffff":neon?"#161236":(wood?"#fbeed8":(paper?"#eef2f7":`linear-gradient(135deg,${PAL.purple}55,${PAL.card})`)),border:`2px solid ${mono?"#ffffff":neon?c:(wood?"#c69c6d":(paper?"#2a4570":PAL.gold))}`,borderRadius:16,padding:"12px 22px",color:mono?"#0d0d0d":wood?"#4a3418":(paper?"#132a4d":"#ffffff"),fontWeight:700,fontSize:15,cursor:"pointer",boxShadow:mono?"0 4px 0 #8a8a8f":neon?`0 4px 0 ${PAL.bg2}, 0 0 14px ${c}55`:(wood?`0 4px 0 #8a6539`:(paper?`0 4px 0 #2a4570`:`0 4px 0 ${PAL.bg2}`))}}>{t.howTo}</button>}
 
       {/* Bascule rapide entre les 3 cubes */}
       <SectionLabel wood={wood}>{t.switchCube}</SectionLabel>
@@ -4504,7 +5237,7 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
           const label = id==="classic"?t.classic:(id==="monstro"?t.monstro:(id==="sudoku"?t.sudo:t.illusion));
           return (
             <button key={id} onClick={()=>setSkin(id)} style={{flex:1,minWidth:84,maxWidth:100,border:"none",cursor:"pointer",borderRadius:14,padding:"11px 4px",
-              background:mono?(active?"#ffffff":"#1a1a1c"):active?`linear-gradient(180deg,${shade(cc,30)},${cc} 45%)`:(neon?"#0a0006":(wood?"#fbeed8":(paper?"#ffffff":PAL.card))),
+              background:mono?(active?"#ffffff":"#1a1a1c"):active?`linear-gradient(180deg,${shade(cc,30)},${cc} 45%)`:(neon?"#161236":(wood?"#fbeed8":(paper?"#ffffff":PAL.card))),
               color:mono?(active?"#0d0d0d":"#c9c9cf"):active?"#1a1228":(wood?"#4a3418":(paper?"#132a4d":PAL.textDim)),fontWeight:700,fontSize:12,
               boxShadow:mono?(active?"0 4px 0 #8a8a8f":"0 0 0 2px #3a3a40"):active?`0 4px 0 ${shade(cc,-40)}, inset 0 2px 4px rgba(255,255,255,.4)`:(wood?`0 4px 0 #8a6539, 0 0 0 2px #c69c6d`:(paper?`0 4px 0 #2a4570, 0 0 0 2px #2a4570`:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${neon?c:PAL.gold}`)),
               transition:"all .12s"}}><span style={{opacity:.9,marginRight:5}}>{SKINS[id].emoji}</span>{label}</button>
@@ -4512,10 +5245,10 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
         })}
       </div>
 
-      {/* Défi du jour */}
-      <button onClick={()=>launch("daily")} style={{marginTop:18,width:"100%",maxWidth:W,border:"none",cursor:"pointer",
-        background:neon?`linear-gradient(135deg,${c},#1a0006)`:(wood?`linear-gradient(135deg,#c69c6d,#8a6539)`:(paper?`linear-gradient(135deg,#3a5a8c,#132a4d)`:`linear-gradient(135deg,${PAL.purple},${shade(PAL.purple,-40)})`)),borderRadius:18,padding:"13px 16px",
-        display:"flex",alignItems:"center",gap:12,boxShadow:neon?`0 5px 0 #1a0006, 0 8px 22px ${c}66, 0 0 0 2px ${c}`:(wood?`0 5px 0 #5c451f, 0 8px 20px #8a653966, 0 0 0 2px #fbeed8`:(paper?`0 5px 0 #0a1a30, 0 8px 20px #13284d66, 0 0 0 2px #ffffff`:`0 5px 0 ${shade(PAL.purple,-60)}, 0 8px 22px ${PAL.purple}44, 0 0 0 2px ${PAL.gold}`))}}>
+      {/* Défi du jour (pas pour le Sudocube Mono : il repose sur une face à reproduire) */}
+      {!FULL_SOLVE.includes(skin)&&<button onClick={()=>launch("daily")} style={{marginTop:18,width:"100%",maxWidth:W,border:"none",cursor:"pointer",
+        background:neon?`linear-gradient(135deg,${c},#120e30)`:(wood?`linear-gradient(135deg,#c69c6d,#8a6539)`:(paper?`linear-gradient(135deg,#3a5a8c,#132a4d)`:`linear-gradient(135deg,${PAL.purple},${shade(PAL.purple,-40)})`)),borderRadius:18,padding:"13px 16px",
+        display:"flex",alignItems:"center",gap:12,boxShadow:neon?`0 5px 0 #120e30, 0 8px 22px ${c}66, 0 0 0 2px ${c}`:(wood?`0 5px 0 #5c451f, 0 8px 20px #8a653966, 0 0 0 2px #fbeed8`:(paper?`0 5px 0 #0a1a30, 0 8px 20px #13284d66, 0 0 0 2px #ffffff`:`0 5px 0 ${shade(PAL.purple,-60)}, 0 8px 22px ${PAL.purple}44, 0 0 0 2px ${PAL.gold}`))}}>
         <span style={{fontSize:24}}>{dailyDone!=null?"🔒":"🗓️"}</span>
         <div style={{textAlign:"left",flex:1}}>
           <div style={{fontWeight:700,fontSize:15,color:"#fff"}}>{t.daily}</div>
@@ -4524,7 +5257,7 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
           </div>
         </div>
         <span style={{fontSize:20,color:"#fff",opacity:dailyDone!=null?.6:1}}>→</span>
-      </button>
+      </button>}
 
       {/* Modes */}
       <SectionLabel wood={wood}>{t.chooseMode}</SectionLabel>
@@ -4544,15 +5277,15 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
       </div>
 
       {/* Accès au tableau de progression de cet univers */}
-      {(paper||wood||neon||mono) ? (
+      {(paper||wood||mono) ? (
         <div style={{width:"100%",maxWidth:W,marginTop:14}}>
-          <LogoBtn img={mono?PROG_ILLUSION:(neon?PROG_NEON:(paper?PROG_MONSTRO:PROG_PAPER))} alt={t.progressTitle} onClick={()=>launch("progress")}/>
+          <LogoBtn img={mono?PROG_ILLUSION:(paper?PROG_MONSTRO:PROG_PAPER)} alt={t.progressTitle} onClick={()=>launch("progress")}/>
         </div>
       ) : (
       <button onClick={()=>launch("progress")}
         style={{width:"100%",maxWidth:W,marginTop:16,border:"none",cursor:"pointer",borderRadius:18,
           padding:"14px 18px",display:"flex",alignItems:"center",gap:11,
-          background:mono?"#ffffff":paper?"#ffffff":(wood?"#fffaf0":(neon?"#12030a":PAL.card)),
+          background:mono?"#ffffff":paper?"#ffffff":(wood?"#fffaf0":(neon?"#1c1745":PAL.card)),
           color:mono?"#111111":paper?"#132a4d":(wood?"#4a3418":PAL.text),
           boxShadow:mono?"0 4px 0 #111111, 0 0 0 2.5px #111111"
                  :paper?"0 4px 0 #c4d6e8, 0 0 0 2.5px #132a4d"
@@ -4570,7 +5303,7 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
       )}
       {neon&&(
         <img src={SUDO_PHOTO} alt={t.sudo} style={{width:"100%",maxWidth:280,borderRadius:18,marginTop:22,
-          boxShadow:`0 4px 0 #4a0010, 0 0 0 3px ${SKINS.sudoku.color}, 0 8px 20px ${SKINS.sudoku.color}55`}}/>
+          boxShadow:`0 4px 0 #2a2370, 0 0 0 3px ${SKINS.sudoku.color}, 0 8px 20px ${SKINS.sudoku.color}55`}}/>
       )}
     </div>
   );
@@ -4580,7 +5313,7 @@ function ModeTile({ m, onClick, neon, wood, paper, mono }){
   const ring = mono ? "#111111" : (neon ? SKINS.sudoku.color : (wood ? "#c69c6d" : (paper ? "#2a4570" : PAL.gold)));
   return (
     <button onClick={onClick} onPointerDown={()=>setPress(true)} onPointerUp={()=>setPress(false)} onPointerLeave={()=>setPress(false)}
-      style={{width:"100%",border:"none",cursor:"pointer",background:mono?`linear-gradient(135deg,${m.color}55,#ffffff)`:neon?`linear-gradient(135deg,${m.color}33,#0a0006)`:(wood?`linear-gradient(135deg,${m.color}33,#fffaf0)`:(paper?`linear-gradient(135deg,${m.color}4d,#f3f6fa)`:`linear-gradient(135deg,${m.color}1f,${PAL.card})`)),
+      style={{width:"100%",border:"none",cursor:"pointer",background:mono?`linear-gradient(135deg,${m.color}55,#ffffff)`:neon?`linear-gradient(135deg,${m.color}33,#161236)`:(wood?`linear-gradient(135deg,${m.color}33,#fffaf0)`:(paper?`linear-gradient(135deg,${m.color}4d,#f3f6fa)`:`linear-gradient(135deg,${m.color}1f,${PAL.card})`)),
         borderRadius:20,padding:"16px 18px",display:"flex",alignItems:"center",gap:14,textAlign:"left",
         boxShadow:press?`0 2px 0 ${mono?"#111111":wood?"#8a6539":(paper?"#2a4570":PAL.bg2)}, 0 0 0 ${paper?3:2}px ${ring}`:`0 6px 0 ${mono?"#111111":wood?"#8a6539":(paper?"#2a4570":PAL.bg2)}, 0 0 0 ${paper||mono?3:2}px ${ring}${neon?", 0 0 16px "+ring+"66":""}`,
         transform:press?"translateY(4px)":"none",transition:"all .1s"}}>
@@ -4596,7 +5329,7 @@ function ModeTile({ m, onClick, neon, wood, paper, mono }){
 
 
 /* ═══ ÉCRAN CIVILISATION ANCIENNE ═══════════════════════════════ */
-function CiviScreen({ onBack, t, kids, toggleKids }){
+function CiviScreen({ onBack, t, kids, toggleKids, onChrono, on3d }){
   const wide = useWide();
   const W = wide?760:420;
   const [sel,setSel] = useState(null);
@@ -4628,6 +5361,9 @@ function CiviScreen({ onBack, t, kids, toggleKids }){
       <img src={CIVI_PHOTO} alt={t.civi} draggable={false}
         style={{width:"100%",maxWidth:W,borderRadius:20,marginBottom:14,display:"block",
           boxShadow:"0 0 0 3px #ffcf3f, 0 6px 18px rgba(19,42,77,.25)"}}/>
+
+      {/* Résoudre le cube : chrono résolution complète + cube 3D */}
+      <KnowSolveModes t={t} W={W} onChrono={onChrono} on3d={on3d}/>
 
       {/* Mode d'emploi */}
       <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"flex-start",gap:11,marginBottom:12,
@@ -4803,9 +5539,32 @@ function CiviScreen({ onBack, t, kids, toggleKids }){
   );
 }
 
+/* Boutons « Résous le cube » des pages Scientifiques et Civilisations */
+function KnowSolveModes({ t, W, onChrono, on3d }){
+  const tile = (icon, title, sub, color, onClick)=>(
+    <button onClick={onClick} style={{flex:1,minWidth:0,border:"none",cursor:"pointer",borderRadius:18,padding:"13px 10px",
+      display:"flex",flexDirection:"column",alignItems:"center",gap:5,textAlign:"center",
+      background:`linear-gradient(180deg,#ffffff,${color}2e)`,
+      boxShadow:`0 4px 0 ${shade(color,-40)}, 0 0 0 2.5px ${color}`}}>
+      <span style={{width:46,height:46,borderRadius:14,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,
+        background:`linear-gradient(180deg,${shade(color,30)},${color} 55%)`,boxShadow:`0 3px 0 ${shade(color,-45)}`}}>{icon}</span>
+      <span style={{fontWeight:800,fontSize:15.5,color:"#132a4d",letterSpacing:.3,lineHeight:1.1}}>{title}</span>
+      <span style={{fontWeight:600,fontSize:11.5,color:"#4a6a96",lineHeight:1.3}}>{sub}</span>
+    </button>);
+  return (
+    <div style={{width:"100%",maxWidth:W,marginBottom:14}}>
+      <div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:"#4a6a96",margin:"2px 0 9px",textAlign:"left"}}>{t.knowSolveTitle.toUpperCase()}</div>
+      <div style={{display:"flex",gap:10}}>
+        {tile("🧩", t.chrono, t.knowChronoSub, "#8a5cff", onChrono)}
+        {tile("👆", t.cube3dTile, t.cube3dSub, "#14b8a6", on3d)}
+      </div>
+    </div>
+  );
+}
+
 /* ═══ APP ═══════════════════════════════════════════════════════ */
 export default function App(){
-  const [screen,setScreen] = useState(()=> isOnboarded() ? "home" : "welcome");   // welcome | home | challenge | duel | chrono | daily
+  const [screen,setScreen] = useState(()=>{ if(!isOnboarded()) finishOnboarding("", ""); return "home"; });   // home | univers | challenge | duel | chrono …
   const [skin,setSkinRaw] = useState(()=>{
     const s = loadS().skin;
     return SKINS[s] ? s : "classic";   // ancien skin supprimé (ex. sudocouleur) -> repli
@@ -4818,6 +5577,7 @@ export default function App(){
   const [showProfiles,setShowProfiles] = useState(false);
   const [profTick,setProfTick] = useState(0);
   const [drillIdx,setDrillIdx] = useState(0);
+  const [kSkin,setKSkin] = useState("savants");   /* page Savoir d'où l'on vient (chrono / cube 3D) */
   const t = TR[lang];
 
   useEffect(()=>{
@@ -4891,7 +5651,6 @@ export default function App(){
       {showHelp&&<HowToPlay t={t} skin={skin} onClose={()=>setShowHelp(false)}/>}
       {showProfiles&&<ProfileModal t={t} onClose={()=>setShowProfiles(false)} onChange={()=>setProfTick(x=>x+1)}/>}
       <div key={profTick} style={{paddingBottom:NAV_SCREENS.includes(screen)?66:0}}>
-        {screen==="welcome"&&<WelcomeScreen t={t} lang={lang} toggleLang={toggleLang} onFinish={onWelcomeFinish}/>}
         {screen==="home"&&<HomeScreen t={t} setSkin={setSkin} launch={setScreen} openHelp={()=>setShowHelp(true)} lang={lang} toggleLang={toggleLang} profile={currentProfile()} openProfiles={()=>setShowProfiles(true)}/>}
         {screen==="univers"&&<UniversScreen t={t} skin={skin} setSkin={setSkin} launch={setScreen} onBack={()=>setScreen("home")} openHelp={()=>setShowHelp(true)}/>}
         {screen==="face"&&<ChallengeScreen onBack={toUnivers} t={t} skin={skin} forceMode="normal"/>}
@@ -4900,13 +5659,22 @@ export default function App(){
         {screen==="duel"&&<DuelScreen onBack={toUnivers} t={t} skin={skin}/>}
         {screen==="blind"&&<ChallengeScreen onBack={toUnivers} t={t} skin={skin} forceMode="blind"/>}
         {screen==="motifs"&&<ChallengeScreen onBack={toUnivers} t={t} skin={skin} forceMode="motifs"/>}
-        {screen==="civi"&&<CiviScreen onBack={()=>setScreen("home")} t={t} kids={kids} toggleKids={toggleKids}/>}
-        {screen==="chrono"&&<ChronoScreen onBack={back} t={t} skin={skin}/>}
+        {screen==="civi"&&<CiviScreen onBack={()=>setScreen("home")} t={t} kids={kids} toggleKids={toggleKids}
+          onChrono={()=>{ setKSkin("civi"); setScreen("kchrono"); }} on3d={()=>{ setKSkin("civi"); setScreen("k3d"); }}/>}
+        {screen==="chrono"&&<ChronoScreen onBack={FULL_SOLVE.includes(skin)?toUnivers:back} t={t} skin={skin}/>}
         {screen==="splitrace"&&<SplitRaceScreen onBack={back} t={t}/>}
+        {screen==="chess3d"&&<ChessCubeScreen onBack={toUnivers} t={t}/>}
+        {screen==="cube3d"&&(skin==="classic" ? <ClassicCubeScreen onBack={toUnivers} t={t}/> : <TilesCubeScreen key={skin} onBack={toUnivers} t={t} id={skin}/>)}
+        {screen==="chronorev"&&<ChronoRevScreen onBack={toUnivers} t={t} skin={skin}/>}
+        {screen==="duelsolve"&&<DuelScreen onBack={toUnivers} t={t} skin={skin} full/>}
+        {screen==="sudo3d"&&<SudoMonoCubeScreen onBack={toUnivers} t={t}/>}
         {screen==="drills"&&<StageDrillPicker onBack={back} t={t} openDrill={(i)=>{ setDrillIdx(i); setScreen("drill"); }} openProgress={()=>setScreen("drillProgress")}/>}
         {screen==="drillProgress"&&<DrillProgressScreen onBack={()=>setScreen("drills")} t={t}/>}
         {screen==="drill"&&<StageDrillScreen onBack={()=>setScreen("drills")} t={t} targetIdx={drillIdx}/>}
-        {screen==="savants"&&<SavantsScreen onBack={back} t={t} kids={kids} toggleKids={toggleKids}/>}
+        {screen==="savants"&&<SavantsScreen onBack={back} t={t} kids={kids} toggleKids={toggleKids}
+          onChrono={()=>{ setKSkin("savants"); setScreen("kchrono"); }} on3d={()=>{ setKSkin("savants"); setScreen("k3d"); }}/>}
+        {screen==="kchrono"&&<ChronoScreen onBack={()=>setScreen(kSkin)} t={t} skin={kSkin}/>}
+        {screen==="k3d"&&<TilesCubeScreen onBack={()=>setScreen(kSkin)} t={t} id={kSkin}/>}
         {screen==="tuto"&&<TutoScreen onBack={back} t={t}/>}
         {screen==="progress"&&<ProgressScreen t={t} skin={skin} onBack={toUnivers} launch={setScreen}/>}
       </div>
