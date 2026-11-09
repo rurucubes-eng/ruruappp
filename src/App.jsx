@@ -4280,6 +4280,79 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
     </div>
   );
 
+  const mainFooter = (<>
+      {/* Boutique */}
+      <a href="https://rurucube.com" target="_blank" rel="noopener noreferrer"
+        style={{textDecoration:"none",width:"100%",marginTop:18}}>
+        <div style={{display:"flex",alignItems:"center",gap:11,borderRadius:18,padding:"13px 12px",
+          background:`linear-gradient(100deg,${PAL.dark},${PAL.card})`,
+          boxShadow:`0 0 0 2px ${PAL.gold}, 0 8px 22px rgba(0,0,0,.42)`}}>
+          <span style={{fontSize:30,flexShrink:0}}>🛒</span>
+          <div style={{flex:1,minWidth:0,textAlign:"left"}}>
+            <div style={{fontWeight:700,fontSize:15,color:PAL.text,lineHeight:1.25}}>{t.shopCardTitle}</div>
+            <div style={{fontSize:11.5,color:PAL.textDim,fontWeight:500,marginTop:3,lineHeight:1.35}}>{t.hcShopText}</div>
+          </div>
+          <div style={{flexShrink:0,maxWidth:118,borderRadius:14,padding:"9px 10px",textAlign:"center",
+            background:`linear-gradient(180deg,${shade(PAL.gold,40)},${PAL.gold})`,
+            boxShadow:`0 4px 0 ${shade(PAL.gold,-70)}`}}>
+            <span style={{fontWeight:800,fontSize:11.5,color:"#3a2a00",lineHeight:1.25}}>{t.hcShopBtn}</span>
+          </div>
+        </div>
+      </a>
+
+      <button onClick={openHelp}
+        style={{marginTop:16,background:"transparent",border:"none",cursor:"pointer",
+          color:PAL.textDim,fontWeight:700,fontSize:13.5,textDecoration:"underline",textUnderlineOffset:4}}>
+        {t.howTo}
+      </button>
+
+      <div style={{marginTop:16,display:"flex",alignItems:"center",gap:10,width:"100%"}}>
+        <div style={{flex:1,height:1,background:`linear-gradient(90deg,transparent,${PAL.gold}44)`}}/>
+        <div style={{fontSize:11,letterSpacing:2.5,fontWeight:700,color:`${PAL.gold}cc`,whiteSpace:"nowrap"}}>{t.hcTagline}</div>
+        <div style={{flex:1,height:1,background:`linear-gradient(90deg,${PAL.gold}44,transparent)`}}/>
+      </div>
+  </>);
+
+  /* ordinateur : cartes toutes de la même largeur, rangées centrées (pas de carte orpheline à gauche) */
+  const CW = 250, GAP = 16;
+  const deskRow = (cards, perRow)=>(
+    <div className="stagger" style={{width:"100%",maxWidth:perRow*CW+(perRow-1)*GAP,display:"flex",flexWrap:"wrap",justifyContent:"center",gap:GAP}}>
+      {cards.map((card,i)=><div key={i} style={{width:CW,display:"flex"}}>{card}</div>)}
+    </div>);
+  const cubeCard = c=><CubeCard key={c.id} img={c.img} art={HOME_ART[c.id]} logo={HOME_LOGOS[c.id]} faceId={c.id} sub={c.sub} color={c.color} cta={t.hcPlay} onClick={c.onClick} framed={c.framed} btnText={c.btnText} glow={c.glow}/>;
+  const savoirCard = c=><CubeCard key={c.id} img={c.img} art={HOME_ART[c.id]} logo={HOME_LOGOS[c.id]} faceId={c.id} sub={c.sub} color={c.color} cta={t.hcConsult} onClick={c.onClick} framed={c.framed} btnText={c.btnText} glow={c.glow}/>;
+  const trainCard = d=><CubeCard key={d.id} img={d.thumb} sub={d.sub} color={d.color} cta={t.hcConsult} onClick={d.onClick} btnText={d.btnText}/>;
+  if(wide) return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"26px 28px 48px",minHeight:"100vh",position:"relative",zIndex:1}}>
+      {/* en-tête : logo au centre, langue et joueur de part et d'autre */}
+      <div style={{width:"100%",maxWidth:1048,display:"flex",alignItems:"center",justifyContent:"space-between",gap:20}}>
+        <button onClick={toggleLang}
+          style={{display:"flex",alignItems:"center",gap:6,borderRadius:999,padding:"9px 15px",cursor:"pointer",background:PAL.card,
+            border:`2px solid ${PAL.gold}`,color:PAL.gold,fontWeight:700,fontSize:14,boxShadow:`0 3px 0 ${PAL.bg2}`}}>
+          <span>{lang==="fr"?"🇬🇧 EN":"🇫🇷 FR"}</span><span style={{fontSize:13}}>›</span>
+        </button>
+        <img src={RURU_LOGO} alt="RUR'U' — Chaque geste compte"
+          style={{width:270,animation:"floaty 6s ease-in-out infinite",filter:"drop-shadow(0 8px 22px rgba(0,0,0,.55))"}}/>
+        <button onClick={openProfiles}
+          style={{display:"flex",alignItems:"center",gap:9,border:"none",cursor:"pointer",borderRadius:999,padding:"9px 16px 9px 11px",
+            background:PAL.card,boxShadow:`0 3px 0 ${PAL.bg2}, 0 0 0 2px ${PAL.gold}`}}>
+          <span style={{fontSize:20,lineHeight:1}}>{profile.emoji}</span>
+          <span style={{fontWeight:800,fontSize:14,color:PAL.text}}>{profile.name}</span>
+          <span style={{fontSize:11,color:PAL.textDim,fontWeight:700}}>{t.changePlayer}</span>
+        </button>
+      </div>
+      <div style={{width:"100%",maxWidth:1048,display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <HomeLabel>{t.hcChooseCube}</HomeLabel>
+        {deskRow(cubes.map(cubeCard), 3)}
+        <HomeLabel>{t.hcDiscover}</HomeLabel>
+        {deskRow(savoirs.map(savoirCard), 2)}
+        <HomeLabel>{t.hcTraining}</HomeLabel>
+        {deskRow(discover.map(trainCard), 4)}
+        <div style={{width:"100%",maxWidth:4*CW+3*GAP,display:"flex",flexDirection:"column",alignItems:"center"}}>{mainFooter}</div>
+      </div>
+    </div>
+  );
+
   const main = (
     <div style={{width:"100%",maxWidth:wide?800:420,display:"flex",flexDirection:"column",alignItems:"center"}}>
       {/* Les cubes */}
@@ -4322,45 +4395,10 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
         })}
       </div>
 
-      {/* Boutique */}
-      <a href="https://rurucube.com" target="_blank" rel="noopener noreferrer"
-        style={{textDecoration:"none",width:"100%",marginTop:18}}>
-        <div style={{display:"flex",alignItems:"center",gap:11,borderRadius:18,padding:"13px 12px",
-          background:`linear-gradient(100deg,${PAL.dark},${PAL.card})`,
-          boxShadow:`0 0 0 2px ${PAL.gold}, 0 8px 22px rgba(0,0,0,.42)`}}>
-          <span style={{fontSize:30,flexShrink:0}}>🛒</span>
-          <div style={{flex:1,minWidth:0,textAlign:"left"}}>
-            <div style={{fontWeight:700,fontSize:15,color:PAL.text,lineHeight:1.25}}>{t.shopCardTitle}</div>
-            <div style={{fontSize:11.5,color:PAL.textDim,fontWeight:500,marginTop:3,lineHeight:1.35}}>{t.hcShopText}</div>
-          </div>
-          <div style={{flexShrink:0,maxWidth:118,borderRadius:14,padding:"9px 10px",textAlign:"center",
-            background:`linear-gradient(180deg,${shade(PAL.gold,40)},${PAL.gold})`,
-            boxShadow:`0 4px 0 ${shade(PAL.gold,-70)}`}}>
-            <span style={{fontWeight:800,fontSize:11.5,color:"#3a2a00",lineHeight:1.25}}>{t.hcShopBtn}</span>
-          </div>
-        </div>
-      </a>
-
-      <button onClick={openHelp}
-        style={{marginTop:16,background:"transparent",border:"none",cursor:"pointer",
-          color:PAL.textDim,fontWeight:700,fontSize:13.5,textDecoration:"underline",textUnderlineOffset:4}}>
-        {t.howTo}
-      </button>
-
-      <div style={{marginTop:16,display:"flex",alignItems:"center",gap:10,width:"100%"}}>
-        <div style={{flex:1,height:1,background:`linear-gradient(90deg,transparent,${PAL.gold}44)`}}/>
-        <div style={{fontSize:11,letterSpacing:2.5,fontWeight:700,color:`${PAL.gold}cc`,whiteSpace:"nowrap"}}>{t.hcTagline}</div>
-        <div style={{flex:1,height:1,background:`linear-gradient(90deg,${PAL.gold}44,transparent)`}}/>
-      </div>
+      {mainFooter}
     </div>
   );
 
-  if(wide) return (
-    <div style={{display:"flex",flexDirection:"row",alignItems:"flex-start",justifyContent:"center",
-      gap:36,padding:"32px 28px 48px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      {rail}{main}
-    </div>
-  );
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"18px 14px 40px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {rail}{main}
