@@ -335,6 +335,7 @@ import HA_CHESS3D from "./assets/hc_art_chess3d.webp";
 import HA_SUDOMONO from "./assets/hc_art_sudomono.webp";
 import HA_SAVANTS from "./assets/hc_art_savants.webp";
 import HA_CIVI from "./assets/hc_art_civi.webp";
+import QR_APP from "./assets/qr_app.png";
 import LG_MONSTRO from "./assets/logo_monstro.webp";
 import LG_CLASSIC from "./assets/logo_classic.webp";
 import LG_SUDOKU from "./assets/logo_sudoku.webp";
@@ -556,11 +557,14 @@ const TR = {
     timeUp:"⏰ Temps écoulé !", success:"✓ Réussi !", newRecord:"⭐ NOUVEAU RECORD !",
     objectives:"🎖️ Objectifs", obj:["Moins de 60s","Moins de 45s","Moins de 30s","Moins de 15s"],
     objHint:"Améliore ton temps et débloque les paliers !",
-    shareBtn:"Partager mon résultat", shareCopy:"Copier", shareCopied:"Copié ✓",
+    shareBtn:"Partager mon résultat", shareCopy:"Copier l'image", shareCopied:"Copié ✓", shareSaveImg:"Enregistrer",
+    shareImgCopied:"Image et texte copiés : colle-les dans ton message. Si seule l'image apparaît, touche « Copier le texte et le lien » et colle aussi.",
+    shareCopyTxt:"🔗 Copier le texte et le lien de l'appli", shareTxtCopied:"Texte et lien copiés : colle-les dans ton message.",
     shareText:"J'ai résolu le défi du jour RUR'U' en {t} ! 🧩 À toi de jouer :",
     shareHint:"Ton résultat part en image. La légende est copiée : tu n'as qu'à la coller.",
     shareSaved:"Image enregistrée et texte copié. Publie-la où tu veux !",
     yourTime:"Ton temps",
+    cardSolvedIn:"J'ai résolu le défi du jour en", cardBeatMe:"À toi de jouer : bats mon temps !", cardScan:"Scanne pour jouer", cardFree:"Gratuit · sans téléchargement",
     objShort:["< 60s","< 45s","< 30s","< 15s"],
     seeMore:"Voir plus", seeLess:"Réduire", bestTime:"Meilleur temps",
     prepCube:"Prépare ton cube",
@@ -615,14 +619,81 @@ const TR = {
     hcTagline:"RÉFLÉCHIR · JOUER · PROGRESSER",
     navHome:"Accueil", navTuto:"Comment jouer",
     tutoIntro:"Une méthode débutant, chapitre par chapitre. Prends ton cube et suis le rythme — tu peux mettre en pause quand tu veux.",
+    tutoStepOf:"Étape {n} sur {total}", tutoVideo:"La vidéo", tutoPrev:"Précédente", tutoNext:"Étape suivante",
+    tutoHold:"Comment tenir le cube", tutoGoal:"Ton but", tutoCases:"Les cas possibles", tutoPieces:"Les pièces", tutoMoves:"Chaque face a une lettre",
+    tutoNotation:"fr", tutoTryMoves:"Touche une lettre : le cube fait le mouvement", tutoReset:"Remettre à zéro",
+    tutoNotaFr:"Version française", tutoNotaEn:"Version anglaise", tutoPrimeTxt:"rotation dans le sens inverse", tutoHalfTxt:"demi-tour (180°)",
+    tutoFaceNames:{ R:"face droite", L:"face gauche", U:"face du haut", D:"face du bas", F:"face avant", B:"face arrière" },
+    tutoSteps:[
+      { goal:"Connaître les 3 sortes de pièces et la lettre de chaque face.",
+        cases:{ edges:{title:"Les arêtes", text:"Pièces à 2 couleurs, au milieu des bords du cube. Il y en a 12."},
+                corners:{title:"Les coins", text:"Pièces à 3 couleurs, dans les coins. Il y en a 8."},
+                centers:{title:"Les centres", text:"Pièces à 1 couleur, au centre de chaque face. Il y en a 6. Ils ne bougent jamais : c'est eux qui donnent la couleur de leur face. Le blanc est opposé au jaune, l'orange au rouge, le vert au bleu."} },
+        moves:[["R","Droite"],["L","Gauche"],["U","Haute (le dessus)"],["D","Basse (le dessous)"],["F","Avant (face à toi)"],["B","Postérieure (l'arrière)"]],
+        notes:["Une lettre seule = un quart de tour dans le sens des aiguilles d'une montre, quand tu regardes cette face en face. Garde toujours le cube face à toi pendant une formule."] },
+      { hold:"Le centre blanc sur la face Haute (H).",
+        goal:"Une croix blanche dessus, et chaque arête de la croix de la même couleur que le centre sur le côté.",
+        intro:["Fais les arêtes dans cet ordre : bleu, orange, vert, rouge.","Garde le blanc en haut. Fais descendre l'arête blanc-bleu sur la face Basse (B), puis tourne B jusqu'à ce qu'elle soit juste sous le centre bleu. Tiens le cube pour avoir le centre bleu à droite (D)."],
+        cases:{ bas:{title:"L'arête est sous le centre bleu", text:"Tourne la face Droite (D) jusqu'à ce que l'arête arrive en haut, au-dessus du centre bleu."},
+                milieu:{title:"L'arête est sur la face Droite", text:"Même chose : tourne D jusqu'à ce qu'elle arrive en haut."},
+                retournee:{title:"Elle est en haut, mais à l'envers", text:"Le blanc est sur le côté : fais cette formule, centre bleu toujours à droite."} },
+        tips:["Si l'arête est bien placée, tourne le cube pour mettre le centre orange à droite et recommence. Quand ta croix ressemble au but, passe à l'étape 3 !"] },
+      { hold:"La croix blanche sur la face Haute (H).",
+        goal:"Toute la face blanche, et la rangée du haut de chaque côté de la bonne couleur.",
+        intro:["Les coins ont un côté blanc et 2 autres couleurs. Si le coin est sur la face Basse (B), tourne B jusqu'à ce qu'il soit juste sous sa place (devant à droite). Il ressemble alors à l'un des 3 premiers cas."],
+        cases:{ droite:{title:"Le blanc regarde à droite", text:"Fais la formule 1 fois."},
+                dessous:{title:"Le blanc regarde en bas", text:"Fais la formule 3 fois."},
+                devant:{title:"Le blanc regarde vers toi", text:"Fais la formule 5 fois."},
+                haut:{title:"Le coin est en haut, mal placé", text:"Fais-le descendre sur la face Basse avec cette formule, puis tourne B pour le mettre sous sa place."} },
+        tips:["En résumé : répète la formule jusqu'à ce que le coin soit bien placé. Fais pareil pour les 4 coins blancs, et tu auras fini un tiers du cube !"] },
+      { hold:"Retourne le cube : la face blanche complète est maintenant en Bas (B).",
+        goal:"Les deux premiers étages : le blanc et la rangée du milieu.",
+        intro:["Tourne la face Haute (H) jusqu'à ce que la couleur avant d'une arête du haut (sans jaune) soit la même que le centre en dessous : ça fait une ligne verticale.","La couleur sur le dessus de cette arête indique de quel côté elle doit aller."],
+        cases:{ droite:{title:"L'arête doit aller à droite", text:"Ici, le dessus est rouge et le centre rouge est à droite."},
+                gauche:{title:"L'arête doit aller à gauche", text:"Ici, le dessus est orange et le centre orange est à gauche."},
+                coincee:{title:"Une arête est au milieu, mais mal placée", text:"Fais n'importe laquelle des deux formules : elle remonte en haut, puis place-la comme d'habitude."} },
+        tips:["Continue jusqu'à ce que les 4 arêtes du milieu soient en place : tu as fait les deux tiers du chemin !"] },
+      { hold:"Le jaune sur la face Haute (H).",
+        goal:"Une croix jaune sur le dessus. Les côtés des arêtes n'ont pas encore besoin d'être justes.",
+        intro:["Regarde le dessus et trouve la configuration qui ressemble à ton cube. Si tu as déjà la croix, passe à l'étape suivante."],
+        cases:{ point:{title:"Juste le centre jaune", text:"Fais cette formule, puis compare de nouveau avec les deux cas suivants."},
+                L:{title:"Un L", text:"Tiens le L en haut à gauche, comme ici, puis fais la formule."},
+                ligne:{title:"Une ligne", text:"Tiens la ligne à l'horizontale, comme ici, puis fais la formule."} } },
+      { hold:"La croix jaune sur la face Haute (H). Fais très attention à l'orientation du cube pour ne pas perdre de temps !",
+        goal:"La croix jaune, avec chaque arête de la même couleur que le centre sur le côté.",
+        intro:["Tourne H jusqu'à ce que 2 arêtes soient bien alignées avec leur centre. Deux cas peuvent se présenter."],
+        cases:{ cotes:{title:"2 arêtes voisines sont bien placées", text:"Mets-les derrière et à gauche (cube vu de derrière ici), puis fais la chaise : il se lève (D), part très loin (H H), sa chaise tombe (Di), il revient (Hi), la relève (D), se met dessus (Hi), se rassoit (Di). Il reste juste Hi."},
+                opposees:{title:"2 arêtes opposées sont bien placées", text:"Fais la chaise une fois : tu te retrouves dans le cas d'au-dessus."} } },
+      { hold:"La croix jaune bien alignée en haut (H).",
+        goal:"Chaque coin à sa place : ses 3 couleurs vont avec les centres autour, même s'il est mal tourné.",
+        intro:["Il faut placer un coin déjà bien placé devant à droite, comme ici."],
+        cases:{ amis:{title:"La technique des amis", text:"Ses copains à gauche montent (Gi), il va les voir (H), ses copains à droite montent (D), il va les voir (Hi), ceux de gauche redescendent (G), il revient leur dire au revoir (H), ceux de droite redescendent (Di), et il revient à sa place (Hi). Recommence jusqu'à ce que les 4 coins soient à leur place."} },
+        tips:["Si au départ aucun coin n'est à sa place, fais les amis une fois depuis n'importe où : il t'en restera un juste."] },
+      { hold:"Le jaune en haut (H). Le coin à tourner est toujours devant toi, en haut à droite.",
+        goal:"Le cube résolu ! C'est la même formule que pour remonter les coins blancs (étape 3) : Di Bi D B.",
+        intro:["1. Tiens le cube face à toi, avec le coin à tourner en haut à droite.",
+               "2. Fais Di Bi D B, encore et encore, jusqu'à ce que le jaune de ce coin soit sur le dessus (2 ou 4 fois).",
+               "3. Dès que le jaune apparaît sur le dessus, termine bien la formule jusqu'au B final, puis fais H : le coin suivant arrive en haut à droite.",
+               "4. Recommence Di Bi D B pour tous les coins, sans jamais tourner le cube en entier.",
+               "Voici un exemple complet, coin par coin :"],
+        cases:{ c1:{title:"1er coin : 4 fois, puis H", text:"Le jaune regarde vers toi : formule × 4, puis H."},
+                c2:{title:"2e coin : 4 fois, puis H", text:"Le bas du cube a l'air tout mélangé : c'est normal, continue !"},
+                c3:{title:"3e coin : 2 fois, puis H", text:"Le jaune regarde à droite : formule × 2, puis H."},
+                c4:{title:"4e coin : 2 fois, puis H", text:"Après ce dernier coin, tout se remet en place : le cube est résolu !"} },
+        tips:["Après le premier coin, le cube a l'air très mélangé. Pas d'inquiétude, continue : tout revient quand les 4 coins sont faits. Ne tourne jamais le cube entier entre deux formules !",
+              "Astuce de pro : au lieu de faire la formule 4 fois, fais 2 fois l'inverse : Bi Di B D.",
+              "Bravo, tu as résolu ton cube ! Entraîne-toi maintenant pour aller plus vite."] },
+    ],
     tutoSoon:"Bientôt disponible", tutoSoonLong:"Cette vidéo arrive très bientôt. Reviens dans une prochaine mise à jour !",
     tutoChapters:[
-      { t:"Le vocabulaire du cube", s:"Faces, arêtes, coins et notation" },
-      { t:"La croix blanche", s:"Le premier objectif, le plus simple" },
-      { t:"La première couronne", s:"Placer les quatre coins blancs" },
-      { t:"La deuxième couronne", s:"Les arêtes du milieu" },
-      { t:"La croix jaune", s:"Orienter la dernière face" },
-      { t:"La dernière face", s:"Placer les derniers coins et finir" },
+      { t:"Faites connaissance avec votre cube", s:"Les pièces et les lettres des mouvements" },
+      { t:"La croix blanche", s:"Le blanc en haut, arêtes bien alignées" },
+      { t:"Les coins blancs", s:"Finir l'étage blanc" },
+      { t:"L'étage du milieu", s:"Le blanc passe en bas" },
+      { t:"La croix jaune", s:"1er pas de l'étage du haut" },
+      { t:"La croix jaune bien alignée", s:"La technique de la chaise" },
+      { t:"Les coins à leur place", s:"La technique des amis" },
+      { t:"Tourner les coins jaunes", s:"Un coin à la fois · la dernière étape" },
     ],
     themeLight:"Thème clair", themeDark:"Thème sombre",
     civiComingTitle:"Bientôt disponible !", civiComingSub:"On prépare ce nouveau monde avec soin. Reviens vite pour découvrir Civilisation Ancienne.",
@@ -758,11 +829,14 @@ const TR = {
     timeUp:"⏰ Time's up!", success:"✓ Done!", newRecord:"⭐ NEW RECORD!",
     objectives:"🎖️ Goals", obj:["Under 60s","Under 45s","Under 30s","Under 15s"],
     objHint:"Beat your time and unlock the tiers!",
-    shareBtn:"Share my result", shareCopy:"Copy", shareCopied:"Copied ✓",
+    shareBtn:"Share my result", shareCopy:"Copy image", shareCopied:"Copied ✓", shareSaveImg:"Save",
+    shareImgCopied:"Image and text copied: paste them into your message. If only the image shows up, tap \"Copy text and link\" and paste that too.",
+    shareCopyTxt:"🔗 Copy text and app link", shareTxtCopied:"Text and link copied: paste them into your message.",
     shareText:"I solved the RUR'U' daily challenge in {t}! 🧩 Your turn:",
     shareHint:"Your result is shared as an image. The caption is copied — just paste it.",
     shareSaved:"Image saved and text copied. Post it wherever you like!",
     yourTime:"Your time",
+    cardSolvedIn:"I solved today's challenge in", cardBeatMe:"Your turn: beat my time!", cardScan:"Scan to play", cardFree:"Free · no download",
     objShort:["< 60s","< 45s","< 30s","< 15s"],
     seeMore:"See more", seeLess:"Collapse", bestTime:"Best time",
     prepCube:"Get your cube ready",
@@ -817,14 +891,81 @@ const TR = {
     hcTagline:"THINK · PLAY · IMPROVE",
     navHome:"Home", navTuto:"How to play",
     tutoIntro:"A beginner method, chapter by chapter. Grab your cube and follow along — pause whenever you need to.",
+    tutoStepOf:"Step {n} of {total}", tutoVideo:"The video", tutoPrev:"Previous", tutoNext:"Next step",
+    tutoHold:"How to hold the cube", tutoGoal:"Your goal", tutoCases:"Possible cases", tutoPieces:"The pieces", tutoMoves:"Each face has a letter",
+    tutoNotation:"en", tutoTryMoves:"Tap a letter: the cube does the move", tutoReset:"Reset",
+    tutoNotaFr:"French version", tutoNotaEn:"English version", tutoPrimeTxt:"turn the other way", tutoHalfTxt:"half turn (180°)",
+    tutoFaceNames:{ R:"right face", L:"left face", U:"up face", D:"down face", F:"front face", B:"back face" },
+    tutoSteps:[
+      { goal:"Know the 3 kinds of pieces and each face's letter.",
+        cases:{ edges:{title:"Edges", text:"Pieces with 2 colours, in the middle of the cube's edges. There are 12."},
+                corners:{title:"Corners", text:"Pieces with 3 colours, in the corners. There are 8."},
+                centers:{title:"Centres", text:"Pieces with 1 colour, in the middle of each face. There are 6. They never move: they set their face's colour. White is opposite yellow, orange opposite red, green opposite blue."} },
+        moves:[["R","Right"],["L","Left"],["U","Up (top)"],["D","Down (bottom)"],["F","Front (facing you)"],["B","Back"]],
+        notes:["A letter alone = a quarter turn clockwise, as you look straight at that face. Always keep the cube facing you during an algorithm."] },
+      { hold:"White centre on the Up face (U).",
+        goal:"A white cross on top, each cross edge matching the centre colour on the side.",
+        intro:["Do the edges in this order: blue, orange, green, red.","Keep white on top. Bring the white-blue edge down to the Down face (D), then turn D until it sits right under the blue centre. Hold the cube with the blue centre on the right (R)."],
+        cases:{ bas:{title:"The edge is under the blue centre", text:"Turn the Right face (R) until the edge reaches the top, above the blue centre."},
+                milieu:{title:"The edge is on the Right face", text:"Same thing: turn R until it reaches the top."},
+                retournee:{title:"It's on top, but flipped", text:"The white faces the side: do this algorithm, blue centre still on the right."} },
+        tips:["If the edge is right, turn the cube to put the orange centre on the right and repeat. When your cross looks like the goal, go to step 3!"] },
+      { hold:"The white cross on the Up face (U).",
+        goal:"The whole white face, with the top row of each side in the right colour.",
+        intro:["Corners have one white side and 2 other colours. If the corner is on the Down face (D), turn D until it is right under its spot (front right). It then looks like one of the first 3 cases."],
+        cases:{ droite:{title:"White faces right", text:"Do the algorithm once."},
+                dessous:{title:"White faces down", text:"Do the algorithm 3 times."},
+                devant:{title:"White faces you", text:"Do the algorithm 5 times."},
+                haut:{title:"The corner is on top, wrong", text:"Take it down to the Down face with this algorithm, then turn D to put it under its spot."} },
+        tips:["In short: repeat the algorithm until the corner is right. Do the same for all 4 white corners, and a third of the cube is done!"] },
+      { hold:"Flip the cube: the finished white face is now Down (D).",
+        goal:"The first two layers: the white and the middle row.",
+        intro:["Turn the Up face (U) until the front colour of a top edge (with no yellow) matches the centre below it: that makes a vertical line.","The colour on top of that edge tells you which way it must go."],
+        cases:{ droite:{title:"The edge must go right", text:"Here the top is red and the red centre is on the right."},
+                gauche:{title:"The edge must go left", text:"Here the top is orange and the orange centre is on the left."},
+                coincee:{title:"An edge is in the middle, but wrong", text:"Do either algorithm: it comes back up, then place it as usual."} },
+        tips:["Keep going until the 4 middle edges are in place: two thirds done!"] },
+      { hold:"Yellow on the Up face (U).",
+        goal:"A yellow cross on top. The edges' sides don't need to match yet.",
+        intro:["Look at the top and find the pattern that looks like your cube. If you already have the cross, go to the next step."],
+        cases:{ point:{title:"Just the yellow centre", text:"Do this algorithm, then compare again with the next two cases."},
+                L:{title:"An L-shape", text:"Hold the L-shape at the top left, as here, then do the algorithm."},
+                ligne:{title:"A line", text:"Hold the line horizontal, as here, then do the algorithm."} } },
+      { hold:"The yellow cross on the Up face (U). Watch the cube's orientation closely so you don't waste time!",
+        goal:"The yellow cross, each edge matching the centre colour on the side.",
+        intro:["Turn U until 2 edges line up with their centre. Two cases are possible."],
+        cases:{ cotes:{title:"2 neighbouring edges are right", text:"Put them at the back and left (cube seen from behind here), then do the chair: he stands up (R), walks far away (U U), his chair falls (R'), he comes back (U'), picks it up (R), steps on it (U'), sits down (R'). Then just U'."},
+                opposees:{title:"2 opposite edges are right", text:"Do the chair once: you land on the case above."} } },
+      { hold:"The aligned yellow cross on top (U).",
+        goal:"Each corner in its spot: its 3 colours match the centres around it, even if twisted.",
+        intro:["Put a corner already in its spot front right, as here."],
+        cases:{ amis:{title:"The friends technique", text:"His friends on the left go up (L'), he visits them (U), his friends on the right go up (R), he visits them (U'), the left ones come down (L), he says goodbye (U), the right ones come down (R'), and he goes home (U'). Repeat until all 4 corners are in their spot."} },
+        tips:["If no corner is in its spot at the start, do the friends once from anywhere: one will be right."] },
+      { hold:"Yellow on top (U). The corner to twist is always in front of you, top right.",
+        goal:"The solved cube! It's the same algorithm as for bringing up the white corners (step 3): R' D' R D.",
+        intro:["1. Hold the cube facing you, with the corner to twist at the top right.",
+               "2. Do R' D' R D, again and again, until that corner's yellow is on top (2 or 4 times).",
+               "3. As soon as the yellow shows on top, finish the algorithm right to the final D, then do U: the next corner comes to the top right.",
+               "4. Repeat R' D' R D for every corner, without ever rotating the whole cube.",
+               "Here's a full example, corner by corner:"],
+        cases:{ c1:{title:"1st corner: 4 times, then U", text:"Yellow faces you: algorithm × 4, then U."},
+                c2:{title:"2nd corner: 4 times, then U", text:"The bottom looks scrambled: that's normal, keep going!"},
+                c3:{title:"3rd corner: 2 times, then U", text:"Yellow faces right: algorithm × 2, then U."},
+                c4:{title:"4th corner: 2 times, then U", text:"After this last corner everything comes back: the cube is solved!"} },
+        tips:["After the first corner the cube looks very scrambled. Don't worry, carry on: it all comes back once the 4 corners are done. Never rotate the whole cube between algorithms!",
+              "Advanced tip: instead of doing the algorithm 4 times, do its reverse twice: D' R' D R.",
+              "Well done, you solved your cube! Now practise to get faster."] },
+    ],
     tutoSoon:"Coming soon", tutoSoonLong:"This video is coming very soon. Check back in a future update!",
     tutoChapters:[
-      { t:"Cube vocabulary", s:"Faces, edges, corners and notation" },
-      { t:"The white cross", s:"The first and simplest goal" },
-      { t:"The first layer", s:"Placing the four white corners" },
-      { t:"The second layer", s:"The middle edges" },
-      { t:"The yellow cross", s:"Orienting the last face" },
-      { t:"The last face", s:"Placing the final corners and finishing" },
+      { t:"Get to know your cube", s:"The pieces and the move letters" },
+      { t:"The white cross", s:"White on top, edges lined up" },
+      { t:"The white corners", s:"Finish the white layer" },
+      { t:"The middle layer", s:"White goes to the bottom" },
+      { t:"The yellow cross", s:"Top layer, step 1" },
+      { t:"The aligned yellow cross", s:"The chair technique" },
+      { t:"Corners in place", s:"The friends technique" },
+      { t:"Twist the yellow corners", s:"One corner at a time · the last step" },
     ],
     themeLight:"Light theme", themeDark:"Dark theme",
     civiComingTitle:"Coming soon!", civiComingSub:"We're carefully building this new world. Check back soon to discover Ancient Civilisation.",
@@ -1355,19 +1496,335 @@ function ComingSoonScreen({ onBack, t }){
    comme « bientôt disponible ».
    ═══════════════════════════════════════════════════════════════ */
 const TUTO_VIDEOS = [
-  { id:"vocabulaire", yt:"" },
-  { id:"croix",       yt:"" },
-  { id:"couronne1",   yt:"" },
-  { id:"couronne2",   yt:"" },
-  { id:"croixJaune",  yt:"" },
-  { id:"derniere",    yt:"" },
+  { id:"pieces",        yt:"" },   /* 0 · les pièces et les mouvements */
+  { id:"croix",         yt:"" },   /* 1 · la croix blanche bien alignée */
+  { id:"couronne1",     yt:"" },   /* 2 · la première couronne */
+  { id:"couronne2",     yt:"" },   /* 3 · la deuxième couronne */
+  { id:"croixJaune",    yt:"" },   /* 4 · la croix jaune */
+  { id:"croixAlignee",  yt:"" },   /* 5 · la croix jaune bien alignée */
+  { id:"coinsPlaces",   yt:"" },   /* 6 · les coins à leur place */
+  { id:"coinsTournes",  yt:"" },   /* 7 · les coins bien tournés */
 ];
+
+function TutoMovesCube({ t, fr, labels }){
+  const stageRef = useRef(null);
+  const api = useRef({});
+  const [status,setStatus] = useState("loading");
+  useEffect(()=>{
+    let dead=false, raf=0; const cleanups=[];
+    loadThree().then(THREE=>{
+      if(dead) return;
+      const stage = stageRef.current;
+      const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      Object.assign(renderer.domElement.style,{position:"absolute",inset:"0",width:"100%",height:"100%",display:"block",touchAction:"none"});
+      stage.appendChild(renderer.domElement);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(32,1,0.1,100);
+      scene.add(new THREE.AmbientLight(0xffffff,.6));
+      const dl = new THREE.DirectionalLight(0xffffff,.8); dl.position.set(4,6,5); scene.add(dl);
+      const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+      const FACES={ F:{n:V(0,0,1),r:V(1,0,0),u:V(0,1,0)}, B:{n:V(0,0,-1),r:V(-1,0,0),u:V(0,1,0)},
+        R:{n:V(1,0,0),r:V(0,0,-1),u:V(0,1,0)}, L:{n:V(-1,0,0),r:V(0,0,1),u:V(0,1,0)},
+        U:{n:V(0,1,0),r:V(1,0,0),u:V(0,0,-1)}, D:{n:V(0,-1,0),r:V(1,0,0),u:V(0,0,1)} };
+      const disposables=[], MAT={};
+      for(const k in FACES){ MAT[k]=new THREE.MeshBasicMaterial({color:new THREE.Color(TUTO_HEX[{U:'W',D:'Y',F:'R',B:'O',R:'B',L:'G'}[k]]).convertSRGBToLinear()}); disposables.push(MAT[k]); }
+      const bodyMat=new THREE.MeshStandardMaterial({color:0x0c0c0c,roughness:.45,metalness:.1});
+      const bodyGeo=new THREE.BoxGeometry(.97,.97,.97); disposables.push(bodyMat,bodyGeo);
+      const S=.45,RAD=.08,shape=new THREE.Shape();
+      shape.moveTo(-S+RAD,-S);shape.lineTo(S-RAD,-S);shape.quadraticCurveTo(S,-S,S,-S+RAD);
+      shape.lineTo(S,S-RAD);shape.quadraticCurveTo(S,S,S-RAD,S);shape.lineTo(-S+RAD,S);
+      shape.quadraticCurveTo(-S,S,-S,S-RAD);shape.lineTo(-S,-S+RAD);shape.quadraticCurveTo(-S,-S,-S+RAD,-S);
+      const sticker=new THREE.ShapeGeometry(shape,6); disposables.push(sticker);
+      const cubies=[];
+      for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++){
+        if(!x&&!y&&!z) continue;
+        const c=new THREE.Group(); c.position.set(x,y,z); c.userData.home=V(x,y,z); c.add(new THREE.Mesh(bodyGeo,bodyMat));
+        for(const k in FACES){ const f=FACES[k]; if(c.position.dot(f.n)!==1) continue;
+          const m=new THREE.Mesh(sticker,MAT[k]); m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(f.r,f.u,f.n));
+          m.position.copy(f.n).multiplyScalar(.487); c.add(m); }
+        scene.add(c); cubies.push(c);
+      }
+      /* caméra : même vue que le cube 3D Classique, on peut tourner autour en glissant */
+      const THETA0=.42, PHI0=1.18; let theta=THETA0, phi=PHI0, dist=11.5;
+      const placeCam=()=>{camera.position.set(dist*Math.sin(phi)*Math.sin(theta),dist*Math.cos(phi),dist*Math.sin(phi)*Math.cos(theta));camera.lookAt(0,0,0)};
+      const resize=()=>{const w=stage.clientWidth,h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h;
+        dist=w/h<1?11.5/(w/h)*.64+2:11.5; camera.updateProjectionMatrix(); placeCam()};
+      const ro=new ResizeObserver(resize); ro.observe(stage); resize(); cleanups.push(()=>ro.disconnect());
+      /* coups dans le repère fixe : R = x+, U = y+, F = z+ (sens horaire vu de la face) */
+      const MV={R:['x',1,-1],L:['x',-1,1],U:['y',1,-1],D:['y',-1,1],F:['z',1,-1],B:['z',-1,1]};
+      const decode=tok=>{ const [ax,l,d]=MV[tok[0]]; const prime=tok.endsWith("'"); return {ax,l,dir:prime?-d:d,turns:tok.endsWith("2")?2:1}; };
+      const pivot=new THREE.Group(); scene.add(pivot);
+      const snap=c=>{c.position.set(Math.round(c.position.x),Math.round(c.position.y),Math.round(c.position.z));
+        const m=new THREE.Matrix4().makeRotationFromQuaternion(c.quaternion),e=m.elements;
+        for(const i of [0,1,2,4,5,6,8,9,10]) e[i]=Math.round(e[i]); c.quaternion.setFromRotationMatrix(m)};
+      const grab=(ax,l)=>{ pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
+        const items=cubies.filter(c=>Math.round(c.position[ax])===l); items.forEach(c=>pivot.attach(c)); return items; };
+      const release=items=>{ pivot.updateMatrixWorld(); items.forEach(c=>{scene.attach(c); snap(c);}); };
+      const instant=tok=>{ const {ax,l,dir,turns}=decode(tok); const it=grab(ax,l); pivot.rotation[ax]=dir*turns*Math.PI/2; release(it); };
+      let anim=null;
+      const animate=(tok,dur,done)=>{ const {ax,l,dir,turns}=decode(tok); anim={ax,dir,turns,items:grab(ax,l),t0:performance.now(),dur:dur*(turns===2?1.5:1),done}; };
+      const reset=()=>{ anim=null; pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
+        cubies.forEach(c=>{ scene.attach(c); c.position.copy(c.userData.home); c.quaternion.identity(); }); };
+      const loop=now=>{
+        if(anim){ const tt=Math.min(1,(now-anim.t0)/anim.dur), e=tt<.5?2*tt*tt:1-Math.pow(-2*tt+2,2)/2;
+          pivot.rotation[anim.ax]=anim.dir*anim.turns*Math.PI/2*e;
+          if(tt>=1){ const a=anim; anim=null; release(a.items); a.done&&a.done(); } }
+        renderer.render(scene,camera); raf=requestAnimationFrame(loop); };
+      raf=requestAnimationFrame(loop);
+      /* cube figé : vue de face, on ne peut pas le faire tourner */
+      api.current={
+        prepare(setupToks){ reset(); setupToks.forEach(instant); },
+        play(tok,dur,done){ animate(tok,dur,done); },
+        busy(){ return !!anim; },
+        recenter(){ theta=THETA0; phi=PHI0; placeCam(); },
+      };
+      setStatus("ready");
+      cleanups.push(()=>{ cancelAnimationFrame(raf); disposables.forEach(d=>d.dispose&&d.dispose()); renderer.dispose(); renderer.domElement.remove(); });
+    }).catch(()=>{ if(!dead) setStatus("error"); });
+    return ()=>{ dead=true; cancelAnimationFrame(raf); cleanups.forEach(f=>f()); };
+  },[]);
+
+  const [busy,setBusy] = useState(false);
+  const [last,setLast] = useState(null);
+  const play = tok=>{ const a=api.current; if(!a.play || a.busy()) return; setLast(tok); setBusy(true); a.play(tok,460,()=>setBusy(false)); };
+  const reset = ()=>{ const a=api.current; if(!a.prepare || a.busy()) return; a.prepare([]); a.recenter(); setLast(null); };
+  const MOVES = ["R","L","U","D","F","B"];
+  const btn = (tok)=>{ const on=last===tok; return (
+    <button key={tok} onClick={()=>play(tok)} style={{flex:1,minWidth:0,border:"none",cursor:"pointer",borderRadius:11,padding:"9px 0",fontFamily:"inherit",
+      fontWeight:800,fontSize:16,color:on?"#1a1228":PAL.text,background:on?PAL.gold:PAL.bg2,
+      boxShadow:on?`0 3px 0 ${shade(PAL.gold,-55)}`:`0 3px 0 #0006, 0 0 0 2px ${PAL.cardHi}`}}>{tutoNote(tok,fr)}</button>); };
+  return (
+    <div style={{width:"100%"}}>
+      {/* le cube, figé de face */}
+      <div ref={stageRef} style={{position:"relative",width:"100%",height:240,borderRadius:16,overflow:"hidden",
+        background:"radial-gradient(circle at 50% 40%, #2a2350, #120f26 75%)",boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
+        {status!=="ready"&&<div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",
+          color:PAL.textDim,fontWeight:700,fontSize:13.5,padding:20,textAlign:"center"}}>{status==="error"?t.ch3Error:t.ch3Loading}</div>}
+        {last&&<div style={{position:"absolute",top:10,left:12,zIndex:2,pointerEvents:"none",fontWeight:800,fontSize:28,color:PAL.gold,textShadow:"0 2px 6px rgba(0,0,0,.6)"}}>{tutoNote(last,fr)}</div>}
+        <button onClick={reset} style={{position:"absolute",top:10,right:10,zIndex:2,border:"none",cursor:"pointer",borderRadius:999,padding:"6px 11px",
+          fontFamily:"inherit",fontWeight:700,fontSize:12,color:PAL.text,background:"#0008"}}>↺ {t.tutoReset}</button>
+      </div>
+      <div style={{fontSize:12,color:PAL.textFaint,fontWeight:600,textAlign:"center",margin:"8px 0 10px"}}>{t.tutoTryMoves}</div>
+      {/* les lettres : une ligne par face, avec le sens inverse et le demi-tour */}
+      <div style={{display:"flex",flexDirection:"column",gap:7}}>
+        {MOVES.map(m=>(
+          <div key={m} style={{display:"flex",alignItems:"center",gap:8}}>
+            <div style={{width:104,flexShrink:0,fontSize:12.5,fontWeight:700,color:PAL.text,lineHeight:1.2}}>
+              <span style={{color:PAL.gold,fontWeight:800}}>{tutoNote(m,fr)}</span> = {(labels||{})[m]}</div>
+            {btn(m)}{btn(m+"'")}{btn(m+"2")}
+          </div>))}
+      </div>
+      <div style={{marginTop:11,fontSize:12.5,color:PAL.textDim,fontWeight:600,lineHeight:1.55}}>
+        <div><b style={{color:PAL.gold}}>{fr?"i":"'"}</b> = {t.tutoPrimeTxt}</div>
+        <div><b style={{color:PAL.gold}}>2</b> = {t.tutoHalfTxt}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══ TUTORIEL — méthode du guide officiel, 7 étapes, illustrée en 3D ═══
+   Chaque étape : comment tenir le cube, l'objectif (cube 3D qui tourne),
+   puis les cas possibles, chacun avec son cube 3D et sa formule.
+   Les cubes des cas ont été calculés en appliquant à l'envers la formule
+   sur un cube résolu : faire la formule sur ce cube donne bien l'objectif.
+   Cases grises = pièces pas encore placées (on ne s'en occupe pas). */
+const TUTO_STATES = {"0":{"edges":"XXXXWWXWXXRXXRXXXXXBXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","corners":"XXXXWXXXWXXRXRXXXXBXXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","centers":"XXXXWXXXXXXXXRXXXXXXXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","goal":"WWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYGGGGGGGGGOOOOOOOOO"},"1":{"goal":"XWXWWWXWXXRXXRXXXXXBXXBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX","bas":"XWXWWXXWXXRXXRXXXXXXXXBXXBXXXXXYWXXXXGXXGXXXXXOXXOXXXX","milieu":"XWXWWXXWXXRXXRWXXXXXXBBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX","retournee":"XWXWWBXWXXRXXRXXXXXWXXBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX"},"2":{"goal":"WWWWWWWWWRRRXRXXXXBBBXBXXXXXXXXYXXXXGGGXGXXXXOOOXOXXXX","droite":"WWWWWWWWXRRXXRXXXRXBBXBXWXXXXBXYXXXXGGGXGXXXXOOOXOXXXX","dessous":"WWWWWWWWXRRXXRXXXBXBBXBXRXXXXWXYXXXXGGGXGXXXXOOOXOXXXX","devant":"WWWWWWWWXRRXXRXXXWXBBXBXBXXXXRXYXXXXGGGXGXXXXOOOXOXXXX","haut":"WWWWWWWWRRRBXRXXXXWBBXBXXXXXXXXYXXXXGGGXGXXXXOOOXOXXXX"},"3":{"goal":"XXXXYXXXXXXXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","droite":"XXXXYXXRXXBXBBXBBBXXXXRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","gauche":"XXXXYXXOXXBXXBBBBBXXXRRRRRRWWWWWWWWWXXXOOXOOOXXXGGGGGG","coincee":"XXXXYXXXXXXXBBRBBBXXXBRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG"},"4":{"goal":"XYXYYYXYXXXXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","point":"XXXXYXXXXXYXBBBBBBXYXRRRRRRWWWWWWWWWXYXOOOOOOXYXGGGGGG","L":"XYXYYXXXXXYXBBBBBBXYXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","ligne":"XXXYYYXXXXYXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXYXGGGGGG"},"5":{"goal":"XYXYYYXYXXBXBBBBBBXRXRRRRRRWWWWWWWWWXOXOOOOOOXGXGGGGGG","cotes":"XYXYYYXYXXRXBBBBBBXBXRRRRRRWWWWWWWWWXOXOOOOOOXGXGGGGGG","opposees":"XYXYYYXYXXBXBBBBBBXOXRRRRRRWWWWWWWWWXRXOOOOOOXGXGGGGGG"},"6":{"goal":"GYGYYYOYRYBYBBBBBBBRYRRRRRRWWWWWWWWWYOBOOOOOORGOGGGGGG","amis":"RYOYYYGYYYBBBBBBBBRRBRRRRRRWWWWWWWWWYOOOOOOOOYGGGGGGGG"},"7":{"goal":"YYYYYYYYYBBBBBBBBBRRRRRRRRRWWWWWWWWWOOOOOOOOOGGGGGGGGG","c1":"GYGYYYOYRYBYBBBBBBBRYRRRRRRWWWWWWWWWYOBOOOOOORGOGGGGGG","c2":"OYGYYYYYGRRYBBWBBWRGOGRRBRGWWRWWBGWRYBBOOOWOOYOBGGGWRO","c3":"YYOYYYYYGGGOBBWBBRYOBRRRWGWWWBWWWOBGRRROOOGOOYBBGGGRRW","c4":"YYYYYYYYOOOBBBWBBWYBBGRRBRGWWRWWBGWRGGGOOOWOORRRGGGWRO"}};
+const TUTO_HEX = { W:"#f5f5f5", Y:"#ffd500", R:"#e62b2b", O:"#ff8c1a", B:"#2b8cff", G:"#2bbf3f", X:"#55555f" };
+/* formules affichées pour chaque cas (le cube montré est calculé à partir de ces formules) */
+const TUTO_ALGS = {
+  1:{ bas:"R2", milieu:"R", retournee:"R' U F' U'" },
+  2:{ droite:"R' D' R D", dessous:"R' D' R D", devant:"R' D' R D", haut:"R' D' R" },
+  3:{ droite:"U R U' R' U' F' U F", gauche:"U' L' U L U F U' F'", coincee:"U R U' R' U' F' U F" },
+  4:{ point:"F U R U' R' F'", L:"F U R U' R' F'", ligne:"F R U R' U' F'" },
+  5:{ cotes:"R U2 R' U' R U' R' U'", opposees:"R U2 R' U' R U' R'" },
+  6:{ amis:"L' U R U' L U R' U'" },
+  7:{ c1:"R' D' R D", c2:"R' D' R D", c3:"R' D' R D", c4:"R' D' R D" },
+};
+const TUTO_CASES = [ ["edges","corners","centers"], ["bas","milieu","retournee"], ["droite","dessous","devant","haut"],
+  ["droite","gauche","coincee"], ["point","L","ligne"], ["cotes","opposees"], ["amis"], ["c1","c2","c3","c4"] ];
+const TUTO_VIEW = { "5.cotes":"back" };
+const TUTO_NUM = ["1","2","3","4","5","6","7","8"];   /* numéros des étapes du guide */
+/* notation : en français comme dans le guide (D droite, G gauche, H haut, B bas, A avant, P arrière ; i = inverse) */
+const TUTO_FR = { R:"D", L:"G", U:"H", D:"B", F:"A", B:"P" };
+/* textes : les lettres des mouvements suivent la notation choisie
+   (textes FR écrits en notation française, textes EN en notation RUR'U') */
+const TUTO_RU = { D:"R", G:"L", H:"U", B:"D", A:"F", P:"B" };
+function tutoTxt(str, fr, srcFr){
+  if(typeof str!=="string") return str;
+  if(srcFr && !fr) return str.replace(/(^|[^A-Za-zÀ-ÿ'])([DGHBAP])(i|2)?(?![A-Za-zÀ-ÿ])/g,(m,pre,l,suf)=>pre+TUTO_RU[l]+(suf==="i"?"'":(suf||"")));
+  if(!srcFr && fr) return str.replace(/(^|[^A-Za-z'])([RLUDFB])('|2)?(?![A-Za-z-])/g,(m,pre,l,suf)=>pre+TUTO_FR[l]+(suf==="'"?"i":(suf||"")));
+  return str;
+}
+function tutoNote(tok, fr){ if(!fr) return tok; return TUTO_FR[tok[0]] + (tok.endsWith("'")?"i":(tok.endsWith("2")?"2":"")); }
+const TUTO_COLOR = ["#ffd23f","#ffd23f","#4ea8ff","#3ddc84","#ff5ea8","#ff8a3d","#9d6cff","#2ee6cf"];
+
+/* cube CSS à 6 faces, état donné face par face (U F R D L B, 9 cases chacune) */
+function TutoCube({ state, size=100, back=false, left=false, spin=false, glow }){
+  const s=size, half=s/2, f={};
+  "UFRDLB".split("").forEach((k,i)=>{ f[k]=state.slice(i*9,i*9+9).split(""); });
+  const faceStyle=transform=>({position:"absolute",width:s,height:s,transform,display:"grid",
+    gridTemplateColumns:"repeat(3,1fr)",gridTemplateRows:"repeat(3,1fr)",gap:Math.max(2,s*.035),padding:Math.max(3,s*.055),
+    background:"#0b0b0f",borderRadius:s*.07,boxSizing:"border-box",backfaceVisibility:"hidden"});
+  const cells=k=>f[k].map((c,i)=><div key={i} style={{background:TUTO_HEX[c]||TUTO_HEX.X,borderRadius:Math.max(2,s*.05),
+    boxShadow:"inset 0 -2px 3px rgba(0,0,0,.25), inset 0 2px 2px rgba(255,255,255,.3)"}}/>);
+  const ry = back ? 142 : (left ? 38 : -38);
+  return (
+    <div style={{width:s*1.45,height:s*1.5,perspective:s*5,display:"flex",alignItems:"center",justifyContent:"center",
+      filter:`drop-shadow(0 0 ${glow?14:0}px ${glow||"transparent"}) drop-shadow(0 8px 12px rgba(0,0,0,.45))`}}>
+      <style>{`@keyframes tutospin{from{transform:rotateX(-28deg) rotateY(-38deg);}to{transform:rotateX(-28deg) rotateY(322deg);}}`}</style>
+      <div style={{width:s,height:s,position:"relative",flexShrink:0,transformStyle:"preserve-3d",
+        transform:`rotateX(-28deg) rotateY(${ry}deg)`,animation:spin?"tutospin 12s linear infinite":"none"}}>
+        <div style={faceStyle(`rotateX(90deg) translateZ(${half}px)`)}>{cells("U")}</div>
+        <div style={faceStyle(`rotateX(-90deg) translateZ(${half}px)`)}>{cells("D")}</div>
+        <div style={faceStyle(`translateZ(${half}px)`)}>{cells("F")}</div>
+        <div style={faceStyle(`rotateY(180deg) translateZ(${half}px)`)}>{cells("B")}</div>
+        <div style={faceStyle(`rotateY(90deg) translateZ(${half}px)`)}>{cells("R")}</div>
+        <div style={faceStyle(`rotateY(-90deg) translateZ(${half}px)`)}>{cells("L")}</div>
+      </div>
+    </div>
+  );
+}
+
+function TutoAlg({ alg, color, fr }){
+  if(!alg) return null;
+  const toks = fr ? alg.split(" ").flatMap(m=>m.endsWith("2")?[m[0],m[0]]:[m]) : alg.split(" ");
+  return (
+    <div style={{display:"flex",flexWrap:"wrap",gap:4,justifyContent:"center"}}>
+      {toks.map((m0,j)=>{ const m=tutoNote(m0,fr); return (
+        <span key={j} style={{minWidth:28,padding:"4px 7px",borderRadius:8,fontWeight:800,fontSize:14,textAlign:"center",
+          color:"#1a1228",background:color}}>{m}</span>); })}
+    </div>
+  );
+}
+
+function TutoStepPage({ t, idx, onBack, onGo, video }){
+  /* notation : française (D G H B A P, i) ou RUR'U' (R L U D F B, ') — retenue pour tout le tutoriel */
+  const [nota,setNota] = useState(()=>{ try{ return localStorage.getItem("rurucube_tuto_nota") || (t.tutoNotation==="fr"?"fr":"ruru"); }catch(e){ return t.tutoNotation==="fr"?"fr":"ruru"; } });
+  const pickNota = v=>{ setNota(v); try{ localStorage.setItem("rurucube_tuto_nota",v); }catch(e){} };
+  const fr = nota==="fr";
+  const notaToggle = (
+    <div style={{display:"flex",gap:6,background:PAL.bg2,borderRadius:999,padding:4,marginBottom:12}}>
+      {[["fr",t.tutoNotaFr],["ruru",t.tutoNotaEn]].map(([v,l])=>{ const on=nota===v; return (
+        <button key={v} onClick={()=>pickNota(v)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:999,padding:"8px 6px",fontFamily:"inherit",
+          fontWeight:800,fontSize:13,color:on?"#1a1228":PAL.textDim,background:on?PAL.gold:"transparent"}}>{l}</button>); })}
+    </div>);
+  const srcFr = t.tutoNotation==="fr";
+  const T = x=>tutoTxt(x, fr, srcFr);
+  const ch0 = (t.tutoChapters||[])[idx] || {t:"",s:""};
+  const ch = { t:T(ch0.t), s:T(ch0.s) };
+  const info0 = (t.tutoSteps||[])[idx] || {};
+  const info = { ...info0, hold:T(info0.hold), goal:T(info0.goal), intro:(info0.intro||[]).map(T), tips:(info0.tips||[]).map(T),
+    notes:(info0.notes||[]).map(T),
+    cases:Object.fromEntries(Object.entries(info0.cases||{}).map(([k,c])=>[k,{title:T(c.title),text:T(c.text)}])) };
+  const n = TUTO_VIDEOS.length;
+  const col = TUTO_COLOR[idx] || PAL.gold;
+  const st = TUTO_STATES[idx] || {};
+  const [spin,setSpin] = useState(true);
+  useEffect(()=>{ window.scrollTo(0,0); },[idx]);
+  const wide = useWide();
+  const caseSize = wide ? 96 : 84;
+  const card = {background:PAL.card,borderRadius:16,padding:"13px 14px",boxShadow:`0 0 0 2px ${PAL.cardHi}`};
+  return (
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 14px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
+      <div style={{width:"100%",maxWidth:460,display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
+        <GhostBtn onClick={onBack} color={PAL.gold}>←</GhostBtn>
+        <div style={{flex:1,fontWeight:700,fontSize:13,color:PAL.textDim,textAlign:"right"}}>{t.tutoStepOf.replace("{n}",TUTO_NUM[idx]).replace("{total}","8")}</div>
+      </div>
+      <div style={{width:"100%",maxWidth:460}}>
+        <div style={{display:"flex",alignItems:"center",gap:11,marginBottom:12}}>
+          <span style={{width:40,height:40,flexShrink:0,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",
+            fontWeight:800,fontSize:TUTO_NUM[idx].length>1?13:17,background:col,color:"#1a1228"}}>{TUTO_NUM[idx]}</span>
+          <div>
+            <div style={{fontWeight:800,fontSize:20,color:PAL.text,lineHeight:1.15}}>{ch.t}</div>
+            <div style={{fontSize:12.5,color:PAL.textDim,fontWeight:600,marginTop:3}}>{ch.s}</div>
+          </div>
+        </div>
+
+        {idx===0&&notaToggle}
+
+        {/* comment tenir le cube */}
+        {info.hold&&<div style={{...card,marginBottom:12,display:"flex",gap:10,alignItems:"flex-start"}}>
+          <span style={{fontSize:20,lineHeight:1}}>✋</span>
+          <div><div style={{fontSize:11,fontWeight:800,letterSpacing:1,color:PAL.green,textTransform:"uppercase",marginBottom:3}}>{t.tutoHold}</div>
+            <div style={{fontSize:14,color:PAL.text,fontWeight:600,lineHeight:1.45}}>{info.hold}</div></div>
+        </div>}
+
+        {/* l'objectif */}
+        {st.goal&&<div style={{...card,marginBottom:12,display:"flex",alignItems:"center",gap:12,boxShadow:`0 0 0 2px ${col}88`}}>
+          <div onClick={()=>setSpin(v=>!v)} style={{cursor:"pointer",flexShrink:0}}><TutoCube state={st.goal} size={wide?110:96} spin={spin} glow={col+"99"}/></div>
+          <div style={{minWidth:0}}>
+            <div style={{fontSize:11,fontWeight:800,letterSpacing:1,color:col,textTransform:"uppercase",marginBottom:4}}>🎯 {t.tutoGoal}</div>
+            <div style={{fontSize:14,color:PAL.text,fontWeight:600,lineHeight:1.45}}>{info.goal}</div>
+          </div>
+        </div>}
+
+        {(info.intro||[]).map((p,i)=>(
+          <p key={i} style={{margin:"0 2px 10px",fontSize:14,lineHeight:1.55,color:PAL.text,fontWeight:500}}>{p}</p>))}
+
+        {/* les cas */}
+        {(TUTO_CASES[idx]||[]).length>0&&<div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,margin:"8px 0 9px"}}>
+          {idx===0?t.tutoPieces.toUpperCase():t.tutoCases.toUpperCase()}</div>}
+        <div style={{display:"flex",flexDirection:"column",gap:10}}>
+          {(TUTO_CASES[idx]||[]).map(k=>{ const c=(info.cases||{})[k]||{}; const alg=(TUTO_ALGS[idx]||{})[k];
+            return (
+              <div key={k} style={{...card,display:"flex",alignItems:"center",gap:10}}>
+                <div style={{flexShrink:0}}><TutoCube state={st[k]} size={caseSize} left={TUTO_VIEW[idx+"."+k]==="left"} back={TUTO_VIEW[idx+"."+k]==="back"}/></div>
+                <div style={{minWidth:0,flex:1,display:"flex",flexDirection:"column",gap:7}}>
+                  <div style={{fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.2}}>{c.title}</div>
+                  {c.text&&<div style={{fontSize:12.5,color:PAL.textDim,fontWeight:600,lineHeight:1.45}}>{c.text}</div>}
+                  {alg&&<div style={{alignSelf:"flex-start"}}><TutoAlg alg={alg} color={col} fr={fr}/></div>}
+                </div>
+              </div>);
+          })}
+        </div>
+
+        {/* étape 1 : choix de la notation, cube vu de face en haut, lettres à toucher en bas */}
+        {idx===0&&<div style={{...card,marginTop:12}}>
+          <div style={{fontSize:11,fontWeight:800,letterSpacing:1,color:PAL.textDim,textTransform:"uppercase",marginBottom:9}}>{t.tutoMoves}</div>
+          <TutoMovesCube t={t} fr={fr} labels={t.tutoFaceNames}/>
+          <div style={{marginTop:12}}>{notaToggle}</div>
+          {(info.notes||[]).map((p,i)=><p key={i} style={{margin:"10px 0 0",fontSize:13,lineHeight:1.5,color:PAL.textDim,fontWeight:600}}>{p}</p>)}
+        </div>}
+
+        {(info.tips||[]).map((p,i)=>(
+          <div key={i} style={{marginTop:10,fontSize:13,lineHeight:1.5,color:PAL.text,fontWeight:600,background:`${col}22`,borderRadius:12,padding:"10px 12px"}}>💡 {p}</div>))}
+
+        {idx>0&&<div style={{marginTop:14}}>{notaToggle}</div>}
+
+        {/* la vidéo, en dessous */}
+        <div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,margin:"20px 0 9px"}}>🎬 {t.tutoVideo.toUpperCase()}</div>
+        {video ? (
+          <div style={{width:"100%",aspectRatio:"16 / 9",borderRadius:14,overflow:"hidden",background:"#000",boxShadow:`0 0 0 2px ${PAL.gold}`}}>
+            <iframe src={`https://www.youtube-nocookie.com/embed/${video}?rel=0&modestbranding=1&playsinline=1`}
+              title={ch.t} loading="lazy" allowFullScreen allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+              style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
+          </div>
+        ) : (
+          <div style={{background:PAL.bg2,borderRadius:14,padding:"22px 14px",textAlign:"center",fontSize:12.5,color:PAL.textFaint,fontWeight:600,lineHeight:1.5}}>
+            {t.tutoSoonLong}
+          </div>
+        )}
+
+        <div style={{display:"flex",gap:10,marginTop:20}}>
+          <button disabled={idx===0} onClick={()=>onGo(idx-1)} style={{flex:1,border:"none",cursor:idx===0?"default":"pointer",borderRadius:14,padding:"12px 8px",
+            fontFamily:"inherit",fontWeight:800,fontSize:14,color:PAL.text,background:PAL.card,opacity:idx===0?.35:1,boxShadow:`0 3px 0 ${PAL.bg2}, 0 0 0 2px ${PAL.cardHi}`}}>‹ {t.tutoPrev}</button>
+          <button disabled={idx===n-1} onClick={()=>onGo(idx+1)} style={{flex:1,border:"none",cursor:idx===n-1?"default":"pointer",borderRadius:14,padding:"12px 8px",
+            fontFamily:"inherit",fontWeight:800,fontSize:14,color:"#3a2a00",background:`linear-gradient(180deg,#ffe066,${PAL.gold})`,opacity:idx===n-1?.35:1,boxShadow:`0 4px 0 ${shade(PAL.gold,-55)}`}}>{t.tutoNext} ›</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function TutoScreen({ onBack, t }){
   const wide = useWide();
   const W = wide?760:420;
   const [ouvert,setOuvert] = useState(null);
   const chapitres = t.tutoChapters || [];
+  if(ouvert!=null) return <TutoStepPage t={t} idx={ouvert} video={TUTO_VIDEOS[ouvert].yt}
+    onBack={()=>{ setOuvert(null); window.scrollTo(0,0); }} onGo={i=>setOuvert(i)}/>;
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 14px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
@@ -1395,15 +1852,14 @@ function TutoScreen({ onBack, t }){
                   padding:"13px 14px",display:"flex",alignItems:"center",gap:11,textAlign:"left"}}>
                 <span style={{width:34,height:34,flexShrink:0,borderRadius:"50%",display:"flex",
                   alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:14,
-                  background:dispo?PAL.gold:PAL.cardHi,color:dispo?"#3a2a00":PAL.textFaint}}>{i+1}</span>
+                  background:TUTO_COLOR[i]||PAL.gold,color:"#1a1228"}}>{TUTO_NUM[i]}</span>
                 <span style={{flex:1,minWidth:0}}>
                   <span style={{display:"block",fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.2}}>{ch.t}</span>
                   <span style={{display:"block",fontSize:11.5,color:PAL.textDim,fontWeight:600,marginTop:3}}>
-                    {dispo ? ch.s : t.tutoSoon}
+                    {ch.s}
                   </span>
                 </span>
-                <span style={{fontSize:18,color:PAL.textDim,flexShrink:0,
-                  transform:actif?"rotate(180deg)":"none",transition:"transform .18s"}}>⌄</span>
+                <span style={{fontSize:12,fontWeight:800,color:"#3a2a00",background:PAL.gold,borderRadius:999,padding:"5px 10px",flexShrink:0}}>3D ›</span>
               </button>
 
               {actif&&(
@@ -3719,9 +4175,9 @@ function CubeCard({ img, art, logo, faceId, emoji, title, sub, color, cta, onCli
                 textShadow:"0 2px 4px rgba(0,0,0,.4)",lineHeight:1.25}}>{title}</span>}
             </div>
           : art
-          ? <div style={{width:"100%",padding:"7px 7px 6px",boxSizing:"border-box",background:"transparent"}}>
+          ? <div style={{width:"100%",padding:"7px 7px 6px",boxSizing:"border-box",background:"#ffffff"}}>
               <img src={art} alt="" draggable={false} style={{width:"100%",aspectRatio:"1",objectFit:"cover",display:"block",
-                filter:`drop-shadow(0 5px 8px rgba(0,0,0,.5)) drop-shadow(0 0 10px ${color}55)`,
+                filter:"drop-shadow(0 4px 6px rgba(0,0,0,.25))",
                 transform:p?"scale(.95)":"scale(1)",transition:"transform .12s"}}/>
             </div>
           : logo
@@ -3788,8 +4244,8 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
     { id:"classic", img:HC_CLASSIC, sub:t.hcClassicSub, color:"#2f7bff", onClick:()=>openUni("classic") },
     { id:"sudoku",  img:HC_SUDOKU,  sub:t.hcSudoSub,    color:"#ff2b2b", onClick:()=>openUni("sudoku") },
     { id:"illusion",img:HC_ILLUSION,sub:t.hcIllusionSub, color:"#ffd60a", btnText:"#3a2c00", onClick:()=>openUni("illusion") },
-    { id:"chess3d", img:HC_CHESS3D, sub:t.hcChess3dSub,  color:"#ffcc33", btnText:"#2a1c00", onClick:()=>openUni("chesscube") },
-    { id:"sudomono",img:HC_SUDOMONO,sub:t.hcSudomonoSub, color:"#ff3b4e", onClick:()=>openUni("sudomono") },
+    { id:"chess3d", img:HC_CHESS3D, sub:t.hcChess3dSub,  color:"#22c7e8", btnText:"#06222a", onClick:()=>openUni("chesscube") },
+    { id:"sudomono",img:HC_SUDOMONO,sub:t.hcSudomonoSub, color:"#ff4fb0", onClick:()=>openUni("sudomono") },
   ];
   const savoirs = [
     { id:"savants", img:HC_SAVANTS, sub:t.hcSavantsSub, color:"#a066ff", onClick:()=>launch("savants") },
@@ -4491,30 +4947,47 @@ async function carteResultat({ skin, face, sprites, ms, t }){
   g.fillText(new Date().toLocaleDateString(), W/2, 250);
 
   /* la face du jour */
-  const taille=560, x0=(W-taille)/2, y0=300, gap=16, cell=(taille-gap*2-24)/3;
+  const taille=470, x0=(W-taille)/2, y0=280, gap=14, cell=(taille-gap*2-24)/3;
   g.fillStyle = skin==="sudoku" ? "#100c2c" : (skin==="monstro" ? "#ffffff" : "#fdf6ea");
-  arrondi(g, x0, y0, taille, taille, 34); g.fill();
+  arrondi(g, x0, y0, taille, taille, 30); g.fill();
   if(face&&sprites){
     for(let i=0;i<9;i++){
       const cl=face[i];
       const src = sprites[cl.colorId]?.[cl.typeId??i];
       const img = src ? await chargerImage(src) : null;
       const cx = x0+12+(i%3)*(cell+gap), cy = y0+12+Math.floor(i/3)*(cell+gap);
-      g.save(); arrondi(g,cx,cy,cell,cell,18); g.clip();
+      g.save(); arrondi(g,cx,cy,cell,cell,16); g.clip();
       if(img) g.drawImage(img,cx,cy,cell,cell);
       else { g.fillStyle=th.carte2; g.fillRect(cx,cy,cell,cell); }
       g.restore();
     }
   }
 
-  /* le temps */
-  g.fillStyle=th.ink2; g.font=`700 36px ${police}`;
-  g.fillText(t.yourTime, W/2, y0+taille+92);
-  g.fillStyle=th.ink; g.font=`800 140px ${police}`;
-  g.fillText(fmt(ms), W/2, y0+taille+228);
+  /* le temps + le défi lancé aux amis : l'image se suffit à elle-même */
+  g.fillStyle=th.ink2; g.font=`700 34px ${police}`;
+  g.fillText(t.cardSolvedIn, W/2, y0+taille+70);
+  g.fillStyle=th.ink; g.font=`800 128px ${police}`;
+  g.fillText(fmt(ms), W/2, y0+taille+188);
+  g.fillStyle=th.accent; g.font=`800 46px ${police}`;
+  g.fillText(t.cardBeatMe, W/2, y0+taille+262);
 
-  g.fillStyle=th.accent; g.font=`700 34px ${police}`;
-  g.fillText("ruru-cube.vercel.app", W/2, H-70);
+  /* bandeau du bas : QR code + adresse de l'appli */
+  const by=H-260, bh=220, bx=60, bw=W-120;
+  g.fillStyle = skin==="sudoku" ? "rgba(255,255,255,.10)" : "rgba(255,255,255,.85)";
+  arrondi(g,bx,by,bw,bh,32); g.fill();
+  const qr = await chargerImage(QR_APP);
+  const qs=180, qx=bx+20, qy=by+20;
+  g.fillStyle="#ffffff"; arrondi(g,qx,qy,qs,qs,16); g.fill();
+  if(qr){ g.imageSmoothingEnabled=false; g.drawImage(qr,qx+8,qy+8,qs-16,qs-16); g.imageSmoothingEnabled=true; }
+  g.textAlign="left";
+  const tx=qx+qs+34;
+  g.fillStyle=th.ink2; g.font=`700 34px ${police}`;
+  g.fillText(t.cardScan, tx, by+82);
+  g.fillStyle=th.accent; g.font=`800 50px ${police}`;
+  g.fillText("ruru-cube.vercel.app", tx, by+148);
+  g.fillStyle=th.ink3||th.ink2; g.font=`600 26px ${police}`;
+  g.fillText(t.cardFree, tx, by+188);
+  g.textAlign="center";
 
   return new Promise(res=>c.toBlob(res,"image/png",0.95));
 }
@@ -4528,36 +5001,59 @@ function arrondi(g,x,y,w,h,r){
 }
 
 function ShareDaily({ t, th, skin, face, sprites, ms }){
-  const [etat,setEtat] = useState(null);   /* null | "attente" | "copie" | "telecharge" */
+  const [etat,setEtat] = useState(null);   /* null | "attente" | "copie" | "copieImg" | "telecharge" */
   const texte = `${t.shareText.replace("{t}", fmt(ms))}\n${SHARE_URL}`;
+  /* L'image est préparée DÈS l'affichage du résultat : sur iPhone, le partage
+     doit partir tout de suite après le toucher, sinon Safari le bloque et
+     seul le texte part (ou rien). */
+  const blobP = useRef(null);
+  const [pret,setPret] = useState(null);   /* { blob, fichier } quand l'image est prête */
+  useEffect(()=>{
+    let vivant=true;
+    blobP.current = carteResultat({ skin, face, sprites, ms, t }).catch(()=>null);
+    blobP.current.then(blob=>{ if(vivant&&blob) setPret({ blob, url:URL.createObjectURL(blob), fichier:new File([blob],"ruru-defi-du-jour.png",{type:"image/png"}) }); });
+    return ()=>{ vivant=false; };
+  },[skin, ms]);
 
-  async function partager(){
-    setEtat("attente");
-    /* La legende part dans le presse-papier : Instagram ne la preremplit
-       jamais, il n'y aura qu'a coller dans la publication. */
-    try{ await navigator.clipboard.writeText(texte); }catch(e){}
-    try{
-      const blob = await carteResultat({ skin, face, sprites, ms, t });
-      const fichier = blob ? new File([blob], "ruru-defi-du-jour.png", { type:"image/png" }) : null;
-
-      if(fichier && navigator.canShare && navigator.canShare({ files:[fichier] })){
-        await navigator.share({ files:[fichier], text:texte });
-        setEtat(null); return;
-      }
-      if(navigator.share){
-        await navigator.share({ title:"RUR'U'", text:texte, url:SHARE_URL });
-        setEtat(null); return;
-      }
-      if(blob){
-        const a=document.createElement("a");
-        a.href=URL.createObjectURL(blob); a.download="ruru-defi-du-jour.png"; a.click();
-        setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-      }
-      setEtat("telecharge");
-    }catch(e){ setEtat(null); }   /* partage annulé par l'utilisateur */
+  function telecharger(blob){
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob); a.download="ruru-defi-du-jour.png"; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   }
 
+  async function partager(){
+    const f = pret && pret.fichier;
+    /* 1. partage de l'image (sans attendre quoi que ce soit avant) */
+    if(f && navigator.canShare && navigator.canShare({ files:[f] })){
+      try{ navigator.clipboard && navigator.clipboard.writeText(texte).catch(()=>{}); }catch(e){}
+      try{ await navigator.share({ files:[f], title:"RUR'U'", text:texte }); }catch(e){}
+      return;
+    }
+    /* 2. pas de partage de fichiers (ordinateur) : on enregistre l'image + on copie le texte */
+    setEtat("attente");
+    const blob = (pret&&pret.blob) || await blobP.current;
+    try{ await navigator.clipboard.writeText(texte); }catch(e){}
+    if(blob){ telecharger(blob); setEtat("telecharge"); return; }
+    if(navigator.share){ try{ await navigator.share({ title:"RUR'U'", text:texte, url:SHARE_URL }); }catch(e){} }
+    setEtat(null);
+  }
+
+  /* Copier : copie l'IMAGE du résultat (et le texte) pour la coller dans un message */
   async function copier(){
+    try{
+      if(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write){
+        const imgP = (pret&&pret.blob) ? Promise.resolve(pret.blob) : blobP.current;
+        /* image + texte + lien de l'appli dans la même copie */
+        try{
+          await navigator.clipboard.write([new ClipboardItem({
+            "image/png": imgP.then(b=>b||Promise.reject()),
+            "text/plain": Promise.resolve(new Blob([texte],{type:"text/plain"})) })]);
+        }catch(e2){   /* certains navigateurs n'acceptent qu'un type à la fois : on garde l'image */
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": imgP.then(b=>b||Promise.reject()) })]);
+        }
+        setEtat("copieImg"); return;
+      }
+    }catch(e){}
     try{ await navigator.clipboard.writeText(texte); setEtat("copie"); }catch(e){}
   }
 
@@ -4577,12 +5073,25 @@ function ShareDaily({ t, th, skin, face, sprites, ms }){
         <button onClick={copier}
           style={{flex:1,border:"none",cursor:"pointer",background:th.carte,borderRadius:14,padding:"11px 6px",
             fontWeight:800,fontSize:13,fontFamily:"inherit",color:th.ink,boxShadow:th.carteOmbre}}>
-          {etat==="copie" ? t.shareCopied : t.shareCopy}
+          {etat==="copie"||etat==="copieImg" ? t.shareCopied : t.shareCopy}
+        </button>
+        <button onClick={async()=>{ const b=(pret&&pret.blob)||await blobP.current; if(b){ telecharger(b); setEtat("telecharge"); } }}
+          style={{flex:1,border:"none",cursor:"pointer",background:th.carte,borderRadius:14,padding:"11px 6px",
+            fontWeight:800,fontSize:13,fontFamily:"inherit",color:th.ink,boxShadow:th.carteOmbre}}>
+          {t.shareSaveImg}
         </button>
       </div>
 
+      <button onClick={async()=>{ try{ await navigator.clipboard.writeText(texte); setEtat("copieTxt"); }catch(e){} }}
+        style={{width:"100%",border:"none",cursor:"pointer",background:th.carte,borderRadius:14,padding:"11px 6px",
+          fontWeight:800,fontSize:13,fontFamily:"inherit",color:th.ink,boxShadow:th.carteOmbre}}>
+        {etat==="copieTxt" ? t.shareCopied : t.shareCopyTxt}
+      </button>
+
+      {pret&&<img src={pret.url} alt="" style={{width:120,borderRadius:12,boxShadow:th.carteOmbre}}/>}
+
       <div style={{fontSize:11.5,fontWeight:600,color:th.ink3,textAlign:"center",lineHeight:1.5,maxWidth:320}}>
-        {etat==="telecharge" ? t.shareSaved : t.shareHint}
+        {etat==="telecharge" ? t.shareSaved : (etat==="copieImg" ? t.shareImgCopied : (etat==="copieTxt" ? t.shareTxtCopied : t.shareHint))}
       </div>
     </div>
   );
@@ -5641,13 +6150,6 @@ export default function App(){
     <div style={{minHeight:"100vh",background:PAL.bg,color:PAL.text,fontFamily:"'Fredoka',sans-serif",position:"relative"}}>
       <GlobalStyles/>
       <Bg/>
-      {/* Barres dorées latérales (toutes les pages) */}
-      <div style={{position:"fixed",top:0,bottom:0,left:0,width:5,zIndex:55,pointerEvents:"none",
-        background:`linear-gradient(90deg,${shade(PAL.gold,-90)},${shade(PAL.gold,45)} 45%,${PAL.gold})`,
-        boxShadow:`2px 0 12px ${PAL.gold}44`}}/>
-      <div style={{position:"fixed",top:0,bottom:0,right:0,width:5,zIndex:55,pointerEvents:"none",
-        background:`linear-gradient(270deg,${shade(PAL.gold,-90)},${shade(PAL.gold,45)} 45%,${PAL.gold})`,
-        boxShadow:`-2px 0 12px ${PAL.gold}44`}}/>
       {showHelp&&<HowToPlay t={t} skin={skin} onClose={()=>setShowHelp(false)}/>}
       {showProfiles&&<ProfileModal t={t} onClose={()=>setShowProfiles(false)} onChange={()=>setProfTick(x=>x+1)}/>}
       <div key={profTick} style={{paddingBottom:NAV_SCREENS.includes(screen)?66:0}}>
