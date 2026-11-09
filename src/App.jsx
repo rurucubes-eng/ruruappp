@@ -550,7 +550,11 @@ const TR = {
     tapAnywhere:"👆 Touche l'écran pour arrêter",
     record:"Record", games:"Parties", streak:"Série",
     face:"⏱️ Face", reverse:"⏳ Reverse", blindMode:"🙈 Blind",
-    go:"🚀 C'EST PARTI !", replay:"↻ Rejouer", menu:"← Accueil",
+    instTitle:"Installe l'appli sur ton téléphone", instSub:"Ta progression et tes records restent bien gardés, et l'appli s'ouvre en un geste.",
+    instBtn:"📲 Installer l'appli", instHow:"Comment l'installer ?",
+    instIos:["1. Touche le bouton Partager ⬆️ en bas de Safari (ou en haut sur iPad).","2. Fais défiler et choisis « Sur l'écran d'accueil ».","3. Touche « Ajouter » : l'icône RUR'U' apparaît avec tes autres applis."],
+    instAndroid:["1. Touche le menu ⋮ en haut à droite de Chrome.","2. Choisis « Installer l'application » (ou « Ajouter à l'écran d'accueil »).","3. Confirme : l'icône RUR'U' apparaît avec tes autres applis."],
+    go:"🚀 GO !", replay:"↻ Rejouer", menu:"← Accueil", chronoPickCube:"CHOISIS TON CUBE",
     tapGrid:"👆 Tape la grille pour arrêter",
     tapCube:"👆 Tape le cube quand c'est résolu",
     cubeReady:"Chrono résolution complète", cubePlay:"Résous tout ton cube !", cubeDone:"Bravo ! 🎉",
@@ -590,7 +594,7 @@ const TR = {
       {icon:"⚡",title:"Reproduis-la vite !",desc:"Tourne ton cube pour obtenir la même face, puis tape la grille pour arrêter le chrono."},
       {icon:"🏆",title:"Bats tes records",desc:"Solo, en duel avec un ami, ou avec le défi du jour."},
     ],
-    obStart:"C'est parti !", obSkip:"Passer",
+    obStart:"GO !", obSkip:"Passer",
     howTo:"❓ Comment jouer", howToTitle:"Comment jouer",
     whoPlays:"Qui joue ?", profilesSub:"Chacun garde ses records et son défi du jour.",
     changePlayer:"changer", addProfile:"Ajouter un joueur", createProfile:"Créer",
@@ -822,7 +826,11 @@ const TR = {
     tapAnywhere:"👆 Tap the screen to stop",
     record:"Best", games:"Games", streak:"Streak",
     face:"⏱️ Face", reverse:"⏳ Reverse", blindMode:"🙈 Blind",
-    go:"🚀 LET'S GO!", replay:"↻ Replay", menu:"← Home",
+    instTitle:"Install the app on your phone", instSub:"Your progress and records stay safe, and the app opens in one tap.",
+    instBtn:"📲 Install the app", instHow:"How to install it?",
+    instIos:["1. Tap the Share button ⬆️ at the bottom of Safari (top on iPad).","2. Scroll and choose \"Add to Home Screen\".","3. Tap \"Add\": the RUR'U' icon shows up with your other apps."],
+    instAndroid:["1. Tap the ⋮ menu at the top right of Chrome.","2. Choose \"Install app\" (or \"Add to Home screen\").","3. Confirm: the RUR'U' icon shows up with your other apps."],
+    go:"🚀 GO!", replay:"↻ Replay", menu:"← Home", chronoPickCube:"PICK YOUR CUBE",
     tapGrid:"👆 Tap the grid to stop",
     tapCube:"👆 Tap the cube when solved",
     cubeReady:"Full solve timer", cubePlay:"Solve your whole cube!", cubeDone:"Well done! 🎉",
@@ -862,7 +870,7 @@ const TR = {
       {icon:"⚡",title:"Match it fast!",desc:"Turn your cube to get the same face, then tap the grid to stop the timer."},
       {icon:"🏆",title:"Beat your records",desc:"Solo, in a duel with a friend, or with the daily challenge."},
     ],
-    obStart:"Let's go!", obSkip:"Skip",
+    obStart:"GO!", obSkip:"Skip",
     howTo:"❓ How to play", howToTitle:"How to play",
     whoPlays:"Who's playing?", profilesSub:"Everyone keeps their own records and daily challenge.",
     changePlayer:"change", addProfile:"Add a player", createProfile:"Create",
@@ -2414,6 +2422,27 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
 /* ─── Le cube du challenge en 3D qui tourne (chronos de résolution complète) ───
    Faces du vrai cube : cases images (Monstro, Sudocube, Illusion, Savants, Civilisations),
    grandes images (Chess, Sudocube Mono) ou couleurs unies (Classique). */
+/* Les cubes de la collection RUR'U' que l'on peut chronométrer */
+const CHRONO_CUBES = [
+  { id:"monstro", fr:"Monstro", en:"Monstro", color:"#2fd46b" }, { id:"classic", fr:"Classique", en:"Classic", color:"#2f7bff" },
+  { id:"sudoku", fr:"Sudocube", en:"Sudocube", color:"#ff2b2b" }, { id:"illusion", fr:"Illusion", en:"Illusion", color:"#ffd60a" },
+  { id:"chesscube", fr:"Chess", en:"Chess", color:"#22c7e8" }, { id:"sudomono", fr:"Sudo Mono", en:"Sudo Mono", color:"#ff4fb0" },
+  { id:"savants", fr:"Scientifiques", en:"Scientists", color:"#a066ff" }, { id:"civi", fr:"Civilisations", en:"Civilisations", color:"#ff8a1a" },
+];
+function ChronoCubePicker({ t, value, onChange }){
+  const en = t.go && t.go.indexOf("GO")>=0 && t.replay==="↻ Replay";
+  return (
+    <div style={{width:"100%",maxWidth:340,marginBottom:6}}>
+      <div style={{fontSize:11.5,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,textAlign:"center",marginBottom:8}}>{t.chronoPickCube}</div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6}}>
+        {CHRONO_CUBES.map(c=>{ const on=value===c.id; return (
+          <button key={c.id} onClick={()=>onChange(c.id)} style={{border:"none",cursor:"pointer",borderRadius:12,padding:"7px 2px",fontFamily:"inherit",
+            fontWeight:800,fontSize:11.5,lineHeight:1.15,color:on?"#1a1228":PAL.text,background:on?c.color:PAL.card,
+            boxShadow:on?`0 3px 0 ${shade(c.color,-55)}`:`0 3px 0 ${PAL.bg2}, 0 0 0 2px ${c.color}88`}}>{en?c.en:c.fr}</button>); })}
+      </div>
+    </div>
+  );
+}
 function SkinSpinCube({ skin, size=150, glow, onClick }){
   const s=size, half=s/2;
   const tiles = (typeof tiles3d==="function") ? tiles3d(skin) : null;
@@ -2447,7 +2476,7 @@ function SkinSpinCube({ skin, size=150, glow, onClick }){
   );
 }
 
-function ChronoScreen({ onBack, t, skin }){
+function ChronoScreen({ onBack, t, skin:skin0, pick }){
   const wide = useWide();
   const [ph,setPh] = useState("ready");   // ready | count | playing | done
   const [ms,setMs] = useState(0);
@@ -2456,6 +2485,9 @@ function ChronoScreen({ onBack, t, skin }){
   const timer = useRef(null);
   const startRef = useRef(0);
 
+  /* depuis l'accueil (pick) : on choisit le cube de sa collection, mémorisé */
+  const [skin,setSkinC] = useState(()=>{ if(!pick) return skin0; try{ const v=localStorage.getItem("rurucube_chrono_cube"); return CHRONO_CUBES.some(c=>c.id===v)?v:"classic"; }catch(e){ return "classic"; } });
+  const chooseCube = id=>{ setSkinC(id); try{ localStorage.setItem("rurucube_chrono_cube",id); }catch(e){} };
   const data = loadS(); const sd = data[skin]||{};
   const stats = sd.chrono || { best:null, games:0, sessions:[] };
 
@@ -2504,8 +2536,10 @@ function ChronoScreen({ onBack, t, skin }){
         wide ? (
           <div style={{display:"flex",gap:36,width:"100%",maxWidth:760,alignItems:"flex-start",justifyContent:"center",flexWrap:"wrap"}}>
             <div style={{display:"flex",flexDirection:"column",alignItems:"center",flex:"0 1 300px"}}>
-              <div style={{marginBottom:16,width:"100%",display:"flex",justifyContent:"center"}}>
-                <Hint color={PAL.blue} icon="🧩">{t.ctxChronoReady}</Hint>
+              <div style={{marginBottom:16,width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
+                {pick&&<ChronoCubePicker t={t} value={skin} onChange={chooseCube}/>}
+              <div style={{display:"flex",justifyContent:"center",margin:"4px 0 10px"}}><SkinSpinCube key={skin} skin={skin} size={110} glow={PAL.blue}/></div>
+              <Hint color={PAL.blue} icon="🧩">{t.ctxChronoReady}</Hint>
               </div>
               <div style={{width:"100%",maxWidth:300}}><CandyBtn onClick={begin} color={PAL.blue}>{t.go}</CandyBtn></div>
               {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint}}>{t.spaceStart}</div>}
@@ -2520,8 +2554,10 @@ function ChronoScreen({ onBack, t, skin }){
           </div>
         ) : (
         <>
-          <div style={{marginBottom:16,width:"100%",display:"flex",justifyContent:"center"}}>
-            <Hint color={PAL.blue} icon="🧩">{t.ctxChronoReady}</Hint>
+          <div style={{marginBottom:16,width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
+            {pick&&<ChronoCubePicker t={t} value={skin} onChange={chooseCube}/>}
+              <div style={{display:"flex",justifyContent:"center",margin:"4px 0 10px"}}><SkinSpinCube key={skin} skin={skin} size={110} glow={PAL.blue}/></div>
+              <Hint color={PAL.blue} icon="🧩">{t.ctxChronoReady}</Hint>
           </div>
           <div style={{width:"100%",maxWidth:300}}><CandyBtn onClick={begin} color={PAL.blue}>{t.go}</CandyBtn></div>
           {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint}}>{t.spaceStart}</div>}
@@ -4236,6 +4272,56 @@ function DiscoverTile({ thumb, emoji, title, sub, color, onClick }){
   );
 }
 
+/* ═══ INSTALLER L'APPLI — protège la progression ═══════════════
+   La progression est gardée dans le navigateur. Installée sur l'écran
+   d'accueil, l'appli garde ses données (Safari peut sinon les effacer
+   après quelques jours sans visite). Android : bouton « Installer ».
+   iPhone : on explique Partager → « Sur l'écran d'accueil ». */
+let deferredInstall = null;
+if(typeof window!=="undefined"){
+  window.addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredInstall=e; window.dispatchEvent(new Event("ruru-installable")); });
+  if("serviceWorker" in navigator && location.protocol==="https:") navigator.serviceWorker.register("/sw.js").catch(()=>{});
+  try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){}
+}
+function InstallBanner({ t }){
+  const standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone===true;
+  const ua = navigator.userAgent||"";
+  const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+  const android = /Android/.test(ua);
+  const [canPrompt,setCanPrompt] = useState(!!deferredInstall);
+  const [hidden,setHidden] = useState(()=>{ try{ const v=+localStorage.getItem("rurucube_install_hide")||0; return Date.now()<v; }catch(e){ return false; } });
+  const [help,setHelp] = useState(false);
+  useEffect(()=>{ const f=()=>setCanPrompt(true); window.addEventListener("ruru-installable",f); return ()=>window.removeEventListener("ruru-installable",f); },[]);
+  if(standalone || hidden || !(ios||android||canPrompt)) return null;
+  const later = ()=>{ setHidden(true); try{ localStorage.setItem("rurucube_install_hide", String(Date.now()+7*864e5)); }catch(e){} };
+  const install = async()=>{
+    if(deferredInstall){ deferredInstall.prompt(); try{ await deferredInstall.userChoice; }catch(e){} deferredInstall=null; setCanPrompt(false); later(); }
+    else setHelp(h=>!h);
+  };
+  return (
+    <div style={{width:"100%",maxWidth:420,margin:"14px 0 2px",borderRadius:18,padding:"13px 14px",
+      background:`linear-gradient(135deg,${PAL.purple}44,${PAL.card})`,boxShadow:`0 0 0 2px ${PAL.purple}99, 0 6px 18px rgba(0,0,0,.35)`}}>
+      <div style={{display:"flex",alignItems:"center",gap:11}}>
+        <span style={{fontSize:28,flexShrink:0}}>📲</span>
+        <div style={{flex:1,minWidth:0,textAlign:"left"}}>
+          <div style={{fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.25}}>{t.instTitle}</div>
+          <div style={{fontSize:12,color:PAL.textDim,fontWeight:600,marginTop:3,lineHeight:1.35}}>{t.instSub}</div>
+        </div>
+        <button onClick={later} aria-label="✕" style={{background:"transparent",border:"none",color:PAL.textFaint,fontSize:18,cursor:"pointer",padding:4,flexShrink:0}}>✕</button>
+      </div>
+      <button onClick={install} style={{width:"100%",marginTop:11,border:"none",cursor:"pointer",borderRadius:13,padding:"11px 8px",fontFamily:"inherit",
+        fontWeight:800,fontSize:14,color:"#1a1228",background:`linear-gradient(180deg,${shade(PAL.purple,40)},${PAL.purple})`,boxShadow:`0 4px 0 ${shade(PAL.purple,-60)}`}}>
+        {canPrompt ? t.instBtn : t.instHow}
+      </button>
+      {help&&!canPrompt&&(
+        <div style={{marginTop:11,fontSize:13,color:PAL.text,fontWeight:600,lineHeight:1.6,textAlign:"left"}}>
+          {(ios ? t.instIos : t.instAndroid).map((l,i)=><div key={i}>{l}</div>)}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, openProfiles }){
   const wide = useWide();
   const openUni = (id)=>{ setSkin(id); launch("univers"); };
@@ -4253,7 +4339,7 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
   ];
   const discover = [
     { id:"tuto",      thumb:HC_TH_TUTO,      sub:t.hcTutoSub,      color:"#ffcf2b", btnText:"#3a2c00", onClick:()=>launch("tuto") },
-    { id:"chrono",    thumb:HC_TH_CHRONO,    sub:t.hcChronoSub,    color:"#ff5a2b", onClick:()=>launch("chrono") },
+    { id:"chrono",    thumb:HC_TH_CHRONO,    sub:t.hcChronoSub,    color:"#ff5a2b", onClick:()=>launch("hchrono") },
     { id:"splitrace", thumb:HC_TH_SPLITRACE, sub:t.hcSplitRaceSub, color:"#8a5cff", onClick:()=>launch("splitrace") },
     { id:"drills",    thumb:HC_TH_DRILLS,    sub:t.hcDrillSub,     color:"#ff3fa0", onClick:()=>launch("drills") },
   ];
@@ -4277,6 +4363,7 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
         <span style={{fontWeight:800,fontSize:14,color:PAL.text}}>{profile.name}</span>
         <span style={{fontSize:11,color:PAL.textDim,fontWeight:700}}>{t.changePlayer}</span>
       </button>
+      <InstallBanner t={t}/>
     </div>
   );
 
@@ -4341,6 +4428,7 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
           <span style={{fontSize:11,color:PAL.textDim,fontWeight:700}}>{t.changePlayer}</span>
         </button>
       </div>
+      <InstallBanner t={t}/>
       <div style={{width:"100%",maxWidth:1048,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <HomeLabel>{t.hcChooseCube}</HomeLabel>
         {deskRow(cubes.map(cubeCard), 3)}
@@ -6202,6 +6290,7 @@ export default function App(){
         {screen==="civi"&&<CiviScreen onBack={()=>setScreen("home")} t={t} kids={kids} toggleKids={toggleKids}
           onChrono={()=>{ setKSkin("civi"); setScreen("kchrono"); }} on3d={()=>{ setKSkin("civi"); setScreen("k3d"); }}/>}
         {screen==="chrono"&&<ChronoScreen onBack={FULL_SOLVE.includes(skin)?toUnivers:back} t={t} skin={skin}/>}
+        {screen==="hchrono"&&<ChronoScreen onBack={back} t={t} skin={skin} pick/>}
         {screen==="splitrace"&&<SplitRaceScreen onBack={back} t={t}/>}
         {screen==="chess3d"&&<ChessCubeScreen onBack={toUnivers} t={t}/>}
         {screen==="cube3d"&&(skin==="classic" ? <ClassicCubeScreen onBack={toUnivers} t={t}/> : <TilesCubeScreen key={skin} onBack={toUnivers} t={t} id={skin}/>)}
