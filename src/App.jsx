@@ -434,8 +434,8 @@ const CLASSIC_SPRITES = Object.fromEntries(Object.entries(CLASSIC_HEX).map(([k,h
 
 const THEMES = {
   dark:{
-    bg:"#151228", bg2:"#1d1836", card:"#241d42", cardHi:"#332a58",
-    text:"#fff4e6", textDim:"#b8aed0", textFaint:"#7a7196",
+    bg:"#000000", bg2:"#0d0d12", card:"#352b7c", cardHi:"#483c9a",
+    text:"#fff7ec", textDim:"#cfc6ee", textFaint:"#9d93cc",
     gold:"#ffd23f", pink:"#ff5ea8", green:"#3ddc84", blue:"#4ea8ff",
     purple:"#9d6cff", red:"#ff5e5e", orange:"#ff9f43",
     ink:"#ffffff", dark:"#0d0b1a",
@@ -554,6 +554,7 @@ const TR = {
     instBtn:"📲 Installer l'appli", instHow:"Comment l'installer ?",
     instIos:["1. Touche le bouton Partager ⬆️ en bas de Safari (ou en haut sur iPad).","2. Fais défiler et choisis « Sur l'écran d'accueil ».","3. Touche « Ajouter » : l'icône RUR'U' apparaît avec tes autres applis."],
     instAndroid:["1. Touche le menu ⋮ en haut à droite de Chrome.","2. Choisis « Installer l'application » (ou « Ajouter à l'écran d'accueil »).","3. Confirme : l'icône RUR'U' apparaît avec tes autres applis."],
+    tapHalf:"Tape ton côté quand ton cube est fini",
     go:"🚀 GO !", replay:"↻ Rejouer", menu:"← Accueil", chronoPickCube:"CHOISIS TON CUBE",
     tapGrid:"👆 Tape la grille pour arrêter",
     tapCube:"👆 Tape le cube quand c'est résolu",
@@ -662,7 +663,8 @@ const TR = {
         intro:["Regarde le dessus et trouve la configuration qui ressemble à ton cube. Si tu as déjà la croix, passe à l'étape suivante."],
         cases:{ point:{title:"Juste le centre jaune", text:"Fais cette formule, puis compare de nouveau avec les deux cas suivants."},
                 L:{title:"Un L", text:"Tiens le L en haut à gauche, comme ici, puis fais la formule."},
-                ligne:{title:"Une ligne", text:"Tiens la ligne à l'horizontale, comme ici, puis fais la formule."} } },
+                ligne:{title:"Une ligne", text:"Tiens la ligne à l'horizontale, comme ici, puis fais la formule."} },
+        tips:["Astuce : tu peux n'apprendre qu'une seule formule, celle de la ligne (A D H Di Hi Ai), et l'utiliser dans les 3 cas. Avant chaque essai, tiens le L en haut à gauche ou la ligne à l'horizontale, puis refais la formule. Il faut 1 essai pour la ligne, 2 pour le L et 3 pour le point."] },
       { hold:"La croix jaune sur la face Haute (H). Fais très attention à l'orientation du cube pour ne pas perdre de temps !",
         goal:"La croix jaune, avec chaque arête de la même couleur que le centre sur le côté.",
         intro:["Tourne H jusqu'à ce que 2 arêtes soient bien alignées avec leur centre. Deux cas peuvent se présenter."],
@@ -706,7 +708,7 @@ const TR = {
     htReverse:"⏳ Reverse", htReverseTxt:"Même principe, mais à l'envers : choisis un temps limite (60/45/30/15/5 s) et reproduis la face avant qu'il ne s'écoule.",
     htDuel:"⚔️ Duel", htDuelTxt:"2 joueurs, 5 manches. Posez le téléphone entre vous. Chacun mélange le cube de l'autre. Au GO, reproduisez la face. Le premier fini tape J'AI FINI. Face fausse ? Tapez le temps du joueur → +30 s de pénalité 😈. Le total le plus bas gagne.",
     htBlind:"🙈 Blind", htBlindTxt:"Mémorise la face affichée avant qu'elle ne disparaisse derrière un voile, puis reproduis-la de mémoire. Choisis ton temps de mémorisation, de 2 à 8 secondes.",
-    htChrono:"🧩 Chrono Cube", htChronoTxt:"Chronomètre ta résolution complète du cube, du mélange à la dernière pièce. Compte à rebours de 5 secondes avant le top départ. Disponible sur les 3 cubes : Monstro, Classique et Sudo.",
+    htChrono:"🧩 Chrono Cube", htChronoTxt:"Chronomètre ta résolution complète du cube, du mélange à la dernière pièce. Compte à rebours de 3 secondes avant le top départ. Disponible sur les 3 cubes : Monstro, Classique et Sudo.",
     htDaily:"🗓️ Défi du jour", htDailyTxt:"Une face identique pour tous les joueurs du monde aujourd'hui. Un seul essai chrono par jour — compare ton temps avec tes amis !",
     htTip:"💡 Astuce", htTipTxt:"Tu n'as pas besoin de savoir résoudre le cube ! Il suffit de reproduire la face affichée. Parfait pour débuter.",
     gotIt:"J'ai compris",
@@ -830,6 +832,7 @@ const TR = {
     instBtn:"📲 Install the app", instHow:"How to install it?",
     instIos:["1. Tap the Share button ⬆️ at the bottom of Safari (top on iPad).","2. Scroll and choose \"Add to Home Screen\".","3. Tap \"Add\": the RUR'U' icon shows up with your other apps."],
     instAndroid:["1. Tap the ⋮ menu at the top right of Chrome.","2. Choose \"Install app\" (or \"Add to Home screen\").","3. Confirm: the RUR'U' icon shows up with your other apps."],
+    tapHalf:"Tap your side when your cube is done",
     go:"🚀 GO!", replay:"↻ Replay", menu:"← Home", chronoPickCube:"PICK YOUR CUBE",
     tapGrid:"👆 Tap the grid to stop",
     tapCube:"👆 Tap the cube when solved",
@@ -938,7 +941,8 @@ const TR = {
         intro:["Look at the top and find the pattern that looks like your cube. If you already have the cross, go to the next step."],
         cases:{ point:{title:"Just the yellow centre", text:"Do this algorithm, then compare again with the next two cases."},
                 L:{title:"An L-shape", text:"Hold the L-shape at the top left, as here, then do the algorithm."},
-                ligne:{title:"A line", text:"Hold the line horizontal, as here, then do the algorithm."} } },
+                ligne:{title:"A line", text:"Hold the line horizontal, as here, then do the algorithm."} },
+        tips:["Tip: you can learn just one algorithm, the line one (F R U R' U' F'), and use it in all 3 cases. Before each try, hold the L at the top left or the line horizontal, then do the algorithm again. It takes 1 try for the line, 2 for the L and 3 for the dot."] },
       { hold:"The yellow cross on the Up face (U). Watch the cube's orientation closely so you don't waste time!",
         goal:"The yellow cross, each edge matching the centre colour on the side.",
         intro:["Turn U until 2 edges line up with their centre. Two cases are possible."],
@@ -982,7 +986,7 @@ const TR = {
     htReverse:"⏳ Reverse", htReverseTxt:"Same idea, in reverse: pick a time limit (60/45/30/15/5 s) and match the face before it runs out.",
     htDuel:"⚔️ Duel", htDuelTxt:"2 players, 5 rounds. Lay the phone between you. Each scrambles the other's cube. At GO, match the face. First done taps I'M DONE. Wrong face? Tap the player's time → +30 s penalty 😈. Lowest total wins.",
     htBlind:"🙈 Blind", htBlindTxt:"Memorize the face before it vanishes behind a veil, then rebuild it from memory. Choose your memorizing time, from 2 to 8 seconds.",
-    htChrono:"🧩 Cube Timer", htChronoTxt:"Time your full cube solve, from scramble to the last piece. 5-second countdown before go. Available on all 3 cubes: Monstro, Classic and Sudo.",
+    htChrono:"🧩 Cube Timer", htChronoTxt:"Time your full cube solve, from scramble to the last piece. 3-second countdown before go. Available on all 3 cubes: Monstro, Classic and Sudo.",
     htDaily:"🗓️ Daily challenge", htDailyTxt:"The same face for every player in the world today. One timed try per day — compare with your friends!",
     htTip:"💡 Tip", htTipTxt:"You don't need to know how to solve the cube! Just match the face shown. Perfect for beginners.",
     gotIt:"Got it",
@@ -1437,17 +1441,8 @@ function GlobalStyles(){
   `}</style>;
 }
 function Bg(){
-  const shapes=[
-    {e:"🧩",x:"6%",y:"12%",s:26,d:"9s",dl:"0s"},{e:"⭐",x:"88%",y:"18%",s:20,d:"11s",dl:"1.5s"},
-    {e:"🎲",x:"10%",y:"78%",s:24,d:"10s",dl:".8s"},{e:"✨",x:"85%",y:"72%",s:18,d:"12s",dl:"2s"},
-  ];
-  return (
-    <div style={{position:"fixed",inset:0,pointerEvents:"none",overflow:"hidden",zIndex:0}}>
-      <div style={{position:"absolute",inset:"-20%",background:`radial-gradient(circle at 20% 15%,${PAL.purple}26 0%,transparent 40%),radial-gradient(circle at 80% 25%,${PAL.pink}1e 0%,transparent 40%),radial-gradient(circle at 50% 90%,${PAL.blue}1e 0%,transparent 45%)`,animation:"bgshift 18s ease-in-out infinite"}}/>
-      <div style={{position:"absolute",inset:0,backgroundImage:`radial-gradient(${PAL.textFaint}18 1px,transparent 1px)`,backgroundSize:"22px 22px",opacity:.5}}/>
-      {shapes.map((s,i)=>(<div key={i} style={{position:"absolute",left:s.x,top:s.y,fontSize:s.s,opacity:.15,animation:`floaty ${s.d} ease-in-out infinite`,animationDelay:s.dl}}>{s.e}</div>))}
-    </div>
-  );
+  /* Fond complètement noir */
+  return <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0,background:"#000"}}/>;
 }
 function AgeToggle({ kids, toggleKids, t, color }){
   return (
@@ -2116,7 +2111,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
   const [mode,setMode] = useState(forceMode||"normal");  // normal | reverse | blind | motifs
   const [memoLimit,setMemoLimit] = useState(5);
   const [ph,setPh] = useState("ready");             // ready | count | playing | done
-  const [count,setCount] = useState(5);
+  const [count,setCount] = useState(3);
   const [face,setFace] = useState(null);
   const [ms,setMs] = useState(0);
   const [limit,setLimit] = useState(60);
@@ -2137,8 +2132,8 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
 
   function begin(){
     if(dailyLocked) return;                            // défi déjà relevé aujourd'hui
-    setCount(5); setPh("count");
-    let c = 5;
+    setCount(3); setPh("count");
+    let c = 3;
     clearInterval(timer.current);
     timer.current = setInterval(()=>{
       c -= 1;
@@ -2480,7 +2475,7 @@ function ChronoScreen({ onBack, t, skin:skin0, pick }){
   const wide = useWide();
   const [ph,setPh] = useState("ready");   // ready | count | playing | done
   const [ms,setMs] = useState(0);
-  const [count,setCount] = useState(5);
+  const [count,setCount] = useState(3);
   const [isRecord,setIsRecord] = useState(false);
   const timer = useRef(null);
   const startRef = useRef(0);
@@ -2494,8 +2489,8 @@ function ChronoScreen({ onBack, t, skin:skin0, pick }){
   useEffect(()=>()=>clearInterval(timer.current),[]);
 
   function begin(){
-    setIsRecord(false); setMs(0); setCount(5); setPh("count");
-    let c = 5;
+    setIsRecord(false); setMs(0); setCount(3); setPh("count");
+    let c = 3;
     timer.current = setInterval(()=>{
       c -= 1;
       if(c<=0){
@@ -3373,7 +3368,7 @@ function DuelScreen({ onBack, t, skin, full }){
   const [showRules,setShowRules] = useState(true);
   const [round,setRound] = useState(1);
   const [ph,setPh] = useState("ready");  // ready | count | playing | roundDone | over
-  const [count,setCount] = useState(5);
+  const [count,setCount] = useState(3);
   const [face,setFace] = useState(null);
   const [p1,setP1] = useState({d:false,v:null,pen:false});
   const [p2,setP2] = useState({d:false,v:null,pen:false});
@@ -3384,8 +3379,8 @@ function DuelScreen({ onBack, t, skin, full }){
   useEffect(()=>()=>clearInterval(tick.current),[]);
 
   function go(){
-    setCount(5); setPh("count");
-    let c = 5;
+    setCount(3); setPh("count");
+    let c = 3;
     clearInterval(tick.current);
     tick.current = setInterval(()=>{
       c -= 1;
@@ -3580,66 +3575,53 @@ function DuelScreen({ onBack, t, skin, full }){
     const sz = wide
       ? Math.min(window.innerWidth-320, window.innerHeight-260, 340)
       : Math.min(window.innerWidth-70, window.innerHeight-390, 310);
-    const btnStyle = (p,col)=>({flex:1,padding:wide?"20px 10px":"20px 8px",border:"none",borderRadius:18,cursor:"pointer",
-      background:p.d?PAL.card:`linear-gradient(180deg,${shade(col,30)},${col} 45%)`,
-      color:p.d?(p.pen?PAL.red:PAL.gold):"#1a1228",fontWeight:700,fontSize:17,
-      boxShadow:p.d?`0 0 0 2px ${p.pen?PAL.red:col}44`:`0 5px 0 ${shade(col,-40)}, inset 0 2px 4px rgba(255,255,255,.4)`});
-    const btn1 = (
-      <button onClick={()=>p1.d?togglePen(1):done(1)} disabled={!p1.d&&ph!=="playing"}
-        style={wide?{...btnStyle(p1,PAL.blue),flex:"none",width:150,height:"100%",minHeight:220}:btnStyle(p1,PAL.blue)}>
-        <div style={{fontSize:11,fontWeight:700,opacity:.75,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{nomA}{p1.pen?" · 😈+30s":""}</div>
-        {p1.d?fmt(eff(p1)):t.iDone}
-      </button>
-    );
-    const btn2 = (
-      <button onClick={()=>p2.d?togglePen(2):done(2)} disabled={!p2.d&&ph!=="playing"}
-        style={wide?{...btnStyle(p2,PAL.pink),flex:"none",width:150,height:"100%",minHeight:220}:btnStyle(p2,PAL.pink)}>
-        <div style={{fontSize:11,fontWeight:700,opacity:.75,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{nomB}{p2.pen?" · 😈+30s":""}</div>
-        {p2.d?fmt(eff(p2)):t.iDone}
-      </button>
-    );
-    const center = (
-      <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:12}}>
-        <div style={{fontWeight:700,fontSize:46,color:PAL.green,lineHeight:1,fontVariantNumeric:"tabular-nums",textShadow:`0 0 20px ${PAL.green}44`}}>{fmt(ms)}</div>
-        {full
-          ? <SkinSpinCube skin={skin} size={Math.min(sz*.6,150)} glow={PAL.green}/>
-          : <CubeFace cells={face} size={sz} glow={neon?SKINS.sudoku.color:(wood?"#c69c6d":(ph==="playing"?PAL.green:null))} sprites={sprites} dark={neon} light={wood}/>}
-        <Hint color={ph==="roundDone"?PAL.gold:PAL.green} icon={ph==="roundDone"?"🔍":"⚡"}>{ph==="roundDone"?t.ctxDuelDone:(full?t.ctxDuelSolve:t.ctxDuelPlaying)}</Hint>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <GhostBtn onClick={onBack} color={PAL.green}>✕</GhostBtn>
-          <span style={{fontWeight:700,fontSize:14,color:PAL.green,letterSpacing:1}}>⚔️ {t.round} {round}/{R}</span>
-          {ph==="roundDone"&&(
-            <>
-              <span style={{fontWeight:700,fontSize:14,color:PAL.gold}}>{rw()?`🏆 ${rw()} ${t.wins}`:t.tie}</span>
-              <CandyBtn small onClick={next} color={paper?"#ffffff":PAL.green} ring={paper?"#132a4d":undefined}>{round>=R?"🏁":"→"}</CandyBtn>
-            </>
-          )}
-        </div>
-      </div>
-    );
+    /* L'écran est coupé en deux dans la longueur : moitié gauche bleue (joueur 1),
+       moitié droite rose (joueur 2). Toute la moitié est le bouton « J'ai fini ».
+       Le chrono, la face et les commandes flottent au milieu. */
+    const half = (n,p,col,nom,side)=>{
+      const dn=!!p.d;
+      return (
+        <button onClick={()=>dn?togglePen(n):done(n)} disabled={!dn&&ph!=="playing"}
+          style={{position:"fixed",top:0,bottom:0,[side]:0,width:"50%",border:"none",margin:0,padding:"0 10px 34px",cursor:"pointer",
+            display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-end",fontFamily:"inherit",
+            background:dn
+              ? `linear-gradient(180deg,${shade(col,-95)},${shade(col,-125)})`
+              : `linear-gradient(180deg,${shade(col,45)} 0%,${col} 55%,${shade(col,-35)} 100%)`,
+            boxShadow:side==="left"?"inset -3px 0 0 rgba(0,0,0,.25)":"inset 3px 0 0 rgba(255,255,255,.18)",
+            transition:"background .25s"}}>
+          <div style={{fontSize:13,fontWeight:800,opacity:.8,color:dn?"#fff":"#1a1228",maxWidth:"100%",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
+            {nom}{p.pen?" · 😈+30s":""}</div>
+          <div style={{fontSize:dn?30:24,fontWeight:800,letterSpacing:.5,marginTop:4,color:dn?(p.pen?PAL.red:col):"#1a1228",fontVariantNumeric:"tabular-nums"}}>
+            {dn?fmt(eff(p)):t.iDone}</div>
+          {!dn&&<div style={{fontSize:11.5,fontWeight:700,color:"#1a1228",opacity:.6,marginTop:3}}>👆 {t.tapHalf}</div>}
+        </button>
+      );
+    };
     return (
-      <div style={{display:"flex",flexDirection:wide?"row":"column",alignItems:"center",justifyContent:"center",
-        minHeight:"100vh",position:"relative",zIndex:1,padding:wide?"20px 24px":"12px 14px",gap:wide?20:10}}>
-      {neon&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:SUDO_BG}}/>}
-      {wood&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #fffdf8 0%, #fbeed8 55%, #f3ddb8 100%)"}}/>}
-      {paper&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -10%, #ffffff 0%, #eef1f4 55%, #dfe3e8 100%)"}}/>}
-        {wide ? (
-          <>
-            {btn1}
-            {center}
-            {btn2}
-          </>
-        ) : (
-          <>
-            {center}
-            <div style={{display:"flex",gap:12,width:"100%",maxWidth:420}}>
-              {btn1}{btn2}
+      <div style={{minHeight:"100vh",position:"relative",zIndex:1}}>
+        {half(1,p1,PAL.blue,nomA,"left")}
+        {half(2,p2,PAL.pink,nomB,"right")}
+        <div style={{position:"fixed",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
+          padding:"14px 14px 120px",pointerEvents:"none",zIndex:2}}>
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,padding:"14px 14px 12px",borderRadius:24,
+            background:"rgba(20,16,48,.62)",backdropFilter:"blur(6px)",WebkitBackdropFilter:"blur(6px)",boxShadow:"0 10px 30px rgba(0,0,0,.35)",maxWidth:"92%"}}>
+            <div style={{fontWeight:700,fontSize:42,color:PAL.green,lineHeight:1,fontVariantNumeric:"tabular-nums",textShadow:`0 0 20px ${PAL.green}44`}}>{fmt(ms)}</div>
+            {full
+              ? <SkinSpinCube skin={skin} size={Math.min(sz*.55,140)} glow={PAL.green}/>
+              : <CubeFace cells={face} size={Math.min(sz,280)} glow={neon?SKINS.sudoku.color:(wood?"#c69c6d":(ph==="playing"?PAL.green:null))} sprites={sprites} dark={neon} light={wood}/>}
+            {ph==="roundDone"&&<div style={{fontSize:12.5,fontWeight:700,color:PAL.gold,textAlign:"center",maxWidth:260}}>🔍 {t.ctxDuelDone}</div>}
+            <div style={{display:"flex",alignItems:"center",gap:12,pointerEvents:"auto"}}>
+              <GhostBtn onClick={onBack} color={PAL.green}>✕</GhostBtn>
+              <span style={{fontWeight:700,fontSize:14,color:PAL.green,letterSpacing:1}}>⚔️ {t.round} {round}/{R}</span>
+              {ph==="roundDone"&&(
+                <>
+                  <span style={{fontWeight:700,fontSize:14,color:PAL.gold}}>{rw()?`🏆 ${rw()} ${t.wins}`:t.tie}</span>
+                  <CandyBtn small onClick={next} color={PAL.green}>{round>=R?"🏁":"→"}</CandyBtn>
+                </>
+              )}
             </div>
-          </>
-        )}
+          </div>
+        </div>
       </div>
     );
   }
@@ -3763,14 +3745,14 @@ const CIVI = [
       path:"Les Mayas ont bâti des cités-États rivales ornées de pyramides et de stèles, développé une écriture hiéroglyphique complexe et un système de numération utilisant le zéro.",
       vision:"Ils voyaient le temps comme cyclique et sacré, rythmé par plusieurs calendriers entrelacés qui réglaient la vie religieuse, agricole et politique."}, bioKid:{birth:"Cette civilisation est née il y a environ 4000 ans, dans les forêts d'Amérique centrale.",death:"Beaucoup de grandes villes mayas ont été abandonnées vers l'an 900, peut-être à cause de sécheresses ou de guerres.",path:"Les Mayas ont construit d'immenses pyramides et inventé une écriture avec des dessins appelés glyphes.",vision:"Ils pensaient que le temps tournait en boucle, comme un cercle, et l'observaient grâce à plusieurs calendriers."},
     tiles:MAYA_TILES, order:[0,1,2,3,-1,4,5,6,7], items:[
-    {t:"Sceau spirituel Ahau", d:"Ce glyphe évoque une présence ancestrale, la conduite et une force guidant depuis les hauteurs. Porteur de l'héritage des anciens souverains, son pouvoir bénissait la civilisation maya.", dKid:"Ce symbole représente un ancêtre puissant qui guide et protège le peuple maya."},
-    {t:"Marque d'Oxlahuun", d:"Cet ancien glyphe numérique est lié au temps. Gravé sur monuments et reliefs, il tient sa place dans un calendrier historique aujourd'hui oublié, comptant les jours de l'histoire.", dKid:"Un symbole utilisé pour compter le temps, gravé sur des monuments très anciens."},
-    {t:"3 Ajaw", d:"Signifiant achèvement et souveraineté, ce glyphe apparaît souvent pour dater la naissance de grands dirigeants. Il porte un poids considérable dans la civilisation maya.", dKid:"Ce symbole marquait une date importante, souvent la naissance d'un grand chef."},
-    {t:"Chikchan", d:"Symbole de mouvement, ce pouls en perpétuel déplacement relierait la terre et le ciel. Porteur d'une force créatrice et d'un instinct de survie, il évoque aussi l'instant précédant une transformation.", dKid:"Ce symbole représente le mouvement, comme un battement de cœur qui relie la terre et le ciel."},
-    {t:"Kawak", d:"Symbole de tempête et de bouleversement, il apporte la pluie qui nourrit la terre. Mais l'éclair qui l'accompagne peut aussi apporter la destruction ; souvent invoqué dans les moments de crise, il peut apporter une nouvelle clarté.", dKid:"Ce symbole représente l'orage. Il apporte la pluie utile, mais aussi parfois des éclairs dangereux."},
-    {t:"B'alam Ajaw (Seigneur Jaguar)", d:"Signifiant « Seigneur Jaguar », ce puissant symbole représentait un titre royal dans la civilisation maya. Associé au pouvoir et au sacré, le jaguar relie les souverains mayas aux forces spirituelles qui soutenaient leur autorité.", dKid:"Ça veut dire « Seigneur Jaguar ». C'était un titre donné aux rois mayas les plus puissants."},
-    {t:"Dieu Soleil", d:"Ce symbole représente l'idée maya du soleil, un dieu vivant qui transforme son apparence au fil de son voyage. Il est l'œil du ciel, veillant sans cesse sur les Mayas et jugeant la terre en contrebas.", dKid:"Pour les Mayas, le soleil était un dieu vivant qui observait tout depuis le ciel."},
-    {t:"Witz (la montagne)", d:"Élément central de la société maya, le Witz représente les montagnes de la terre. Considérées comme des êtres vivants sacrés, les montagnes étaient perçues comme les gardiennes du monde.", dKid:"Les Mayas pensaient que les montagnes étaient vivantes et qu'elles protégeaient la Terre."}
+    {t:"Le maïs", d:"Le maïs était au cœur de l'alimentation des Mayas et de toute la Mésoamérique. À l'époque préhispanique, son importance fut telle qu'on le considère comme l'un des facteurs du passage de sociétés nomades de chasseurs-cueilleurs à des sociétés agricoles sédentaires. Les mythes en témoignent : l'humanité maya aurait été façonnée à partir de pâte de maïs. Dans la cosmogonie maya, les cycles de vie, de mort et de renaissance du dieu du maïs servaient de modèle à la vie d'un ajaw (seigneur).", dKid:"Le maïs était la nourriture la plus importante des Mayas. Grâce à lui, ils ont pu arrêter de se déplacer pour chasser et construire des villages. Leurs légendes racontent même que les premiers humains ont été fabriqués avec de la pâte de maïs !"},
+    {t:"Pyramide de Chichén Itzá", d:"Aussi appelée El Castillo. La plateforme au sommet de la pyramide servait aux cérémonies religieuses en l'honneur de Kukulkán, le dieu serpent maya. Chichén Itzá fut l'une des cités les plus importantes de la culture maya, probablement le centre d'une confédération de cités-États. Elle prospéra entre 750 et 1200 apr. J.-C.", dKid:"On l'appelle aussi El Castillo, « le château ». Tout en haut, les Mayas faisaient des cérémonies pour Kukulkán, leur dieu serpent. Chichén Itzá était l'une des plus grandes villes mayas, il y a environ 1000 ans."},
+    {t:"Glyphes (écriture maya)", d:"Un glyphe est un signe graphique du système d'écriture de la civilisation maya, représentant une syllabe, un mot entier ou une idée. L'écriture associe des logogrammes (signes représentant une idée) et des syllabogrammes (signes représentant une syllabe) pour former des blocs d'écriture et des textes complexes. C'est un système mixte, dit logosyllabique, qui utilise à la fois des logogrammes et des signes phonétiques, dont des compléments phonétiques.", dKid:"Les glyphes sont les dessins de l'écriture maya. Un glyphe peut représenter un son, un mot entier ou une idée. En les assemblant, les Mayas écrivaient de vraies histoires gravées dans la pierre."},
+    {t:"Tzolk'in", d:"Nom moderne désignant le cycle sacré de 260 jours de la culture maya, qui réglait la vie cérémonielle. Il suit un système vigésimal et combine un cycle de 13 nombres avec 20 noms de jours, formant des combinaisons uniques sur les 260 jours du cycle.", dKid:"C'est le calendrier sacré des Mayas. Il dure 260 jours et mélange 13 nombres avec 20 noms de jours. Il servait à choisir les dates des fêtes et des cérémonies."},
+    {t:"Jaguar (Balam)", d:"Roi des félins de Mésoamérique, le jaguar s'inscrivait chez les Mayas dans une symbolique complexe liée au pouvoir des seigneurs (ajaw). Animal nocturne, il était aussi associé aux puissances de la nuit et de l'inframonde. Sa figure était étroitement liée aux rituels chamaniques, au cours desquels les prêtres se transformaient en animaux, manière symbolique d'acquérir des pouvoirs surnaturels.", dKid:"Le jaguar est le roi des félins d'Amérique. Pour les Mayas, il représentait la force des rois. Comme il chasse la nuit, on le reliait aussi au monde de la nuit et aux pouvoirs magiques des prêtres."},
+    {t:"Kukulkán (serpent à plumes)", d:"Son nom vient de k'uk'ul (à plumes) et kan (serpent). Le dieu serpent à plumes apparaît sous différents noms dans toute la Mésoamérique : Quetzalcóatl pour les Toltèques et les Aztèques, Kukulkán pour les Mayas du Yucatán, Gucumatz pour les Mayas K'iche' du Guatemala. Les cultures mésoaméricaines le représentaient avant tout comme le dieu créateur, porteur du vent et de la pluie. Son temple se trouvait à Chichén Itzá. Sa forme associe l'oiseau quetzal et un serpent, dont la gueule ouverte représente l'entrée de l'inframonde.", dKid:"Kukulkán est le dieu serpent à plumes : un mélange de serpent et d'oiseau quetzal. Pour les Mayas, il avait créé le monde et apportait le vent et la pluie. Son temple se trouve à Chichén Itzá."},
+    {t:"La guerre maya", d:"Longtemps, on n'a pas vu les Mayas comme un peuple guerrier (contrairement aux Aztèques) ; pourtant, les conflits étaient omniprésents dans leur culture. Les guerres entre cités-États mayas avaient des motifs économiques, cérémoniels et de prestige. Des indices montrent l'importance de la capture de nobles destinés au sacrifice humain. Les armes les plus courantes étaient les lances et les couteaux d'obsidienne pour le combat rapproché.", dKid:"Les villes mayas se faisaient souvent la guerre, pour devenir plus riches ou plus puissantes. Les guerriers se battaient avec des lances et des couteaux en obsidienne, une pierre noire très coupante."},
+    {t:"Le jeu de balle", d:"Sport rituel aux connotations mystiques et militaires, populaire dans toute la Mésoamérique. Dans la culture maya, il opposait deux équipes représentant l'inframonde et le monde supérieur, en lutte perpétuelle. Un anneau de pierre fut ajouté à la période postclassique (tardive) maya et resta en usage dans la culture aztèque.", dKid:"C'était le grand sport des Mayas, mais aussi une cérémonie. Deux équipes s'affrontaient avec une balle : l'une représentait le monde d'en bas, l'autre le monde d'en haut. Plus tard, il fallait faire passer la balle dans un anneau de pierre."}
   ]},
   { id:"rome", name:"Rome Antique", emoji:"🦅", color:"#4ea8ff", tag:"Empire romain · Droit et légions",
     bio:{birth:"Selon la légende, en 753 av. J.-C. par Romulus ; la République est fondée en 509 av. J.-C., suivie de l'Empire en 27 av. J.-C.",
@@ -5296,8 +5278,10 @@ function tiles3d(id){
   if(id==="monstro") return col(MONSTER_SPRITES);
   if(id==="sudoku")  return col(SUDOKUBE_SPRITES);
   if(id==="illusion")return col(ILLUSION_SPRITES);
-  if(id==="savants") return { U:EINSTEIN_TILES, F:CURIE_TILES, R:TESLA_TILES, B:NEWTON_TILES, L:DARWIN_TILES, D:GALILEE_TILES };
-  if(id==="civi")    return { U:RAPANUI_TILES, F:MAYA_TILES, R:ROME_TILES, B:EGYPT_TILES, L:MESO_TILES, D:CHINA_TILES };
+  /* Même schéma de couleurs qu'un vrai cube : jaune en haut / blanc en bas, vert devant / bleu derrière,
+     orange à droite / rouge à gauche (jaune ↔ blanc, vert ↔ bleu, orange ↔ rouge sont opposés) */
+  if(id==="savants") return { U:EINSTEIN_TILES, D:CURIE_TILES, F:DARWIN_TILES, B:NEWTON_TILES, R:TESLA_TILES, L:GALILEE_TILES };
+  if(id==="civi")    return { U:MAYA_TILES, D:RAPANUI_TILES, F:MESO_TILES, B:ROME_TILES, R:EGYPT_TILES, L:CHINA_TILES };
   return null;
 }
 function TilesCubeScreen({ onBack, t, id }){
@@ -5681,7 +5665,7 @@ function ChronoRevScreen({ onBack, t, skin }){
   const [ph,setPh] = useState("ready");          // ready | count | playing | done
   const [limit,setLimit] = useState(()=>{ const s=(loadS()[skin]||{}).chronorev; return (s&&s.limit)||120; });
   const [ms,setMs] = useState(0);
-  const [count,setCount] = useState(5);
+  const [count,setCount] = useState(3);
   const [failed,setFailed] = useState(false);
   const [isRecord,setIsRecord] = useState(false);
   const timer = useRef(null);
@@ -5698,8 +5682,8 @@ function ChronoRevScreen({ onBack, t, skin }){
     s2.chronorev=st; d[skin]=s2; saveS(d); return rec;
   }
   function begin(){
-    setIsRecord(false); setFailed(false); setMs(0); setCount(5); setPh("count");
-    let c=5; clearInterval(timer.current);
+    setIsRecord(false); setFailed(false); setMs(0); setCount(3); setPh("count");
+    let c=3; clearInterval(timer.current);
     timer.current=setInterval(()=>{
       c-=1;
       if(c<=0){
