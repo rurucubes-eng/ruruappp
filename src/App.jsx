@@ -240,6 +240,7 @@ import HC_TH_TUTO from "./assets/home_th_tuto.webp";
 import HC_TH_CHRONO from "./assets/home_th_chrono.webp";
 import HC_TH_SPLITRACE from "./assets/home_th_splitrace.webp";
 import HC_TH_DRILLS from "./assets/home_th_drills.webp";
+import HC_SOLVEUR from "./assets/home_solveur.webp";
 
 /* ─── Visuels des modes (univers Classique) ─────────────────── */
 import MD_FACE from "./assets/mode_face.webp";
@@ -543,6 +544,7 @@ const TR = {
     drillProgress:"Progression", drillProgressSub:"Toutes les étapes, tes meilleurs temps",
     drillSumBests:"Somme des meilleurs temps", drillWeakest:"À travailler", drillTotalReps:"Tours au total",
     hcDrill:"ENTRAÎNEMENT", hcDrillSub:"Isole une étape et progresse",
+    solveurTitle:"Solveur de cube",
     daily:"DÉFI DU JOUR", dailyDone:"Fait en", dailyTodo:"Même face pour tous · 1 essai chrono",
     dailyLocked:"🔒 Défi déjà relevé aujourd'hui !", dailyOnce:"Un seul essai par jour — reviens demain pour une nouvelle face 🌙",
     dailyNext:"Prochain défi dans", dailyDoneShort:"Fait ✓",
@@ -821,6 +823,7 @@ const TR = {
     drillProgress:"Progress", drillProgressSub:"Every stage, your best times",
     drillSumBests:"Sum of best times", drillWeakest:"Needs work", drillTotalReps:"Total reps",
     hcDrill:"TRAINING", hcDrillSub:"Isolate a stage and improve",
+    solveurTitle:"Cube solver",
     daily:"DAILY CHALLENGE", dailyDone:"Done in", dailyTodo:"Same face for everyone · 1 timed try",
     dailyLocked:"🔒 Today's challenge is done!", dailyOnce:"One try per day — come back tomorrow for a new face 🌙",
     dailyNext:"Next challenge in", dailyDoneShort:"Done ✓",
@@ -4349,7 +4352,18 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
     </div>
   );
 
+  /* Bannière du solveur de cube (l'image contient déjà le bouton « Consulter ») */
+  const solveurBtn = (
+    <button onClick={()=>launch("solveur")} aria-label={t.solveurTitle}
+      style={{width:"100%",maxWidth:wide?620:420,marginTop:22,padding:0,border:"none",background:"transparent",cursor:"pointer",
+        borderRadius:22,overflow:"hidden",boxShadow:"0 0 0 2px #2fd0ff66, 0 10px 30px rgba(20,140,255,.28)",transition:"transform .12s"}}
+      onPointerDown={e=>e.currentTarget.style.transform="scale(.97)"} onPointerUp={e=>e.currentTarget.style.transform=""} onPointerLeave={e=>e.currentTarget.style.transform=""}>
+      <img src={HC_SOLVEUR} alt={t.solveurTitle} style={{display:"block",width:"100%",height:"auto"}}/>
+    </button>
+  );
+
   const mainFooter = (<>
+      {solveurBtn}
       {/* Boutique */}
       <a href="https://rurucube.com" target="_blank" rel="noopener noreferrer"
         style={{textDecoration:"none",width:"100%",marginTop:18}}>
@@ -4472,6 +4486,21 @@ function HomeScreen({ t, setSkin, launch, openHelp, lang, toggleLang, profile, o
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"18px 14px 40px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {rail}{main}
+    </div>
+  );
+}
+
+/* Solveur de cube 3×3 : page autonome public/solveur.html affichée dans l'appli */
+function SolveurScreen({ onBack, t }){
+  return (
+    <div style={{position:"fixed",inset:0,zIndex:5,display:"flex",flexDirection:"column",background:"#1a1a1a"}}>
+      <div style={{display:"flex",alignItems:"center",gap:10,padding:"calc(env(safe-area-inset-top, 0px) + 8px) 12px 8px",background:"#000"}}>
+        <button onClick={onBack}
+          style={{border:"none",cursor:"pointer",borderRadius:999,padding:"8px 14px",fontWeight:800,fontSize:14,
+            background:"linear-gradient(180deg,#5fe0ff,#1fb6ff)",color:"#04263a",boxShadow:"0 3px 0 #0b6f9e"}}>{t.menu}</button>
+        <div style={{fontWeight:800,fontSize:16,color:"#7fe3ff",letterSpacing:.5}}>🧩 {t.solveurTitle}</div>
+      </div>
+      <iframe src="solveur.html" title={t.solveurTitle} style={{flex:1,width:"100%",border:"none",display:"block"}}/>
     </div>
   );
 }
@@ -6289,6 +6318,7 @@ export default function App(){
         {screen==="kchrono"&&<ChronoScreen onBack={()=>setScreen(kSkin)} t={t} skin={kSkin}/>}
         {screen==="k3d"&&<TilesCubeScreen onBack={()=>setScreen(kSkin)} t={t} id={kSkin}/>}
         {screen==="tuto"&&<TutoScreen onBack={back} t={t}/>}
+        {screen==="solveur"&&<SolveurScreen onBack={()=>setScreen("home")} t={t}/>}
         {screen==="progress"&&<ProgressScreen t={t} skin={skin} onBack={toUnivers} launch={setScreen}/>}
       </div>
 
