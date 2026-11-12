@@ -599,28 +599,44 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('scanTabs').append(b); scanTabEls[f] = b;
   });
 
-  // couleur moyenne au centre de chacune des 9 cases du cadre
+  // couleur médiane au centre de chacune des 9 cases du cadre (la médiane ignore reflets et logos)
+  let uniform = 0;
+  const bufR = new Uint8Array(256), bufG = new Uint8Array(256), bufB = new Uint8Array(256);
   function sample(src, sw, sh) {
     const m = Math.min(sw, sh), g = m * 0.76;
     cx.drawImage(src, (sw - m) / 2 + m * 0.12, (sh - m) / 2 + m * 0.12, g, g, 0, 0, 96, 96);
     const d = cx.getImageData(0, 0, 96, 96).data, out = [];
+    uniform = 0;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
-      let R = 0, G = 0, B = 0, n = 0;
-      for (let y = r*32 + 10; y < r*32 + 22; y++) for (let x = c*32 + 10; x < c*32 + 22; x++) { const p = (y*96 + x) * 4; R += d[p]; G += d[p+1]; B += d[p+2]; n++; }
-      out.push([R/n, G/n, B/n]);
+      let n = 0;
+      for (let y = r*32 + 8; y < r*32 + 24; y++) for (let x = c*32 + 8; x < c*32 + 24; x++) { const p = (y*96 + x) * 4; bufR[n] = d[p]; bufG[n] = d[p+1]; bufB[n] = d[p+2]; n++; }
+      bufR.sort(); bufG.sort(); bufB.sort();
+      out.push([bufR[128], bufG[128], bufB[128]]);
+      if (Math.max(bufR[192] - bufR[64], bufG[192] - bufG[64], bufB[192] - bufB[64]) < 42) uniform++;
     }
     return out;
   }
-  // lecture provisoire par teinte : 0 blanc, 1 rouge, 2 vert, 3 jaune, 4 orange, 5 bleu
-  function classify(p) {
+  function hue(p) {
     const r = p[0]/255, g = p[1]/255, b = p[2]/255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
-    if (mx === 0 || d / mx < 0.28) return 0;
+    if (mx === 0 || d === 0) return { s: 0, h: 0 };
     let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
     h = (h * 60 + 360) % 360;
-    if (h < 12 || h >= 300) return 1;
-    if (h < 40) return 4;
-    if (h < 75) return 3;
-    if (h < 170) return 2;
+    return { s: d / mx, h: h >= 300 ? h - 360 : h };
+  }
+  // lecture provisoire par teinte : 0 blanc, 1 rouge, 2 vert, 3 jaune, 4 orange, 5 bleu.
+  // La limite rouge/orange se règle sur les centres rouge et orange déjà scannés.
+  function classify(p) {
+    const q = hue(p);
+    if (q.s < 0.28) return 0;
+    let lim = 12;
+    const hr = raw[1] ? hue(raw[1][4]).h : null, ho = raw[4] ? hue(raw[4][4]).h : null;
+    if (hr !== null && ho !== null && ho > hr) lim = (hr + ho) / 2;
+    else if (hr !== null && hr < 30) lim = hr + 8;
+    else if (ho !== null && ho > -10) lim = ho - 8;
+    if (q.h < lim) return 1;
+    if (q.h < Math.max(42, lim + 8)) return 4;
+    if (q.h < 75) return 3;
+    if (q.h < 170) return 2;
     return 5;
   }
   function lab(p) {
@@ -628,22 +644,57 @@ if (typeof module !== 'undefined') module.exports = Core;
     const R = f(p[0]), G = f(p[1]), B = f(p[2]);
     const g = t => t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116;
     const X = g((0.4124*R + 0.3576*G + 0.1805*B) / 0.9505), Y = g(0.2126*R + 0.7152*G + 0.0722*B), Z = g((0.0193*R + 0.1192*G + 0.9505*B) / 1.089);
-    return [116*Y - 16, 500*(X - Y), 200*(Y - Z)];
+    const L = 116*Y - 16, k = 70 / Math.max(L, 20); // chroma ramenée à une luminosité commune
+    return [L, 500*(X - Y)*k, 200*(Y - Z)*k];
   }
-  // une fois les 6 faces lues : chaque case prend la couleur du centre le plus proche, 8 cases par couleur
+  const dist = (p, q) => 0.1*(p[0]-q[0])**2 + (p[1]-q[1])**2 + (p[2]-q[2])**2;
+  const valid = () => { try { Core.toCubie(fl); return true; } catch (e) { return false; } };
+  // Une fois les 6 faces lues : 8 cases par couleur, regroupées autour des centres, puis
+  // correction des cases douteuses si le cube obtenu est impossible.
   function rebalance() {
-    const refs = []; for (let f = 0; f < 6; f++) refs[f] = lab(raw[f][4]);
-    const pairs = [];
-    for (let k = 0; k < 54; k++) {
-      if (k % 9 === 4) continue;
-      const p = lab(raw[(k/9)|0][k % 9]);
-      for (let c = 0; c < 6; c++) { const q = refs[c]; pairs.push([0.4*(p[0]-q[0])**2 + (p[1]-q[1])**2 + (p[2]-q[2])**2, k, c]); }
+    const feat = []; for (let k = 0; k < 54; k++) feat[k] = lab(raw[(k/9)|0][k % 9]);
+    let refs = []; for (let f = 0; f < 6; f++) refs[f] = feat[f*9 + 4];
+    const D = [];
+    for (let it = 0; it < 3; it++) {
+      const pairs = [];
+      for (let k = 0; k < 54; k++) {
+        if (k % 9 === 4) continue;
+        D[k] = refs.map(q => dist(feat[k], q));
+        for (let c = 0; c < 6; c++) pairs.push([D[k][c], k, c]);
+      }
+      pairs.sort((a, b) => a[0] - b[0]);
+      const cap = [0, 0, 0, 0, 0, 0], done = {};
+      for (const [, k, c] of pairs) { if (done[k] || cap[c] >= 8) continue; done[k] = 1; cap[c]++; fl[k] = c; }
+      refs = refs.map((q, c) => {
+        const s = [3*feat[c*9+4][0], 3*feat[c*9+4][1], 3*feat[c*9+4][2]]; let n = 3;
+        for (let k = 0; k < 54; k++) if (k % 9 !== 4 && fl[k] === c) { s[0] += feat[k][0]; s[1] += feat[k][1]; s[2] += feat[k][2]; n++; }
+        return [s[0]/n, s[1]/n, s[2]/n];
+      });
     }
-    pairs.sort((a, b) => a[0] - b[0]);
-    const cap = [0, 0, 0, 0, 0, 0], done = {};
-    for (const [, k, c] of pairs) { if (done[k] || cap[c] >= 8) continue; done[k] = 1; cap[c]++; fl[k] = c; }
+    if (valid()) return;
+    const margin = k => { const o = D[k].slice().sort((a, b) => a - b); return o[1] - o[0]; };
+    const cand = []; for (let k = 0; k < 54; k++) if (k % 9 !== 4) cand.push(k);
+    cand.sort((a, b) => margin(a) - margin(b)); cand.length = 18;
+    const swaps = [];
+    for (let i = 0; i < cand.length; i++) for (let j = i + 1; j < cand.length; j++) {
+      const a = cand[i], b = cand[j];
+      if (fl[a] !== fl[b]) swaps.push([D[a][fl[b]] + D[b][fl[a]] - D[a][fl[a]] - D[b][fl[b]], a, b]);
+    }
+    swaps.sort((x, y) => x[0] - y[0]);
+    const sw = (a, b) => { const x = fl[a]; fl[a] = fl[b]; fl[b] = x; };
+    for (const [, a, b] of swaps) { sw(a, b); if (valid()) return; sw(a, b); }
+    const top = swaps.slice(0, 45);
+    let best = null;
+    for (let i = 0; i < top.length; i++) for (let j = i + 1; j < top.length; j++) {
+      const [c1, a, b] = top[i], [c2, c, d] = top[j];
+      if (a === c || a === d || b === c || b === d || (best && c1 + c2 >= best[0])) continue;
+      sw(a, b); sw(c, d);
+      if (valid()) best = [c1 + c2, a, b, c, d];
+      sw(c, d); sw(a, b);
+    }
+    if (best) { sw(best[1], best[2]); sw(best[3], best[4]); }
   }
-  function resetDetect() { stable = 0; lastSig = ''; current = null; $('bar').style.width = '0'; if (photoMode) { shot.hidden = true; dots.forEach(d => d.style.background = 'transparent'); } }
+  function resetDetect() { stable = 0; lastSig = ''; current = null; ema = null; $('bar').style.width = '0'; if (photoMode) { shot.hidden = true; dots.forEach(d => d.style.background = 'transparent'); } }
   function renderScan(status) {
     ORDER.forEach(f => { scanTabEls[f].setAttribute('aria-selected', f === scanFace); scanTabEls[f].className = 'tab' + (raw[f] ? ' full' : ''); });
     $('scanHold').textContent = HOLD[scanFace];
@@ -661,17 +712,27 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('scanOk').disabled = false;
     return cls;
   }
+  let ema = null;
   function tick() {
     if (photoMode || video.readyState < 2 || !video.videoWidth || Date.now() < coolUntil) return;
-    const cls = showDetected(sample(video, video.videoWidth, video.videoHeight));
-    if (cls[4] !== scanFace) { stable = 0; $('bar').style.width = '0'; $('scanStatus').textContent = `Montrez la face à centre ${COLOR[scanFace]}, bien dans la grille.`; return; }
-    const sig = cls.join('');
-    stable = sig === lastSig ? stable + 1 : 0; lastSig = sig;
+    const s = sample(video, video.videoWidth, video.videoHeight);
+    if (!ema) ema = s.map(p => p.slice());
+    let motion = 0;
+    for (let i = 0; i < 9; i++) {
+      motion = Math.max(motion, Math.abs(s[i][0]-ema[i][0]) + Math.abs(s[i][1]-ema[i][1]) + Math.abs(s[i][2]-ema[i][2]));
+      for (let c = 0; c < 3; c++) ema[i][c] = ema[i][c] * 0.6 + s[i][c] * 0.4;
+    }
+    const cls = showDetected(ema.map(p => p.slice()));
+    const bar = $('bar'), status = $('scanStatus');
+    const centre = lab(ema[4]);
+    const seen = ORDER.find(f => f !== scanFace && raw[f] && dist(centre, lab(raw[f][4])) < 60);
+    if (seen !== undefined && uniform >= 8) { stable = 0; bar.style.width = '0'; status.textContent = `Face déjà scannée. Montrez la face à centre ${COLOR[scanFace]}.`; return; }
+    if (uniform < 8) { stable = 0; bar.style.width = '0'; status.textContent = 'Approchez le cube et alignez ses cases sur la grille.'; return; }
     const same = cls.every(c => c === cls[0]);
-    if (same) stable = 0;
-    $('bar').style.width = Math.min(100, stable / 8 * 100) + '%';
-    $('scanStatus').textContent = same ? 'Face unie : touchez Valider si c\'est correct.' : stable >= 2 ? 'Ne bougez plus…' : 'Cadrez la face dans la grille.';
-    if (stable >= 8) capture();
+    stable = motion < 34 && !same ? stable + 1 : 0;
+    bar.style.width = Math.min(100, stable / 6 * 100) + '%';
+    status.textContent = same ? 'Face unie : touchez Valider si c\'est correct.' : stable >= 1 ? 'Ne bougez plus…' : 'Tenez le cube immobile.';
+    if (stable >= 6) capture();
   }
   function capture() {
     if (!current) return;
@@ -720,7 +781,7 @@ if (typeof module !== 'undefined') module.exports = Core;
         if ($('scan').hidden) { s.getTracks().forEach(t => t.stop()); return; }
         stream = s; video.srcObject = s;
         const p = video.play(); if (p && p.catch) p.catch(() => {});
-        scanTimer = setInterval(tick, 140);
+        scanTimer = setInterval(tick, 110);
       })
       .catch(photoFallback);
   };
