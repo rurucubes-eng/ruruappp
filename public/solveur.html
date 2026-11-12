@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solveur de cube 3×3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Ardoise et or : chaque étape tient sur un seul écran, la grille puis le cube 3D prennent la place restante */
+  --bg: #1a1a1a;
+  --panel: #24231f;
+  --line: #3b3932;
+  --ink: #efe9da;
+  --muted: #a8a190;
+  --gold: #c9a227;
+  --bad: #ff7a66;
+  --display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+  --body: Figtree, "Segoe UI", system-ui, sans-serif;
+  --c0: #f3f2ec; --c1: #d62b3f; --c2: #1fa457; --c3: #f2c531; --c4: #f37b1d; --c5: #2c6fdb; --cx: #34322d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.35; -webkit-text-size-adjust: 100%; }
+.wrap { max-width: 480px; height: 100%; min-height: 520px; margin: 0 auto; padding: 10px 16px 12px; display: flex; flex-direction: column; gap: 10px; }
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+header h1 { font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1; letter-spacing: .04em; margin: 0; }
+header h1 span { color: var(--gold); }
+header p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 600; }
+section { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+section[hidden] { display: none; }
+p { margin: 0; }
+.how { color: var(--muted); font-size: 14px; }
+.how b { color: var(--ink); font-weight: 600; }
+.hold { border-left: 3px solid var(--gold); padding-left: 10px; font-weight: 600; }
+.hold small { display: block; font-weight: 400; font-size: 13px; color: var(--muted); }
+
+button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.btn { background: transparent; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-weight: 600; font-size: 15px; min-height: 46px; white-space: nowrap; }
+.btn.strong { border-color: var(--muted); }
+.btn.primary { background: var(--gold); border-color: var(--gold); color: #1a1a1a; font-family: var(--display); font-weight: 400; font-size: 22px; letter-spacing: .06em; padding: 6px 12px; min-height: 50px; }
+.btn:disabled { opacity: .4; cursor: default; }
+.linkrow { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.link { background: none; border: 0; padding: 4px 0; color: var(--gold); font-weight: 600; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Étape 1 */
+.tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.tab { background: transparent; border: 1px solid var(--line); border-radius: 9px; padding: 5px 2px 4px; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; color: var(--muted); position: relative; }
+.tab i { width: 18px; height: 18px; border-radius: 5px; display: block; }
+.tab[aria-selected="true"] { border-color: var(--gold); color: var(--ink); background: #2d2b25; }
+.tab.full::after { content: "✓"; position: absolute; top: 1px; right: 4px; color: var(--gold); font-size: 11px; }
+.tab.bad { border-color: var(--bad); }
+.gridwrap { flex: 1; min-height: 150px; display: flex; justify-content: center; align-items: center; }
+.facebox { height: 100%; max-height: 330px; aspect-ratio: 1; max-width: 100%; display: grid; grid-template-columns: 10px 1fr 10px; grid-template-rows: 10px 1fr 10px; gap: 5px; }
+.hint { border-radius: 4px; }
+.hint.t { grid-area: 1 / 2; } .hint.l { grid-area: 2 / 1; } .hint.r { grid-area: 2 / 3; } .hint.b { grid-area: 3 / 2; }
+.big { grid-area: 2 / 2; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 5px; background: #0d0d0c; padding: 5px; border-radius: 12px; min-height: 0; }
+.cell { border-radius: 9px; border: 0; padding: 0; background: var(--cx); position: relative; min-height: 0; }
+.cell.unset { box-shadow: inset 0 0 0 2px #4a473f; }
+.cell.err { box-shadow: 0 0 0 3px var(--bad); z-index: 1; }
+.cell.center { cursor: default; }
+.cell.center::after { content: ""; position: absolute; inset: 38%; border-radius: 50%; background: rgba(0,0,0,.35); }
+.palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.sw { height: 44px; border-radius: 11px; border: 0; padding: 0; display: grid; place-items: center; color: #1a1a1a; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+.sw[aria-pressed="true"] { outline: 3px solid var(--gold); outline-offset: 2px; }
+.sw.over { color: #fff; background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.45) 0 6px, transparent 6px 12px); }
+.msg { color: var(--bad); font-size: 14px; }
+.msg:empty { display: none; }
+
+/* Étape 2 */
+.scene { flex: 1; min-height: 150px; perspective: 900px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; position: relative; }
+.cube { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.cubie { position: absolute; width: 54px; height: 54px; margin: -27px 0 0 -27px; transform-style: preserve-3d; }
+.cf { position: absolute; inset: 0; background: #0b0b0a; border-radius: 6px; }
+.st { position: absolute; inset: 3.5px; border-radius: 7px; background: var(--cx); }
+.scene .link { position: absolute; right: 0; bottom: 0; }
+.now { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; display: grid; grid-template-columns: auto 1fr; gap: 0 14px; align-items: center; }
+.now .mv { grid-row: span 3; font-family: var(--display); font-size: 58px; line-height: .95; min-width: 66px; text-align: center; color: var(--gold); }
+.now .count { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.now .what { font-weight: 600; font-size: 16px; }
+.now .turn { font-weight: 700; font-size: 16px; }
+.now .turn.twice { color: #1a1a1a; background: var(--gold); border-radius: 6px; padding: 1px 8px; justify-self: start; }
+.chips { display: flex; gap: 5px; overflow-x: auto; position: relative; padding: 2px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; min-width: 38px; padding: 5px 4px; border-radius: 8px; border: 1px solid var(--line); background: transparent; font-weight: 700; font-size: 14px; text-align: center; }
+.chip.done { color: #6f6a5d; border-color: #2c2a25; }
+.chip.cur { background: var(--gold); border-color: var(--gold); color: #1a1a1a; }
+.controls { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; }
+.controls .primary { grid-column: 1 / -1; }
+.seg { display: grid; grid-template-columns: repeat(3, auto); border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+.seg button { background: transparent; border: 0; padding: 6px 10px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: #35322a; color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Solveur <span>3×3</span></h1>
+    <p id="stepLabel">Étape 1 sur 2 · Couleurs</p>
+  </header>
+
+  <section id="saisie">
+    <p class="how"><b>Choisissez une couleur</b> en bas, puis <b>touchez les cases</b>. La face suivante arrive toute seule.</p>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Face à saisir"></div>
+    <p class="hold"><span id="faceHold"></span><small>Les bandes autour de la grille montrent les faces voisines.</small></p>
+    <div class="gridwrap">
+      <div class="facebox">
+        <span class="hint t" id="hT"></span><span class="hint l" id="hL"></span>
+        <div class="big" id="big"></div>
+        <span class="hint r" id="hR"></span><span class="hint b" id="hB"></span>
+      </div>
+    </div>
+    <div class="palette" id="palette" aria-label="Couleur à poser"></div>
+    <p class="msg" id="msg" role="alert"></p>
+    <button class="btn primary" id="solve" type="button">Résoudre</button>
+    <div class="linkrow">
+      <button class="link" id="clear" type="button">Effacer tout</button>
+      <button class="link" id="example" type="button">Essayer avec un exemple</button>
+    </div>
+  </section>
+
+  <section id="resolution" hidden>
+    <p class="hold">Tenez le cube centre blanc en haut, centre vert face à vous.<small>Gardez cette position jusqu'au bout. « Horaire » se lit en regardant la face qui tourne.</small></p>
+    <div class="scene" id="scene" aria-label="Cube en 3D, faites glisser pour le tourner">
+      <div class="cube" id="cube"></div>
+      <button class="link" id="flip" type="button">Voir l'autre côté</button>
+    </div>
+    <div class="now">
+      <span class="mv" id="mv"></span>
+      <span class="count" id="count"></span>
+      <span class="what" id="what"></span>
+      <span class="turn" id="turn"></span>
+    </div>
+    <div class="chips" id="chips" aria-label="Liste des coups"></div>
+    <div class="controls">
+      <button class="btn primary" id="play" type="button">▶ Résolution automatique</button>
+      <button class="btn" id="prev" type="button">◀ Retour</button>
+      <button class="btn strong" id="next" type="button">Coup suivant ▶</button>
+    </div>
+    <div class="linkrow">
+      <div class="seg" id="speed" aria-label="Vitesse">
+        <button type="button" data-ms="1300" aria-pressed="true">Lent</button>
+        <button type="button" data-ms="750" aria-pressed="false">Normal</button>
+        <button type="button" data-ms="350" aria-pressed="false">Rapide</button>
+      </div>
+      <button class="link" id="restart" type="button">Début</button>
+      <button class="link" id="edit" type="button">Modifier</button>
+    </div>
+  </section>
+</div>
+
+<script>
+const Core = (() => {
+  // Faces : 0 U (haut), 1 R (droite), 2 F (devant), 3 D (bas), 4 L (gauche), 5 B (arrière)
+  const NORMALS = [[0,1,0],[1,0,0],[0,0,1],[0,-1,0],[-1,0,0],[0,0,-1]];
+  function facePos(f, r, c) {
+    switch (f) {
+      case 0: return [c-1, 1, r-1];
+      case 1: return [1, 1-r, 1-c];
+      case 2: return [c-1, 1-r, 1];
+      case 3: return [c-1, -1, 1-r];
+      case 4: return [-1, 1-r, c-1];
+      default: return [1-c, 1-r, -1];
+    }
+  }
+  const key = (p, n) => p.join(',') + '|' + n.join(',');
+  const STICKERS = [], IDX = {};
+  for (let f = 0; f < 6; f++) for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+    const i = f*9 + r*3 + c, pos = facePos(f, r, c);
+    STICKERS[i] = { pos, n: NORMALS[f] };
+    IDX[key(pos, NORMALS[f])] = i;
+  }
+  // quart de tour horaire autour de n (vu de l'extérieur)
+  function rot(n, v) {
+    const d = n[0]*v[0] + n[1]*v[1] + n[2]*v[2];
+    const cx = [n[1]*v[2]-n[2]*v[1], n[2]*v[0]-n[0]*v[2], n[0]*v[1]-n[1]*v[0]];
+    return [n[0]*d-cx[0], n[1]*d-cx[1], n[2]*d-cx[2]];
+  }
+  const FTO = [];
+  for (let f = 0; f < 6; f++) {
+    const n = NORMALS[f], to = [];
+    for (let i = 0; i < 54; i++) {
+      const s = STICKERS[i];
+      const inLayer = s.pos[0]*n[0] + s.pos[1]*n[1] + s.pos[2]*n[2] === 1;
+      to[i] = inLayer ? IDX[key(rot(n, s.pos), rot(n, s.n))] : i;
+    }
+    FTO[f] = to;
+  }
+  // coup m = face*3 + (0: horaire, 1: demi-tour, 2: anti-horaire)
+  function applyMove(fl, m) {
+    const to = FTO[(m/3)|0];
+    let cur = fl;
+    for (let k = 0; k <= m % 3; k++) {
+      const nx = new Array(54);
+      for (let i = 0; i < 54; i++) nx[to[i]] = cur[i];
+      cur = nx;
+    }
+    return cur;
+  }
+  const solved = () => { const a = []; for (let i = 0; i < 54; i++) a[i] = (i/9)|0; return a; };
+  const inverse = m => ((m/3)|0)*3 + (2 - m % 3);
+  const moveName = m => 'URFDLB'[(m/3)|0] + ['', '2', "'"][m % 3];
+
+  const CF = [[8,9,20],[6,18,38],[0,36,47],[2,45,11],[29,26,15],[27,44,24],[33,53,42],[35,17,51]];
+  const EF = [[5,10],[7,19],[3,37],[1,46],[32,16],[28,25],[30,43],[34,52],[23,12],[21,41],[50,39],[48,14]];
+  const fc = i => (i/9)|0;
+
+  function parity(p) {
+    let s = 0;
+    for (let i = 0; i < p.length; i++) for (let j = i+1; j < p.length; j++) if (p[i] > p[j]) s++;
+    return s & 1;
+  }
+
+  // Convertit 54 étiquettes en pièces ; lève {code, facelets} si l'état est impossible
+  function toCubie(fl) {
+    const cp = [], co = [], ep = [], eo = [];
+    const seenC = [], seenE = [];
+    for (let i = 0; i < 8; i++) {
+      let ori = -1;
+      for (let o = 0; o < 3; o++) { const col = fl[CF[i][o]]; if (col === 0 || col === 3) { ori = o; break; } }
+      let found = -1;
+      if (ori >= 0) {
+        const c0 = fl[CF[i][ori]], c1 = fl[CF[i][(ori+1)%3]], c2 = fl[CF[i][(ori+2)%3]];
+        for (let j = 0; j < 8; j++)
+          if (fc(CF[j][0]) === c0 && fc(CF[j][1]) === c1 && fc(CF[j][2]) === c2) { found = j; break; }
+      }
+      if (found < 0) throw { code: 'coin', facelets: CF[i] };
+      if (seenC[found]) throw { code: 'coin-double', facelets: CF[i].concat(seenC[found]) };
+      seenC[found] = CF[i];
+      cp[i] = found; co[i] = ori;
+    }
+    for (let i = 0; i < 12; i++) {
+      const a = fl[EF[i][0]], b = fl[EF[i][1]];
+      let found = -1, o = 0;
+      for (let j = 0; j < 12; j++) {
+        if (fc(EF[j][0]) === a && fc(EF[j][1]) === b) { found = j; o = 0; break; }
+        if (fc(EF[j][0]) === b && fc(EF[j][1]) === a) { found = j; o = 1; break; }
+      }
+      if (found < 0) throw { code: 'arete', facelets: EF[i] };
+      if (seenE[found]) throw { code: 'arete-double', facelets: EF[i].concat(seenE[found]) };
+      seenE[found] = EF[i];
+      ep[i] = found; eo[i] = o;
+    }
+    if (co.reduce((s, x) => s + x, 0) % 3) throw { code: 'twist', facelets: [] };
+    if (eo.reduce((s, x) => s + x, 0) % 2) throw { code: 'flip', facelets: [] };
+    if (parity(cp) !== parity(ep)) throw { code: 'parite', facelets: [] };
+    return { cp, co, ep, eo };
+  }
+
+  // ---------- Solveur deux phases (Kociemba) ----------
+  let T = null;
+  const SLICE_SOLVED = 494;
+  const P2 = [0, 1, 2, 9, 10, 11, 4, 13, 7, 16];
+  const C = [];
+  for (let n = 0; n < 13; n++) { C[n] = [1]; for (let k = 1; k <= 4; k++) C[n][k] = n ? (C[n-1][k-1] + (C[n-1][k] || 0)) : 0; }
+
+  function mul(a, m) {
+    const r = { cp: [], co: [], ep: [], eo: [] };
+    for (let i = 0; i < 8; i++) { r.cp[i] = a.cp[m.cp[i]]; r.co[i] = (a.co[m.cp[i]] + m.co[i]) % 3; }
+    for (let i = 0; i < 12; i++) { r.ep[i] = a.ep[m.ep[i]]; r.eo[i] = (a.eo[m.ep[i]] + m.eo[i]) % 2; }
+    return r;
+  }
+  function encPerm(p, n) {
+    let x = 0;
+    for (let i = 0; i < n; i++) { let c = 0; for (let j = i+1; j < n; j++) if (p[j] < p[i]) c++; x = x*(n-i) + c; }
+    return x;
+  }
+  function decPerm(x, n) {
+    const code = [], p = [], pool = [];
+    for (let i = n-1; i >= 0; i--) { code[i] = x % (n-i); x = (x / (n-i)) | 0; }
+    for (let i = 0; i < n; i++) pool.push(i);
+    for (let i = 0; i < n; i++) p[i] = pool.splice(code[i], 1)[0];
+    return p;
+  }
+  const getTwist = co => { let t = 0; for (let i = 0; i < 7; i++) t = t*3 + co[i]; return t; };
+  const getFlip = eo => { let t = 0; for (let i = 0; i < 11; i++) t = t*2 + eo[i]; return t; };
+  function getSlice(ep) {
+    let idx = 0, k = 0;
+    for (let i = 0; i < 12; i++) if (ep[i] >= 8) { idx += C[i][k+1] || 0; k++; }
+    return idx;
+  }
+  const getSPerm = ep => encPerm([ep[8]-8, ep[9]-8, ep[10]-8, ep[11]-8], 4);
+
+  function bfs(N, start, nMoves, next) {
+    const d = new Int8Array(N).fill(-1), q = new Int32Array(N);
+    let h = 0, t = 0;
+    d[start] = 0; q[t++] = start;
+    while (h < t) {
+      const x = q[h++], dx = d[x] + 1;
+      for (let m = 0; m < nMoves; m++) { const y = next(x, m); if (d[y] < 0) { d[y] = dx; q[t++] = y; } }
+    }
+    return d;
+  }
+
+  function init() {
+    if (T) return;
+    const MC = [];
+    for (let m = 0; m < 18; m++) MC[m] = toCubie(applyMove(solved(), m));
+    const twistM = new Int16Array(2187*18), flipM = new Int16Array(2048*18), sliceM = new Int16Array(495*18);
+    for (let t = 0; t < 2187; t++) {
+      const co = []; let x = t, s = 0;
+      for (let i = 6; i >= 0; i--) { co[i] = x % 3; s += co[i]; x = (x/3)|0; }
+      co[7] = (3 - s % 3) % 3;
+      for (let m = 0; m < 18; m++) { const r = []; for (let i = 0; i < 8; i++) r[i] = (co[MC[m].cp[i]] + MC[m].co[i]) % 3; twistM[t*18+m] = getTwist(r); }
+    }
+    for (let t = 0; t < 2048; t++) {
+      const eo = []; let x = t, s = 0;
+      for (let i = 10; i >= 0; i--) { eo[i] = x & 1; s += eo[i]; x >>= 1; }
+      eo[11] = s & 1;
+      for (let m = 0; m < 18; m++) { const r = []; for (let i = 0; i < 12; i++) r[i] = (eo[MC[m].ep[i]] + MC[m].eo[i]) % 2; flipM[t*18+m] = getFlip(r); }
+    }
+    for (let t = 0; t < 495; t++) {
+      const occ = new Array(12).fill(0); let x = t;
+      for (let j = 3; j >= 0; j--) { let p = 11; while ((C[p][j+1] || 0) > x) p--; occ[p] = 1; x -= C[p][j+1] || 0; }
+      const ep = []; let a = 0, b = 8;
+      for (let i = 0; i < 12; i++) ep[i] = occ[i] ? b++ : a++;
+      for (let m = 0; m < 18; m++) { const r = []; for (let i = 0; i < 12; i++) r[i] = ep[MC[m].ep[i]]; sliceM[t*18+m] = getSlice(r); }
+    }
+    const cpM = new Uint16Array(40320*10), epM = new Uint16Array(40320*10), spM = new Uint8Array(24*10);
+    for (let t = 0; t < 40320; t++) {
+      const p = decPerm(t, 8), r = [];
+      for (let k = 0; k < 10; k++) {
+        const mc = MC[P2[k]];
+        for (let i = 0; i < 8; i++) r[i] = p[mc.cp[i]];
+        cpM[t*10+k] = encPerm(r, 8);
+        for (let i = 0; i < 8; i++) r[i] = p[mc.ep[i]];
+        epM[t*10+k] = encPerm(r, 8);
+      }
+    }
+    for (let t = 0; t < 24; t++) {
+      const p = decPerm(t, 4), r = [];
+      for (let k = 0; k < 10; k++) { const mc = MC[P2[k]]; for (let i = 0; i < 4; i++) r[i] = p[mc.ep[8+i]-8]; spM[t*10+k] = encPerm(r, 4); }
+    }
+    const prTS = bfs(495*2187, SLICE_SOLVED*2187, 18, (x, m) => { const s = (x/2187)|0, t = x % 2187; return sliceM[s*18+m]*2187 + twistM[t*18+m]; });
+    const prFS = bfs(495*2048, SLICE_SOLVED*2048, 18, (x, m) => { const s = x >> 11, t = x & 2047; return sliceM[s*18+m]*2048 + flipM[t*18+m]; });
+    const prCS = bfs(24*40320, 0, 10, (x, k) => { const s = (x/40320)|0, t = x % 40320; return spM[s*10+k]*40320 + cpM[t*10+k]; });
+    const prES = bfs(24*40320, 0, 10, (x, k) => { const s = (x/40320)|0, t = x % 40320; return spM[s*10+k]*40320 + epM[t*10+k]; });
+    T = { MC, twistM, flipM, sliceM, cpM, epM, spM, prTS, prFS, prCS, prES };
+  }
+
+  // Renvoie la liste des coups (au plus 30)
+  function solve(fl, budgetMs) {
+    init();
+    const cube = toCubie(fl);
+    const { MC, twistM, flipM, sliceM, cpM, epM, spM, prTS, prFS, prCS, prES } = T;
+    const t0 = Date.now(), budget = budgetMs || 900, STOP = {};
+    let best = null, bestLen = 31, nodes = 0, d1 = 0;
+    const path = [], path2 = [];
+
+    function p2(cp, ep, sp, togo, last, depth) {
+      if (togo === 0) return cp === 0 && ep === 0 && sp === 0;
+      for (let k = 0; k < 10; k++) {
+        const m = P2[k], f = (m/3)|0;
+        if (f === last || f + 3 === last) continue;
+        const ncp = cpM[cp*10+k], nep = epM[ep*10+k], nsp = spM[sp*10+k];
+        if (prCS[nsp*40320+ncp] >= togo || prES[nsp*40320+nep] >= togo) continue;
+        path2[depth] = m;
+        if (p2(ncp, nep, nsp, togo-1, f, depth+1)) return true;
+      }
+      return false;
+    }
+    function tryPhase2(last) {
+      const maxD2 = Math.min(10, bestLen - 1 - d1);
+      if (maxD2 < 0) return;
+      let c = cube;
+      for (let i = 0; i < d1; i++) c = mul(c, MC[path[i]]);
+      const cp = encPerm(c.cp, 8), ep = encPerm(c.ep.slice(0, 8), 8), sp = getSPerm(c.ep);
+      const h = Math.max(prCS[sp*40320+cp], prES[sp*40320+ep]);
+      for (let d2 = h; d2 <= maxD2; d2++) {
+        if (p2(cp, ep, sp, d2, last, 0)) {
+          best = path.slice(0, d1).concat(path2.slice(0, d2));
+          bestLen = d1 + d2;
+          return;
+        }
+      }
+    }
+    function p1(tw, fl2, sl, togo, last) {
+      if (togo === 0) {
+        if (tw === 0 && fl2 === 0 && sl === SLICE_SOLVED) {
+          if (d1 > 0) { const lm = path[d1-1], lf = (lm/3)|0; if (lf === 0 || lf === 3 || lm % 3 === 1) return; }
+          tryPhase2(last);
+        }
+        return;
+      }
+      if ((++nodes & 4095) === 0 && best && Date.now() - t0 > budget) throw STOP;
+      for (let m = 0; m < 18; m++) {
+        const f = (m/3)|0;
+        if (f === last || f + 3 === last) continue;
+        const ntw = twistM[tw*18+m], nfl = flipM[fl2*18+m], nsl = sliceM[sl*18+m];
+        if (prTS[nsl*2187+ntw] >= togo || prFS[nsl*2048+nfl] >= togo) continue;
+        path[d1-togo] = m;
+        p1(ntw, nfl, nsl, togo-1, f);
+        if (d1 >= bestLen) return;
+      }
+    }
+    const tw0 = getTwist(cube.co), fl0 = getFlip(cube.eo), sl0 = getSlice(cube.ep);
+    try {
+      for (d1 = 0; d1 < bestLen && d1 <= 20; d1++) {
+        if (bestLen <= 19) break;
+        p1(tw0, fl0, sl0, d1, -1);
+        if (bestLen === 0) break;
+      }
+    } catch (e) { if (e !== STOP) throw e; }
+    return best;
+  }
+
+  function scramble(n) {
+    let fl = solved(), last = -1;
+    for (let i = 0; i < (n || 25); i++) {
+      let f; do { f = (Math.random()*6)|0; } while (f === last);
+      last = f; fl = applyMove(fl, f*3 + ((Math.random()*3)|0));
+    }
+    return fl;
+  }
+
+  return { NORMALS, STICKERS, IDX, key, applyMove, solved, inverse, moveName, toCubie, init, solve, scramble };
+})();
+if (typeof module !== 'undefined') module.exports = Core;
+
+</script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const COLOR = ['blanc', 'rouge', 'vert', 'jaune', 'orange', 'bleu'];
+  const FACE = ['Haut', 'Droite', 'Devant', 'Bas', 'Gauche', 'Arrière'];
+  const ORDER = [0, 2, 1, 5, 4, 3];
+  const NEIGH = { 0: [5, 2, 4, 1], 2: [0, 3, 4, 1], 1: [0, 3, 2, 5], 5: [0, 3, 1, 4], 4: [0, 3, 5, 2], 3: [2, 5, 4, 1] }; // haut, bas, gauche, droite
+  const HOLD = {
+    0: 'Dessus du cube (centre blanc), le vert vers vous.',
+    2: 'Face verte devant vous, blanc en haut.',
+    1: 'Face rouge devant vous, blanc en haut.',
+    5: 'Face bleue devant vous, blanc en haut.',
+    4: 'Face orange devant vous, blanc en haut.',
+    3: 'Dessous du cube (centre jaune), le vert vers le haut.'
+  };
+  const css = c => c < 0 ? 'var(--cx)' : `var(--c${c})`;
+
+  // ---------- Étape 1 : saisie ----------
+  let fl, curFace = 0, curColor = 1, errs = [], advance = null;
+  const blank = () => { const a = new Array(54).fill(-1); for (let f = 0; f < 6; f++) a[f*9+4] = f; return a; };
+  const isFull = f => { for (let i = 0; i < 9; i++) if (fl[f*9+i] < 0) return false; return true; };
+
+  const tabs = $('tabs'), big = $('big'), palette = $('palette');
+  const tabEls = [], bigEls = [], swEls = [];
+  ORDER.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.type = 'button'; b.setAttribute('role', 'tab');
+    b.innerHTML = `<i style="background:${css(f)}"></i>${FACE[f]}`;
+    b.onclick = () => { clearTimeout(advance); curFace = f; render(); };
+    tabs.append(b); tabEls[f] = b;
+  });
+  for (let i = 0; i < 9; i++) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.onclick = () => {
+      if (i === 4) return;
+      const k = curFace*9 + i, wasFull = isFull(curFace);
+      fl[k] = fl[k] === curColor ? -1 : curColor;
+      errs = []; $('msg').textContent = '';
+      render();
+      clearTimeout(advance);
+      if (!wasFull && isFull(curFace)) {
+        const from = ORDER.indexOf(curFace);
+        for (let d = 1; d < 6; d++) {
+          const f = ORDER[(from + d) % 6];
+          if (!isFull(f)) { advance = setTimeout(() => { curFace = f; render(); }, 450); break; }
+        }
+      }
+    };
+    big.append(b); bigEls.push(b);
+  }
+  for (let c = 0; c < 6; c++) {
+    const b = document.createElement('button');
+    b.className = 'sw'; b.type = 'button'; b.style.backgroundColor = css(c);
+    b.onclick = () => { curColor = c; render(); };
+    palette.append(b); swEls.push(b);
+  }
+
+  function render() {
+    const counts = [0, 0, 0, 0, 0, 0];
+    fl.forEach(c => { if (c >= 0) counts[c]++; });
+    ORDER.forEach(f => {
+      tabEls[f].setAttribute('aria-selected', f === curFace);
+      tabEls[f].className = 'tab' + (isFull(f) ? ' full' : '') + (errs.some(k => ((k/9)|0) === f) ? ' bad' : '');
+    });
+    $('faceHold').textContent = HOLD[curFace];
+    const n = NEIGH[curFace];
+    $('hT').style.background = css(n[0]); $('hB').style.background = css(n[1]);
+    $('hL').style.background = css(n[2]); $('hR').style.background = css(n[3]);
+    bigEls.forEach((b, i) => {
+      const k = curFace*9 + i, c = fl[k];
+      b.style.background = css(c);
+      b.className = 'cell' + (c < 0 ? ' unset' : '') + (i === 4 ? ' center' : '') + (errs.includes(k) ? ' err' : '');
+      b.setAttribute('aria-label', i === 4 ? `Centre ${COLOR[curFace]}` : `Case ${i+1} : ${c < 0 ? 'vide' : COLOR[c]}`);
+    });
+    swEls.forEach((b, c) => {
+      b.setAttribute('aria-pressed', c === curColor);
+      const left = 9 - counts[c];
+      b.textContent = left;
+      b.classList.toggle('over', left < 0);
+      b.setAttribute('aria-label', `${COLOR[c]}, reste ${left}`);
+    });
+  }
+
+  $('clear').onclick = () => { clearTimeout(advance); fl = blank(); errs = []; curFace = 0; $('msg').textContent = ''; render(); };
+  $('example').onclick = () => { clearTimeout(advance); fl = Core.scramble(25); errs = []; $('msg').textContent = ''; render(); };
+
+  const ERR = {
+    'coin': 'Ce coin porte trois couleurs qui ne vont pas ensemble (cases entourées en rouge).',
+    'coin-double': 'Le même coin apparaît deux fois (cases entourées en rouge).',
+    'arete': 'Cette arête porte deux couleurs qui ne vont pas ensemble (cases entourées en rouge).',
+    'arete-double': 'La même arête apparaît deux fois (cases entourées en rouge).',
+    'twist': 'Un coin est pivoté sur lui-même : cube impossible à résoudre tel quel. Vérifiez la saisie des coins.',
+    'flip': 'Une arête est retournée : cube impossible à résoudre tel quel. Vérifiez la saisie des arêtes.',
+    'parite': 'Deux pièces sont échangées : cube impossible à résoudre tel quel. Vérifiez la saisie.'
+  };
+  function fail(text, facelets, face) {
+    errs = facelets || [];
+    $('msg').textContent = text;
+    if (errs.length) curFace = (errs[0]/9)|0;
+    if (face !== undefined) curFace = face;
+    render();
+  }
+  $('solve').onclick = () => {
+    clearTimeout(advance);
+    const empty = fl.filter(c => c < 0).length;
+    if (empty) return fail(empty === 1 ? 'Il reste 1 case à colorier.' : `Il reste ${empty} cases à colorier.`, [], ORDER.find(f => !isFull(f)));
+    const counts = [0, 0, 0, 0, 0, 0];
+    fl.forEach(c => counts[c]++);
+    const wrong = counts.map((n, c) => n !== 9 ? `${COLOR[c]} ${n} fois` : '').filter(Boolean);
+    if (wrong.length) return fail('Chaque couleur doit apparaître 9 fois. Ici : ' + wrong.join(', ') + '.');
+    const btn = $('solve');
+    btn.disabled = true; btn.textContent = 'Calcul en cours…';
+    setTimeout(() => {
+      let sol = null, err = null;
+      try { sol = Core.solve(fl, 700); } catch (e) { err = e; }
+      btn.disabled = false; btn.textContent = 'Résoudre';
+      if (err) return fail(ERR[err.code] || 'Ce cube ne peut pas être résolu. Vérifiez la saisie.', err.facelets);
+      if (!sol.length) return fail('Ce cube est déjà résolu.');
+      errs = []; $('msg').textContent = '';
+      startPlayer(sol);
+    }, 40);
+  };
+
+  // ---------- Cube 3D ----------
+  const S = 54, cubeEl = $('cube'), cubies = [], stEls = [];
+  const DIRS = [[0,1,0,'rotateX(90deg) '], [1,0,0,'rotateY(90deg) '], [0,0,1,''], [0,-1,0,'rotateX(-90deg) '], [-1,0,0,'rotateY(-90deg) '], [0,0,-1,'rotateY(180deg) ']];
+  for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
+    if (!x && !y && !z) continue;
+    const el = document.createElement('div');
+    el.className = 'cubie';
+    const base = `translate3d(${x*S}px,${-y*S}px,${z*S}px)`;
+    for (const d of DIRS) {
+      const face = document.createElement('div');
+      face.className = 'cf';
+      face.style.transform = `${d[3]}translateZ(${S/2}px)`;
+      if (x*d[0] + y*d[1] + z*d[2] === 1) {
+        const st = document.createElement('div');
+        st.className = 'st';
+        stEls[Core.IDX[Core.key([x, y, z], [d[0], d[1], d[2]])]] = st;
+        face.append(st);
+      }
+      el.append(face);
+    }
+    el.style.transform = 'rotate3d(0,0,1,0deg) ' + base;
+    cubeEl.append(el);
+    cubies.push({ el, base, pos: [x, y, z] });
+  }
+  const scene = $('scene');
+  let rx = -26, ry = -36, zoom = 1;
+  const setView = smooth => { cubeEl.style.transition = smooth ? 'transform .6s ease' : 'none'; cubeEl.style.transform = `scale3d(${zoom},${zoom},${zoom}) rotateX(${rx}deg) rotateY(${ry}deg)`; };
+  const fit = () => { const h = scene.clientHeight, w = scene.clientWidth; if (h) { zoom = Math.max(.45, Math.min(1.15, h / 285, w / 300)); setView(false); } };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(scene);
+  let drag = null;
+  scene.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; drag = { x: e.clientX, y: e.clientY }; scene.setPointerCapture(e.pointerId); });
+  scene.addEventListener('pointermove', e => {
+    if (!drag) return;
+    ry += (e.clientX - drag.x) * 0.5;
+    rx = Math.max(-80, Math.min(80, rx - (e.clientY - drag.y) * 0.5));
+    drag = { x: e.clientX, y: e.clientY };
+    setView(false);
+  });
+  const endDrag = () => { drag = null; };
+  scene.addEventListener('pointerup', endDrag);
+  scene.addEventListener('pointercancel', endDrag);
+  $('flip').onclick = () => { ry += 180; setView(true); };
+
+  function paint(state) { for (let k = 0; k < 54; k++) stEls[k].style.background = css(state[k]); }
+
+  // anime un quart de tour (m est toujours un quart de tour)
+  function quarter(m, ms, done) {
+    const n = Core.NORMALS[(m/3)|0], angle = m % 3 === 0 ? 90 : -90;
+    const axis = `${n[0]},${-n[1]},${n[2]}`;
+    const layer = cubies.filter(c => c.pos[0]*n[0] + c.pos[1]*n[1] + c.pos[2]*n[2] === 1);
+    if (ms <= 0) return done();
+    layer.forEach(c => { c.el.style.transition = 'none'; c.el.style.transform = `rotate3d(${axis},0deg) ${c.base}`; });
+    void cubeEl.offsetWidth;
+    layer.forEach(c => { c.el.style.transition = `transform ${ms}ms cubic-bezier(.45,.05,.3,1)`; c.el.style.transform = `rotate3d(${axis},${angle}deg) ${c.base}`; });
+    setTimeout(() => {
+      layer.forEach(c => { c.el.style.transition = 'none'; c.el.style.transform = `rotate3d(${axis},0deg) ${c.base}`; });
+      done();
+    }, ms + 40);
+  }
+
+  // ---------- Étape 2 : lecture de la solution ----------
+  const FACE_TXT = ['Face du haut (blanche)', 'Face de droite (rouge)', 'Face de devant (verte)', 'Face du bas (jaune)', 'Face de gauche (orange)', 'Face arrière (bleue)'];
+  const TURN_TXT = ['1 quart de tour, sens horaire ↻', 'Tournez 2 fois (demi-tour)', '1 quart de tour, sens inverse ↺'];
+  const reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let sol = [], startFl, cur, pos = 0, busy = false, playing = false, speed = 1300, timer = null;
+  const chipEls = [];
+
+  function setStep(n) {
+    $('saisie').hidden = n !== 1; $('resolution').hidden = n !== 2;
+    $('stepLabel').textContent = n === 1 ? 'Étape 1 sur 2 · Couleurs' : `Étape 2 sur 2 · ${sol.length} coups`;
+    window.scrollTo(0, 0);
+    if (n === 2) fit();
+  }
+  function startPlayer(s) {
+    sol = s; startFl = fl.slice(); cur = fl.slice(); pos = 0; playing = false;
+    const chips = $('chips'); chips.textContent = ''; chipEls.length = 0;
+    sol.forEach((m, i) => {
+      const b = document.createElement('button');
+      b.className = 'chip'; b.type = 'button'; b.textContent = Core.moveName(m);
+      b.setAttribute('aria-label', `Aller au coup ${i+1}`);
+      b.onclick = () => jump(i);
+      chips.append(b); chipEls.push(b);
+    });
+    setStep(2);
+    paint(cur); show();
+  }
+  function show(part) {
+    const turn = $('turn');
+    if (pos >= sol.length) {
+      $('mv').textContent = '✓'; $('count').textContent = `${sol.length} coups joués`;
+      $('what').textContent = 'Cube résolu'; turn.textContent = ''; turn.className = 'turn';
+    } else {
+      const m = sol[pos], twice = m % 3 === 1;
+      $('mv').textContent = Core.moveName(m);
+      $('count').textContent = `Coup ${pos+1} sur ${sol.length}`;
+      $('what').textContent = FACE_TXT[(m/3)|0];
+      turn.textContent = twice && part ? `Tournez 2 fois : ${part === 1 ? '1er' : '2e'} quart de tour` : TURN_TXT[m % 3];
+      turn.className = 'turn' + (twice ? ' twice' : '');
+    }
+    chipEls.forEach((b, k) => { b.className = 'chip' + (k < pos ? ' done' : '') + (k === pos ? ' cur' : ''); });
+    const c = chipEls[Math.min(pos, chipEls.length - 1)], strip = $('chips');
+    if (c) strip.scrollLeft = c.offsetLeft - strip.clientWidth / 2 + c.offsetWidth / 2;
+    $('prev').disabled = pos === 0;
+    $('next').disabled = pos >= sol.length;
+    $('play').disabled = pos >= sol.length;
+    $('play').textContent = playing ? '❚❚ Pause' : '▶ Résolution automatique';
+  }
+  function stopPlay() { playing = false; clearTimeout(timer); }
+  function step(dir) {
+    if (busy) return;
+    if (dir > 0 && pos >= sol.length) { stopPlay(); show(); return; }
+    if (dir < 0 && pos === 0) return;
+    if (dir < 0) pos--;
+    const m = sol[pos], f = ((m/3)|0)*3, ms = reduced ? 0 : speed;
+    // un demi-tour est joué en deux quarts de tour séparés par une pause
+    const parts = m % 3 === 1 ? [f, f] : [dir > 0 ? m : Core.inverse(m)];
+    busy = true;
+    const run = i => {
+      show(parts.length === 2 ? i + 1 : 0);
+      quarter(parts[i], ms, () => {
+        cur = Core.applyMove(cur, parts[i]); paint(cur);
+        if (i + 1 < parts.length) return setTimeout(() => run(i + 1), reduced ? 700 : Math.max(350, speed * 0.45));
+        if (dir > 0) pos++;
+        busy = false;
+        if (pos >= sol.length) playing = false;
+        show();
+        if (playing) timer = setTimeout(() => step(1), reduced ? 1000 : Math.max(450, speed * 0.6));
+      });
+    };
+    run(0);
+  }
+  function jump(i) {
+    if (busy) return;
+    stopPlay();
+    cur = startFl.slice();
+    for (let k = 0; k < i; k++) cur = Core.applyMove(cur, sol[k]);
+    pos = i; paint(cur); show();
+  }
+  $('next').onclick = () => { stopPlay(); step(1); };
+  $('prev').onclick = () => { stopPlay(); step(-1); };
+  $('play').onclick = () => { if (playing) { stopPlay(); show(); } else { playing = true; show(); step(1); } };
+  $('restart').onclick = () => jump(0);
+  $('edit').onclick = () => { if (busy) return; stopPlay(); setStep(1); };
+  $('speed').querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      speed = +b.dataset.ms;
+      $('speed').querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', o === b));
+    };
+  });
+
+  fl = blank();
+  render();
+  setTimeout(() => Core.init(), 300);
+})();
+</script>
+</body>
+</html>
