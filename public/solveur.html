@@ -70,6 +70,19 @@ button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .msg { color: var(--bad); font-size: 14px; }
 .msg:empty { display: none; }
 
+/* Scan */
+.msg.info { color: var(--gold); }
+.solverow { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8px; }
+.cam { grid-area: 2 / 2; position: relative; overflow: hidden; border-radius: 12px; background: #0d0d0c; min-height: 0; }
+.cam video, .cam img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cam .guide { position: absolute; inset: 12%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+.cam .guide div { border: 1.5px solid rgba(255,255,255,.85); position: relative; }
+.cam .guide div.mid { border-width: 6px; border-radius: 10px; }
+.cam .guide i { position: absolute; right: 8%; bottom: 8%; width: 30%; height: 30%; border-radius: 50%; border: 2px solid #0b0b0a; background: transparent; }
+.cam.flash::after { content: ""; position: absolute; inset: 0; background: #fff; opacity: .7; }
+.cam .bar { position: absolute; left: 0; bottom: 0; height: 6px; background: var(--gold); width: 0; }
+label.link { cursor: pointer; }
+
 /* Étape 2 */
 .scene { flex: 1; min-height: 150px; perspective: 900px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; position: relative; }
 .cube { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
@@ -103,7 +116,7 @@ button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
   </header>
 
   <section id="saisie">
-    <p class="how"><b>Choisissez une couleur</b> en bas, puis <b>touchez les cases</b>. La face suivante arrive toute seule.</p>
+    <p class="how"><b>Choisissez une couleur</b> puis <b>touchez les cases</b>, ou <b>scannez</b> le cube avec la caméra.</p>
     <div class="tabs" id="tabs" role="tablist" aria-label="Face à saisir"></div>
     <p class="hold"><span id="faceHold"></span><small>Les bandes autour de la grille montrent les faces voisines.</small></p>
     <div class="gridwrap">
@@ -115,10 +128,35 @@ button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
     </div>
     <div class="palette" id="palette" aria-label="Couleur à poser"></div>
     <p class="msg" id="msg" role="alert"></p>
-    <button class="btn primary" id="solve" type="button">Résoudre</button>
+    <div class="solverow">
+      <button class="btn strong" id="scanOpen" type="button">Scanner</button>
+      <button class="btn primary" id="solve" type="button">Résoudre</button>
+    </div>
     <div class="linkrow">
       <button class="link" id="clear" type="button">Effacer tout</button>
       <button class="link" id="example" type="button">Essayer avec un exemple</button>
+    </div>
+  </section>
+
+  <section id="scan" hidden>
+    <p class="hold"><span id="scanHold"></span><small id="scanStatus"></small></p>
+    <div class="tabs" id="scanTabs" aria-label="Face à scanner"></div>
+    <div class="gridwrap">
+      <div class="facebox">
+        <span class="hint t" id="sT"></span><span class="hint l" id="sL"></span>
+        <div class="cam" id="cam">
+          <video id="video" playsinline muted autoplay></video>
+          <img id="shot" alt="" hidden>
+          <div class="guide" id="guide"></div>
+          <span class="bar" id="bar"></span>
+        </div>
+        <span class="hint r" id="sR"></span><span class="hint b" id="sB"></span>
+      </div>
+    </div>
+    <button class="btn primary" id="scanOk" type="button">Valider cette face</button>
+    <div class="linkrow">
+      <button class="link" id="scanClose" type="button">Terminer</button>
+      <label class="link" id="photoLbl" hidden>Prendre une photo<input type="file" id="photo" accept="image/*" capture="environment" hidden></label>
     </div>
   </section>
 
@@ -505,7 +543,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     });
   }
 
-  $('clear').onclick = () => { clearTimeout(advance); fl = blank(); errs = []; curFace = 0; $('msg').textContent = ''; render(); };
+  $('clear').onclick = () => { clearTimeout(advance); raw = {}; fl = blank(); errs = []; curFace = 0; $('msg').textContent = ''; render(); };
   $('example').onclick = () => { clearTimeout(advance); fl = Core.scramble(25); errs = []; $('msg').textContent = ''; render(); };
 
   const ERR = {
@@ -519,6 +557,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   };
   function fail(text, facelets, face) {
     errs = facelets || [];
+    $('msg').className = 'msg';
     $('msg').textContent = text;
     if (errs.length) curFace = (errs[0]/9)|0;
     if (face !== undefined) curFace = face;
@@ -544,6 +583,149 @@ if (typeof module !== 'undefined') module.exports = Core;
       startPlayer(sol);
     }, 40);
   };
+
+  // ---------- Scan par caméra ----------
+  let raw = {}, stream = null, scanTimer = null, scanFace = 0, stable = 0, lastSig = '', current = null, photoMode = false, coolUntil = 0;
+  const video = $('video'), shot = $('shot'), cam = $('cam');
+  const cv = document.createElement('canvas'); cv.width = cv.height = 96;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  const dots = [], scanTabEls = [];
+  for (let i = 0; i < 9; i++) { const d = document.createElement('div'), dot = document.createElement('i'); d.append(dot); $('guide').append(d); dots.push(dot); }
+  ORDER.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.type = 'button';
+    b.innerHTML = `<i style="background:${css(f)}"></i>${FACE[f]}`;
+    b.onclick = () => { scanFace = f; resetDetect(); renderScan(); };
+    $('scanTabs').append(b); scanTabEls[f] = b;
+  });
+
+  // couleur moyenne au centre de chacune des 9 cases du cadre
+  function sample(src, sw, sh) {
+    const m = Math.min(sw, sh), g = m * 0.76;
+    cx.drawImage(src, (sw - m) / 2 + m * 0.12, (sh - m) / 2 + m * 0.12, g, g, 0, 0, 96, 96);
+    const d = cx.getImageData(0, 0, 96, 96).data, out = [];
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+      let R = 0, G = 0, B = 0, n = 0;
+      for (let y = r*32 + 10; y < r*32 + 22; y++) for (let x = c*32 + 10; x < c*32 + 22; x++) { const p = (y*96 + x) * 4; R += d[p]; G += d[p+1]; B += d[p+2]; n++; }
+      out.push([R/n, G/n, B/n]);
+    }
+    return out;
+  }
+  // lecture provisoire par teinte : 0 blanc, 1 rouge, 2 vert, 3 jaune, 4 orange, 5 bleu
+  function classify(p) {
+    const r = p[0]/255, g = p[1]/255, b = p[2]/255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    if (mx === 0 || d / mx < 0.28) return 0;
+    let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    h = (h * 60 + 360) % 360;
+    if (h < 12 || h >= 300) return 1;
+    if (h < 40) return 4;
+    if (h < 75) return 3;
+    if (h < 170) return 2;
+    return 5;
+  }
+  function lab(p) {
+    const f = v => { v /= 255; return v > 0.04045 ? Math.pow((v + 0.055) / 1.055, 2.4) : v / 12.92; };
+    const R = f(p[0]), G = f(p[1]), B = f(p[2]);
+    const g = t => t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116;
+    const X = g((0.4124*R + 0.3576*G + 0.1805*B) / 0.9505), Y = g(0.2126*R + 0.7152*G + 0.0722*B), Z = g((0.0193*R + 0.1192*G + 0.9505*B) / 1.089);
+    return [116*Y - 16, 500*(X - Y), 200*(Y - Z)];
+  }
+  // une fois les 6 faces lues : chaque case prend la couleur du centre le plus proche, 8 cases par couleur
+  function rebalance() {
+    const refs = []; for (let f = 0; f < 6; f++) refs[f] = lab(raw[f][4]);
+    const pairs = [];
+    for (let k = 0; k < 54; k++) {
+      if (k % 9 === 4) continue;
+      const p = lab(raw[(k/9)|0][k % 9]);
+      for (let c = 0; c < 6; c++) { const q = refs[c]; pairs.push([0.4*(p[0]-q[0])**2 + (p[1]-q[1])**2 + (p[2]-q[2])**2, k, c]); }
+    }
+    pairs.sort((a, b) => a[0] - b[0]);
+    const cap = [0, 0, 0, 0, 0, 0], done = {};
+    for (const [, k, c] of pairs) { if (done[k] || cap[c] >= 8) continue; done[k] = 1; cap[c]++; fl[k] = c; }
+  }
+  function resetDetect() { stable = 0; lastSig = ''; current = null; $('bar').style.width = '0'; if (photoMode) { shot.hidden = true; dots.forEach(d => d.style.background = 'transparent'); } }
+  function renderScan(status) {
+    ORDER.forEach(f => { scanTabEls[f].setAttribute('aria-selected', f === scanFace); scanTabEls[f].className = 'tab' + (raw[f] ? ' full' : ''); });
+    $('scanHold').textContent = HOLD[scanFace];
+    dots[4].parentNode.className = 'mid'; dots[4].parentNode.style.borderColor = css(scanFace);
+    const n = NEIGH[scanFace];
+    $('sT').style.background = css(n[0]); $('sB').style.background = css(n[1]);
+    $('sL').style.background = css(n[2]); $('sR').style.background = css(n[3]);
+    if (status !== undefined) $('scanStatus').textContent = status;
+    $('scanOk').disabled = !current;
+  }
+  function showDetected(s) {
+    const cls = s.map(classify);
+    cls.forEach((c, i) => dots[i].style.background = css(c));
+    current = { s, cls };
+    $('scanOk').disabled = false;
+    return cls;
+  }
+  function tick() {
+    if (photoMode || video.readyState < 2 || !video.videoWidth || Date.now() < coolUntil) return;
+    const cls = showDetected(sample(video, video.videoWidth, video.videoHeight));
+    if (cls[4] !== scanFace) { stable = 0; $('bar').style.width = '0'; $('scanStatus').textContent = `Montrez la face à centre ${COLOR[scanFace]}, bien dans la grille.`; return; }
+    const sig = cls.join('');
+    stable = sig === lastSig ? stable + 1 : 0; lastSig = sig;
+    const same = cls.every(c => c === cls[0]);
+    if (same) stable = 0;
+    $('bar').style.width = Math.min(100, stable / 8 * 100) + '%';
+    $('scanStatus').textContent = same ? 'Face unie : touchez Valider si c\'est correct.' : stable >= 2 ? 'Ne bougez plus…' : 'Cadrez la face dans la grille.';
+    if (stable >= 8) capture();
+  }
+  function capture() {
+    if (!current) return;
+    raw[scanFace] = current.s;
+    for (let i = 0; i < 9; i++) if (i !== 4) fl[scanFace*9 + i] = current.cls[i];
+    try { navigator.vibrate && navigator.vibrate(60); } catch (e) {}
+    cam.classList.add('flash'); setTimeout(() => cam.classList.remove('flash'), 180);
+    const from = ORDER.indexOf(scanFace);
+    let next = -1;
+    for (let d = 1; d <= 6; d++) { const f = ORDER[(from + d) % 6]; if (!raw[f]) { next = f; break; } }
+    if (next < 0) return closeScan(true);
+    scanFace = next; coolUntil = Date.now() + 1500;
+    resetDetect();
+    renderScan(photoMode ? 'Face enregistrée. Prenez la face suivante en photo.' : 'Face enregistrée. Tournez le cube vers la face suivante.');
+  }
+  function closeScan(complete) {
+    clearInterval(scanTimer); scanTimer = null;
+    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; video.srcObject = null; }
+    if (complete) rebalance();
+    errs = []; curFace = 0;
+    $('msg').className = 'msg info';
+    $('msg').textContent = complete ? 'Scan terminé. Vérifiez chaque face, corrigez au doigt si besoin, puis touchez Résoudre.' : '';
+    setStep(1); render();
+  }
+  function photoFallback() {
+    photoMode = true; $('photoLbl').hidden = false; video.hidden = true;
+    resetDetect();
+    renderScan('Caméra en direct indisponible ici. Prenez chaque face en photo, bien centrée et en gros plan.');
+  }
+  $('photo').onchange = e => {
+    const file = e.target.files[0]; e.target.value = '';
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    shot.onload = () => { shot.hidden = false; showDetected(sample(shot, shot.naturalWidth, shot.naturalHeight)); $('scanStatus').textContent = 'Vérifiez les pastilles de couleur, puis validez ou reprenez la photo.'; };
+    shot.src = url;
+  };
+  $('scanOpen').onclick = () => {
+    clearTimeout(advance);
+    if (ORDER.every(f => raw[f])) raw = {};
+    scanFace = ORDER.find(f => !raw[f]);
+    photoMode = false; video.hidden = false; shot.hidden = true; $('photoLbl').hidden = true;
+    resetDetect(); setStep(3); renderScan('Cadrez la face dans la grille.');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return photoFallback();
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 } }, audio: false })
+      .then(s => {
+        if ($('scan').hidden) { s.getTracks().forEach(t => t.stop()); return; }
+        stream = s; video.srcObject = s;
+        const p = video.play(); if (p && p.catch) p.catch(() => {});
+        scanTimer = setInterval(tick, 140);
+      })
+      .catch(photoFallback);
+  };
+  $('scanOk').onclick = capture;
+  $('scanClose').onclick = () => closeScan(false);
 
   // ---------- Cube 3D ----------
   const S = 54, cubeEl = $('cube'), cubies = [], stEls = [];
@@ -613,8 +795,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   const chipEls = [];
 
   function setStep(n) {
-    $('saisie').hidden = n !== 1; $('resolution').hidden = n !== 2;
-    $('stepLabel').textContent = n === 1 ? 'Étape 1 sur 2 · Couleurs' : `Étape 2 sur 2 · ${sol.length} coups`;
+    $('saisie').hidden = n !== 1; $('resolution').hidden = n !== 2; $('scan').hidden = n !== 3;
+    $('stepLabel').textContent = n === 1 ? 'Étape 1 sur 2 · Couleurs' : n === 3 ? 'Étape 1 sur 2 · Scan' : `Étape 2 sur 2 · ${sol.length} coups`;
     window.scrollTo(0, 0);
     if (n === 2) fit();
   }
