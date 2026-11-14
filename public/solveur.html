@@ -82,6 +82,23 @@ button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .cam.flash::after { content: ""; position: absolute; inset: 0; background: #fff; opacity: .7; }
 .cam .bar { position: absolute; left: 0; bottom: 0; height: 6px; background: var(--gold); width: 0; }
 label.link { cursor: pointer; }
+/* après chaque scan, la face lue bascule vers la suivante pour montrer le geste */
+.roll { position: absolute; inset: 0; background: #0d0d0c; opacity: 0; transition: opacity .3s; z-index: 1; pointer-events: none; }
+.cam.turn .roll { opacity: 1; }
+.rollstage { position: absolute; left: 50%; top: 34%; width: 0; height: 0; perspective: 700px; }
+.rollbox { position: absolute; transform-style: preserve-3d; }
+.rf { position: absolute; background: #0b0b0a; border-radius: 10px; padding: 5px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 5px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.rf span { border-radius: 6px; background: var(--cx); }
+.gest { position: absolute; left: 0; right: 0; bottom: 5%; padding: 0 10px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; opacity: 0; transition: opacity .35s; pointer-events: none; }
+.cam.turn .gest { opacity: 1; }
+.gest svg { width: 60px; height: 34px; }
+.gest svg.down { transform: rotate(-90deg); } .gest svg.right { transform: scaleX(-1); } .gest svg.up { transform: rotate(90deg); } .gest svg.none { visibility: hidden; height: 6px; }
+.gest b { font-family: var(--display); font-weight: 400; font-size: 23px; line-height: 1.05; letter-spacing: .04em; color: var(--gold); text-wrap: balance; }
+.gest small { font-size: 13px; font-weight: 600; color: var(--ink); }
+.gtilt { position: absolute; transform-style: preserve-3d; transform: rotateX(-17deg) rotateY(-21deg); }
+.gc { position: absolute; transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(.45,.05,.3,1); }
+.gf { position: absolute; width: 96px; height: 96px; margin: -48px 0 0 -48px; background: #0b0b0a; border-radius: 7px; padding: 4px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 4px; }
+.gf span { border-radius: 4px; background: var(--cx); }
 
 /* Étape 2 */
 .scene { flex: 1; min-height: 150px; perspective: 900px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; position: relative; }
@@ -116,7 +133,7 @@ label.link { cursor: pointer; }
   </header>
 
   <section id="saisie">
-    <p class="how"><b>Choisissez une couleur</b> puis <b>touchez les cases</b>, ou <b>scannez</b> le cube avec la caméra.</p>
+    <p class="how"><b>Choisissez une couleur</b> puis <b>touchez les cases</b>, ou <b>scannez</b> le cube posé sur une table.</p>
     <div class="tabs" id="tabs" role="tablist" aria-label="Face à saisir"></div>
     <p class="hold"><span id="faceHold"></span><small>Les bandes autour de la grille montrent les faces voisines.</small></p>
     <div class="gridwrap">
@@ -149,6 +166,8 @@ label.link { cursor: pointer; }
           <img id="shot" alt="" hidden>
           <div class="guide" id="guide"></div>
           <span class="bar" id="bar"></span>
+          <div class="roll" aria-hidden="true"><div class="rollstage"><div class="rollbox" id="rollbox"></div></div></div>
+          <div class="gest" id="gest"><svg id="gArrow" viewBox="0 0 60 34" fill="none" stroke="#c9a227" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M54 24 Q32 2 9 18"/><path d="M8 4 L8 19 L23 20"/></svg><b id="gVerb"></b><small id="gKeep"></small></div>
         </div>
         <span class="hint r" id="sR"></span><span class="hint b" id="sB"></span>
       </div>
@@ -156,6 +175,7 @@ label.link { cursor: pointer; }
     <button class="btn primary" id="scanOk" type="button">Valider cette face</button>
     <div class="linkrow">
       <button class="link" id="scanClose" type="button">Terminer</button>
+      <button class="link" id="replay" type="button">Revoir le geste</button>
       <label class="link" id="photoLbl" hidden>Prendre une photo<input type="file" id="photo" accept="image/*" capture="environment" hidden></label>
     </div>
   </section>
@@ -464,20 +484,44 @@ if (typeof module !== 'undefined') module.exports = Core;
   const $ = id => document.getElementById(id);
   const COLOR = ['blanc', 'rouge', 'vert', 'jaune', 'orange', 'bleu'];
   const FACE = ['Haut', 'Droite', 'Devant', 'Bas', 'Gauche', 'Arrière'];
-  const ORDER = [0, 2, 1, 5, 4, 3];
+  const ORDER = [2, 1, 5, 4, 0, 3]; // 4 côtés d'affilée (même geste), puis dessus et dessous
   const NEIGH = { 0: [5, 2, 4, 1], 2: [0, 3, 4, 1], 1: [0, 3, 2, 5], 5: [0, 3, 1, 4], 4: [0, 3, 5, 2], 3: [2, 5, 4, 1] }; // haut, bas, gauche, droite
   const HOLD = {
-    0: 'Dessus du cube (centre blanc), le vert vers vous.',
     2: 'Face verte devant vous, blanc en haut.',
-    1: 'Face rouge devant vous, blanc en haut.',
-    5: 'Face bleue devant vous, blanc en haut.',
-    4: 'Face orange devant vous, blanc en haut.',
-    3: 'Dessous du cube (centre jaune), le vert vers le haut.'
+    1: 'Un quart de tour vers la gauche : face rouge, blanc en haut.',
+    5: 'Un quart de tour vers la gauche : face bleue, blanc en haut.',
+    4: 'Un quart de tour vers la gauche : face orange, blanc en haut.',
+    0: 'Revenez au vert, puis basculez le cube vers vous : dessus blanc, vert en bas.',
+    3: 'Basculez dans l\'autre sens : dessous jaune, vert en haut.'
   };
+  // Scan : cube posé sur la table, téléphone au-dessus. On bascule le cube pour amener chaque face dessus.
+  const SORDER = [0, 5, 3, 2, 1, 4];
+  const SNEIGH = { 0: [5, 2, 4, 1], 5: [3, 0, 4, 1], 3: [2, 5, 4, 1], 2: [0, 3, 4, 1], 1: [0, 3, 2, 5], 4: [0, 3, 5, 2] }; // loin, côté vous, gauche, droite
+  const SHOLD = {
+    0: 'Posez le cube sur la table : blanc dessus, vert côté vous.',
+    5: 'Basculez le cube vers vous : bleu dessus, blanc côté vous.',
+    3: 'Basculez encore vers vous : jaune dessus, bleu côté vous.',
+    2: 'Basculez encore vers vous : vert dessus, jaune côté vous.',
+    1: 'Basculez vers la gauche : rouge dessus, jaune côté vous.',
+    4: 'Basculez 2 fois vers la droite : orange dessus, jaune côté vous.'
+  };
+  // geste pour arriver à chaque face en suivant l'ordre : [flèche, consigne, repère]
+  const GESTE = {
+    0: ['', 'Cube posé, blanc dessus', 'Vert côté vous'],
+    5: ['down', 'Basculez le cube vers vous', 'Bleu dessus, blanc côté vous'],
+    3: ['down', 'Basculez encore vers vous', 'Jaune dessus, bleu côté vous'],
+    2: ['down', 'Basculez encore vers vous', 'Vert dessus, jaune côté vous'],
+    1: ['left', 'Basculez vers la gauche', 'Rouge dessus, jaune côté vous'],
+    4: ['right', 'Basculez 2 fois vers la droite', 'Orange dessus, jaune côté vous']
+  };
+
+
   const css = c => c < 0 ? 'var(--cx)' : `var(--c${c})`;
 
+  const reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // ---------- Étape 1 : saisie ----------
-  let fl, curFace = 0, curColor = 1, errs = [], advance = null;
+  let fl, curFace = 2, curColor = 1, errs = [], advance = null;
   const blank = () => { const a = new Array(54).fill(-1); for (let f = 0; f < 6; f++) a[f*9+4] = f; return a; };
   const isFull = f => { for (let i = 0; i < 9; i++) if (fl[f*9+i] < 0) return false; return true; };
 
@@ -543,7 +587,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     });
   }
 
-  $('clear').onclick = () => { clearTimeout(advance); raw = {}; fl = blank(); errs = []; curFace = 0; $('msg').textContent = ''; render(); };
+  $('clear').onclick = () => { clearTimeout(advance); raw = {}; fl = blank(); errs = []; curFace = 2; $('msg').textContent = ''; render(); };
   $('example').onclick = () => { clearTimeout(advance); fl = Core.scramble(25); errs = []; $('msg').textContent = ''; render(); };
 
   const ERR = {
@@ -591,13 +635,54 @@ if (typeof module !== 'undefined') module.exports = Core;
   const cx = cv.getContext('2d', { willReadFrequently: true });
   const dots = [], scanTabEls = [];
   for (let i = 0; i < 9; i++) { const d = document.createElement('div'), dot = document.createElement('i'); d.append(dot); $('guide').append(d); dots.push(dot); }
-  ORDER.forEach(f => {
+  SORDER.forEach(f => {
     const b = document.createElement('button');
     b.className = 'tab'; b.type = 'button';
     b.innerHTML = `<i style="background:${css(f)}"></i>${FACE[f]}`;
-    b.onclick = () => { scanFace = f; resetDetect(); renderScan(); };
+    b.onclick = () => { scanFace = f; resetDetect(); renderScan('Posez le cube avec cette face dessus.'); showTurn(false); };
     $('scanTabs').append(b); scanTabEls[f] = b;
   });
+
+  // Après chaque scan, la face lue bascule comme le cube sur la table et laisse place à la suivante.
+  // Bascule pour arriver à chaque face dans l'ordre : vers vous, vers la gauche, ou deux fois vers la droite.
+  const ROLL = { 5: 'down', 3: 'down', 2: 'down', 1: 'left', 4: 'right2' };
+  let turnTimers = [];
+  const later = (fn, ms) => turnTimers.push(setTimeout(fn, ms));
+  function showTurn(inOrder) {
+    turnTimers.forEach(clearTimeout); turnTimers = [];
+    const idx = SORDER.indexOf(scanFace), roll = inOrder && idx > 0 ? ROLL[scanFace] : '';
+    const g = inOrder ? GESTE[scanFace] : ['', `Centre ${COLOR[scanFace]} dessus`, GESTE[scanFace][2].split(', ').pop()];
+    $('gArrow').setAttribute('class', g[0] || 'none');
+    $('gVerb').textContent = g[1]; $('gKeep').textContent = g[2];
+    const box = $('rollbox'), S = Math.round(cam.clientWidth * 0.56), half = S / 2;
+    const panel = (face, tr) => {
+      const p = document.createElement('div');
+      p.className = 'rf';
+      p.style.cssText = `width:${S}px;height:${S}px;margin:${-half}px 0 0 ${-half}px;transform:${tr} translateZ(${half}px)`;
+      for (let j = 0; j < 9; j++) { const s = document.createElement('span'); s.style.background = css(fl[face*9 + (face === 5 ? 8 - j : j)]); p.append(s); }
+      box.append(p);
+    };
+    const turn = (ms, tr) => { box.style.transition = ms ? `transform ${ms}ms cubic-bezier(.45,.05,.3,1)` : 'none'; box.style.transform = `translateZ(${-half}px) ${tr}`; };
+    box.textContent = '';
+    turn(0, '');
+    let end = 1900;
+    if (!roll) panel(scanFace, '');
+    else {
+      panel(SORDER[idx - 1], '');
+      const ms = reduced ? 0 : 1100;
+      if (roll === 'down') { panel(scanFace, 'rotateX(90deg)'); later(() => turn(ms, 'rotateX(-90deg)'), 600); end = 2900; }
+      if (roll === 'left') { panel(scanFace, 'rotateY(90deg)'); later(() => turn(ms, 'rotateY(-90deg)'), 600); end = 2900; }
+      if (roll === 'right2') {
+        panel(2, 'rotateY(-90deg)'); panel(scanFace, 'rotateY(180deg)');
+        later(() => turn(ms, 'rotateY(90deg)'), 600); later(() => turn(ms, 'rotateY(180deg)'), 2000); end = 4300;
+      }
+    }
+    void box.offsetWidth;
+    cam.classList.add('turn');
+    coolUntil = Date.now() + end + 300;
+    later(() => cam.classList.remove('turn'), end);
+  }
+  function replay() { resetDetect(); renderScan(); showTurn(true); }
 
   // couleur médiane au centre de chacune des 9 cases du cadre (la médiane ignore reflets et logos)
   let uniform = 0;
@@ -696,10 +781,10 @@ if (typeof module !== 'undefined') module.exports = Core;
   }
   function resetDetect() { stable = 0; lastSig = ''; current = null; ema = null; $('bar').style.width = '0'; if (photoMode) { shot.hidden = true; dots.forEach(d => d.style.background = 'transparent'); } }
   function renderScan(status) {
-    ORDER.forEach(f => { scanTabEls[f].setAttribute('aria-selected', f === scanFace); scanTabEls[f].className = 'tab' + (raw[f] ? ' full' : ''); });
-    $('scanHold').textContent = HOLD[scanFace];
+    SORDER.forEach(f => { scanTabEls[f].setAttribute('aria-selected', f === scanFace); scanTabEls[f].className = 'tab' + (raw[f] ? ' full' : ''); });
+    $('scanHold').textContent = SHOLD[scanFace];
     dots[4].parentNode.className = 'mid'; dots[4].parentNode.style.borderColor = css(scanFace);
-    const n = NEIGH[scanFace];
+    const n = SNEIGH[scanFace];
     $('sT').style.background = css(n[0]); $('sB').style.background = css(n[1]);
     $('sL').style.background = css(n[2]); $('sR').style.background = css(n[3]);
     if (status !== undefined) $('scanStatus').textContent = status;
@@ -725,34 +810,37 @@ if (typeof module !== 'undefined') module.exports = Core;
     const cls = showDetected(ema.map(p => p.slice()));
     const bar = $('bar'), status = $('scanStatus');
     const centre = lab(ema[4]);
-    const seen = ORDER.find(f => f !== scanFace && raw[f] && dist(centre, lab(raw[f][4])) < 60);
-    if (seen !== undefined && uniform >= 8) { stable = 0; bar.style.width = '0'; status.textContent = `Face déjà scannée. Montrez la face à centre ${COLOR[scanFace]}.`; return; }
-    if (uniform < 8) { stable = 0; bar.style.width = '0'; status.textContent = 'Approchez le cube et alignez ses cases sur la grille.'; return; }
+    const seen = SORDER.find(f => f !== scanFace && raw[f] && dist(centre, lab(raw[f][4])) < 60);
+    if (seen !== undefined && uniform >= 8) { stable = 0; bar.style.width = '0'; status.textContent = `Vous montrez encore la face à centre ${COLOR[seen]}. Il faut le centre ${COLOR[scanFace]}.`; return; }
+    if (uniform < 8) { stable = 0; bar.style.width = '0'; status.textContent = 'Approchez le téléphone et alignez les cases sur la grille.'; return; }
     const same = cls.every(c => c === cls[0]);
     stable = motion < 34 && !same ? stable + 1 : 0;
     bar.style.width = Math.min(100, stable / 6 * 100) + '%';
-    status.textContent = same ? 'Face unie : touchez Valider si c\'est correct.' : stable >= 1 ? 'Ne bougez plus…' : 'Tenez le cube immobile.';
+    status.textContent = same ? 'Face unie : touchez Valider si c\'est correct.' : stable >= 1 ? 'Ne bougez plus…' : 'Tenez le téléphone immobile au-dessus du cube.';
     if (stable >= 6) capture();
   }
   function capture() {
     if (!current) return;
-    raw[scanFace] = current.s;
-    for (let i = 0; i < 9; i++) if (i !== 4) fl[scanFace*9 + i] = current.cls[i];
+    const flip = scanFace === 5; // vue du dessus, la face bleue apparaît tournée d'un demi-tour
+    const s = flip ? current.s.slice().reverse() : current.s, cls = flip ? current.cls.slice().reverse() : current.cls;
+    raw[scanFace] = s;
+    for (let i = 0; i < 9; i++) if (i !== 4) fl[scanFace*9 + i] = cls[i];
     try { navigator.vibrate && navigator.vibrate(60); } catch (e) {}
     cam.classList.add('flash'); setTimeout(() => cam.classList.remove('flash'), 180);
-    const from = ORDER.indexOf(scanFace);
+    const from = SORDER.indexOf(scanFace);
     let next = -1;
-    for (let d = 1; d <= 6; d++) { const f = ORDER[(from + d) % 6]; if (!raw[f]) { next = f; break; } }
+    for (let d = 1; d <= 6; d++) { const f = SORDER[(from + d) % 6]; if (!raw[f]) { next = f; break; } }
     if (next < 0) return closeScan(true);
-    scanFace = next; coolUntil = Date.now() + 1500;
-    resetDetect();
-    renderScan(photoMode ? 'Face enregistrée. Prenez la face suivante en photo.' : 'Face enregistrée. Tournez le cube vers la face suivante.');
+    const follows = SORDER.indexOf(next) === from + 1;
+    scanFace = next;
+    resetDetect(); showTurn(follows);
+    renderScan(photoMode ? 'Face enregistrée. Basculez le cube, puis photographiez la face du dessus.' : 'Face enregistrée. Basculez le cube comme sur l\'animation.');
   }
   function closeScan(complete) {
-    clearInterval(scanTimer); scanTimer = null;
+    clearInterval(scanTimer); scanTimer = null; turnTimers.forEach(clearTimeout); cam.classList.remove('turn');
     if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; video.srcObject = null; }
     if (complete) rebalance();
-    errs = []; curFace = 0;
+    errs = []; curFace = 2;
     $('msg').className = 'msg info';
     $('msg').textContent = complete ? 'Scan terminé. Vérifiez chaque face, corrigez au doigt si besoin, puis touchez Résoudre.' : '';
     setStep(1); render();
@@ -760,7 +848,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   function photoFallback() {
     photoMode = true; $('photoLbl').hidden = false; video.hidden = true;
     resetDetect();
-    renderScan('Caméra en direct indisponible ici. Prenez chaque face en photo, bien centrée et en gros plan.');
+    renderScan('Caméra en direct indisponible ici. Photographiez chaque face du dessus, bien centrée et en gros plan.');
   }
   $('photo').onchange = e => {
     const file = e.target.files[0]; e.target.value = '';
@@ -771,10 +859,11 @@ if (typeof module !== 'undefined') module.exports = Core;
   };
   $('scanOpen').onclick = () => {
     clearTimeout(advance);
-    if (ORDER.every(f => raw[f])) raw = {};
-    scanFace = ORDER.find(f => !raw[f]);
+    if (SORDER.every(f => raw[f])) raw = {};
+    scanFace = SORDER.find(f => !raw[f]);
     photoMode = false; video.hidden = false; shot.hidden = true; $('photoLbl').hidden = true;
-    resetDetect(); setStep(3); renderScan('Cadrez la face dans la grille.');
+    resetDetect(); setStep(3); renderScan('Téléphone à plat au-dessus du cube, la face du dessus dans la grille.');
+    showTurn(scanFace === SORDER[0]);
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return photoFallback();
     navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 } }, audio: false })
       .then(s => {
@@ -786,6 +875,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       .catch(photoFallback);
   };
   $('scanOk').onclick = capture;
+  $('replay').onclick = replay;
   $('scanClose').onclick = () => closeScan(false);
 
   // ---------- Cube 3D ----------
@@ -851,7 +941,6 @@ if (typeof module !== 'undefined') module.exports = Core;
   // ---------- Étape 2 : lecture de la solution ----------
   const FACE_TXT = ['Face du haut (blanche)', 'Face de droite (rouge)', 'Face de devant (verte)', 'Face du bas (jaune)', 'Face de gauche (orange)', 'Face arrière (bleue)'];
   const TURN_TXT = ['1 quart de tour, sens horaire ↻', 'Tournez 2 fois (demi-tour)', '1 quart de tour, sens inverse ↺'];
-  const reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   let sol = [], startFl, cur, pos = 0, busy = false, playing = false, speed = 1300, timer = null;
   const chipEls = [];
 
