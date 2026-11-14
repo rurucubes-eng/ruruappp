@@ -133,9 +133,9 @@ label.link { cursor: pointer; }
   </header>
 
   <section id="saisie">
-    <p class="how"><b>Choisissez une couleur</b> puis <b>touchez les cases</b>, ou <b>scannez</b> le cube posé sur une table.</p>
+    <p class="how">Cube posé sur une table, vu du dessus. <b>Choisissez une couleur</b> puis <b>touchez les cases</b>, ou <b>scannez</b>.</p>
     <div class="tabs" id="tabs" role="tablist" aria-label="Face à saisir"></div>
-    <p class="hold"><span id="faceHold"></span><small>Les bandes autour de la grille montrent les faces voisines.</small></p>
+    <p class="hold"><span id="faceHold"></span><small>Bande du bas : la face tournée vers vous.</small></p>
     <div class="gridwrap">
       <div class="facebox">
         <span class="hint t" id="hT"></span><span class="hint l" id="hL"></span>
@@ -484,20 +484,10 @@ if (typeof module !== 'undefined') module.exports = Core;
   const $ = id => document.getElementById(id);
   const COLOR = ['blanc', 'rouge', 'vert', 'jaune', 'orange', 'bleu'];
   const FACE = ['Haut', 'Droite', 'Devant', 'Bas', 'Gauche', 'Arrière'];
-  const ORDER = [2, 1, 5, 4, 0, 3]; // 4 côtés d'affilée (même geste), puis dessus et dessous
-  const NEIGH = { 0: [5, 2, 4, 1], 2: [0, 3, 4, 1], 1: [0, 3, 2, 5], 5: [0, 3, 1, 4], 4: [0, 3, 5, 2], 3: [2, 5, 4, 1] }; // haut, bas, gauche, droite
+  const ORDER = [0, 5, 3, 2, 1, 4]; // cube posé sur la table : même parcours pour la saisie au doigt et le scan
+  const NEIGH = { 0: [5, 2, 4, 1], 5: [3, 0, 4, 1], 3: [2, 5, 4, 1], 2: [0, 3, 4, 1], 1: [0, 3, 2, 5], 4: [0, 3, 5, 2] }; // loin, côté vous, gauche, droite
+  // Cube posé sur la table, regardé du dessus. On bascule le cube pour amener chaque face dessus.
   const HOLD = {
-    2: 'Face verte devant vous, blanc en haut.',
-    1: 'Un quart de tour vers la gauche : face rouge, blanc en haut.',
-    5: 'Un quart de tour vers la gauche : face bleue, blanc en haut.',
-    4: 'Un quart de tour vers la gauche : face orange, blanc en haut.',
-    0: 'Revenez au vert, puis basculez le cube vers vous : dessus blanc, vert en bas.',
-    3: 'Basculez dans l\'autre sens : dessous jaune, vert en haut.'
-  };
-  // Scan : cube posé sur la table, téléphone au-dessus. On bascule le cube pour amener chaque face dessus.
-  const SORDER = [0, 5, 3, 2, 1, 4];
-  const SNEIGH = { 0: [5, 2, 4, 1], 5: [3, 0, 4, 1], 3: [2, 5, 4, 1], 2: [0, 3, 4, 1], 1: [0, 3, 2, 5], 4: [0, 3, 5, 2] }; // loin, côté vous, gauche, droite
-  const SHOLD = {
     0: 'Posez le cube sur la table : blanc dessus, vert côté vous.',
     5: 'Basculez le cube vers vous : bleu dessus, blanc côté vous.',
     3: 'Basculez encore vers vous : jaune dessus, bleu côté vous.',
@@ -505,6 +495,9 @@ if (typeof module !== 'undefined') module.exports = Core;
     1: 'Basculez vers la gauche : rouge dessus, jaune côté vous.',
     4: 'Basculez 2 fois vers la droite : orange dessus, jaune côté vous.'
   };
+  const SORDER = ORDER, SNEIGH = NEIGH, SHOLD = HOLD;
+  // vue du dessus, la face bleue apparaît tournée d'un demi-tour : case i de la grille -> étiquette du cube
+  const cellIdx = (f, i) => f*9 + (f === 5 ? 8 - i : i);
   // geste pour arriver à chaque face en suivant l'ordre : [flèche, consigne, repère]
   const GESTE = {
     0: ['', 'Cube posé, blanc dessus', 'Vert côté vous'],
@@ -521,7 +514,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   const reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- Étape 1 : saisie ----------
-  let fl, curFace = 2, curColor = 1, errs = [], advance = null;
+  let fl, curFace = 0, curColor = 1, errs = [], advance = null;
   const blank = () => { const a = new Array(54).fill(-1); for (let f = 0; f < 6; f++) a[f*9+4] = f; return a; };
   const isFull = f => { for (let i = 0; i < 9; i++) if (fl[f*9+i] < 0) return false; return true; };
 
@@ -530,7 +523,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   ORDER.forEach(f => {
     const b = document.createElement('button');
     b.className = 'tab'; b.type = 'button'; b.setAttribute('role', 'tab');
-    b.innerHTML = `<i style="background:${css(f)}"></i>${FACE[f]}`;
+    b.innerHTML = `<i style="background:${css(f)}"></i>${COLOR[f][0].toUpperCase() + COLOR[f].slice(1)}`;
     b.onclick = () => { clearTimeout(advance); curFace = f; render(); };
     tabs.append(b); tabEls[f] = b;
   });
@@ -539,7 +532,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     b.type = 'button';
     b.onclick = () => {
       if (i === 4) return;
-      const k = curFace*9 + i, wasFull = isFull(curFace);
+      const k = cellIdx(curFace, i), wasFull = isFull(curFace);
       fl[k] = fl[k] === curColor ? -1 : curColor;
       errs = []; $('msg').textContent = '';
       render();
@@ -573,7 +566,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('hT').style.background = css(n[0]); $('hB').style.background = css(n[1]);
     $('hL').style.background = css(n[2]); $('hR').style.background = css(n[3]);
     bigEls.forEach((b, i) => {
-      const k = curFace*9 + i, c = fl[k];
+      const k = cellIdx(curFace, i), c = fl[k];
       b.style.background = css(c);
       b.className = 'cell' + (c < 0 ? ' unset' : '') + (i === 4 ? ' center' : '') + (errs.includes(k) ? ' err' : '');
       b.setAttribute('aria-label', i === 4 ? `Centre ${COLOR[curFace]}` : `Case ${i+1} : ${c < 0 ? 'vide' : COLOR[c]}`);
@@ -587,7 +580,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     });
   }
 
-  $('clear').onclick = () => { clearTimeout(advance); raw = {}; fl = blank(); errs = []; curFace = 2; $('msg').textContent = ''; render(); };
+  $('clear').onclick = () => { clearTimeout(advance); raw = {}; fl = blank(); errs = []; curFace = 0; $('msg').textContent = ''; render(); };
   $('example').onclick = () => { clearTimeout(advance); fl = Core.scramble(25); errs = []; $('msg').textContent = ''; render(); };
 
   const ERR = {
@@ -638,7 +631,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   SORDER.forEach(f => {
     const b = document.createElement('button');
     b.className = 'tab'; b.type = 'button';
-    b.innerHTML = `<i style="background:${css(f)}"></i>${FACE[f]}`;
+    b.innerHTML = `<i style="background:${css(f)}"></i>${COLOR[f][0].toUpperCase() + COLOR[f].slice(1)}`;
     b.onclick = () => { scanFace = f; resetDetect(); renderScan('Posez le cube avec cette face dessus.'); showTurn(false); };
     $('scanTabs').append(b); scanTabEls[f] = b;
   });
@@ -840,7 +833,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     clearInterval(scanTimer); scanTimer = null; turnTimers.forEach(clearTimeout); cam.classList.remove('turn');
     if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; video.srcObject = null; }
     if (complete) rebalance();
-    errs = []; curFace = 2;
+    errs = []; curFace = 0;
     $('msg').className = 'msg info';
     $('msg').textContent = complete ? 'Scan terminé. Vérifiez chaque face, corrigez au doigt si besoin, puis touchez Résoudre.' : '';
     setStep(1); render();
