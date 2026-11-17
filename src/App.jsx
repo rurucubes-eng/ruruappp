@@ -625,7 +625,14 @@ const TR = {
     hcShopBtn:"Commander sur rurucube.com",
     hcTagline:"RÉFLÉCHIR · JOUER · PROGRESSER",
     navHome:"Accueil", navTuto:"Comment jouer",
-    tutoIntro:"Une méthode débutant, chapitre par chapitre. Prends ton cube et suis le rythme — tu peux mettre en pause quand tu veux.",
+    tutoIntro:"Prends ton cube en main et suis les étapes dans l'ordre : chaque formule est animée en 3D, coup par coup.",
+    tutoMeta:["8 étapes","Méthode débutant","≈ 30 min"], tutoProgress:"{n} / 8 étapes vues", tutoStart:"Commencer le tutoriel", tutoContinue:"Continuer : étape {n}",
+    tutoAllDone:"Revoir le grand final", tutoGroups:["Avant de commencer","L'étage blanc","L'étage du milieu","L'étage jaune"],
+    tutoFormulas:"Toutes les formules", tutoFormulasSub:"Une seule page pour réviser, cube en main",
+    tutoBadgeOn:"J'ai résolu mon cube !", tutoBadgeOnSub:"Badge débloqué en terminant le grand final.", tutoBadgeShare:"Partager mon badge",
+    tutoBadgeOff:"Badge à débloquer", tutoBadgeOffSub:"Termine le grand final de l'étape 8 pour gagner ton badge.",
+    tutoBadgeMsg:"🏆 J'ai appris à résoudre le Rubik's Cube avec l'appli RUR'U' ! Essaie toi aussi :", tutoCopied:"Copié !",
+    tutoStuck:"Bloqué avec ton cube ?", tutoStuckSub:"Le solveur te donne la solution, coup par coup.", tutoSeen:"vue", tutoDoneTag:"réussie", tutoProgressDone:"{n} / 8 étapes réussies",
     tutoStepOf:"Étape {n} sur {total}", tutoVideo:"La vidéo", cdTitle:"La démo en 3D", tutoTapCube:"Touche un cube pour voir la formule en action, coup par coup.", tutoReplay:"Revoir", finTitle:"Le final en 3D", finPlay:"Lancer le final", finCorner:"Coin {n}", finBravo:"Cube résolu !",
     finStart:"On part du cube de l'étape 7 : les coins sont à leur place mais mal tournés. Appuie sur Lancer !",
     finHold:"Le coin à tourner est devant toi, en haut à droite.",
@@ -635,7 +642,9 @@ const TR = {
     finDone:"Tout se remet en place : bravo, tu as résolu le cube !", tutoPass:"Formule {n} sur {t}", tutoPre:{"5.cotes":"Tourne tout le cube, doucement, pour mettre les 2 arêtes bien placées derrière et à gauche…", "5.opposees":"Tourne tout le cube pour avoir une arête bien placée à gauche (et l'autre à droite)…", "6.amis":"Repère le coin déjà à sa place, et tourne tout le cube pour le mettre devant, à droite…"}, tutoThen:{"2.haut":"puis tourne B et refais la formule", "4.point":"puis tourne H pour avoir la ligne à l'horizontale, et fais la formule de la ligne",
       "7.c1":"le jaune est dessus : puis H, le coin suivant arrive", "7.c2":"le jaune est dessus : puis H, le coin suivant arrive",
       "7.c3":"le jaune est dessus : puis H, le coin suivant arrive", "7.c4":"le jaune est dessus : puis H… et tout se remet en place !"}, cdEdge:"Arête blanc-{c}", cdColors:{B:"bleu",O:"orange",G:"vert",R:"rouge"}, cdCaps:{scr:"Voici un cube mélangé : blanc en haut, bleu à droite. Appuie sur ▶ pour voir la croix se faire.", rot:"Tourne tout le cube pour avoir le centre {c} à droite.", down:"Fais descendre l'arête sur la face Basse (sans casser ce qui est déjà fait).", align:"Tourne la face Basse jusqu'à ce que l'arête soit juste sous le centre {c}.", bas:"L'arête est sous le centre {c} : demi-tour de la face Droite.", milieu:"L'arête est sur la face Droite : tourne-la jusqu'en haut.", retournee:"Elle est en haut mais à l'envers : fais la formule.", ok:"Cette arête est déjà bien placée !", done:"La croix blanche est faite ! 🎉"}, cdPlay:"Regarder", cdPause:"Pause", cdStep:"Coup suivant", cdNew:"Nouveau mélange", cdCube:"cube", tutoPrev:"Précédente", tutoNext:"Étape suivante",
-    tutoHold:"Comment tenir le cube", tutoGoal:"Ton but", tutoCases:"Les cas possibles", tutoPieces:"Les pièces", tutoMoves:"Chaque face a une lettre",
+    tutoHold:"Comment tenir le cube", tutoGoal:"Ton but", tutoTurnMe:"↔ Fais-le tourner du doigt", tutoHow:"Comment faire",
+    tutoDoneBtn:"J'ai réussi cette étape !", tutoDoneOn:"Étape réussie", tutoDoneUndo:"(touche pour annuler)", tutoNextIs:"Ensuite :",
+    tutoSlow:"Lent", tutoFast:"Normal", tutoPauseBtn:"Pause", tutoGoBtn:"Reprendre", tutoStepBtn:"Coup suivant", tutoCases:"Les cas possibles", tutoPieces:"Les pièces", tutoMoves:"Chaque face a une lettre",
     tutoNotation:"fr", tutoTryMoves:"Touche une lettre : le cube fait le mouvement", tutoReset:"Remettre à zéro",
     tutoNotaFr:"Version française", tutoNotaEn:"Version anglaise", tutoPrimeTxt:"rotation dans le sens inverse", tutoHalfTxt:"demi-tour (180°)",
     tutoFaceNames:{ R:"face droite", L:"face gauche", U:"face du haut", D:"face du bas", F:"face avant", B:"face arrière" },
@@ -912,7 +921,14 @@ const TR = {
     hcShopBtn:"Order on rurucube.com",
     hcTagline:"THINK · PLAY · IMPROVE",
     navHome:"Home", navTuto:"How to play",
-    tutoIntro:"A beginner method, chapter by chapter. Grab your cube and follow along — pause whenever you need to.",
+    tutoIntro:"Grab your cube and follow the steps in order: every algorithm is animated in 3D, move by move.",
+    tutoMeta:["8 steps","Beginner method","≈ 30 min"], tutoProgress:"{n} / 8 steps seen", tutoStart:"Start the tutorial", tutoContinue:"Continue: step {n}",
+    tutoAllDone:"Watch the grand finale again", tutoGroups:["Before you start","The white layer","The middle layer","The yellow layer"],
+    tutoFormulas:"All the algorithms", tutoFormulasSub:"One page to revise, cube in hand",
+    tutoBadgeOn:"I solved my cube!", tutoBadgeOnSub:"Badge unlocked by finishing the grand finale.", tutoBadgeShare:"Share my badge",
+    tutoBadgeOff:"Badge to unlock", tutoBadgeOffSub:"Finish the grand finale in step 8 to earn your badge.",
+    tutoBadgeMsg:"🏆 I learned to solve the Rubik's Cube with the RUR'U' app! Try it too:", tutoCopied:"Copied!",
+    tutoStuck:"Stuck with your cube?", tutoStuckSub:"The solver gives you the solution, move by move.", tutoSeen:"seen", tutoDoneTag:"done", tutoProgressDone:"{n} / 8 steps done",
     tutoStepOf:"Step {n} of {total}", tutoVideo:"The video", cdTitle:"The 3D demo", tutoTapCube:"Tap a cube to watch the algorithm in action, move by move.", tutoReplay:"Replay", finTitle:"The 3D finale", finPlay:"Start the finale", finCorner:"Corner {n}", finBravo:"Cube solved!",
     finStart:"We start from the step 7 cube: corners in place but twisted. Tap Start!",
     finHold:"The corner to twist is in front of you, top right.",
@@ -922,7 +938,9 @@ const TR = {
     finDone:"Everything falls into place: well done, you solved the cube!", tutoPass:"Algorithm {n} of {t}", tutoPre:{"5.cotes":"Slowly turn the whole cube to put the 2 good edges at the back and on the left…", "5.opposees":"Turn the whole cube so one good edge is on the left (and the other on the right)…", "6.amis":"Find the corner already in place, and turn the whole cube to put it front right…"}, tutoThen:{"2.haut":"then turn D and do the algorithm again", "4.point":"then turn U so the line is horizontal, and do the line algorithm",
       "7.c1":"yellow is on top: then U, the next corner comes", "7.c2":"yellow is on top: then U, the next corner comes",
       "7.c3":"yellow is on top: then U, the next corner comes", "7.c4":"yellow is on top: then U… and everything falls into place!"}, cdEdge:"White-{c} edge", cdColors:{B:"blue",O:"orange",G:"green",R:"red"}, cdCaps:{scr:"Here is a scrambled cube: white on top, blue on the right. Tap ▶ to watch the cross being built.", rot:"Turn the whole cube so the {c} centre is on the right.", down:"Bring the edge down to the Down face (without breaking what is done).", align:"Turn the Down face until the edge sits just under the {c} centre.", bas:"The edge is under the {c} centre: half turn of the Right face.", milieu:"The edge is on the Right face: turn it up to the top.", retournee:"It is on top but flipped: do the algorithm.", ok:"This edge is already in place!", done:"The white cross is done! 🎉"}, cdPlay:"Watch", cdPause:"Pause", cdStep:"Next move", cdNew:"New scramble", cdCube:"cube", tutoPrev:"Previous", tutoNext:"Next step",
-    tutoHold:"How to hold the cube", tutoGoal:"Your goal", tutoCases:"Possible cases", tutoPieces:"The pieces", tutoMoves:"Each face has a letter",
+    tutoHold:"How to hold the cube", tutoGoal:"Your goal", tutoTurnMe:"↔ Spin it with your finger", tutoHow:"How to do it",
+    tutoDoneBtn:"I've done this step!", tutoDoneOn:"Step done", tutoDoneUndo:"(tap to undo)", tutoNextIs:"Next:",
+    tutoSlow:"Slow", tutoFast:"Normal", tutoPauseBtn:"Pause", tutoGoBtn:"Resume", tutoStepBtn:"Next move", tutoCases:"Possible cases", tutoPieces:"The pieces", tutoMoves:"Each face has a letter",
     tutoNotation:"en", tutoTryMoves:"Tap a letter: the cube does the move", tutoReset:"Reset",
     tutoNotaFr:"French version", tutoNotaEn:"English version", tutoPrimeTxt:"turn the other way", tutoHalfTxt:"half turn (180°)",
     tutoFaceNames:{ R:"right face", L:"left face", U:"up face", D:"down face", F:"front face", B:"back face" },
@@ -1982,9 +2000,13 @@ function tutoPlan(idx, k, fr){
   return {moves,hi,pass,reps,start};
 }
 
-function TutoAnimCube({ state, moves, size, view, onTok, loopKey, box, speed=1, topMark }){
+function TutoAnimCube({ state, moves, size, view, onTok, loopKey, box, speed=1, topMark, paused=false, stepTick=0, slow=false, orbit=false }){
   const stageRef=useRef(null);
   const [status,setStatus]=useState("loading");
+  const pausedRef=useRef(paused), slowRef=useRef(slow), stepRef=useRef(false), kickRef=useRef(null);
+  pausedRef.current=paused; slowRef.current=slow;
+  useEffect(()=>{ if(!paused&&kickRef.current) kickRef.current(); },[paused]);
+  useEffect(()=>{ if(stepTick>0&&kickRef.current){ stepRef.current=true; kickRef.current(); } },[stepTick]);
   useEffect(()=>{
     let dead=false, raf=0, timer=0; const cleanups=[];
     loadThree().then(THREE=>{
@@ -2022,9 +2044,18 @@ function TutoAnimCube({ state, moves, size, view, onTok, loopKey, box, speed=1, 
             m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(r0,u0,V(...n)));
             m.position.set(n[0]*.487,n[1]*.487,n[2]*.487); c.add(m); } });
       };
-      const theta = view==="back" ? Math.PI+.62 : (view==="left" ? -.62 : .62), phi=.98;
+      let theta = view==="back" ? Math.PI+.62 : (view==="left" ? -.62 : .62), phi=.98, dist=10.2;
+      const placeCam=()=>{ camera.position.set(dist*Math.sin(phi)*Math.sin(theta),dist*Math.cos(phi),dist*Math.sin(phi)*Math.cos(theta)); camera.lookAt(0,0,0); };
       const resize=()=>{ const w=stage.clientWidth,h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
-        const d=10.2/Math.min(1,w/h*1.05); camera.position.set(d*Math.sin(phi)*Math.sin(theta),d*Math.cos(phi),d*Math.sin(phi)*Math.cos(theta)); camera.lookAt(0,0,0); };
+        dist=10.2/Math.min(1,w/h*1.05); placeCam(); };
+      if(orbit){   /* on fait tourner le cube du doigt */
+        let drag=null; const el=renderer.domElement; el.style.touchAction="none"; el.style.cursor="grab";
+        const down=e=>{ drag={x:e.clientX,y:e.clientY}; try{ el.setPointerCapture(e.pointerId); }catch(_){} };
+        const move=e=>{ if(!drag) return; theta-=(e.clientX-drag.x)*.012; phi=Math.max(.25,Math.min(2.9,phi-(e.clientY-drag.y)*.012)); drag={x:e.clientX,y:e.clientY}; placeCam(); };
+        const up=()=>{ drag=null; };
+        el.addEventListener("pointerdown",down); el.addEventListener("pointermove",move); el.addEventListener("pointerup",up); el.addEventListener("pointercancel",up);
+        cleanups.push(()=>{ el.removeEventListener("pointerdown",down); el.removeEventListener("pointermove",move); el.removeEventListener("pointerup",up); el.removeEventListener("pointercancel",up); });
+      }
       const ro=new ResizeObserver(resize); ro.observe(stage); resize(); cleanups.push(()=>ro.disconnect());
       const pivot=new THREE.Group(); scene.add(pivot);
       const list=Object.values(cubies);
@@ -2049,15 +2080,17 @@ function TutoAnimCube({ state, moves, size, view, onTok, loopKey, box, speed=1, 
         list.forEach(c=>{ scene.attach(c); }); 
         Object.entries(cubies).forEach(([k,c])=>{ const [x,y,z]=k.split(",").map(Number); c.position.set(x,y,z); c.quaternion.identity(); });
         build(); };
-      let anim=null, i=0;
+      let anim=null, i=0, waiting=false;
       const startMove=()=>{
         if(i>=moves.length){ onTok&&onTok(moves.length); return; }   /* fini : on reste sur le résultat */
+        if(pausedRef.current&&!stepRef.current){ waiting=true; return; }   /* en pause : on attend Reprendre / Coup suivant */
+        stepRef.current=false; waiting=false;
         const tok=moves[i]; const [ax,l,d0]=CROSS_MV[tok[0]]; const prime=tok.endsWith("'"), turns=tok.endsWith("2")?2:1;
         pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
         const items=list.filter(c=>l===null||Math.round(c.position[ax])===l); items.forEach(c=>pivot.attach(c));
         onTok&&onTok(i);
         if(mark){ mark.visible = tok[0]==="U"; if(mark.visible){ mark.rotation.z=0; } }
-        anim={ax,dir:prime?-d0:d0,turns,items,t0:performance.now(),dur:(l===null?1500:(turns===2?700:520))*speed};
+        anim={ax,dir:prime?-d0:d0,turns,items,t0:performance.now(),dur:(l===null?1500:(turns===2?700:520))*speed*(slowRef.current?1.9:1)};
       };
       const loop=now=>{
         if(anim){ const tt=Math.min(1,(now-anim.t0)/anim.dur), e=tt<.5?2*tt*tt:1-Math.pow(-2*tt+2,2)/2;
@@ -2067,7 +2100,8 @@ function TutoAnimCube({ state, moves, size, view, onTok, loopKey, box, speed=1, 
             const wasCube=moves[i-1]&&moves[i-1][0]==="y", nextCube=moves[i]&&moves[i][0]==="y";
             timer=setTimeout(startMove, wasCube&&!nextCube?1000:260); } }
         renderer.render(scene,camera); raf=requestAnimationFrame(loop); };
-      reset(); raf=requestAnimationFrame(loop); onTok&&onTok(-1); timer=setTimeout(startMove,800);
+      kickRef.current=()=>{ if(waiting&&!anim){ clearTimeout(timer); startMove(); } };
+      reset(); raf=requestAnimationFrame(loop); onTok&&onTok(-1); if(moves.length) timer=setTimeout(startMove,800);
       setStatus("ready");
       cleanups.push(()=>{ disposables.forEach(d=>d.dispose&&d.dispose()); renderer.dispose(); renderer.domElement.remove(); });
     }).catch(()=>{ if(!dead) setStatus("error"); });
@@ -2106,6 +2140,7 @@ function TutoFinale({ t, fr, col }){
   const [run,setRun]=useState(0);          /* 0 = pas lancé ; sinon numéro de lecture */
   const [cur,setCur]=useState(-1);
   const done = run>0 && cur>=plan.moves.length;
+  useEffect(()=>{ if(done){ try{ localStorage.setItem("rurucube_tuto_badge","1"); }catch(e){} } },[done]);
   const m = cur>=0&&cur<plan.moves.length ? plan.meta[cur] : null;
   const F=["R'","D'","R","D"];
   const T = x=>tutoTxt(x, fr, t.tutoNotation==="fr");
@@ -2150,7 +2185,7 @@ function TutoFinale({ t, fr, col }){
   );
 }
 
-function TutoStepPage({ t, idx, onBack, onGo, video }){
+function TutoStepPage({ t, idx, onBack, onGo, video, onSolveur }){
   /* notation : française (D G H B A P, i) ou RUR'U' (R L U D F B, ') — retenue pour tout le tutoriel */
   const [nota,setNota] = useState(()=>{ try{ return localStorage.getItem("rurucube_tuto_nota") || (t.tutoNotation==="fr"?"fr":"ruru"); }catch(e){ return t.tutoNotation==="fr"?"fr":"ruru"; } });
   const pickNota = v=>{ setNota(v); try{ localStorage.setItem("rurucube_tuto_nota",v); }catch(e){} };
@@ -2179,14 +2214,32 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
   useEffect(()=>{ window.scrollTo(0,0); setAnimCase(null); setTokCur(-1); },[idx]);   /* rien ne bouge tant qu'on n'appuie pas sur ▶ */
   const wide = useWide();
   const caseSize = wide ? 96 : 84;
+  const [paused,setPaused] = useState(false);
+  const [stepTick,setStepTick] = useState(0);
+  const [slow,setSlow] = useState(false);
+  const [doneList,setDoneList] = useState(tutoLoadDone);
+  const [party,setParty] = useState(0);
+  const isDone = doneList.includes(idx);
+  const toggleDone = ()=>{ const nx = isDone ? doneList.filter(x=>x!==idx) : [...doneList,idx];
+    setDoneList(nx); try{ localStorage.setItem("rurucube_tuto_done",JSON.stringify(nx)); }catch(e){} if(!isDone) setParty(p=>p+1); };
+  useEffect(()=>{ setPaused(false); setStepTick(0); },[animCase,loopKey]);
+  useEffect(()=>{ if(!party) return; const tm=setTimeout(()=>setParty(0),2600); return ()=>clearTimeout(tm); },[party]);
   const card = {background:PAL.card,borderRadius:16,padding:"13px 14px",boxShadow:`0 0 0 2px ${PAL.cardHi}`};
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 14px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 14px 120px",minHeight:"100vh",position:"relative",zIndex:1}}>
       <div style={{width:"100%",maxWidth:460,display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
         <GhostBtn onClick={onBack} color={PAL.gold}>←</GhostBtn>
         <div style={{flex:1,fontWeight:700,fontSize:13,color:PAL.textDim,textAlign:"right"}}>{t.tutoStepOf.replace("{n}",TUTO_NUM[idx]).replace("{total}","8")}</div>
       </div>
+      {party>0&&<Confetti key={party}/>}
       <div style={{width:"100%",maxWidth:460}}>
+        {/* où on en est dans le parcours */}
+        <div style={{display:"flex",gap:4,marginBottom:14}}>
+          {[0,1,2,3,4,5,6,7].map(i=>(
+            <button key={i} onClick={()=>i!==idx&&onGo(i)} aria-label={t.tutoStepOf.replace("{n}",TUTO_NUM[i]).replace("{total}","8")}
+              style={{flex:1,height:i===idx?10:7,alignSelf:"center",border:"none",padding:0,cursor:"pointer",borderRadius:99,
+                background:i===idx?col:(doneList.includes(i)?PAL.green:PAL.cardHi),boxShadow:i===idx?`0 0 10px ${col}88`:"none"}}/>))}
+        </div>
         <div style={{display:"flex",alignItems:"center",gap:11,marginBottom:12}}>
           <span style={{width:40,height:40,flexShrink:0,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",
             fontWeight:800,fontSize:TUTO_NUM[idx].length>1?13:17,background:col,color:"#1a1228"}}>{TUTO_NUM[idx]}</span>
@@ -2206,16 +2259,22 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
         </div>}
 
         {/* l'objectif */}
-        {st.goal&&<div style={{...card,marginBottom:12,display:"flex",alignItems:"center",gap:12,boxShadow:`0 0 0 2px ${col}88`}}>
-          <div onClick={()=>setSpin(v=>!v)} style={{cursor:"pointer",flexShrink:0}}><TutoCube state={st.goal} size={wide?110:96} spin={spin} glow={col+"99"}/></div>
-          <div style={{minWidth:0}}>
-            <div style={{fontSize:11,fontWeight:800,letterSpacing:1,color:col,textTransform:"uppercase",marginBottom:4}}>🎯 {t.tutoGoal}</div>
-            <div style={{fontSize:14,color:PAL.text,fontWeight:600,lineHeight:1.45}}>{info.goal}</div>
+        {st.goal&&<div style={{...card,marginBottom:12,padding:"12px 12px 14px",boxShadow:`0 0 0 2px ${col}88`}}>
+          <div style={{fontSize:11,fontWeight:800,letterSpacing:1,color:col,textTransform:"uppercase",marginBottom:4}}>🎯 {t.tutoGoal}</div>
+          <div style={{fontSize:14,color:PAL.text,fontWeight:600,lineHeight:1.45,marginBottom:6}}>{tutoHL(info.goal,col)}</div>
+          <div style={{position:"relative",borderRadius:14,overflow:"hidden",background:"radial-gradient(circle at 50% 45%, #2a2350, #120f26 75%)"}}>
+            <TutoAnimCube key={"goal"+idx} state={st.goal} moves={[]} size={110} box={{w:"100%",h:wide?230:200}} orbit/>
+            <div style={{position:"absolute",bottom:7,left:0,right:0,textAlign:"center",fontSize:11.5,fontWeight:700,color:PAL.textFaint,pointerEvents:"none"}}>{t.tutoTurnMe}</div>
           </div>
         </div>}
 
+        {(info.intro||[]).length>0&&<div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,margin:"6px 0 9px"}}>{t.tutoHow.toUpperCase()}</div>}
         {(info.intro||[]).map((p,i)=>(
-          <p key={i} style={{margin:"0 2px 10px",fontSize:14,lineHeight:1.55,color:PAL.text,fontWeight:500}}>{p}</p>))}
+          <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",margin:"0 0 9px"}}>
+            <span style={{width:24,height:24,flexShrink:0,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",
+              fontWeight:800,fontSize:12.5,background:`${col}33`,color:col,marginTop:1}}>{i+1}</span>
+            <p style={{margin:0,fontSize:14,lineHeight:1.55,color:PAL.text,fontWeight:500}}>{tutoHL(p,col)}</p>
+          </div>))}
 
         {/* étape 8 : le final animé en grand */}
         {idx===7&&<div style={{margin:"6px 0 14px"}}>
@@ -2233,21 +2292,29 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
             const hiNow = plan&&tokCur>=0&&tokCur<plan.moves.length ? plan.hi[tokCur] : (plan&&tokCur>=plan.moves.length?999:null);
             const passNow = plan&&tokCur>=0 ? (tokCur<plan.moves.length?plan.pass[tokCur]:plan.reps) : 1;
             return (
-              <div key={k} style={{...card,display:"flex",alignItems:"center",gap:10,boxShadow:animCase===k?`0 0 0 2px ${col}`:card.boxShadow}}>
-                <div style={{flexShrink:0,position:"relative",cursor:alg?"pointer":"default"}}
+              <div key={k} style={{...card,display:"flex",flexDirection:animCase===k&&alg?"column":"row",alignItems:animCase===k&&alg?"stretch":"center",gap:10,boxShadow:animCase===k?`0 0 0 2px ${col}`:card.boxShadow}}>
+                <div style={{flexShrink:0,position:"relative",cursor:alg?"pointer":"default",alignSelf:animCase===k&&alg?"center":"auto"}}
                   onClick={()=>{ if(!alg) return; if(animCase===k) setLoopKey(n=>n+1); else { setAnimCase(k); } setTokCur(-1); }}>
                   {alg&&animCase===k
-                    ? <TutoAnimCube state={plan.start} moves={plan.moves} size={caseSize} view={TUTO_ANIM_VIEW[idx+"."+k]||TUTO_VIEW[idx+"."+k]} onTok={setTokCur} loopKey={loopKey} topMark={tutoNote("U",fr)}/>
+                    ? <TutoAnimCube state={plan.start} moves={plan.moves} size={wide?150:132} view={TUTO_ANIM_VIEW[idx+"."+k]||TUTO_VIEW[idx+"."+k]} onTok={setTokCur} loopKey={loopKey} topMark={tutoNote("U",fr)}
+                        paused={paused} stepTick={stepTick} slow={slow}/>
                     : <TutoCube state={st[k]} size={caseSize} left={TUTO_VIEW[idx+"."+k]==="left"} back={TUTO_VIEW[idx+"."+k]==="back"}/>}
                   {alg&&<span style={{position:"absolute",bottom:2,right:2,fontSize:11,fontWeight:800,borderRadius:999,padding:"3px 8px",
                     color:"#1a1228",background:col,boxShadow:"0 2px 6px rgba(0,0,0,.4)"}}>{animCase===k?"↺ "+t.tutoReplay:"▶"}</span>}
                 </div>
                 <div style={{minWidth:0,flex:1,display:"flex",flexDirection:"column",gap:7}}>
                   <div style={{fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.2}}>{c.title}</div>
-                  {c.text&&<div style={{fontSize:12.5,color:PAL.textDim,fontWeight:600,lineHeight:1.45}}>{c.text}</div>}
+                  {c.text&&<div style={{fontSize:12.5,color:PAL.textDim,fontWeight:600,lineHeight:1.45}}>{tutoHL(c.text,col)}</div>}
                   {algShow&&<div style={{alignSelf:"flex-start"}}><TutoAlg alg={algShow} color={col} fr={fr} cur={animCase===k?hiNow:null}/></div>}
                   {plan&&(plan.reps>1||plan.moves.length>plan.reps*tutoAlgToks(alg,fr).length)&&tokCur>=0&&<div style={{fontSize:12,fontWeight:800,color:col}}>
                     {tokCur>=plan.moves.length && plan.reps===1 ? "✓" : passNow===-1 ? "↻ "+T((t.tutoPre||{})[idx+"."+k]||"") : (passNow===0 ? "→ "+T((t.tutoThen||{})[idx+"."+k]||"") : (plan.reps>1?t.tutoPass.replace("{n}",passNow).replace("{t}",plan.reps):""))}{tokCur>=plan.moves.length&&plan.reps>1?" ✓":""}</div>}
+                  {plan&&<div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:2}}>
+                    {[[paused?"▶ "+t.tutoGoBtn:"❚❚ "+t.tutoPauseBtn,()=>setPaused(v=>!v),paused],
+                      [t.tutoStepBtn+" ›",()=>{ setPaused(true); setStepTick(n=>n+1); },false],
+                      [slow?"🐢 "+t.tutoSlow:"🐇 "+t.tutoFast,()=>setSlow(v=>!v),slow]].map(([l,fn,on],j)=>(
+                      <button key={j} onClick={fn} disabled={tokCur>=plan.moves.length} style={{border:"none",cursor:"pointer",borderRadius:10,padding:"7px 11px",fontFamily:"inherit",
+                        fontWeight:800,fontSize:12.5,color:on?"#1a1228":PAL.text,background:on?col:PAL.bg2,opacity:tokCur>=plan.moves.length?.4:1}}>{l}</button>))}
+                  </div>}
                 </div>
               </div>);
           })}
@@ -2266,84 +2333,203 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
 
         {idx>0&&<div style={{marginTop:14}}>{notaToggle}</div>}
 
-        <div style={{display:"flex",gap:10,marginTop:20}}>
+        <button onClick={toggleDone} style={{width:"100%",marginTop:20,border:"none",cursor:"pointer",borderRadius:16,padding:"14px 10px",fontFamily:"inherit",
+          fontWeight:800,fontSize:16,color:isDone?"#06210f":"#1a1228",background:isDone?PAL.green:col,boxShadow:`0 4px 0 ${shade(isDone?PAL.green:col,-55)}`}}>
+          {isDone?<>✓ {t.tutoDoneOn} <span style={{fontSize:11.5,fontWeight:700,opacity:.7}}>{t.tutoDoneUndo}</span></>:<>✓ {t.tutoDoneBtn}</>}
+        </button>
+        {idx<n-1&&<div style={{marginTop:14,fontSize:12,color:PAL.textDim,fontWeight:700,textAlign:"right"}}>{t.tutoNextIs} <span style={{color:TUTO_COLOR[idx+1]}}>{T(((t.tutoChapters||[])[idx+1]||{}).t||"")}</span></div>}
+        <div style={{display:"flex",gap:10,marginTop:8}}>
           <button disabled={idx===0} onClick={()=>onGo(idx-1)} style={{flex:1,border:"none",cursor:idx===0?"default":"pointer",borderRadius:14,padding:"12px 8px",
             fontFamily:"inherit",fontWeight:800,fontSize:14,color:PAL.text,background:PAL.card,opacity:idx===0?.35:1,boxShadow:`0 3px 0 ${PAL.bg2}, 0 0 0 2px ${PAL.cardHi}`}}>‹ {t.tutoPrev}</button>
           <button disabled={idx===n-1} onClick={()=>onGo(idx+1)} style={{flex:1,border:"none",cursor:idx===n-1?"default":"pointer",borderRadius:14,padding:"12px 8px",
             fontFamily:"inherit",fontWeight:800,fontSize:14,color:"#3a2a00",background:`linear-gradient(180deg,#ffe066,${PAL.gold})`,opacity:idx===n-1?.35:1,boxShadow:`0 4px 0 ${shade(PAL.gold,-55)}`}}>{t.tutoNext} ›</button>
         </div>
+        {onSolveur&&<button onClick={onSolveur} style={{display:"block",margin:"16px auto 0",border:"none",background:"transparent",cursor:"pointer",fontFamily:"inherit",
+          fontWeight:700,fontSize:13,color:"#7fe3ff",textDecoration:"underline",textUnderlineOffset:3}}>🧩 {t.tutoStuck}</button>}
       </div>
     </div>
   );
 }
 
-function TutoScreen({ onBack, t }){
+/* mots importants surlignés dans la couleur de l'étape */
+const TUTO_HL_RE = /(\d+\s*(?:fois|times)|(?:la |the )?face (?:Droite|Gauche|du Haut|du Bas|Avant|Arrière|Haute|Basse|Haut|Bas)|(?:Right|Left|Up|Down|Front|Back) face|jusqu'à ce que|until)/gi;
+function tutoHL(text, col){
+  const parts=String(text||"").split(TUTO_HL_RE);
+  return parts.map((p,i)=> i%2 ? <b key={i} style={{color:col,fontWeight:800}}>{p}</b> : p);
+}
+const tutoLoadDone = ()=>{ try{ return JSON.parse(localStorage.getItem("rurucube_tuto_done")||"[]"); }catch(e){ return []; } };
+
+/* ═══ Accueil du tutoriel : un parcours en 4 parties, avec la progression du joueur ═══ */
+const TUTO_GROUPS = [[0],[1,2],[3],[4,5,6,7]];
+const TUTO_GROUP_COL = ["#c9b8ff","#f4f4f4","#4ea8ff","#ffd23f"];
+const tutoLoadSeen = ()=>{ try{ return JSON.parse(localStorage.getItem("rurucube_tuto_seen")||"[]"); }catch(e){ return []; } };
+function TutoScreen({ onBack, t, onSolveur }){
   const wide = useWide();
-  const W = wide?760:420;
+  const W = wide?560:440;
   const [ouvert,setOuvert] = useState(null);
+  const [seen,setSeen] = useState(tutoLoadSeen);
+  const [done,setDone] = useState(tutoLoadDone);
+  const [badge,setBadge] = useState(()=>{ try{ return localStorage.getItem("rurucube_tuto_badge")==="1"; }catch(e){ return false; } });
+  const [showAlgs,setShowAlgs] = useState(false);
+  const [copied,setCopied] = useState(false);
+  const [nota,setNota] = useState(()=>{ try{ return localStorage.getItem("rurucube_tuto_nota") || (t.tutoNotation==="fr"?"fr":"ruru"); }catch(e){ return t.tutoNotation==="fr"?"fr":"ruru"; } });
+  const pickNota = v=>{ setNota(v); try{ localStorage.setItem("rurucube_tuto_nota",v); }catch(e){} };
+  const fr = nota==="fr", T = x=>tutoTxt(x, fr, t.tutoNotation==="fr");
   const chapitres = t.tutoChapters || [];
-  if(ouvert!=null) return <TutoStepPage t={t} idx={ouvert} video={TUTO_VIDEOS[ouvert].yt}
-    onBack={()=>{ setOuvert(null); window.scrollTo(0,0); }} onGo={i=>setOuvert(i)}/>;
+  const open = i=>{
+    setOuvert(i);
+    setSeen(prev=>{ if(prev.includes(i)) return prev; const nx=[...prev,i]; try{ localStorage.setItem("rurucube_tuto_seen",JSON.stringify(nx)); }catch(e){} return nx; });
+  };
+  if(ouvert!=null) return <TutoStepPage t={t} idx={ouvert} video={null} onSolveur={onSolveur}
+    onBack={()=>{ setOuvert(null); setDone(tutoLoadDone()); setNota(()=>{ try{ return localStorage.getItem("rurucube_tuto_nota")||nota; }catch(e){ return nota; } });
+      try{ setBadge(localStorage.getItem("rurucube_tuto_badge")==="1"); }catch(e){} window.scrollTo(0,0); }}
+    onGo={i=>open(i)}/>;
+
+  const nSeen = seen.filter(i=>i>=0&&i<8).length;
+  const nDone = done.filter(i=>i>=0&&i<8).length;
+  const next = [0,1,2,3,4,5,6,7].find(i=>!done.includes(i));
+  const share = async ()=>{
+    const url="https://ruru-cube.vercel.app/", text=t.tutoBadgeMsg;
+    try{ if(navigator.share){ await navigator.share({title:"RUR'U'",text,url}); return; } }catch(e){ return; }
+    try{ await navigator.clipboard.writeText(text+" "+url); setCopied(true); setTimeout(()=>setCopied(false),1800); }catch(e){}
+  };
+  const box = {width:"100%",maxWidth:W,boxSizing:"border-box"};
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 14px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 14px 120px",minHeight:"100vh",position:"relative",zIndex:1}}>
+      <div style={{...box,display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
         <GhostBtn onClick={onBack} color={PAL.gold}>{t.menu}</GhostBtn>
         <PlayerBadge t={t}/>
       </div>
 
       <img src={TUTO_BTN} alt={t.tuto} draggable={false}
-        style={{width:"100%",maxWidth:380,marginBottom:16,filter:"drop-shadow(0 8px 22px rgba(0,0,0,.45))"}}/>
+        style={{width:"100%",maxWidth:330,marginBottom:10,filter:"drop-shadow(0 8px 22px rgba(0,0,0,.45))"}}/>
 
-      <div style={{fontSize:13.5,color:PAL.textDim,fontWeight:600,textAlign:"center",
-        maxWidth:340,lineHeight:1.5,marginBottom:18}}>{t.tutoIntro}</div>
-
-      <div className="stagger" style={{width:"100%",maxWidth:W,display:wide?"grid":"flex",
-        gridTemplateColumns:wide?"1fr 1fr":undefined,flexDirection:wide?undefined:"column",gap:11,alignItems:"start"}}>
-        {TUTO_VIDEOS.map((v,i)=>{
-          const ch = chapitres[i] || { t:v.id, s:"" };
-          const actif = ouvert===i;
-          const dispo = !!v.yt;
-          return (
-            <div key={v.id} style={{background:PAL.card,borderRadius:18,overflow:"hidden",
-              boxShadow:`0 0 0 2px ${actif?PAL.gold:PAL.cardHi}, 0 4px 12px rgba(0,0,0,.25)`}}>
-              <button onClick={()=>setOuvert(actif?null:i)}
-                style={{width:"100%",border:"none",background:"transparent",cursor:"pointer",
-                  padding:"13px 14px",display:"flex",alignItems:"center",gap:11,textAlign:"left"}}>
-                <span style={{width:34,height:34,flexShrink:0,borderRadius:"50%",display:"flex",
-                  alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:14,
-                  background:TUTO_COLOR[i]||PAL.gold,color:"#1a1228"}}>{TUTO_NUM[i]}</span>
-                <span style={{flex:1,minWidth:0}}>
-                  <span style={{display:"block",fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.2}}>{ch.t}</span>
-                  <span style={{display:"block",fontSize:11.5,color:PAL.textDim,fontWeight:600,marginTop:3}}>
-                    {ch.s}
-                  </span>
-                </span>
-                <span style={{fontSize:12,fontWeight:800,color:"#3a2a00",background:PAL.gold,borderRadius:999,padding:"5px 10px",flexShrink:0}}>3D ›</span>
-              </button>
-
-              {actif&&(
-                <div style={{padding:"0 12px 13px"}}>
-                  {dispo ? (
-                    <div style={{width:"100%",aspectRatio:"16 / 9",borderRadius:14,overflow:"hidden",
-                      background:"#000",boxShadow:`0 0 0 2px ${PAL.gold}`}}>
-                      <iframe
-                        src={`https://www.youtube-nocookie.com/embed/${v.yt}?rel=0&modestbranding=1&playsinline=1`}
-                        title={ch.t} loading="lazy" allowFullScreen
-                        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                        style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
-                    </div>
-                  ) : (
-                    <div style={{background:PAL.bg2,borderRadius:14,padding:"22px 14px",textAlign:"center",
-                      fontSize:12.5,color:PAL.textFaint,fontWeight:600,lineHeight:1.5}}>
-                      🎬 {t.tutoSoonLong}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          );
-        })}
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",marginBottom:10}}>
+        {(t.tutoMeta||[]).map((x,i)=>(
+          <span key={i} style={{fontSize:11.5,fontWeight:800,color:PAL.text,background:PAL.card,borderRadius:999,padding:"5px 11px",boxShadow:`0 0 0 1.5px ${PAL.cardHi}`}}>{x}</span>))}
       </div>
+      <div style={{fontSize:13,color:PAL.textDim,fontWeight:600,textAlign:"center",maxWidth:340,lineHeight:1.5,marginBottom:14}}>{t.tutoIntro}</div>
+
+      {/* notation */}
+      <div style={{...box,display:"flex",gap:6,background:PAL.bg2,borderRadius:999,padding:4,marginBottom:14}}>
+        {[["fr",t.tutoNotaFr],["ruru",t.tutoNotaEn]].map(([v,l])=>{ const on=nota===v; return (
+          <button key={v} onClick={()=>pickNota(v)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:999,padding:"8px 6px",fontFamily:"inherit",
+            fontWeight:800,fontSize:13,color:on?"#1a1228":PAL.textDim,background:on?PAL.gold:"transparent"}}>{l}</button>); })}
+      </div>
+
+      {/* progression + reprendre */}
+      <div style={{...box,background:PAL.card,borderRadius:20,padding:"14px 14px 14px",boxShadow:`0 0 0 2px ${PAL.gold}`,marginBottom:20}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
+          <span style={{fontWeight:800,fontSize:14,color:PAL.text}}>{t.tutoProgressDone.replace("{n}",nDone)}</span>
+          {badge&&<span style={{fontSize:18}}>🏆</span>}
+        </div>
+        <div style={{display:"flex",gap:4,marginBottom:12}}>
+          {[0,1,2,3,4,5,6,7].map(i=>(
+            <div key={i} style={{flex:1,height:8,borderRadius:99,background:done.includes(i)?PAL.green:(seen.includes(i)?TUTO_COLOR[i]+"66":PAL.bg2),transition:"background .3s"}}/>))}
+        </div>
+        <button onClick={()=>open(next==null?7:next)} style={{width:"100%",border:"none",cursor:"pointer",borderRadius:14,padding:"13px 10px",
+          fontFamily:"inherit",fontWeight:800,fontSize:15.5,color:"#1a1228",background:PAL.gold,boxShadow:`0 4px 0 ${shade(PAL.gold,-55)}`}}>
+          ▶ {next==null ? t.tutoAllDone : nSeen===0&&nDone===0 ? t.tutoStart : t.tutoContinue.replace("{n}",TUTO_NUM[next])}
+        </button>
+        {next!=null&&(nSeen>0||nDone>0)&&<div style={{textAlign:"center",fontSize:12,color:PAL.textDim,fontWeight:700,marginTop:7}}>{T((chapitres[next]||{}).t||"")}</div>}
+      </div>
+
+      {/* le parcours */}
+      <div style={box}>
+        {TUTO_GROUPS.map((grp,gi)=>(
+          <div key={gi} style={{marginBottom:6}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,margin:"4px 0 10px"}}>
+              <span style={{width:10,height:10,borderRadius:3,background:TUTO_GROUP_COL[gi],boxShadow:"0 0 0 2px rgba(0,0,0,.35)"}}/>
+              <span style={{fontSize:11.5,fontWeight:800,letterSpacing:1.6,color:PAL.textDim,textTransform:"uppercase"}}>{(t.tutoGroups||[])[gi]}</span>
+              <span style={{flex:1,height:1,background:`linear-gradient(90deg,${PAL.cardHi},transparent)`}}/>
+            </div>
+            {grp.map((i,k)=>{
+              const ch = chapitres[i] || { t:"", s:"" }, vu = done.includes(i), ouv = seen.includes(i), col = TUTO_COLOR[i]||PAL.gold, isNext = i===next;
+              const last = i===7;
+              return (
+                <div key={i} style={{display:"flex",gap:10,alignItems:"stretch"}}>
+                  {/* le chemin */}
+                  <div style={{width:34,flexShrink:0,display:"flex",flexDirection:"column",alignItems:"center"}}>
+                    <div style={{width:3,flex:"0 0 14px",background:i===0?"transparent":(done.includes(i-1)&&vu?PAL.green:PAL.cardHi)}}/>
+                    <div style={{width:34,height:34,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,
+                      fontWeight:800,fontSize:vu?16:14,background:vu?PAL.green:(isNext?col:PAL.bg2),color:vu||isNext?"#1a1228":PAL.textDim,
+                      boxShadow:isNext?`0 0 0 3px ${col}55, 0 0 14px ${col}88`:"none"}}>{vu?"✓":TUTO_NUM[i]}</div>
+                    <div style={{width:3,flex:1,minHeight:14,background:last?"transparent":(vu&&done.includes(i+1)?PAL.green:PAL.cardHi)}}/>
+                  </div>
+                  {/* la carte */}
+                  <button onClick={()=>open(i)} style={{flex:1,minWidth:0,margin:"4px 0 10px",border:"none",cursor:"pointer",textAlign:"left",fontFamily:"inherit",
+                    background:PAL.card,borderRadius:18,padding:"10px 12px 10px 8px",display:"flex",alignItems:"center",gap:10,
+                    boxShadow:`0 0 0 2px ${isNext?col:PAL.cardHi}, 0 4px 12px rgba(0,0,0,.25)`}}>
+                    <div style={{width:62,height:58,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      {(TUTO_STATES[i]||{}).goal&&<TutoCube state={TUTO_STATES[i].goal} size={36}/>}
+                    </div>
+                    <span style={{flex:1,minWidth:0}}>
+                      <span style={{display:"block",fontSize:10.5,fontWeight:800,letterSpacing:1,color:col,marginBottom:2}}>
+                        {t.tutoStepOf.replace("{n}",TUTO_NUM[i]).replace("{total}","8").toUpperCase()}{vu?` · ✓ ${t.tutoDoneTag}`:(ouv?` · ${t.tutoSeen}`:"")}</span>
+                      <span style={{display:"block",fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.2}}>{T(ch.t)}</span>
+                      <span style={{display:"block",fontSize:11.5,color:PAL.textDim,fontWeight:600,marginTop:3}}>{T(ch.s)}</span>
+                    </span>
+                    <span style={{fontSize:20,fontWeight:800,color:col,flexShrink:0}}>›</span>
+                  </button>
+                </div>);
+            })}
+          </div>
+        ))}
+      </div>
+
+      {/* toutes les formules */}
+      <div style={{...box,marginTop:10}}>
+        <button onClick={()=>setShowAlgs(v=>!v)} style={{width:"100%",border:"none",cursor:"pointer",fontFamily:"inherit",textAlign:"left",
+          background:PAL.card,borderRadius:18,padding:"13px 14px",display:"flex",alignItems:"center",gap:12,boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
+          <span style={{fontSize:24}}>📋</span>
+          <span style={{flex:1}}>
+            <span style={{display:"block",fontWeight:800,fontSize:14.5,color:PAL.text}}>{t.tutoFormulas}</span>
+            <span style={{display:"block",fontSize:11.5,color:PAL.textDim,fontWeight:600,marginTop:2}}>{t.tutoFormulasSub}</span>
+          </span>
+          <span style={{fontSize:18,fontWeight:800,color:PAL.gold,transform:showAlgs?"rotate(90deg)":"none",transition:"transform .2s"}}>›</span>
+        </button>
+        {showAlgs&&(
+          <div style={{background:PAL.bg2,borderRadius:16,padding:"6px 12px 12px",marginTop:8}}>
+            {[1,2,3,4,5,6,7].map(i=>{ const algs=TUTO_ALGS[i]||{}; const cases=((t.tutoSteps||[])[i]||{}).cases||{};
+              const seenAlg=new Set(); const rows=(TUTO_CASES[i]||[]).filter(k=>algs[k]&&!seenAlg.has(algs[k])&&seenAlg.add(algs[k]));
+              if(!rows.length) return null;
+              return (
+                <div key={i} style={{paddingTop:10}}>
+                  <div style={{fontSize:11,fontWeight:800,letterSpacing:1.2,color:TUTO_COLOR[i],marginBottom:6}}>
+                    {TUTO_NUM[i]} · {T((chapitres[i]||{}).t||"").toUpperCase()}</div>
+                  {rows.map(k=>(
+                    <div key={k} style={{display:"flex",alignItems:"center",gap:8,marginBottom:6,flexWrap:"wrap"}}>
+                      <span style={{fontSize:12,fontWeight:700,color:PAL.textDim,flex:"1 1 120px",minWidth:0}}>{T((cases[k]||{}).title||"")}</span>
+                      <TutoAlg alg={algs[k]} color={TUTO_COLOR[i]} fr={fr}/>
+                    </div>))}
+                </div>); })}
+          </div>
+        )}
+      </div>
+
+      {/* le badge */}
+      <div style={{...box,marginTop:12,borderRadius:18,padding:"14px",display:"flex",alignItems:"center",gap:12,
+        background:badge?`linear-gradient(135deg,${shade(PAL.gold,-10)},${PAL.gold})`:PAL.card,boxShadow:`0 0 0 2px ${badge?PAL.gold:PAL.cardHi}`}}>
+        <span style={{fontSize:34,filter:badge?"none":"grayscale(1) opacity(.45)"}}>🏆</span>
+        <span style={{flex:1}}>
+          <span style={{display:"block",fontWeight:800,fontSize:15,color:badge?"#1a1228":PAL.text}}>{badge?t.tutoBadgeOn:t.tutoBadgeOff}</span>
+          <span style={{display:"block",fontSize:11.5,fontWeight:700,marginTop:2,color:badge?"#3a2a00":PAL.textDim}}>{badge?t.tutoBadgeOnSub:t.tutoBadgeOffSub}</span>
+          {badge&&<button onClick={share} style={{marginTop:9,border:"none",cursor:"pointer",borderRadius:12,padding:"8px 14px",fontFamily:"inherit",
+            fontWeight:800,fontSize:13,color:PAL.gold,background:"#1a1228"}}>{copied?"✓ "+t.tutoCopied:"📤 "+t.tutoBadgeShare}</button>}
+        </span>
+      </div>
+
+      {/* bloqué ? le solveur */}
+      {onSolveur&&<button onClick={onSolveur} style={{...box,marginTop:12,border:"none",cursor:"pointer",fontFamily:"inherit",textAlign:"left",
+        background:"linear-gradient(135deg,#0b3a63,#0f5fa0)",borderRadius:18,padding:"13px 14px",display:"flex",alignItems:"center",gap:12,
+        boxShadow:"0 0 0 2px #2fd0ff88"}}>
+        <span style={{fontSize:24}}>🧩</span>
+        <span style={{flex:1}}>
+          <span style={{display:"block",fontWeight:800,fontSize:14.5,color:"#e9f8ff"}}>{t.tutoStuck}</span>
+          <span style={{display:"block",fontSize:11.5,color:"#a9dcff",fontWeight:600,marginTop:2}}>{t.tutoStuckSub}</span>
+        </span>
+        <span style={{fontSize:20,fontWeight:800,color:"#7fe3ff"}}>›</span>
+      </button>}
     </div>
   );
 }
@@ -6770,7 +6956,7 @@ export default function App(){
           onChrono={()=>{ setKSkin("savants"); setScreen("kchrono"); }} on3d={()=>{ setKSkin("savants"); setScreen("k3d"); }}/>}
         {screen==="kchrono"&&<ChronoScreen onBack={()=>setScreen(kSkin)} t={t} skin={kSkin}/>}
         {screen==="k3d"&&<TilesCubeScreen onBack={()=>setScreen(kSkin)} t={t} id={kSkin}/>}
-        {screen==="tuto"&&<TutoScreen onBack={back} t={t}/>}
+        {screen==="tuto"&&<TutoScreen onBack={back} t={t} onSolveur={()=>setScreen("solveur")}/>}
         {screen==="solveur"&&<SolveurScreen onBack={()=>setScreen("home")} t={t}/>}
         {screen==="progress"&&<ProgressScreen t={t} skin={skin} onBack={toUnivers} launch={setScreen}/>}
       </div>
