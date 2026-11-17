@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 
 /* ─── Imports des assets (images) ─────────────────────────────── */
 import RURU_LOGO from "./assets/ruru_logo.webp";
@@ -626,7 +626,15 @@ const TR = {
     hcTagline:"RÉFLÉCHIR · JOUER · PROGRESSER",
     navHome:"Accueil", navTuto:"Comment jouer",
     tutoIntro:"Une méthode débutant, chapitre par chapitre. Prends ton cube et suis le rythme — tu peux mettre en pause quand tu veux.",
-    tutoStepOf:"Étape {n} sur {total}", tutoVideo:"La vidéo", tutoPrev:"Précédente", tutoNext:"Étape suivante",
+    tutoStepOf:"Étape {n} sur {total}", tutoVideo:"La vidéo", cdTitle:"La démo en 3D", tutoTapCube:"Touche un cube pour voir la formule en action, coup par coup.", tutoReplay:"Revoir", finTitle:"Le final en 3D", finPlay:"Lancer le final", finCorner:"Coin {n}", finBravo:"Cube résolu !",
+    finStart:"On part du cube de l'étape 7 : les coins sont à leur place mais mal tournés. Appuie sur Lancer !",
+    finHold:"Le coin à tourner est devant toi, en haut à droite.",
+    finTurn:"Di Bi D B, encore et encore, jusqu'à ce que le jaune de ce coin soit sur le dessus…",
+    finEnd:"Le jaune est sur le dessus ! Termine bien la formule jusqu'au B final…",
+    finU:"…puis H : le coin suivant arrive en haut à droite.",
+    finDone:"Tout se remet en place : bravo, tu as résolu le cube !", tutoPass:"Formule {n} sur {t}", tutoPre:{"5.cotes":"Tourne tout le cube, doucement, pour mettre les 2 arêtes bien placées derrière et à gauche…", "5.opposees":"Tourne tout le cube pour avoir une arête bien placée à gauche (et l'autre à droite)…", "6.amis":"Repère le coin déjà à sa place, et tourne tout le cube pour le mettre devant, à droite…"}, tutoThen:{"2.haut":"puis tourne B et refais la formule", "4.point":"puis tourne H pour avoir la ligne à l'horizontale, et fais la formule de la ligne",
+      "7.c1":"le jaune est dessus : puis H, le coin suivant arrive", "7.c2":"le jaune est dessus : puis H, le coin suivant arrive",
+      "7.c3":"le jaune est dessus : puis H, le coin suivant arrive", "7.c4":"le jaune est dessus : puis H… et tout se remet en place !"}, cdEdge:"Arête blanc-{c}", cdColors:{B:"bleu",O:"orange",G:"vert",R:"rouge"}, cdCaps:{scr:"Voici un cube mélangé : blanc en haut, bleu à droite. Appuie sur ▶ pour voir la croix se faire.", rot:"Tourne tout le cube pour avoir le centre {c} à droite.", down:"Fais descendre l'arête sur la face Basse (sans casser ce qui est déjà fait).", align:"Tourne la face Basse jusqu'à ce que l'arête soit juste sous le centre {c}.", bas:"L'arête est sous le centre {c} : demi-tour de la face Droite.", milieu:"L'arête est sur la face Droite : tourne-la jusqu'en haut.", retournee:"Elle est en haut mais à l'envers : fais la formule.", ok:"Cette arête est déjà bien placée !", done:"La croix blanche est faite ! 🎉"}, cdPlay:"Regarder", cdPause:"Pause", cdStep:"Coup suivant", cdNew:"Nouveau mélange", cdCube:"cube", tutoPrev:"Précédente", tutoNext:"Étape suivante",
     tutoHold:"Comment tenir le cube", tutoGoal:"Ton but", tutoCases:"Les cas possibles", tutoPieces:"Les pièces", tutoMoves:"Chaque face a une lettre",
     tutoNotation:"fr", tutoTryMoves:"Touche une lettre : le cube fait le mouvement", tutoReset:"Remettre à zéro",
     tutoNotaFr:"Version française", tutoNotaEn:"Version anglaise", tutoPrimeTxt:"rotation dans le sens inverse", tutoHalfTxt:"demi-tour (180°)",
@@ -685,7 +693,7 @@ const TR = {
                "4. Recommence Di Bi D B pour tous les coins, sans jamais tourner le cube en entier.",
                "Voici un exemple complet, coin par coin :"],
         cases:{ c1:{title:"1er coin : 4 fois, puis H", text:"Le jaune regarde vers toi : formule × 4, puis H."},
-                c2:{title:"2e coin : 4 fois, puis H", text:"Le bas du cube a l'air tout mélangé : c'est normal, continue !"},
+                c2:{title:"2e coin : 4 fois, puis H", text:"Le H a décalé l'étage du haut d'un cran : la rangée rouge est passée devant, et le coin qu'on vient de finir est en haut à gauche (jaune dessus). C'est normal, tout se remet en face des centres à la fin ! Le coin à tourner est en haut à droite, jaune vers toi : formule × 4."},
                 c3:{title:"3e coin : 2 fois, puis H", text:"Le jaune regarde à droite : formule × 2, puis H."},
                 c4:{title:"4e coin : 2 fois, puis H", text:"Après ce dernier coin, tout se remet en place : le cube est résolu !"} },
         tips:["Après le premier coin, le cube a l'air très mélangé. Pas d'inquiétude, continue : tout revient quand les 4 coins sont faits. Ne tourne jamais le cube entier entre deux formules !",
@@ -905,7 +913,15 @@ const TR = {
     hcTagline:"THINK · PLAY · IMPROVE",
     navHome:"Home", navTuto:"How to play",
     tutoIntro:"A beginner method, chapter by chapter. Grab your cube and follow along — pause whenever you need to.",
-    tutoStepOf:"Step {n} of {total}", tutoVideo:"The video", tutoPrev:"Previous", tutoNext:"Next step",
+    tutoStepOf:"Step {n} of {total}", tutoVideo:"The video", cdTitle:"The 3D demo", tutoTapCube:"Tap a cube to watch the algorithm in action, move by move.", tutoReplay:"Replay", finTitle:"The 3D finale", finPlay:"Start the finale", finCorner:"Corner {n}", finBravo:"Cube solved!",
+    finStart:"We start from the step 7 cube: corners in place but twisted. Tap Start!",
+    finHold:"The corner to twist is in front of you, top right.",
+    finTurn:"R' D' R D, again and again, until this corner's yellow is on top…",
+    finEnd:"Yellow is on top! Finish the algorithm with the last D…",
+    finU:"…then U: the next corner comes to the top right.",
+    finDone:"Everything falls into place: well done, you solved the cube!", tutoPass:"Algorithm {n} of {t}", tutoPre:{"5.cotes":"Slowly turn the whole cube to put the 2 good edges at the back and on the left…", "5.opposees":"Turn the whole cube so one good edge is on the left (and the other on the right)…", "6.amis":"Find the corner already in place, and turn the whole cube to put it front right…"}, tutoThen:{"2.haut":"then turn D and do the algorithm again", "4.point":"then turn U so the line is horizontal, and do the line algorithm",
+      "7.c1":"yellow is on top: then U, the next corner comes", "7.c2":"yellow is on top: then U, the next corner comes",
+      "7.c3":"yellow is on top: then U, the next corner comes", "7.c4":"yellow is on top: then U… and everything falls into place!"}, cdEdge:"White-{c} edge", cdColors:{B:"blue",O:"orange",G:"green",R:"red"}, cdCaps:{scr:"Here is a scrambled cube: white on top, blue on the right. Tap ▶ to watch the cross being built.", rot:"Turn the whole cube so the {c} centre is on the right.", down:"Bring the edge down to the Down face (without breaking what is done).", align:"Turn the Down face until the edge sits just under the {c} centre.", bas:"The edge is under the {c} centre: half turn of the Right face.", milieu:"The edge is on the Right face: turn it up to the top.", retournee:"It is on top but flipped: do the algorithm.", ok:"This edge is already in place!", done:"The white cross is done! 🎉"}, cdPlay:"Watch", cdPause:"Pause", cdStep:"Next move", cdNew:"New scramble", cdCube:"cube", tutoPrev:"Previous", tutoNext:"Next step",
     tutoHold:"How to hold the cube", tutoGoal:"Your goal", tutoCases:"Possible cases", tutoPieces:"The pieces", tutoMoves:"Each face has a letter",
     tutoNotation:"en", tutoTryMoves:"Tap a letter: the cube does the move", tutoReset:"Reset",
     tutoNotaFr:"French version", tutoNotaEn:"English version", tutoPrimeTxt:"turn the other way", tutoHalfTxt:"half turn (180°)",
@@ -964,7 +980,7 @@ const TR = {
                "4. Repeat R' D' R D for every corner, without ever rotating the whole cube.",
                "Here's a full example, corner by corner:"],
         cases:{ c1:{title:"1st corner: 4 times, then U", text:"Yellow faces you: algorithm × 4, then U."},
-                c2:{title:"2nd corner: 4 times, then U", text:"The bottom looks scrambled: that's normal, keep going!"},
+                c2:{title:"2nd corner: 4 times, then U", text:"U shifted the top layer by one step: the red row moved to the front, and the corner we just finished is top left (yellow on top). That's normal, everything lines up with the centres at the end! The corner to twist is top right, yellow facing you: algorithm × 4."},
                 c3:{title:"3rd corner: 2 times, then U", text:"Yellow faces right: algorithm × 2, then U."},
                 c4:{title:"4th corner: 2 times, then U", text:"After this last corner everything comes back: the cube is solved!"} },
         tips:["After the first corner the cube looks very scrambled. Don't worry, carry on: it all comes back once the 4 corners are done. Never rotate the whole cube between algorithms!",
@@ -1636,7 +1652,7 @@ function TutoMovesCube({ t, fr, labels }){
    Les cubes des cas ont été calculés en appliquant à l'envers la formule
    sur un cube résolu : faire la formule sur ce cube donne bien l'objectif.
    Cases grises = pièces pas encore placées (on ne s'en occupe pas). */
-const TUTO_STATES = {"0":{"edges":"XXXXWWXWXXRXXRXXXXXBXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","corners":"XXXXWXXXWXXRXRXXXXBXXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","centers":"XXXXWXXXXXXXXRXXXXXXXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","goal":"WWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYGGGGGGGGGOOOOOOOOO"},"1":{"goal":"XWXWWWXWXXRXXRXXXXXBXXBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX","bas":"XWXWWXXWXXRXXRXXXXXXXXBXXBXXXXXYWXXXXGXXGXXXXXOXXOXXXX","milieu":"XWXWWXXWXXRXXRWXXXXXXBBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX","retournee":"XWXWWBXWXXRXXRXXXXXWXXBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX"},"2":{"goal":"WWWWWWWWWRRRXRXXXXBBBXBXXXXXXXXYXXXXGGGXGXXXXOOOXOXXXX","droite":"WWWWWWWWXRRXXRXXXRXBBXBXWXXXXBXYXXXXGGGXGXXXXOOOXOXXXX","dessous":"WWWWWWWWXRRXXRXXXBXBBXBXRXXXXWXYXXXXGGGXGXXXXOOOXOXXXX","devant":"WWWWWWWWXRRXXRXXXWXBBXBXBXXXXRXYXXXXGGGXGXXXXOOOXOXXXX","haut":"WWWWWWWWRRRBXRXXXXWBBXBXXXXXXXXYXXXXGGGXGXXXXOOOXOXXXX"},"3":{"goal":"XXXXYXXXXXXXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","droite":"XXXXYXXRXXBXBBXBBBXXXXRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","gauche":"XXXXYXXOXXBXXBBBBBXXXRRRRRRWWWWWWWWWXXXOOXOOOXXXGGGGGG","coincee":"XXXXYXXXXXXXBBRBBBXXXBRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG"},"4":{"goal":"XYXYYYXYXXXXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","point":"XXXXYXXXXXYXBBBBBBXYXRRRRRRWWWWWWWWWXYXOOOOOOXYXGGGGGG","L":"XYXYYXXXXXYXBBBBBBXYXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","ligne":"XXXYYYXXXXYXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXYXGGGGGG"},"5":{"goal":"XYXYYYXYXXBXBBBBBBXRXRRRRRRWWWWWWWWWXOXOOOOOOXGXGGGGGG","cotes":"XYXYYYXYXXRXBBBBBBXBXRRRRRRWWWWWWWWWXOXOOOOOOXGXGGGGGG","opposees":"XYXYYYXYXXBXBBBBBBXOXRRRRRRWWWWWWWWWXRXOOOOOOXGXGGGGGG"},"6":{"goal":"GYGYYYOYRYBYBBBBBBBRYRRRRRRWWWWWWWWWYOBOOOOOORGOGGGGGG","amis":"RYOYYYGYYYBBBBBBBBRRBRRRRRRWWWWWWWWWYOOOOOOOOYGGGGGGGG"},"7":{"goal":"YYYYYYYYYBBBBBBBBBRRRRRRRRRWWWWWWWWWOOOOOOOOOGGGGGGGGG","c1":"GYGYYYOYRYBYBBBBBBBRYRRRRRRWWWWWWWWWYOBOOOOOORGOGGGGGG","c2":"OYGYYYYYGRRYBBWBBWRGOGRRBRGWWRWWBGWRYBBOOOWOOYOBGGGWRO","c3":"YYOYYYYYGGGOBBWBBRYOBRRRWGWWWBWWWOBGRRROOOGOOYBBGGGRRW","c4":"YYYYYYYYOOOBBBWBBWYBBGRRBRGWWRWWBGWRGGGOOOWOORRRGGGWRO"}};
+const TUTO_STATES = {"0":{"edges":"XXXXWWXWXXRXXRXXXXXBXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","corners":"XXXXWXXXWXXRXRXXXXBXXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","centers":"XXXXWXXXXXXXXRXXXXXXXXBXXXXXXXXYXXXXXXXXGXXXXXXXXOXXXX","goal":"WWWWWWWWWRRRRRRRRRBBBBBBBBBYYYYYYYYYGGGGGGGGGOOOOOOOOO"},"1":{"goal":"XWXWWWXWXXRXXRXXXXXBXXBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX","bas":"XWXWWXXWXXRXXRXXXXXXXXBXXBXXXXXYWXXXXGXXGXXXXXOXXOXXXX","milieu":"XWXWWXXWXXRXXRWXXXXXXBBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX","retournee":"XWXWWBXWXXRXXRXXXXXWXXBXXXXXXXXYXXXXXGXXGXXXXXOXXOXXXX"},"2":{"goal":"WWWWWWWWWRRRXRXXXXBBBXBXXXXXXXXYXXXXGGGXGXXXXOOOXOXXXX","droite":"WWWWWWWWXRRXXRXXXRXBBXBXWXXXXBXYXXXXGGGXGXXXXOOOXOXXXX","dessous":"WWWWWWWWXRRXXRXXXBXBBXBXRXXXXWXYXXXXGGGXGXXXXOOOXOXXXX","devant":"WWWWWWWWXRRXXRXXXWXBBXBXBXXXXRXYXXXXGGGXGXXXXOOOXOXXXX","haut":"WWWWWWWWRRRBXRXXXXWBBXBXXXXXXXXYXXXXGGGXGXXXXOOOXOXXXX"},"3":{"goal":"XXXXYXXXXXXXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","droite":"XXXXYXXRXXBXBBXBBBXXXXRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","gauche":"XXXXYXXOXXBXXBBBBBXXXRRRRRRWWWWWWWWWXXXOOXOOOXXXGGGGGG","coincee":"XXXXYXXXXXXXBBRBBBXXXBRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG"},"4":{"goal":"XYXYYYXYXXXXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","point":"XXXXYXXXXXYXBBBBBBXYXRRRRRRWWWWWWWWWXYXOOOOOOXYXGGGGGG","L":"XYXYYXXXXXYXBBBBBBXYXRRRRRRWWWWWWWWWXXXOOOOOOXXXGGGGGG","ligne":"XXXYYYXXXXYXBBBBBBXXXRRRRRRWWWWWWWWWXXXOOOOOOXYXGGGGGG"},"5":{"goal":"XYXYYYXYXXBXBBBBBBXRXRRRRRRWWWWWWWWWXOXOOOOOOXGXGGGGGG","cotes":"XYXYYYXYXXRXBBBBBBXBXRRRRRRWWWWWWWWWXOXOOOOOOXGXGGGGGG","opposees":"XYXYYYXYXXBXBBBBBBXOXRRRRRRWWWWWWWWWXRXOOOOOOXGXGGGGGG"},"6":{"goal":"GYGYYYOYRYBYBBBBBBBRYRRRRRRWWWWWWWWWYOBOOOOOORGOGGGGGG","amis":"YYBYYYOYRGBYBBBBBBBRYRRRRRRWWWWWWWWWGOYOOOOOOOGRGGGGGG"},"7":{"goal":"YYYYYYYYYBBBBBBBBBRRRRRRRRRWWWWWWWWWOOOOOOOOOGGGGGGGGG","c1":"GYGYYYOYRYBYBBBBBBBRYRRRRRRWWWWWWWWWYOBOOOOOORGOGGGGGG","c2":"OYGYYYYYGRRYBBWBBWRGOGRRBRGWWRWWBGWRYBBOOOWOOYOBGGGWRO","c3":"YYOYYYYYGGGOBBWBBRYOBRRRWGWWWBWWWOBGRRROOOGOOYBBGGGRRW","c4":"YYYYYYYYOOOBBBWBBWYBBGRRBRGWWRWWBGWRGGGOOOWOORRRGGGWRO"}};
 const TUTO_HEX = { W:"#f5f5f5", Y:"#ffd500", R:"#e62b2b", O:"#ff8c1a", B:"#2b8cff", G:"#2bbf3f", X:"#55555f" };
 /* formules affichées pour chaque cas (le cube montré est calculé à partir de ces formules) */
 const TUTO_ALGS = {
@@ -1650,7 +1666,7 @@ const TUTO_ALGS = {
 };
 const TUTO_CASES = [ ["edges","corners","centers"], ["bas","milieu","retournee"], ["droite","dessous","devant","haut"],
   ["droite","gauche","coincee"], ["point","L","ligne"], ["cotes","opposees"], ["amis"], ["c1","c2","c3","c4"] ];
-const TUTO_VIEW = { "5.cotes":"back" };
+const TUTO_VIEW = { "5.cotes":"back", "3.gauche":"left" };   /* formule de gauche : cube vu par la gauche */
 const TUTO_NUM = ["1","2","3","4","5","6","7","8"];   /* numéros des étapes du guide */
 /* notation : en français comme dans le guide (D droite, G gauche, H haut, B bas, A avant, P arrière ; i = inverse) */
 const TUTO_FR = { R:"D", L:"G", U:"H", D:"B", F:"A", B:"P" };
@@ -1693,14 +1709,443 @@ function TutoCube({ state, size=100, back=false, left=false, spin=false, glow })
   );
 }
 
-function TutoAlg({ alg, color, fr }){
+const tutoAlgToks = (alg, fr)=> fr ? alg.split(" ").flatMap(m=>m.endsWith("2")?[m[0],m[0]]:[m]) : alg.split(" ");
+function TutoAlg({ alg, color, fr, cur=null }){
   if(!alg) return null;
-  const toks = fr ? alg.split(" ").flatMap(m=>m.endsWith("2")?[m[0],m[0]]:[m]) : alg.split(" ");
+  const toks = tutoAlgToks(alg, fr);
   return (
     <div style={{display:"flex",flexWrap:"wrap",gap:4,justifyContent:"center"}}>
-      {toks.map((m0,j)=>{ const m=tutoNote(m0,fr); return (
+      {toks.map((m0,j)=>{ const m=tutoNote(m0,fr); const on=cur===j, past=cur!=null&&cur>=0&&j<cur; return (
         <span key={j} style={{minWidth:28,padding:"4px 7px",borderRadius:8,fontWeight:800,fontSize:14,textAlign:"center",
-          color:"#1a1228",background:color}}>{m}</span>); })}
+          color:on?"#fff":"#1a1228",background:on?"#1a1228":color,opacity:past?.45:1,
+          boxShadow:on?`0 0 0 2px ${color}`:"none",transform:on?"scale(1.12)":"none",transition:"transform .15s"}}>{m}</span>); })}
+    </div>
+  );
+}
+
+/* Générateur : mélange + croix blanche selon la méthode du tutoriel (cube : blanc en haut, rouge devant, bleu à droite) */
+const CROSS_MV={R:['x',1,-1],L:['x',-1,1],U:['y',1,-1],D:['y',-1,1],F:['z',1,-1],B:['z',-1,1],y:['y',null,-1]};
+const crossRot=(v,ax,d)=>{const [x,y,z]=v; return ax==='x'?[x,-d*z,d*y]:ax==='y'?[d*z,y,-d*x]:[-d*y,d*x,z];};
+function crossNewCube(){
+  const cs=[], col=n=>n[1]===1?'W':n[1]===-1?'Y':n[2]===1?'R':n[2]===-1?'O':n[0]===1?'B':'G';
+  for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++){ if(!x&&!y&&!z) continue;
+    const st=[]; [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]].forEach(n=>{ if(n[0]*x+n[1]*y+n[2]*z===1) st.push({n,c:col(n)}); });
+    cs.push({p:[x,y,z],st}); }
+  return cs;
+}
+function crossApply(cs,tok){
+  const [ax,l,d0]=CROSS_MV[tok[0]]; const prime=tok.endsWith("'"), turns=tok.endsWith("2")?2:1, d=prime?-d0:d0, i='xyz'.indexOf(ax);
+  cs.forEach(c=>{ if(l!==null && c.p[i]!==l) return;
+    for(let k=0;k<turns;k++){ c.p=crossRot(c.p,ax,d); c.st.forEach(s=>s.n=crossRot(s.n,ax,d)); } });
+}
+const eq=(a,b)=>a[0]===b[0]&&a[1]===b[1]&&a[2]===b[2];
+const centerDir=(cs,c)=>cs.find(q=>q.st.length===1&&q.st[0].c===c).p;
+const findEdge=(cs,c)=>cs.find(q=>q.st.length===2&&q.st.some(s=>s.c==='W')&&q.st.some(s=>s.c===c));
+function edgeSolved(cs,c){ const e=findEdge(cs,c), d=centerDir(cs,c);
+  return eq(e.p,[d[0],1,d[2]]) && eq(e.st.find(s=>s.c==='W').n,[0,1,0]); }
+const inv=tok=>tok.endsWith("2")?tok:(tok.endsWith("'")?tok[0]:tok+"'");
+
+function crossSolve(scr){
+  const cs=crossNewCube(); scr.forEach(m=>crossApply(cs,m));
+  const steps=[]; const done=[];
+  const add=(tok,cap,edge)=>{ crossApply(cs,tok); steps.push({tok,cap,edge}); };
+  const ORDER=['B','O','G','R'];
+  ORDER.forEach((C,ei)=>{
+    /* tenir le cube : centre C à droite */
+    let g=0; while(!eq(centerDir(cs,C),[1,0,0])){ add('y','rot',ei); if(++g>4) throw 'rot'; }
+    if(edgeSolved(cs,C)){ steps.push({tok:null,cap:'ok',edge:ei}); done.push(C); return; }
+    const flipFix=()=>{ if(!edgeSolved(cs,C)) "R' U F' U'".split(' ').forEach(m=>add(m,'retournee',ei)); };
+    let e=findEdge(cs,C);
+    const at=()=>findEdge(cs,C).p;
+    if(eq(at(),[1,1,0])){ flipFix(); }
+    else if(at()[0]===1&&at()[1]===0){
+      const t0=["R","R'"].find(m=>{ const tmp=JSON.parse(JSON.stringify(cs)); crossApply(tmp,m); return eq(findEdge(tmp,C).p,[1,1,0]); });
+      add(t0,'milieu',ei); flipFix();
+    } else {
+      if(at()[1]!==-1){
+        /* la faire descendre sur la face Basse sans abîmer les arêtes déjà faites */
+        if(at()[1]===1){ const p=at(); const f=p[2]===1?'F':p[2]===-1?'B':'L'; add(f+'2','down',ei); }
+        else {
+          const p=at(); const opts=[]; const faces=[p[0]===1?'R':'L', p[2]===1?'F':'B'];
+          faces.forEach(f=>[f,f+"'"].forEach(m=>['D',"D'",'D2'].forEach(dm=>opts.push([m,dm,inv(m)]))));
+          const ok=opts.find(seq=>{ const tmp=JSON.parse(JSON.stringify(cs)); seq.forEach(m=>crossApply(tmp,m));
+            return findEdge(tmp,C).p[1]===-1 && done.every(c=>edgeSolved(tmp,c)); });
+          if(!ok) throw 'down';
+          ok.forEach(m=>add(m,'down',ei));
+        }
+      }
+      let k=0; while(!eq(at(),[1,-1,0])){ add('D','align',ei); if(++k>3) throw 'align'; }
+      add('R2','bas',ei); flipFix();
+    }
+    if(!edgeSolved(cs,C)) throw 'edge '+C;
+    done.push(C);
+    if(!done.every(c=>edgeSolved(cs,c))) throw 'broke';
+  });
+  /* simplifier les D D → D2, D D D → D' */
+  const out=[];
+  steps.forEach(s=>{ const p=out[out.length-1];
+    if(p&&s.tok==='D'&&p.tok&&p.tok[0]==='D'&&p.cap==='align'&&s.cap==='align'){ p.tok=p.tok==='D'?'D2':(p.tok==='D2'?"D'":null); if(!p.tok) out.pop(); }
+    else out.push({...s}); });
+  return out;
+}
+function crossScramble(n=12){ const F='RLUDFB'; const out=[]; let last='';
+  for(let i=0;i<n;i++){ let f; do{ f=F[Math.floor(Math.random()*6)]; }while(f===last); last=f; out.push(f+['',"'",'2'][Math.floor(Math.random()*3)]); } return out; }
+
+/* Démo 3D de l'étape 2 : un cube mélangé, puis la croix blanche faite pas à pas
+   avec la méthode et les formules du tutoriel (calculées par crossSolve). */
+const CD_EDGES=['B','O','G','R'];
+function TutoCrossDemo({ t, fr, col }){
+  const stageRef=useRef(null), api=useRef({});
+  const [status,setStatus]=useState("loading");
+  const [run,setRun]=useState(null);          /* {scr, sol} */
+  const [pos,setPos]=useState(0);             /* prochain coup à jouer */
+  const [playing,setPlaying]=useState(false);
+  const [act,setAct]=useState(null);         /* coup en cours (ou dernier joué) */
+  const busyRef=useRef(false), timerRef=useRef(0), posRef=useRef(0), playRef=useRef(false);
+  posRef.current=pos; playRef.current=playing;
+
+  useEffect(()=>{
+    let dead=false, raf=0; const cleanups=[];
+    loadThree().then(THREE=>{
+      if(dead) return;
+      const stage=stageRef.current;
+      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      renderer.outputEncoding=THREE.sRGBEncoding;
+      Object.assign(renderer.domElement.style,{position:"absolute",inset:"0",width:"100%",height:"100%",display:"block"});
+      stage.appendChild(renderer.domElement);
+      const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(32,1,0.1,100);
+      scene.add(new THREE.AmbientLight(0xffffff,.6));
+      const dl=new THREE.DirectionalLight(0xffffff,.8); dl.position.set(4,6,5); scene.add(dl);
+      const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+      const FACES={ F:{n:V(0,0,1),r:V(1,0,0),u:V(0,1,0)}, B:{n:V(0,0,-1),r:V(-1,0,0),u:V(0,1,0)},
+        R:{n:V(1,0,0),r:V(0,0,-1),u:V(0,1,0)}, L:{n:V(-1,0,0),r:V(0,0,1),u:V(0,1,0)},
+        U:{n:V(0,1,0),r:V(1,0,0),u:V(0,0,-1)}, D:{n:V(0,-1,0),r:V(1,0,0),u:V(0,0,1)} };
+      const disposables=[], MAT={};
+      for(const k in FACES){ MAT[k]=new THREE.MeshBasicMaterial({color:new THREE.Color(TUTO_HEX[{U:'W',D:'Y',F:'R',B:'O',R:'B',L:'G'}[k]]).convertSRGBToLinear()}); disposables.push(MAT[k]); }
+      const bodyMat=new THREE.MeshStandardMaterial({color:0x0c0c0c,roughness:.45,metalness:.1});
+      const bodyGeo=new THREE.BoxGeometry(.97,.97,.97); disposables.push(bodyMat,bodyGeo);
+      const S=.45,RAD=.08,shape=new THREE.Shape();
+      shape.moveTo(-S+RAD,-S);shape.lineTo(S-RAD,-S);shape.quadraticCurveTo(S,-S,S,-S+RAD);
+      shape.lineTo(S,S-RAD);shape.quadraticCurveTo(S,S,S-RAD,S);shape.lineTo(-S+RAD,S);
+      shape.quadraticCurveTo(-S,S,-S,S-RAD);shape.lineTo(-S,-S+RAD);shape.quadraticCurveTo(-S,-S,-S+RAD,-S);
+      const sticker=new THREE.ShapeGeometry(shape,6); disposables.push(sticker);
+      const cubies=[];
+      for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++){
+        if(!x&&!y&&!z) continue;
+        const c=new THREE.Group(); c.position.set(x,y,z); c.userData.home=V(x,y,z); c.add(new THREE.Mesh(bodyGeo,bodyMat));
+        for(const k in FACES){ const f=FACES[k]; if(c.position.dot(f.n)!==1) continue;
+          const m=new THREE.Mesh(sticker,MAT[k]); m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(f.r,f.u,f.n));
+          m.position.copy(f.n).multiplyScalar(.487); c.add(m); }
+        scene.add(c); cubies.push(c);
+      }
+      const theta=.5, phi=.86; let dist=11.5;   /* vue un peu plongeante : on voit bien le dessus (la croix) */
+      const placeCam=()=>{camera.position.set(dist*Math.sin(phi)*Math.sin(theta),dist*Math.cos(phi),dist*Math.sin(phi)*Math.cos(theta));camera.lookAt(0,0,0)};
+      const resize=()=>{const w=stage.clientWidth,h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h;
+        dist=w/h<1?11.5/(w/h)*.64+2:11.5; camera.updateProjectionMatrix(); placeCam()};
+      const ro=new ResizeObserver(resize); ro.observe(stage); resize(); cleanups.push(()=>ro.disconnect());
+      const decode=tok=>{ const [ax,l,d]=CROSS_MV[tok[0]]; const prime=tok.endsWith("'"); return {ax,l,dir:prime?-d:d,turns:tok.endsWith("2")?2:1}; };
+      const pivot=new THREE.Group(); scene.add(pivot);
+      const snap=c=>{c.position.set(Math.round(c.position.x),Math.round(c.position.y),Math.round(c.position.z));
+        const m=new THREE.Matrix4().makeRotationFromQuaternion(c.quaternion),e=m.elements;
+        for(const i of [0,1,2,4,5,6,8,9,10]) e[i]=Math.round(e[i]); c.quaternion.setFromRotationMatrix(m)};
+      const grab=(ax,l)=>{ pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
+        const items=cubies.filter(c=>l===null||Math.round(c.position[ax])===l); items.forEach(c=>pivot.attach(c)); return items; };
+      const release=items=>{ pivot.updateMatrixWorld(); items.forEach(c=>{scene.attach(c); snap(c);}); };
+      const instant=tok=>{ const {ax,l,dir,turns}=decode(tok); const it=grab(ax,l); pivot.rotation[ax]=dir*turns*Math.PI/2; release(it); };
+      let anim=null;
+      const loop=now=>{
+        if(anim){ const tt=Math.min(1,(now-anim.t0)/anim.dur), e=tt<.5?2*tt*tt:1-Math.pow(-2*tt+2,2)/2;
+          pivot.rotation[anim.ax]=anim.dir*anim.turns*Math.PI/2*e;
+          if(tt>=1){ const a=anim; anim=null; release(a.items); a.done&&a.done(); } }
+        renderer.render(scene,camera); raf=requestAnimationFrame(loop); };
+      raf=requestAnimationFrame(loop);
+      api.current={
+        prepare(toks){ anim=null; pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
+          cubies.forEach(c=>{ scene.attach(c); c.position.copy(c.userData.home); c.quaternion.identity(); }); toks.forEach(instant); },
+        play(tok,dur,done){ const {ax,l,dir,turns}=decode(tok); anim={ax,dir,turns,items:grab(ax,l),t0:performance.now(),dur:dur*(turns===2?1.4:1),done}; },
+      };
+      setStatus("ready");
+      cleanups.push(()=>{ cancelAnimationFrame(raf); disposables.forEach(d=>d.dispose&&d.dispose()); renderer.dispose(); renderer.domElement.remove(); });
+    }).catch(()=>{ if(!dead) setStatus("error"); });
+    return ()=>{ dead=true; cancelAnimationFrame(raf); clearTimeout(timerRef.current); cleanups.forEach(f=>f()); };
+  },[]);
+
+  const fresh=()=>{
+    clearTimeout(timerRef.current); setPlaying(false); busyRef.current=false;
+    let r=null; for(let i=0;i<20&&!r;i++){ try{ const scr=crossScramble(12); const sol=crossSolve(scr);
+      if(sol.filter(x=>x.tok&&x.tok!=='y').length<=24) r={scr,sol}; }catch(e){} }
+    if(!r) return;
+    api.current.prepare&&api.current.prepare(r.scr); setRun(r); setPos(0); setAct(null);
+  };
+  useEffect(()=>{ if(status==="ready") fresh(); },[status]);
+
+  /* joue le coup n° i, puis enchaîne si la lecture continue */
+  const stepOnce=()=>{
+    if(!run||busyRef.current) return;
+    const i=posRef.current; if(i>=run.sol.length){ setPlaying(false); return; }
+    const s=run.sol[i], next=run.sol[i+1];
+    const after=()=>{ busyRef.current=false; setPos(i+1);
+      if(playRef.current){ const gap=!next?0:(next.cap!==s.cap||next.edge!==s.edge?1100:300);
+        timerRef.current=setTimeout(()=>{ if(playRef.current) stepOnce(); },gap); } };
+    busyRef.current=true; setAct(i);
+    if(!s.tok){ timerRef.current=setTimeout(after,1300); return; }
+    api.current.play(s.tok, s.tok==='y'?750:560, after);
+  };
+  useEffect(()=>{ if(playing) stepOnce(); else clearTimeout(timerRef.current); },[playing]);
+
+  const sol=run?run.sol:[];
+  const finished=run&&pos>=sol.length;
+  const now = act===null ? null : (busyRef.current ? sol[act] : (sol[pos]||sol[act]));   /* ce qu'on explique */
+  const showStep = act===null||finished ? null : sol[act];      /* le coup en cours ou le dernier joué */
+  const edgeIdx = finished ? 3 : (act===null ? -1 : (now||showStep).edge);
+  const capKey = !run ? null : finished ? "done" : act===null ? "scr" : (now||showStep).cap;
+  const cName = edgeIdx>=0 ? t.cdColors[CD_EDGES[edgeIdx]] : "";
+  const caption = capKey ? (t.cdCaps[capKey]||"").replace("{c}",cName) : "";
+  const lab = tok=> tok==='y' ? "↻ "+t.cdCube : tutoNote(tok,fr);
+  const edgeMoves = edgeIdx>=0 ? sol.map((s,i)=>({...s,i})).filter(s=>s.edge===edgeIdx&&s.tok) : [];
+  const DOT={B:"#2b8cff",O:"#ff8c1a",G:"#2bbf3f",R:"#e62b2b"};
+  const btnS=(bg,fg)=>({flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"10px 6px",fontFamily:"inherit",fontWeight:800,fontSize:13.5,color:fg,background:bg});
+  return (
+    <div style={{width:"100%"}}>
+      <div ref={stageRef} style={{position:"relative",width:"100%",height:250,borderRadius:16,overflow:"hidden",
+        background:"radial-gradient(circle at 50% 40%, #2a2350, #120f26 75%)",boxShadow:`0 0 0 2px ${col}88`}}>
+        {status!=="ready"&&<div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",
+          color:PAL.textDim,fontWeight:700,fontSize:13.5,padding:20,textAlign:"center"}}>{status==="error"?t.ch3Error:t.ch3Loading}</div>}
+        {showStep&&showStep.tok&&!finished&&<div style={{position:"absolute",top:10,left:12,pointerEvents:"none",fontWeight:800,fontSize:showStep.tok==='y'?20:30,color:col,textShadow:"0 2px 6px rgba(0,0,0,.6)"}}>{lab(showStep.tok)}</div>}
+        {edgeIdx>=0&&<div style={{position:"absolute",top:10,right:10,display:"flex",gap:5}}>
+          {CD_EDGES.map((c,k)=><span key={c} style={{width:14,height:14,borderRadius:4,background:DOT[c],opacity:k<edgeIdx||finished?1:(k===edgeIdx?1:.25),
+            boxShadow:k===edgeIdx&&!finished?"0 0 0 2px #fff":"none"}}/>)}</div>}
+      </div>
+      {/* l'arête en cours et ce qu'on fait */}
+      <div style={{background:PAL.bg2,borderRadius:14,padding:"10px 12px",marginTop:10,minHeight:64}}>
+        {edgeIdx>=0&&!finished&&<div style={{display:"flex",alignItems:"center",gap:7,fontWeight:800,fontSize:13,color:PAL.text,marginBottom:4}}>
+          <span style={{width:12,height:12,borderRadius:3,background:DOT[CD_EDGES[edgeIdx]],boxShadow:"0 0 0 2px #fff"}}/>
+          {t.cdEdge.replace("{c}",cName)} · {edgeIdx+1}/4</div>}
+        <div style={{fontSize:13,lineHeight:1.45,fontWeight:600,color:finished?PAL.green:PAL.textDim}}>{caption}</div>
+        {edgeMoves.length>0&&!finished&&<div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:8}}>
+          {edgeMoves.map(s=>{ const st = s.i===act?"cur":(s.i<pos?"done":"todo"); return (
+            <span key={s.i} style={{padding:"3px 7px",borderRadius:7,fontWeight:800,fontSize:12.5,
+              background:st==="cur"?col:(st==="done"?"transparent":PAL.card),color:st==="cur"?"#1a1228":(st==="done"?PAL.textFaint:PAL.text),
+              boxShadow:st==="done"?`inset 0 0 0 1px ${PAL.cardHi}`:"none"}}>{lab(s.tok)}</span>); })}
+        </div>}
+      </div>
+      <div style={{display:"flex",gap:8,marginTop:10}}>
+        <button disabled={!run||finished} onClick={()=>setPlaying(p=>!p)} style={{...btnS(col,"#1a1228"),opacity:!run||finished?.4:1}}>{playing?"❚❚ "+t.cdPause:"▶ "+t.cdPlay}</button>
+        <button disabled={!run||finished||playing} onClick={stepOnce} style={{...btnS(PAL.card,PAL.text),opacity:!run||finished||playing?.4:1}}>{t.cdStep} ›</button>
+        <button disabled={status!=="ready"} onClick={fresh} style={btnS(PAL.card,PAL.text)}>↺ {t.cdNew}</button>
+      </div>
+    </div>
+  );
+}
+
+/* Cube d'un cas, animé en 3D : part de l'état du cas et joue la formule coup par coup
+   (même sens que partout : R = x+, U = y+, F = z+, horaire vu de la face).
+   Un seul cube animé à la fois sur la page (un seul contexte WebGL). */
+const TUTO_FACE_POS = {
+  U:(r,c)=>[c-1,1,r-1], F:(r,c)=>[c-1,1-r,1], R:(r,c)=>[1,1-r,1-c],
+  D:(r,c)=>[c-1,-1,1-r], L:(r,c)=>[-1,1-r,c-1], B:(r,c)=>[1-c,1-r,-1] };
+const TUTO_FACE_N = { U:[0,1,0], F:[0,0,1], R:[1,0,0], D:[0,-1,0], L:[-1,0,0], B:[0,0,-1] };
+/* combien de fois répéter la formule pour arriver au but de l'étape (comme dans le texte : 1, 3 ou 5 fois…) */
+function tutoCubiesOf(st){ const m={}; "UFRDLB".split("").forEach((f,fi)=>{ for(let i=0;i<9;i++){ const p=TUTO_FACE_POS[f](Math.floor(i/3),i%3), k=p.join();
+  (m[k]=m[k]||{p,st:[]}).st.push({n:TUTO_FACE_N[f].slice(),c:st[fi*9+i]}); } }); return Object.values(m); }
+function tutoStrOf(cs){ let out=""; "UFRDLB".split("").forEach(f=>{ for(let i=0;i<9;i++){ const p=TUTO_FACE_POS[f](Math.floor(i/3),i%3).join();
+  const c=cs.find(q=>q.p.join()===p); out+=c.st.find(x=>x.n.join()===TUTO_FACE_N[f].join()).c; } }); return out; }
+/* cas où, après la formule, on tourne B puis on refait la formule (le coin descend, puis se place) */
+/* cas où l'on commence par tourner tout le cube (lentement) pour bien le tenir avant la formule */
+const TUTO_ANIM_PRE = { "5.cotes":["y","y"], "5.opposees":["y"], "6.amis":["y'"] };
+/* étape 7 : le but est atteint quand chaque coin est à sa place (même mal tourné) */
+function tutoCornersPlaced(cs){ const cen=d=>cs.find(q=>q.st.length===1&&q.p.join()===d.join()).st[0].c;
+  return cs.filter(q=>q.st.length===3).every(q=>[[q.p[0],0,0],[0,q.p[1],0],[0,0,q.p[2]]].map(cen).sort().join()===q.st.map(x=>x.c).sort().join()); }
+/* étape 8 : un passage est fini quand le jaune du coin en haut à droite est sur le dessus */
+const tutoCornerUp = cs=>{ const q=cs.find(c=>c.p.join()==="1,1,1"), y=q&&q.st.find(x=>x.c==="Y"); return !!y&&y.n.join()==="0,1,0"; };
+const TUTO_GOAL_FN = { 6:tutoCornersPlaced, 7:tutoCornerUp };
+/* vue du cube animé quand elle diffère de l'image fixe : de face, on voit les bonnes arêtes partir vers la gauche
+   et l'arête qui se répare à droite */
+const TUTO_ANIM_VIEW = { "5.cotes":"front", "5.opposees":"front" };
+const TUTO_ANIM_THEN = { "2.haut":["D","R'","D'","R","D"], "4.point":["U","F","R","U","R'","U'","F'"],
+  "7.c1":["U"], "7.c2":["U"], "7.c3":["U"], "7.c4":["U"] };
+function tutoPlan(idx, k, fr){
+  const st=(TUTO_STATES[idx]||{})[k], alg=(TUTO_ALGS[idx]||{})[k]; if(!st||!alg) return {moves:[],hi:[],pass:[],reps:1,start:st};
+  const toks=tutoAlgToks(alg,fr), goal=(TUTO_STATES[idx]||{}).goal;
+  const pre=TUTO_ANIM_PRE[idx+"."+k]||[];
+  let start=st;
+  if(pre.length){ try{ const c0=tutoCubiesOf(st); pre.slice().reverse().forEach(m=>crossApply(c0,m.endsWith("'")?m[0]:m+"'")); start=tutoStrOf(c0); }catch(e){} }
+  let reps=1;
+  try{ const cs=tutoCubiesOf(st);
+    const fn=TUTO_GOAL_FN[idx];
+    for(let n=1;n<=6;n++){ toks.forEach(m=>crossApply(cs,m)); if(fn?fn(cs):tutoStrOf(cs)===goal){ reps=n; break; } } }catch(e){}
+  const moves=[], hi=[], pass=[];
+  pre.forEach(m=>{ moves.push(m); hi.push(-1); pass.push(-1); });
+  for(let n=0;n<reps;n++) toks.forEach((m,j)=>{ moves.push(m); hi.push(j); pass.push(n+1); });
+  (TUTO_ANIM_THEN[idx+"."+k]||[]).forEach(m=>{ moves.push(m); hi.push(-1); pass.push(0); });
+  return {moves,hi,pass,reps,start};
+}
+
+function TutoAnimCube({ state, moves, size, view, onTok, loopKey, box, speed=1, topMark }){
+  const stageRef=useRef(null);
+  const [status,setStatus]=useState("loading");
+  useEffect(()=>{
+    let dead=false, raf=0, timer=0; const cleanups=[];
+    loadThree().then(THREE=>{
+      if(dead) return;
+      const stage=stageRef.current;
+      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      renderer.outputEncoding=THREE.sRGBEncoding;
+      Object.assign(renderer.domElement.style,{position:"absolute",inset:"0",width:"100%",height:"100%",display:"block"});
+      stage.appendChild(renderer.domElement);
+      const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(30,1,0.1,100);
+      scene.add(new THREE.AmbientLight(0xffffff,.65));
+      const dl=new THREE.DirectionalLight(0xffffff,.75); dl.position.set(4,6,5); scene.add(dl);
+      const disposables=[], MAT={};
+      Object.keys(TUTO_HEX).forEach(k=>{ MAT[k]=new THREE.MeshBasicMaterial({color:new THREE.Color(TUTO_HEX[k]).convertSRGBToLinear()}); disposables.push(MAT[k]); });
+      const bodyMat=new THREE.MeshStandardMaterial({color:0x0c0c0c,roughness:.45,metalness:.1});
+      const bodyGeo=new THREE.BoxGeometry(.97,.97,.97); disposables.push(bodyMat,bodyGeo);
+      const S=.45,RAD=.08,shape=new THREE.Shape();
+      shape.moveTo(-S+RAD,-S);shape.lineTo(S-RAD,-S);shape.quadraticCurveTo(S,-S,S,-S+RAD);
+      shape.lineTo(S,S-RAD);shape.quadraticCurveTo(S,S,S-RAD,S);shape.lineTo(-S+RAD,S);
+      shape.quadraticCurveTo(-S,S,-S,S-RAD);shape.lineTo(-S,-S+RAD);shape.quadraticCurveTo(-S,-S,-S+RAD,-S);
+      const sticker=new THREE.ShapeGeometry(shape,6); disposables.push(sticker);
+      const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+      const BASIS={ F:[V(1,0,0),V(0,1,0)], B:[V(-1,0,0),V(0,1,0)], R:[V(0,0,-1),V(0,1,0)], L:[V(0,0,1),V(0,1,0)], U:[V(1,0,0),V(0,0,-1)], D:[V(1,0,0),V(0,0,1)] };
+      const cubies={};
+      for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++){
+        if(!x&&!y&&!z) continue;
+        const c=new THREE.Group(); c.position.set(x,y,z); c.add(new THREE.Mesh(bodyGeo,bodyMat)); scene.add(c); cubies[[x,y,z].join()]=c; }
+      /* autocollants posés d'après l'état du cas (54 lettres, faces U F R D L B) */
+      const build=()=>{
+        Object.values(cubies).forEach(c=>{ c.children.slice(1).forEach(m=>c.remove(m)); });
+        "UFRDLB".split("").forEach((f,fi)=>{ const n=TUTO_FACE_N[f], [r0,u0]=BASIS[f];
+          for(let i=0;i<9;i++){ const p=TUTO_FACE_POS[f](Math.floor(i/3),i%3), c=cubies[p.join()];
+            const m=new THREE.Mesh(sticker,MAT[state[fi*9+i]]||MAT.X);
+            m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(r0,u0,V(...n)));
+            m.position.set(n[0]*.487,n[1]*.487,n[2]*.487); c.add(m); } });
+      };
+      const theta = view==="back" ? Math.PI+.62 : (view==="left" ? -.62 : .62), phi=.98;
+      const resize=()=>{ const w=stage.clientWidth,h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+        const d=10.2/Math.min(1,w/h*1.05); camera.position.set(d*Math.sin(phi)*Math.sin(theta),d*Math.cos(phi),d*Math.sin(phi)*Math.cos(theta)); camera.lookAt(0,0,0); };
+      const ro=new ResizeObserver(resize); ro.observe(stage); resize(); cleanups.push(()=>ro.disconnect());
+      const pivot=new THREE.Group(); scene.add(pivot);
+      const list=Object.values(cubies);
+      /* lettre + flèche posées sur la face du haut pendant un mouvement U (H) */
+      let mark=null;
+      if(topMark){
+        const cv=document.createElement("canvas"); cv.width=cv.height=256; const g=cv.getContext("2d");
+        g.strokeStyle="#ffffff"; g.lineWidth=16; g.lineCap="round";
+        g.beginPath(); g.arc(128,128,96,Math.PI*.15,Math.PI*1.75); g.stroke();
+        const ax=128+96*Math.cos(Math.PI*.15), ay=128+96*Math.sin(Math.PI*.15);
+        g.fillStyle="#ffffff"; g.beginPath(); g.moveTo(ax+26,ay-6); g.lineTo(ax-20,ay-14); g.lineTo(ax+4,ay+30); g.closePath(); g.fill();
+        g.font="bold 120px Fredoka, Arial, sans-serif"; g.textAlign="center"; g.textBaseline="middle";
+        g.lineWidth=14; g.strokeStyle="#1a1228"; g.strokeText(topMark,128,136); g.fillText(topMark,128,136);
+        const tex=new THREE.CanvasTexture(cv); const mm=new THREE.MeshBasicMaterial({map:tex,transparent:true,depthTest:false});
+        const pg=new THREE.PlaneGeometry(2.4,2.4); disposables.push(tex,mm,pg);
+        mark=new THREE.Mesh(pg,mm); mark.rotation.x=-Math.PI/2; mark.position.set(0,1.56,0); mark.visible=false; mark.renderOrder=10; scene.add(mark);
+      }
+      const snap=c=>{ c.position.set(Math.round(c.position.x),Math.round(c.position.y),Math.round(c.position.z));
+        const m=new THREE.Matrix4().makeRotationFromQuaternion(c.quaternion),e=m.elements;
+        for(const i of [0,1,2,4,5,6,8,9,10]) e[i]=Math.round(e[i]); c.quaternion.setFromRotationMatrix(m); };
+      const reset=()=>{ pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
+        list.forEach(c=>{ scene.attach(c); }); 
+        Object.entries(cubies).forEach(([k,c])=>{ const [x,y,z]=k.split(",").map(Number); c.position.set(x,y,z); c.quaternion.identity(); });
+        build(); };
+      let anim=null, i=0;
+      const startMove=()=>{
+        if(i>=moves.length){ onTok&&onTok(moves.length); return; }   /* fini : on reste sur le résultat */
+        const tok=moves[i]; const [ax,l,d0]=CROSS_MV[tok[0]]; const prime=tok.endsWith("'"), turns=tok.endsWith("2")?2:1;
+        pivot.rotation.set(0,0,0); pivot.updateMatrixWorld();
+        const items=list.filter(c=>l===null||Math.round(c.position[ax])===l); items.forEach(c=>pivot.attach(c));
+        onTok&&onTok(i);
+        if(mark){ mark.visible = tok[0]==="U"; if(mark.visible){ mark.rotation.z=0; } }
+        anim={ax,dir:prime?-d0:d0,turns,items,t0:performance.now(),dur:(l===null?1500:(turns===2?700:520))*speed};
+      };
+      const loop=now=>{
+        if(anim){ const tt=Math.min(1,(now-anim.t0)/anim.dur), e=tt<.5?2*tt*tt:1-Math.pow(-2*tt+2,2)/2;
+          pivot.rotation[anim.ax]=anim.dir*anim.turns*Math.PI/2*e;
+          if(mark&&mark.visible) mark.rotation.z = anim.dir*anim.turns*Math.PI/2*e;   /* la flèche tourne avec la face */
+          if(tt>=1){ const a=anim; anim=null; pivot.updateMatrixWorld(); a.items.forEach(c=>{ scene.attach(c); snap(c); }); i++; if(mark) mark.visible=false;
+            const wasCube=moves[i-1]&&moves[i-1][0]==="y", nextCube=moves[i]&&moves[i][0]==="y";
+            timer=setTimeout(startMove, wasCube&&!nextCube?1000:260); } }
+        renderer.render(scene,camera); raf=requestAnimationFrame(loop); };
+      reset(); raf=requestAnimationFrame(loop); onTok&&onTok(-1); timer=setTimeout(startMove,800);
+      setStatus("ready");
+      cleanups.push(()=>{ disposables.forEach(d=>d.dispose&&d.dispose()); renderer.dispose(); renderer.domElement.remove(); });
+    }).catch(()=>{ if(!dead) setStatus("error"); });
+    return ()=>{ dead=true; cancelAnimationFrame(raf); clearTimeout(timer); cleanups.forEach(f=>f()); };
+  },[state, moves.join(" "), view, loopKey]);
+  return (
+    <div ref={stageRef} style={{position:"relative",width:box?box.w:size*1.45,height:box?box.h:size*1.5}}>
+      {status!=="ready"&&<div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <TutoCube state={state} size={size} back={view==="back"} left={view==="left"}/></div>}
+    </div>
+  );
+}
+
+/* ═══ ÉTAPE 8 : le final en grand ═══
+   On part du résultat de l'étape 7 (coins à leur place, mal tournés) et on tourne
+   chaque coin avec Di Bi D B (R' D' R D) jusqu'à ce que le jaune soit dessus,
+   puis H (U) pour amener le coin suivant. Cube résolu → confettis ! */
+function tutoFinalePlan(){
+  const cs=tutoCubiesOf(TUTO_STATES[6].goal), F=["R'","D'","R","D"];
+  const yUp=()=>{ const q=cs.find(c=>c.p.join()==="1,1,1"), y=q&&q.st.find(x=>x.c==="Y"); return !!y&&y.n.join()==="0,1,0"; };
+  const moves=[], meta=[], reps=[];
+  for(let c=0;c<4;c++){
+    let r=0;
+    while(!yUp()&&r<6){ r++;
+      F.forEach((m,j)=>{ crossApply(cs,m); moves.push(m); meta.push({c,r,j,ph:"f"}); });
+    }
+    reps.push(r);
+    /* le jaune vient d'apparaître pendant le dernier passage : on le signale sur le « B » final */
+    if(r>0){ meta[meta.length-1].ph="end"; }
+    crossApply(cs,"U"); moves.push("U"); meta.push({c,r,j:-1,ph:"u"});
+  }
+  return {moves,meta,reps};
+}
+function TutoFinale({ t, fr, col }){
+  const plan = useMemo(tutoFinalePlan,[]);
+  const [run,setRun]=useState(0);          /* 0 = pas lancé ; sinon numéro de lecture */
+  const [cur,setCur]=useState(-1);
+  const done = run>0 && cur>=plan.moves.length;
+  const m = cur>=0&&cur<plan.moves.length ? plan.meta[cur] : null;
+  const F=["R'","D'","R","D"];
+  const T = x=>tutoTxt(x, fr, t.tutoNotation==="fr");
+  let cap = run===0 ? t.finStart : done ? t.finDone : !m ? t.finHold :
+    m.ph==="u" ? t.finU : m.ph==="end" ? t.finEnd : t.finTurn;
+  cap = T(cap||"");
+  return (
+    <div style={{background:PAL.card,borderRadius:18,padding:"12px 12px 14px",boxShadow:`0 0 0 2px ${col}`,position:"relative"}}>
+      {done&&<Confetti key={run}/>}
+      <div style={{position:"relative",width:"100%",height:280,borderRadius:14,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",
+        background:"radial-gradient(circle at 50% 40%, #2a2350, #120f26 75%)"}}>
+        {run>0
+          ? <TutoAnimCube key={run} state={TUTO_STATES[6].goal} moves={plan.moves} size={150} box={{w:"100%",h:280}} onTok={setCur} speed={.8} topMark={tutoNote("U",fr)}/>
+          : <TutoCube state={TUTO_STATES[6].goal} size={150}/>}
+        {m&&m.ph!=="u"&&<div style={{position:"absolute",top:10,left:12,fontWeight:800,fontSize:30,color:col,textShadow:"0 2px 6px rgba(0,0,0,.6)",pointerEvents:"none"}}>{tutoNote(plan.moves[cur],fr)}</div>}
+        {m&&m.ph==="u"&&<div style={{position:"absolute",top:10,left:12,fontWeight:800,fontSize:30,color:PAL.gold,textShadow:"0 2px 6px rgba(0,0,0,.6)",pointerEvents:"none"}}>{tutoNote("U",fr)}</div>}
+        {done&&<div style={{position:"absolute",bottom:12,left:0,right:0,textAlign:"center",fontWeight:800,fontSize:22,color:PAL.gold,textShadow:"0 2px 8px rgba(0,0,0,.7)",pointerEvents:"none"}}>🎉 {t.finBravo} 🎉</div>}
+      </div>
+      {/* les 4 coins */}
+      <div style={{display:"flex",alignItems:"center",gap:8,marginTop:10}}>
+        {[0,1,2,3].map(c=>{ const fin = done || (m&&(c<m.c||(c===m.c&&m.ph==="u"))); const now = m&&c===m.c&&!fin; return (
+          <div key={c} style={{flex:1,borderRadius:10,padding:"6px 4px",textAlign:"center",fontSize:11.5,fontWeight:800,
+            background:fin?PAL.green:(now?col:PAL.bg2),color:fin||now?"#1a1228":PAL.textDim}}>
+            {fin?"✓ ":""}{t.finCorner.replace("{n}",c+1)}{now&&m.r?` · ${m.r}/${plan.reps[c]}`:""}</div>); })}
+      </div>
+      {/* la formule, coup par coup, puis H */}
+      <div style={{display:"flex",gap:5,justifyContent:"center",marginTop:10,flexWrap:"wrap"}}>
+        {F.map((mv,j)=>{ const on=m&&m.ph!=="u"&&m.j===j; return (
+          <span key={j} style={{minWidth:34,padding:"5px 8px",borderRadius:9,fontWeight:800,fontSize:15,textAlign:"center",
+            color:on?"#fff":"#1a1228",background:on?"#1a1228":col,boxShadow:on?`0 0 0 2px ${col}`:"none",transform:on?"scale(1.12)":"none"}}>{tutoNote(mv,fr)}</span>); })}
+        <span style={{alignSelf:"center",color:PAL.textDim,fontWeight:800}}>→</span>
+        {(()=>{ const on=m&&m.ph==="u"; return (
+          <span style={{minWidth:34,padding:"5px 8px",borderRadius:9,fontWeight:800,fontSize:15,textAlign:"center",
+            color:on?"#fff":"#3a2a00",background:on?"#1a1228":PAL.gold,boxShadow:on?`0 0 0 2px ${PAL.gold}`:"none",transform:on?"scale(1.12)":"none"}}>{tutoNote("U",fr)}</span>); })()}
+      </div>
+      <div style={{marginTop:10,minHeight:40,fontSize:13.5,lineHeight:1.45,fontWeight:700,textAlign:"center",
+        color:done?PAL.green:(m&&(m.ph==="end"||m.ph==="u")?PAL.gold:PAL.text)}}>{cap}</div>
+      <button onClick={()=>{ setCur(-1); setRun(n=>n+1); }} style={{marginTop:8,width:"100%",border:"none",cursor:"pointer",borderRadius:13,padding:"12px 8px",
+        fontFamily:"inherit",fontWeight:800,fontSize:15,color:"#1a1228",background:col,boxShadow:`0 4px 0 ${shade(col,-50)}`}}>
+        {run===0?"▶ "+t.finPlay:"↺ "+t.tutoReplay}</button>
     </div>
   );
 }
@@ -1728,7 +2173,10 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
   const col = TUTO_COLOR[idx] || PAL.gold;
   const st = TUTO_STATES[idx] || {};
   const [spin,setSpin] = useState(true);
-  useEffect(()=>{ window.scrollTo(0,0); },[idx]);
+  const [animCase,setAnimCase] = useState(null);     /* le cas dont le cube est animé */
+  const [tokCur,setTokCur] = useState(-1);
+  const [loopKey,setLoopKey] = useState(0);
+  useEffect(()=>{ window.scrollTo(0,0); setAnimCase(null); setTokCur(-1); },[idx]);   /* rien ne bouge tant qu'on n'appuie pas sur ▶ */
   const wide = useWide();
   const caseSize = wide ? 96 : 84;
   const card = {background:PAL.card,borderRadius:16,padding:"13px 14px",boxShadow:`0 0 0 2px ${PAL.cardHi}`};
@@ -1769,18 +2217,37 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
         {(info.intro||[]).map((p,i)=>(
           <p key={i} style={{margin:"0 2px 10px",fontSize:14,lineHeight:1.55,color:PAL.text,fontWeight:500}}>{p}</p>))}
 
+        {/* étape 8 : le final animé en grand */}
+        {idx===7&&<div style={{margin:"6px 0 14px"}}>
+          <div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,margin:"0 0 9px"}}>🎬 {t.finTitle.toUpperCase()}</div>
+          <TutoFinale t={t} fr={fr} col={col}/>
+        </div>}
+
         {/* les cas */}
         {(TUTO_CASES[idx]||[]).length>0&&<div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,margin:"8px 0 9px"}}>
           {idx===0?t.tutoPieces.toUpperCase():t.tutoCases.toUpperCase()}</div>}
+        {idx>0&&(TUTO_CASES[idx]||[]).some(k=>(TUTO_ALGS[idx]||{})[k])&&<div style={{fontSize:12.5,color:PAL.textFaint,fontWeight:600,margin:"-3px 2px 10px"}}>👆 {t.tutoTapCube}</div>}
         <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {(TUTO_CASES[idx]||[]).map(k=>{ const c=(info.cases||{})[k]||{}; const alg=(TUTO_ALGS[idx]||{})[k];
+          {(TUTO_CASES[idx]||[]).map(k=>{ const c=(info.cases||{})[k]||{}; const alg=(TUTO_ALGS[idx]||{})[k]; const algShow=alg;
+            const plan = animCase===k ? tutoPlan(idx,k,fr) : null;
+            const hiNow = plan&&tokCur>=0&&tokCur<plan.moves.length ? plan.hi[tokCur] : (plan&&tokCur>=plan.moves.length?999:null);
+            const passNow = plan&&tokCur>=0 ? (tokCur<plan.moves.length?plan.pass[tokCur]:plan.reps) : 1;
             return (
-              <div key={k} style={{...card,display:"flex",alignItems:"center",gap:10}}>
-                <div style={{flexShrink:0}}><TutoCube state={st[k]} size={caseSize} left={TUTO_VIEW[idx+"."+k]==="left"} back={TUTO_VIEW[idx+"."+k]==="back"}/></div>
+              <div key={k} style={{...card,display:"flex",alignItems:"center",gap:10,boxShadow:animCase===k?`0 0 0 2px ${col}`:card.boxShadow}}>
+                <div style={{flexShrink:0,position:"relative",cursor:alg?"pointer":"default"}}
+                  onClick={()=>{ if(!alg) return; if(animCase===k) setLoopKey(n=>n+1); else { setAnimCase(k); } setTokCur(-1); }}>
+                  {alg&&animCase===k
+                    ? <TutoAnimCube state={plan.start} moves={plan.moves} size={caseSize} view={TUTO_ANIM_VIEW[idx+"."+k]||TUTO_VIEW[idx+"."+k]} onTok={setTokCur} loopKey={loopKey} topMark={tutoNote("U",fr)}/>
+                    : <TutoCube state={st[k]} size={caseSize} left={TUTO_VIEW[idx+"."+k]==="left"} back={TUTO_VIEW[idx+"."+k]==="back"}/>}
+                  {alg&&<span style={{position:"absolute",bottom:2,right:2,fontSize:11,fontWeight:800,borderRadius:999,padding:"3px 8px",
+                    color:"#1a1228",background:col,boxShadow:"0 2px 6px rgba(0,0,0,.4)"}}>{animCase===k?"↺ "+t.tutoReplay:"▶"}</span>}
+                </div>
                 <div style={{minWidth:0,flex:1,display:"flex",flexDirection:"column",gap:7}}>
                   <div style={{fontWeight:800,fontSize:14.5,color:PAL.text,lineHeight:1.2}}>{c.title}</div>
                   {c.text&&<div style={{fontSize:12.5,color:PAL.textDim,fontWeight:600,lineHeight:1.45}}>{c.text}</div>}
-                  {alg&&<div style={{alignSelf:"flex-start"}}><TutoAlg alg={alg} color={col} fr={fr}/></div>}
+                  {algShow&&<div style={{alignSelf:"flex-start"}}><TutoAlg alg={algShow} color={col} fr={fr} cur={animCase===k?hiNow:null}/></div>}
+                  {plan&&(plan.reps>1||plan.moves.length>plan.reps*tutoAlgToks(alg,fr).length)&&tokCur>=0&&<div style={{fontSize:12,fontWeight:800,color:col}}>
+                    {tokCur>=plan.moves.length && plan.reps===1 ? "✓" : passNow===-1 ? "↻ "+T((t.tutoPre||{})[idx+"."+k]||"") : (passNow===0 ? "→ "+T((t.tutoThen||{})[idx+"."+k]||"") : (plan.reps>1?t.tutoPass.replace("{n}",passNow).replace("{t}",plan.reps):""))}{tokCur>=plan.moves.length&&plan.reps>1?" ✓":""}</div>}
                 </div>
               </div>);
           })}
@@ -1798,20 +2265,6 @@ function TutoStepPage({ t, idx, onBack, onGo, video }){
           <div key={i} style={{marginTop:10,fontSize:13,lineHeight:1.5,color:PAL.text,fontWeight:600,background:`${col}22`,borderRadius:12,padding:"10px 12px"}}>💡 {p}</div>))}
 
         {idx>0&&<div style={{marginTop:14}}>{notaToggle}</div>}
-
-        {/* la vidéo, en dessous */}
-        <div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim,margin:"20px 0 9px"}}>🎬 {t.tutoVideo.toUpperCase()}</div>
-        {video ? (
-          <div style={{width:"100%",aspectRatio:"16 / 9",borderRadius:14,overflow:"hidden",background:"#000",boxShadow:`0 0 0 2px ${PAL.gold}`}}>
-            <iframe src={`https://www.youtube-nocookie.com/embed/${video}?rel=0&modestbranding=1&playsinline=1`}
-              title={ch.t} loading="lazy" allowFullScreen allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-              style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
-          </div>
-        ) : (
-          <div style={{background:PAL.bg2,borderRadius:14,padding:"22px 14px",textAlign:"center",fontSize:12.5,color:PAL.textFaint,fontWeight:600,lineHeight:1.5}}>
-            {t.tutoSoonLong}
-          </div>
-        )}
 
         <div style={{display:"flex",gap:10,marginTop:20}}>
           <button disabled={idx===0} onClick={()=>onGo(idx-1)} style={{flex:1,border:"none",cursor:idx===0?"default":"pointer",borderRadius:14,padding:"12px 8px",
