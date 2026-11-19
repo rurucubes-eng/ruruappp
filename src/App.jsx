@@ -449,6 +449,14 @@ const THEMES = {
     ink:"#1a1228", dark:"#0d0b1a",
   },
 };
+/* thème clair des pages 60s Split Race et Entraînement (plus de contraste) */
+THEMES.sport = { ...THEMES.dark,
+  bg:"#eef1f8", bg2:"#c9d1e4", card:"#ffffff", cardHi:"#dfe5f2",
+  text:"#17193a", textDim:"#454b72", textFaint:"#6b7194",
+  /* une seule couleur d'accent (bleu) ; vert = réussite, rouge = alerte */
+  gold:"#2f5bd6", green:"#1fa463", blue:"#2f5bd6", pink:"#2f5bd6", purple:"#2f5bd6", red:"#e03b3b", orange:"#2f5bd6",
+  ink:"#17193a" };
+const SPORT_SCREENS = ["splitrace","drills","drill","drillProgress"];
 const PAL = { ...THEMES.dark };
 
 /* Écrans « principaux » : la barre de navigation ne s'affiche que là.
@@ -544,7 +552,7 @@ const TR = {
     splitRaceCtxReady:"Mélange ton cube, puis appuie sur GO", splitRaceCtxSolving:"Résous cette étape, puis touche l'écran",
     splitRaceRuns:"Courses", splitRaceCompletedRuns:"Terminées",
     drillTitle:"Entraînement par étape", drillSub:"Isole une étape et répète-la",
-    drillHint:"Mélange ton cube et appuie sur GO. Résous-le jusqu'à la fin de cette étape, puis appuie sur TERMINER.",
+    drillHint:"Mélange ton cube et appuie sur GO. Résous-le jusqu'à la fin de cette étape, puis touche l'écran.",
     drillPB:"Record", drillReps:"Essais", drillWarmup:"échauffement", drillCtxWarmup:"Résous cette étape pour continuer",
     drillSessionReps:"Cette session", drillAvg5:"Moy. 5", drillNext:"↻ Nouvel essai", drillRanking:"Classement",
     drillProgress:"Progression", drillProgressSub:"Toutes les étapes, tes meilleurs temps",
@@ -856,7 +864,7 @@ const TR = {
     splitRaceCtxReady:"Scramble your cube, then press GO", splitRaceCtxSolving:"Solve this stage, then tap the screen",
     splitRaceRuns:"Runs", splitRaceCompletedRuns:"Completed",
     drillTitle:"Stage training", drillSub:"Isolate one stage and drill it",
-    drillHint:"Scramble your cube and press GO. Solve it up to the end of this stage, then press COMPLETE.",
+    drillHint:"Scramble your cube and press GO. Solve it up to the end of this stage, then tap the screen.",
     drillPB:"PB", drillReps:"Reps", drillWarmup:"warm-up", drillCtxWarmup:"Solve this stage to continue",
     drillSessionReps:"This session", drillAvg5:"Avg 5", drillNext:"↻ New rep", drillRanking:"Ranking",
     drillProgress:"Progress", drillProgressSub:"Every stage, your best times",
@@ -1509,9 +1517,9 @@ function GlobalStyles(){
     img{user-select:none;-webkit-user-drag:none}
   `}</style>;
 }
-function Bg(){
-  /* Fond complètement noir */
-  return <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0,background:"#000"}}/>;
+function Bg({ light }){
+  /* Fond complètement noir (clair sur les pages Split Race / Entraînement) */
+  return <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0,background:light?"linear-gradient(180deg,#f6f8fc 0%,#e6eaf4 100%)":"#000"}}/>;
 }
 function AgeToggle({ kids, toggleKids, t, color }){
   return (
@@ -2693,7 +2701,7 @@ function Hint({ children, color, icon, th }){
       border:th?"none":`2px solid ${PAL.gold}`,
       animation:"slideUp .3s ease-out"}}>
       <span style={{fontSize:24,flexShrink:0}}>{icon||"👉"}</span>
-      <span style={{fontSize:16,color:th?th.ink:"#ffffff",fontWeight:700,lineHeight:1.4,textAlign:"left"}}>{children}</span>
+      <span style={{fontSize:16,color:th?th.ink:PAL.ink,fontWeight:700,lineHeight:1.4,textAlign:"left"}}>{children}</span>
     </div>
   );
 }
@@ -3293,7 +3301,7 @@ function ChronoScreen({ onBack, t, skin:skin0, pick }){
 const SPLIT_BUDGET = 60000;
 const SPLIT_STAGE_KEYS = ["cross","firstLayer","f2l","oll","pll"];
 const SPLIT_STAGE_ICONS = ["➕","🔲","🧩","🟡","🏁"];
-const SPLIT_STAGE_COLORS = ["#ffd23f","#4ea8ff","#3ddc84","#ff5ea8","#9d6cff"]; // gold, bleu, vert, rose, violet — une couleur par étape
+const SPLIT_STAGE_COLORS = ["#2f5bd6","#2f5bd6","#2f5bd6","#2f5bd6","#2f5bd6"]; // gold, bleu, vert, rose, violet — une couleur par étape
 /* objectif de temps par étape (total 60 s) et étape du tutoriel correspondante */
 const SPLIT_TARGET = [10000,12000,14000,10000,14000];
 const SPLIT_TUTO = [1,2,3,4,7];
@@ -3450,7 +3458,7 @@ function StageProgress({ stageIdx, labels }){
               fontSize:13,flexShrink:0,
               background:i<stageIdx?PAL.green:(i===stageIdx?cur:PAL.card),
               boxShadow:`0 0 0 2px ${i<=stageIdx?(i<stageIdx?PAL.green:cur):PAL.cardHi}`,
-              color:i<=stageIdx?"#1a1228":PAL.textFaint,fontWeight:800}}>
+              color:i<=stageIdx?"#ffffff":PAL.textFaint,fontWeight:800}}>
               {i<stageIdx?"✓":i+1}
             </span>
             <span style={{fontSize:8.5,fontWeight:700,color:i===stageIdx?cur:PAL.textFaint,textAlign:"center",
@@ -3587,13 +3595,13 @@ function SplitRaceScreen({ onBack, t, onDrill }){
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
       {ph==="start"
         ? <div style={{width:"100%",maxWidth:wide?520:400,display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
-            <GhostBtn onClick={handleExit} color={PAL.red}>{t.menu}</GhostBtn><span style={{marginLeft:"auto"}}><PlayerBadge t={t}/></span></div>
-        : <Header onBack={handleExit} t={t} color={PAL.red} title={`🏁 ${t.splitRace}`}/>}
+            <GhostBtn onClick={handleExit} color={PAL.blue}>{t.menu}</GhostBtn><span style={{marginLeft:"auto"}}><PlayerBadge t={t}/></span></div>
+        : <Header onBack={handleExit} t={t} color={PAL.blue} title={`🏁 ${t.splitRace}`}/>}
 
       {ph==="start"&&(()=>{ const weak=splitWeakest(stats.stages||{}); return (
         <div style={{width:"100%",maxWidth:wide?520:400,display:"flex",flexDirection:"column",alignItems:"stretch"}}>
           <img src={HC_TH_SPLITRACE} alt={t.splitRace} draggable={false} style={{width:"100%",maxWidth:250,alignSelf:"center",borderRadius:20,marginBottom:12,
-            boxShadow:"0 0 0 2px #8a5cff, 0 8px 22px rgba(138,92,255,.35)"}}/>
+            boxShadow:"0 0 0 2px #2f5bd6, 0 8px 22px rgba(47,91,214,.25)"}}/>
           <div style={{fontSize:13.5,fontWeight:700,color:PAL.text,textAlign:"center",lineHeight:1.45,marginBottom:12}}>{t.splitRaceTagline}</div>
           {/* mes stats */}
           <div style={{display:"flex",gap:8,marginBottom:16}}>
@@ -3609,7 +3617,7 @@ function SplitRaceScreen({ onBack, t, onDrill }){
             {SPLIT_STAGE_KEYS.map((k,i)=>{ const best=(stats.stages[k]||{}).best, c=SPLIT_STAGE_COLORS[i]; return (
               <div key={k} style={{display:"flex",alignItems:"center",gap:10,background:PAL.card,borderRadius:14,padding:"6px 10px 6px 6px",
                 boxShadow:`0 0 0 2px ${weak===i?PAL.orange:c+"88"}`}}>
-                <span style={{width:24,height:24,borderRadius:8,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:12.5,background:c,color:"#1a1228"}}>{i+1}</span>
+                <span style={{width:24,height:24,borderRadius:8,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:12.5,background:c,color:"#ffffff"}}>{i+1}</span>
                 <div style={{width:44,height:42,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
                   {(TUTO_STATES[SPLIT_TUTO[i]]||{}).goal&&<TutoCube state={TUTO_STATES[SPLIT_TUTO[i]].goal} size={26}/>}
                 </div>
@@ -3626,16 +3634,16 @@ function SplitRaceScreen({ onBack, t, onDrill }){
             <div style={{fontSize:11,fontWeight:800,letterSpacing:1.2,color:PAL.orange,marginBottom:4}}>💡 {t.srTip.toUpperCase()}</div>
             <div style={{fontSize:13,fontWeight:700,color:PAL.text,lineHeight:1.4}}>{weak==null?t.srTipNone:t.srTipTxt.replace("{s}",labels[weak])}</div>
             {weak!=null&&onDrill&&<button onClick={()=>onDrill(weak)} style={{marginTop:9,border:"none",cursor:"pointer",borderRadius:11,padding:"8px 12px",fontFamily:"inherit",
-              fontWeight:800,fontSize:12.5,color:"#1a1228",background:SPLIT_STAGE_COLORS[weak]}}>🎯 {t.srTrain} ›</button>}
+              fontWeight:800,fontSize:12.5,color:"#ffffff",background:SPLIT_STAGE_COLORS[weak]}}>🎯 {t.srTrain} ›</button>}
           </div>
           <div style={{fontSize:12,fontWeight:600,color:PAL.textDim,textAlign:"center",marginBottom:12}}>🎲 {t.randomScramble}</div>
-          <div style={{width:"100%",maxWidth:300,alignSelf:"center"}}><CandyBtn onClick={startRun} color={PAL.red}>{t.go}</CandyBtn></div>
+          <div style={{width:"100%",maxWidth:300,alignSelf:"center"}}><CandyBtn onClick={startRun} color={PAL.blue}>{t.go}</CandyBtn></div>
           {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint,textAlign:"center"}}>{t.spaceStart}</div>}
         </div>); })()}
 
       {askQuit&&(
         <div style={{position:"fixed",inset:0,zIndex:60,background:"rgba(0,0,0,.65)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
-          <div style={{width:"100%",maxWidth:320,background:PAL.card,borderRadius:20,padding:"18px 16px",textAlign:"center",boxShadow:`0 0 0 2px ${PAL.red}`}}>
+          <div style={{width:"100%",maxWidth:320,background:PAL.card,borderRadius:20,padding:"18px 16px",textAlign:"center",boxShadow:`0 0 0 2px ${PAL.blue}`}}>
             <div style={{fontWeight:800,fontSize:18,color:PAL.text}}>{t.srQuitTitle}</div>
             <div style={{fontSize:13,fontWeight:600,color:PAL.textDim,margin:"6px 0 16px"}}>{t.splitRaceExitConfirm}</div>
             <div style={{display:"flex",gap:10}}>
@@ -3711,7 +3719,7 @@ function SplitRaceScreen({ onBack, t, onDrill }){
             <div style={{marginBottom:16}}><StageProgress stageIdx={stageIdx+1} labels={labels}/></div>
             {isPb&&<Confetti/>}
             <div style={{textAlign:"center",borderRadius:22,padding:"16px 26px",marginBottom:14,animation:"pop .35s ease-out",
-              background:PAL.card,boxShadow:`0 0 0 2px ${isPb?PAL.gold:PAL.red}`}}>
+              background:PAL.card,boxShadow:`0 0 0 2px ${isPb?PAL.gold:PAL.blue}`}}>
               <div style={{fontSize:11,letterSpacing:2,color:PAL.textFaint,fontWeight:700,marginBottom:4}}>
                 {SPLIT_STAGE_ICONS[stageIdx]} {labels[stageIdx]} {t.splitRaceStageDone}
               </div>
@@ -3725,13 +3733,13 @@ function SplitRaceScreen({ onBack, t, onDrill }){
               )}
             </div>
             <div style={{display:"flex",gap:10,marginBottom:16}}>
-              <StatChip label={t.splitRaceTotalUsed} value={fmt2(usedMs)} color={PAL.red}/>
+              <StatChip label={t.splitRaceTotalUsed} value={fmt2(usedMs)} color={PAL.blue}/>
               <StatChip label={t.splitRaceTimeLeft} value={fmt2(SPLIT_BUDGET-usedMs)} color={PAL.green}/>
             </div>
             {analyzeOpen&&(
               <div style={{width:"100%",maxWidth:340,background:PAL.card,borderRadius:18,padding:"15px 18px",marginBottom:16,
                 boxShadow:`0 0 0 2px ${PAL.cardHi}`,animation:"slideUp .3s ease-out"}}>
-                <div style={{fontWeight:800,fontSize:13,color:PAL.red,letterSpacing:1,marginBottom:10}}>{t.splitRaceAnalysisTitle} — {labels[stageIdx]}</div>
+                <div style={{fontWeight:800,fontSize:13,color:PAL.blue,letterSpacing:1,marginBottom:10}}>{t.splitRaceAnalysisTitle} — {labels[stageIdx]}</div>
                 {[[t.splitRaceCurrent,fmt2(split)],[t.splitRacePB,fmt2(prevBest)],[t.splitRaceAverage,fmt2(avg)],
                   [t.splitRaceDiffPB,diff!=null?`${diff>=0?"+":""}${(diff/1000).toFixed(2)}s`:"—"],
                   [t.splitRaceShare,`${share.toFixed(1)}%`]].map(([l,v])=>(
@@ -3743,8 +3751,8 @@ function SplitRaceScreen({ onBack, t, onDrill }){
               </div>
             )}
             <div style={{width:"100%",maxWidth:300,display:"flex",flexDirection:"column",gap:10}}>
-              <GhostBtn onClick={()=>setAnalyzeOpen(o=>!o)} color={PAL.red}>{t.splitRaceAnalyze}</GhostBtn>
-              <CandyBtn onClick={nextStage} color={isLast?PAL.red:SPLIT_STAGE_COLORS[stageIdx+1]}>{isLast?t.splitRaceSeeResults:t.srNextIs.replace("{s}",labels[stageIdx+1])+" →"}</CandyBtn>
+              <GhostBtn onClick={()=>setAnalyzeOpen(o=>!o)} color={PAL.blue}>{t.splitRaceAnalyze}</GhostBtn>
+              <CandyBtn onClick={nextStage} color={isLast?PAL.blue:SPLIT_STAGE_COLORS[stageIdx+1]}>{isLast?t.splitRaceSeeResults:t.srNextIs.replace("{s}",labels[stageIdx+1])+" →"}</CandyBtn>
             </div>
           </>
         );
@@ -3765,7 +3773,7 @@ function SplitRaceScreen({ onBack, t, onDrill }){
               {isTimeout?t.splitRaceTimeOut:t.splitRaceRunComplete}
             </div>
             <div style={{borderRadius:22,padding:"14px 26px",marginBottom:16,background:PAL.card,
-              boxShadow:`0 0 0 2px ${isTimeout?PAL.orange:(totalIsPb?PAL.gold:PAL.red)}`}}>
+              boxShadow:`0 0 0 2px ${isTimeout?PAL.orange:(totalIsPb?PAL.gold:PAL.blue)}`}}>
               <div style={{fontWeight:800,fontSize:44,lineHeight:1.05,fontVariantNumeric:"tabular-nums",
                 color:isTimeout?PAL.orange:(totalIsPb?PAL.gold:PAL.text)}}>{fmt2(lastRun.totalTime)}</div>
               {totalIsPb&&!isTimeout&&<div style={{fontWeight:700,fontSize:14,color:PAL.gold,marginTop:4}}>{t.splitRaceNewPB}</div>}
@@ -3779,7 +3787,7 @@ function SplitRaceScreen({ onBack, t, onDrill }){
               <div style={{fontWeight:800,fontSize:12,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:7,textAlign:"left"}}>{t.srShare}</div>
               <div style={{display:"flex",height:22,borderRadius:8,overflow:"hidden",boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
                 {entries.map((e,i)=>e.ms==null?null:<div key={e.k} title={e.label} style={{width:`${e.ms/SPLIT_BUDGET*100}%`,background:SPLIT_STAGE_COLORS[i],
-                  display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#1a1228",overflow:"hidden"}}>{e.ms>=5000?i+1:""}</div>)}
+                  display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#ffffff",overflow:"hidden"}}>{e.ms>=5000?i+1:""}</div>)}
                 <div style={{flex:1,background:PAL.bg2}}/>
               </div>
             </div>}
@@ -3799,7 +3807,7 @@ function SplitRaceScreen({ onBack, t, onDrill }){
               {!isTimeout&&(
                 <div style={{display:"flex",justifyContent:"space-between",padding:"9px 0 0",marginTop:4}}>
                   <span style={{fontSize:13,color:PAL.text,fontWeight:800,textAlign:"left"}}>{t.splitRaceTotal}</span>
-                  <span style={{fontSize:15,fontWeight:800,color:PAL.red}}>{fmt2(lastRun.totalTime)}</span>
+                  <span style={{fontSize:15,fontWeight:800,color:PAL.blue}}>{fmt2(lastRun.totalTime)}</span>
                 </div>
               )}
             </div>
@@ -3818,7 +3826,7 @@ function SplitRaceScreen({ onBack, t, onDrill }){
                 textAlign:"left",background:PAL.card,boxShadow:`0 0 0 2px ${SPLIT_STAGE_COLORS[w]}`,color:PAL.text,fontWeight:700,fontSize:13}}>
                 💡 {t.srTipTxt.replace("{s}",labels[w])} <span style={{color:SPLIT_STAGE_COLORS[w],fontWeight:800}}>🎯 {t.srTrain} ›</span></button>); })()}
             <div style={{width:"100%",maxWidth:300,display:"flex",flexDirection:"column",gap:10}}>
-              <CandyBtn onClick={retry} color={PAL.red}>{t.splitRaceRetry}</CandyBtn>
+              <CandyBtn onClick={retry} color={PAL.blue}>{t.splitRaceRetry}</CandyBtn>
               <GhostBtn onClick={onBack} color={PAL.textDim}>{t.splitRaceExit}</GhostBtn>
             </div>
           </div>
@@ -3870,7 +3878,7 @@ function StageDrillPicker({ onBack, t, openDrill, openProgress, openTuto }){
         <GhostBtn onClick={onBack} color={PAL.purple}>{t.menu}</GhostBtn><span style={{marginLeft:"auto"}}><PlayerBadge t={t}/></span>
       </div>
       <img src={HC_TH_DRILLS} alt={t.drillTitle} draggable={false} style={{width:"100%",maxWidth:250,borderRadius:20,marginBottom:10,
-        boxShadow:"0 0 0 2px #ff3fa0, 0 8px 22px rgba(255,63,160,.3)"}}/>
+        boxShadow:"0 0 0 2px #2f5bd6, 0 8px 22px rgba(47,91,214,.25)"}}/>
       <div style={{fontSize:13,fontWeight:700,color:PAL.textDim,textAlign:"center",marginBottom:12}}>{t.drillSub}</div>
 
       {/* mes stats → progression */}
@@ -6943,7 +6951,7 @@ export default function App(){
   const [lang,setLang] = useState(()=>loadS().lang||"fr");
   const [kids,setKids] = useState(()=>loadS().kids||false);
   function toggleKids(k){ setKids(k); const d=loadS(); d.kids=k; saveS(d); }
-  Object.assign(PAL, THEMES.dark);
+  Object.assign(PAL, SPORT_SCREENS.includes(screen) ? THEMES.sport : THEMES.dark);
   const [showHelp,setShowHelp] = useState(false);
   const [showProfiles,setShowProfiles] = useState(false);
   const [profTick,setProfTick] = useState(0);
@@ -7012,7 +7020,7 @@ export default function App(){
   return (
     <div style={{minHeight:"100vh",background:PAL.bg,color:PAL.text,fontFamily:"'Fredoka',sans-serif",position:"relative"}}>
       <GlobalStyles/>
-      <Bg/>
+      <Bg light={SPORT_SCREENS.includes(screen)}/>
       {showHelp&&<HowToPlay t={t} skin={skin} onClose={()=>setShowHelp(false)}/>}
       {showProfiles&&<ProfileModal t={t} onClose={()=>setShowProfiles(false)} onChange={()=>setProfTick(x=>x+1)}/>}
       <div key={profTick} style={{paddingBottom:NAV_SCREENS.includes(screen)?66:0}}>
