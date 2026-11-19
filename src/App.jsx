@@ -521,28 +521,34 @@ const TR = {
     chrono:"CHRONO CUBE", chronoSub:"Résolution complète",
     splitRace:"60S SPLIT RACE", splitRaceSub:"La résolution en étapes chronométrées",
     splitRaceTagline:"Termine ta résolution étape par étape. Tu as 60 secondes de temps de résolution au total.",
-    splitRaceScramble:"Scramble", splitRaceNewScramble:"🔀 Nouveau scramble",
-    stgCross:"CROSS", stgFirstLayer:"1ère COURONNE", stgF2l:"F2L", stgOll:"CROIX JAUNE", stgPll:"FACE JAUNE",
-    splitRaceTimeLeft:"Temps restant", splitRaceCurrentSplit:"Split en cours",
-    splitRaceComplete:"TERMINER", splitRaceStageDone:"TERMINÉ",
+    splitRaceScramble:"Mélange", splitRaceNewScramble:"🔀 Nouveau mélange",
+    stgCross:"Croix blanche", stgFirstLayer:"Coins blancs", stgF2l:"Étage du milieu", stgOll:"Croix jaune", stgPll:"Fin du cube",
+    srReadyOf:"Étape {n} sur 5", srReadyHint:"Prépare-toi : le chrono démarre quand tu appuies sur GO.", srNextIs:"{s}", srBudgetLeft:"Il te reste",
+    srQuitTitle:"Quitter la course ?", srQuitYes:"Oui, quitter", srQuitNo:"Non, continuer",
+    srSteps:"Les 5 étapes de la course", srGoal:"Objectif", srRecord:"Record", srTip:"Ton conseil", srTipTxt:"Ton étape la plus lente : {s}.", srTipNone:"Fais une course : je te dirai où tu perds le plus de temps.",
+    srTrain:"M'entraîner sur cette étape", srShare:"Répartition de ta course", srStats:"Mes stats",
+    drWeak:"Point faible", drNew:"Nouveau", drMethod:"Revoir la méthode", drDaily:"Objectif du jour : {n} essais", drDailyDone:"🎉 Objectif du jour atteint !",
+    drSumBests:"Somme des records", drStagesDone:"Étapes faites", drLast:"5 derniers essais",
+    splitRaceTimeLeft:"Temps restant", splitRaceCurrentSplit:"Temps de cette étape",
+    splitRaceComplete:"TERMINER", splitRaceStageDone:"✓",
     splitRacePB:"Record", splitRaceVsPB:"vs record", splitRaceTotalUsed:"Temps utilisé",
     splitRaceAnalyze:"🔍 ANALYSER", splitRaceNextStage:"ÉTAPE SUIVANTE →", splitRaceSeeResults:"VOIR LE RÉSULTAT 🏁",
     splitRaceAnalysisTitle:"ANALYSE", splitRaceCurrent:"Actuel", splitRaceAverage:"Moyenne",
     splitRaceDiffPB:"Écart vs record", splitRaceShare:"Part du temps total", splitRaceNewPB:"🏆 NOUVEAU RECORD !",
-    splitRaceRunComplete:"COURSE TERMINÉE 🏁", splitRaceSplits:"Splits", splitRaceTotal:"TOTAL",
-    splitRaceBestSplit:"Meilleur split", splitRaceLongestPhase:"Étape la plus longue",
+    splitRaceRunComplete:"COURSE TERMINÉE 🏁", splitRaceSplits:"Temps par étape", splitRaceTotal:"TOTAL",
+    splitRaceBestSplit:"Étape la plus rapide", splitRaceLongestPhase:"Étape la plus longue",
     splitRaceShareOf:"part du temps", splitRaceBestTotal:"Meilleur total",
-    splitRaceRetry:"↻ Rejouer", splitRaceNewScrambleBtn:"🔀 Nouveau scramble", splitRaceExit:"← Quitter",
+    splitRaceRetry:"↻ Rejouer", splitRaceNewScrambleBtn:"🔀 Nouveau mélange", splitRaceExit:"← Quitter",
     splitRaceTimeOut:"⏰ TEMPS ÉCOULÉ", splitRaceLastCompleted:"Dernière étape terminée",
-    splitRaceNotCompleted:"Non terminé", splitRaceExitConfirm:"Quitter la course en cours ? Ta progression sera perdue.",
-    splitRaceCtxReady:"Mélange ton cube, puis appuie sur GO", splitRaceCtxSolving:"Résous cette étape, puis appuie sur TERMINER",
+    splitRaceNotCompleted:"Non terminée", splitRaceExitConfirm:"Ta course en cours sera perdue.",
+    splitRaceCtxReady:"Mélange ton cube, puis appuie sur GO", splitRaceCtxSolving:"Résous cette étape, puis touche l'écran",
     splitRaceRuns:"Courses", splitRaceCompletedRuns:"Terminées",
     drillTitle:"Entraînement par étape", drillSub:"Isole une étape et répète-la",
-    drillHint:"Résous ton cube normalement jusqu'à cette étape, puis appuie sur GO",
-    drillPB:"Record", drillReps:"Tours", drillWarmup:"échauffement", drillCtxWarmup:"Résous cette étape pour continuer",
-    drillSessionReps:"Cette session", drillAvg5:"Moy. 5", drillNext:"↻ Nouveau tour", drillRanking:"Classement",
+    drillHint:"Mélange ton cube et appuie sur GO. Résous-le jusqu'à la fin de cette étape, puis appuie sur TERMINER.",
+    drillPB:"Record", drillReps:"Essais", drillWarmup:"échauffement", drillCtxWarmup:"Résous cette étape pour continuer",
+    drillSessionReps:"Cette session", drillAvg5:"Moy. 5", drillNext:"↻ Nouvel essai", drillRanking:"Classement",
     drillProgress:"Progression", drillProgressSub:"Toutes les étapes, tes meilleurs temps",
-    drillSumBests:"Somme des meilleurs temps", drillWeakest:"À travailler", drillTotalReps:"Tours au total",
+    drillSumBests:"Somme des meilleurs temps", drillWeakest:"À travailler", drillTotalReps:"Essais au total",
     hcDrill:"ENTRAÎNEMENT", hcDrillSub:"Isole une étape et progresse",
     solveurTitle:"Solveur de cube",
     daily:"DÉFI DU JOUR", dailyDone:"Fait en", dailyTodo:"Même face pour tous · 1 essai chrono",
@@ -557,9 +563,9 @@ const TR = {
     instIos:["1. Touche le bouton Partager ⬆️ en bas de Safari (ou en haut sur iPad).","2. Fais défiler et choisis « Sur l'écran d'accueil ».","3. Touche « Ajouter » : l'icône RUR'U' apparaît avec tes autres applis."],
     instAndroid:["1. Touche le menu ⋮ en haut à droite de Chrome.","2. Choisis « Installer l'application » (ou « Ajouter à l'écran d'accueil »).","3. Confirme : l'icône RUR'U' apparaît avec tes autres applis."],
     tapHalf:"Tape ton côté quand ton cube est fini",
-    go:"🚀 GO !", replay:"↻ Rejouer", menu:"← Accueil", chronoPickCube:"CHOISIS TON CUBE",
-    tapGrid:"👆 Tape la grille pour arrêter",
-    tapCube:"👆 Tape le cube quand c'est résolu",
+    dateLoc:"fr-FR", go:"🚀 GO !", replay:"↻ Rejouer", menu:"← Accueil", chronoPickCube:"CHOISIS TON CUBE",
+    tapGrid:"👆 Touche l'écran pour arrêter",
+    tapCube:"👆 Touche l'écran quand c'est résolu",
     cubeReady:"Chrono résolution complète", cubePlay:"Résous tout ton cube !", cubeDone:"Bravo ! 🎉",
     timeUp:"⏰ Temps écoulé !", success:"✓ Réussi !", newRecord:"⭐ NOUVEAU RECORD !",
     objectives:"🎖️ Objectifs", obj:["Moins de 60s","Moins de 45s","Moins de 30s","Moins de 15s"],
@@ -613,6 +619,9 @@ const TR = {
     progFoot:"Touche un mode pour y rejouer. La courbe montre tes 10 dernières parties : plus elle descend, plus tu progresses.",
     myProgress:"📊 Ma progression",
     helpCardTitle:"Comment jouer ?", helpCardSub:"Découvre les règles du jeu",
+    uBest:"Meilleur temps", uGames:"Parties", uStreak:"Jours de défi", uSeeProgress:"Voir ma progression",
+    uGroupSolo:"Seul contre le chrono", uGroupDuo:"À deux", uGroupDisc:"Découvrir", uNew:"Nouveau",
+    uNextDaily:"Nouveau défi dans {h} h {m} min", uDailyTodo:"À faire aujourd'hui",
     hcChooseCube:"CHOISIS TON CUBE", hcDiscover:"CONTENU INTERACTIF", hcPlay:"JOUER", hcConsult:"CONSULTER",
     hcTraining:"ENTRAÎNEMENT",
     hcMonstroSub:"Amuse-toi\net progresse", hcClassicSub:"Résous la face\nau chrono", hcSudoSub:"Logique\net réflexion",
@@ -747,6 +756,13 @@ const TR = {
     savants:"COFFRET DES SCIENTIFIQUES", savantsSub:"6 génies · 48 symboles",
     savantsIntro:"Chaque face du cube est incarnée par un génie entouré de ses 8 symboles. Touche une carte pour l'ouvrir, puis un symbole pour découvrir sa signification — et le portrait au centre pour en savoir plus sur le savant.",
     symbols:"symboles", seeOnSite:"🌐 Voir sur rurucube.com",
+    discTotal:"{n} / {t} symboles découverts", discQuizDone:"{n} / {t} quiz réussis", discSeen:"{n} / {t} découverts",
+    discQuizBtn:"Quiz", discQuizSub:"4 questions pour tester", disc3d:"Cube 3D", discBioMore:"Lire la fiche complète",
+    discQImg:"Quel symbole représente « {x} » ?", discQName:"Comment s'appelle ce symbole ?",
+    discGood:"Bravo, c'est la bonne réponse !", discBad:"Raté ! C'était :", discNext:"Question suivante", discSeeScore:"Voir mon score",
+    discResult:"Ton score : {n} / 4", discStar:"⭐ Quiz réussi ! L'étoile est gagnée.", discAlmost:"Il faut 3 bonnes réponses pour l'étoile. Réessaie !",
+    discRetry:"Rejouer", discBack:"Retour", discPrev:"Précédent", discNextSym:"Suivant",
+    discShopTitle:"Le vrai cube", discShopSub:"À manipuler en famille, en vrai", discShopBtn:"rurucube.com",
     savantsTile:"LE SAVOIR", savantsTileSub:"Décode les 6 faces des génies",
     civi:"Civilisation Ancienne", tuto:"Tutoriel", civiSub:"6 civilisations, 8 symboles chacune", civiIntro:"🌍 Chaque civilisation cache 8 symboles gravés dans la pierre. Touche une carte pour l'ouvrir, puis un symbole pour découvrir sa signification — et l'emblème au centre pour en savoir plus sur la civilisation.", kidsLabel:"🧒 Enfant", teenLabel:"🎓 Ado & Adulte", ageToggleHint:"Choisis ton niveau de lecture : définitions courtes et simples pour les enfants, complètes pour les ados et adultes.",
     savantsTapHint:"Touche un symbole pour afficher sa définition",
@@ -818,9 +834,15 @@ const TR = {
     splitRace:"60S SPLIT RACE", splitRaceSub:"Step-by-step timed solve",
     splitRaceTagline:"Complete the solve step by step. You have 60 seconds of solving time in total.",
     splitRaceScramble:"Scramble", splitRaceNewScramble:"🔀 New scramble",
-    stgCross:"CROSS", stgFirstLayer:"FIRST LAYER", stgF2l:"F2L", stgOll:"YELLOW CROSS", stgPll:"YELLOW FACE",
+    stgCross:"White cross", stgFirstLayer:"White corners", stgF2l:"Middle layer", stgOll:"Yellow cross", stgPll:"Finish",
+    srReadyOf:"Stage {n} of 5", srReadyHint:"Get ready: the clock starts when you press GO.", srNextIs:"{s}", srBudgetLeft:"Time left",
+    srQuitTitle:"Quit the race?", srQuitYes:"Yes, quit", srQuitNo:"No, keep going",
+    srSteps:"The 5 stages of the race", srGoal:"Target", srRecord:"Record", srTip:"Your tip", srTipTxt:"Your slowest stage: {s}.", srTipNone:"Do one race: I'll tell you where you lose the most time.",
+    srTrain:"Train on this stage", srShare:"How your race splits", srStats:"My stats",
+    drWeak:"Weak spot", drNew:"New", drMethod:"Review the method", drDaily:"Today's goal: {n} attempts", drDailyDone:"🎉 Today's goal reached!",
+    drSumBests:"Sum of records", drStagesDone:"Stages done", drLast:"Last 5 attempts",
     splitRaceTimeLeft:"Time left", splitRaceCurrentSplit:"Current split",
-    splitRaceComplete:"COMPLETE", splitRaceStageDone:"DONE",
+    splitRaceComplete:"COMPLETE", splitRaceStageDone:"✓",
     splitRacePB:"PB", splitRaceVsPB:"vs PB", splitRaceTotalUsed:"Total used",
     splitRaceAnalyze:"🔍 ANALYZE", splitRaceNextStage:"NEXT STAGE →", splitRaceSeeResults:"SEE RESULTS 🏁",
     splitRaceAnalysisTitle:"ANALYSIS", splitRaceCurrent:"Current", splitRaceAverage:"Average",
@@ -831,10 +853,10 @@ const TR = {
     splitRaceRetry:"↻ Play again", splitRaceNewScrambleBtn:"🔀 New scramble", splitRaceExit:"← Exit",
     splitRaceTimeOut:"⏰ TIME OUT", splitRaceLastCompleted:"Last completed stage",
     splitRaceNotCompleted:"Not completed", splitRaceExitConfirm:"Exit the current run? Your progress will be lost.",
-    splitRaceCtxReady:"Scramble your cube, then press GO", splitRaceCtxSolving:"Solve this stage, then tap COMPLETE",
+    splitRaceCtxReady:"Scramble your cube, then press GO", splitRaceCtxSolving:"Solve this stage, then tap the screen",
     splitRaceRuns:"Runs", splitRaceCompletedRuns:"Completed",
     drillTitle:"Stage training", drillSub:"Isolate one stage and drill it",
-    drillHint:"Solve your cube normally up to this stage, then press GO",
+    drillHint:"Scramble your cube and press GO. Solve it up to the end of this stage, then press COMPLETE.",
     drillPB:"PB", drillReps:"Reps", drillWarmup:"warm-up", drillCtxWarmup:"Solve this stage to continue",
     drillSessionReps:"This session", drillAvg5:"Avg 5", drillNext:"↻ New rep", drillRanking:"Ranking",
     drillProgress:"Progress", drillProgressSub:"Every stage, your best times",
@@ -853,9 +875,9 @@ const TR = {
     instIos:["1. Tap the Share button ⬆️ at the bottom of Safari (top on iPad).","2. Scroll and choose \"Add to Home Screen\".","3. Tap \"Add\": the RUR'U' icon shows up with your other apps."],
     instAndroid:["1. Tap the ⋮ menu at the top right of Chrome.","2. Choose \"Install app\" (or \"Add to Home screen\").","3. Confirm: the RUR'U' icon shows up with your other apps."],
     tapHalf:"Tap your side when your cube is done",
-    go:"🚀 GO!", replay:"↻ Replay", menu:"← Home", chronoPickCube:"PICK YOUR CUBE",
-    tapGrid:"👆 Tap the grid to stop",
-    tapCube:"👆 Tap the cube when solved",
+    dateLoc:"en-GB", go:"🚀 GO!", replay:"↻ Replay", menu:"← Home", chronoPickCube:"PICK YOUR CUBE",
+    tapGrid:"👆 Tap the screen to stop",
+    tapCube:"👆 Tap the screen when solved",
     cubeReady:"Full solve timer", cubePlay:"Solve your whole cube!", cubeDone:"Well done! 🎉",
     timeUp:"⏰ Time's up!", success:"✓ Done!", newRecord:"⭐ NEW RECORD!",
     objectives:"🎖️ Goals", obj:["Under 60s","Under 45s","Under 30s","Under 15s"],
@@ -909,6 +931,9 @@ const TR = {
     progFoot:"Tap a mode to play it again. The curve shows your last 10 games: the lower it goes, the better you get.",
     myProgress:"📊 My progress",
     helpCardTitle:"How to play?", helpCardSub:"Discover the rules of the game",
+    uBest:"Best time", uGames:"Games", uStreak:"Challenge days", uSeeProgress:"See my progress",
+    uGroupSolo:"Solo against the clock", uGroupDuo:"Two players", uGroupDisc:"Discover", uNew:"New",
+    uNextDaily:"New challenge in {h} h {m} min", uDailyTodo:"To do today",
     hcChooseCube:"CHOOSE YOUR CUBE", hcDiscover:"INTERACTIVE CONTENT", hcPlay:"PLAY", hcConsult:"EXPLORE",
     hcTraining:"TRAINING",
     hcMonstroSub:"Have fun\nand improve", hcClassicSub:"Solve the face\nagainst the clock", hcSudoSub:"Logic\nand focus",
@@ -1043,6 +1068,13 @@ const TR = {
     savants:"THE SCIENTISTS BOX", savantsSub:"6 geniuses · 48 symbols",
     savantsIntro:"Each face of the cube is embodied by a genius surrounded by 8 symbols. Tap a card to open it, then tap a symbol to discover its meaning — and the portrait in the center to learn more about the genius.",
     symbols:"symbols", seeOnSite:"🌐 See on rurucube.com",
+    discTotal:"{n} / {t} symbols discovered", discQuizDone:"{n} / {t} quizzes passed", discSeen:"{n} / {t} discovered",
+    discQuizBtn:"Quiz", discQuizSub:"4 questions to test yourself", disc3d:"3D cube", discBioMore:"Read the full profile",
+    discQImg:"Which symbol stands for “{x}”?", discQName:"What is this symbol called?",
+    discGood:"Well done, that's right!", discBad:"Wrong! It was:", discNext:"Next question", discSeeScore:"See my score",
+    discResult:"Your score: {n} / 4", discStar:"⭐ Quiz passed! You earned the star.", discAlmost:"You need 3 right answers for the star. Try again!",
+    discRetry:"Play again", discBack:"Back", discPrev:"Previous", discNextSym:"Next",
+    discShopTitle:"The real cube", discShopSub:"To play with as a family, for real", discShopBtn:"rurucube.com",
     savantsTile:"KNOWLEDGE", savantsTileSub:"Decode the 6 faces of the geniuses",
     civi:"Ancient Civilisation", tuto:"Tutorial", civiSub:"6 civilisations, 8 symbols each", civiIntro:"🌍 Each civilisation hides 8 symbols carved in stone. Tap a card to open it, then tap a symbol to discover its meaning — and the emblem in the center to learn more about the civilisation.", kidsLabel:"🧒 Kid", teenLabel:"🎓 Teen & Adult", ageToggleHint:"Choose your reading level: short and simple definitions for kids, full ones for teens and adults.",
     savantsTapHint:"Tap a symbol to reveal its definition",
@@ -2363,10 +2395,10 @@ const tutoLoadDone = ()=>{ try{ return JSON.parse(localStorage.getItem("rurucube
 const TUTO_GROUPS = [[0],[1,2],[3],[4,5,6,7]];
 const TUTO_GROUP_COL = ["#c9b8ff","#f4f4f4","#4ea8ff","#ffd23f"];
 const tutoLoadSeen = ()=>{ try{ return JSON.parse(localStorage.getItem("rurucube_tuto_seen")||"[]"); }catch(e){ return []; } };
-function TutoScreen({ onBack, t, onSolveur }){
+function TutoScreen({ onBack, t, onSolveur, startStep=null }){
   const wide = useWide();
   const W = wide?560:440;
-  const [ouvert,setOuvert] = useState(null);
+  const [ouvert,setOuvert] = useState(startStep);
   const [seen,setSeen] = useState(tutoLoadSeen);
   const [done,setDone] = useState(tutoLoadDone);
   const [badge,setBadge] = useState(()=>{ try{ return localStorage.getItem("rurucube_tuto_badge")==="1"; }catch(e){ return false; } });
@@ -2381,7 +2413,8 @@ function TutoScreen({ onBack, t, onSolveur }){
     setSeen(prev=>{ if(prev.includes(i)) return prev; const nx=[...prev,i]; try{ localStorage.setItem("rurucube_tuto_seen",JSON.stringify(nx)); }catch(e){} return nx; });
   };
   if(ouvert!=null) return <TutoStepPage t={t} idx={ouvert} video={null} onSolveur={onSolveur}
-    onBack={()=>{ setOuvert(null); setDone(tutoLoadDone()); setNota(()=>{ try{ return localStorage.getItem("rurucube_tuto_nota")||nota; }catch(e){ return nota; } });
+    onBack={()=>{ if(startStep!=null){ onBack(); return; }   /* ouvert depuis l'Entraînement : on y retourne */
+      setOuvert(null); setDone(tutoLoadDone()); setNota(()=>{ try{ return localStorage.getItem("rurucube_tuto_nota")||nota; }catch(e){ return nota; } });
       try{ setBadge(localStorage.getItem("rurucube_tuto_badge")==="1"); }catch(e){} window.scrollTo(0,0); }}
     onGo={i=>open(i)}/>;
 
@@ -2415,6 +2448,15 @@ function TutoScreen({ onBack, t, onSolveur }){
         {[["fr",t.tutoNotaFr],["ruru",t.tutoNotaEn]].map(([v,l])=>{ const on=nota===v; return (
           <button key={v} onClick={()=>pickNota(v)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:999,padding:"8px 6px",fontFamily:"inherit",
             fontWeight:800,fontSize:13,color:on?"#1a1228":PAL.textDim,background:on?PAL.gold:"transparent"}}>{l}</button>); })}
+      </div>
+      {/* les lettres des faces dans la version choisie : on voit tout de suite le changement */}
+      <div style={{...box,display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:6,margin:"-6px 0 16px"}}>
+        {["R","L","U","D","F","B"].map(k=>(
+          <div key={k} style={{display:"flex",alignItems:"center",gap:7,background:PAL.card,borderRadius:11,padding:"6px 8px",boxShadow:`0 0 0 1.5px ${PAL.cardHi}`}}>
+            <span style={{minWidth:26,height:26,borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:14,
+              background:PAL.gold,color:"#1a1228",transition:"transform .2s"}} key={nota+k}>{tutoNote(k,fr)}</span>
+            <span style={{fontSize:11,fontWeight:700,color:PAL.textDim,lineHeight:1.15}}>{((t.tutoFaceNames||{})[k]||"").replace(/^face /,"").replace(/ face$/,"")}</span>
+          </div>))}
       </div>
 
       {/* progression + reprendre */}
@@ -2538,12 +2580,12 @@ function GhostBtn({ onClick, children, color, bg, border, shadow }){
     <button onClick={onClick} style={{background:bg||PAL.card,border:`2px solid ${border||PAL.gold}`,borderRadius:14,padding:"8px 16px",color:color||PAL.textDim,fontWeight:700,fontSize:14,cursor:"pointer",boxShadow:`0 3px 0 ${shadow||PAL.bg2}`}}>{children}</button>
   );
 }
-function SectionLabel({ children, wood }){
-  const lc = wood ? "#8a6539" : PAL.cardHi;
+function SectionLabel({ children, wood, paper }){
+  const lc = wood ? "#8a6539" : paper ? "#9fb6d3" : PAL.cardHi;
   return (
     <div style={{display:"flex",alignItems:"center",gap:10,width:"100%",maxWidth:380,margin:"26px 0 12px"}}>
       <div style={{flex:1,height:1,background:`linear-gradient(90deg,transparent,${lc})`}}/>
-      <div style={{fontWeight:700,fontSize:12,letterSpacing:2.5,color:wood?"#4a3418":PAL.textDim,textTransform:"uppercase"}}>{children}</div>
+      <div style={{fontWeight:700,fontSize:12,letterSpacing:2.5,color:wood?"#4a3418":paper?"#2a4570":PAL.textDim,textTransform:"uppercase"}}>{children}</div>
       <div style={{flex:1,height:1,background:`linear-gradient(90deg,${lc},transparent)`}}/>
     </div>
   );
@@ -2615,7 +2657,7 @@ function ProgressPanel({ t, stats, color }){
               <div style={{fontWeight:700,fontSize:13,color:PAL.textDim,marginBottom:8}}>{t.lastGames}</div>
               {sessions.slice(-6).reverse().map((s,i)=>(
                 <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:i<5?`1px solid ${PAL.cardHi}`:"none"}}>
-                  <span style={{fontSize:12,color:PAL.textFaint,fontWeight:600}}>{new Date(s.date).toLocaleDateString()}</span>
+                  <span style={{fontSize:12,color:PAL.textFaint,fontWeight:600}}>{new Date(s.date).toLocaleDateString(t.dateLoc)}</span>
                   <span style={{fontWeight:700,fontSize:17,color:s.time===best?PAL.gold:PAL.text}}>{s.time===best?"⭐ ":""}{fmt(s.time)}</span>
                 </div>
               ))}
@@ -2746,6 +2788,11 @@ function Header({ onBack, title, color, sub, t, bg, border, shadow, tone }){
 }
 
 /* ═══ ÉCRAN CHALLENGE (Face / Reverse / Défi du jour) ═══════════ */
+/* Zone tactile plein écran : pendant qu'un chrono tourne, toucher n'importe où l'arrête */
+function TapStop({ onStop }){
+  return <div onClick={e=>{ e.preventDefault(); e.stopPropagation(); onStop(); }}
+    style={{position:"fixed",inset:0,zIndex:50,cursor:"pointer",background:"transparent",WebkitTapHighlightColor:"transparent",touchAction:"manipulation"}}/>;
+}
 function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
   const wide = useWide();
   const S = SKINS[skin];
@@ -2853,7 +2900,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
       <Header onBack={onBack} t={t} tone={wood?"wood":(paper?"paper":(neon?"neon":undefined))} color={wood?"#4a3418":(paper?"#132a4d":color)}
         bg={wood?"#fbeed8":(paper?"#ffffff":undefined)} border={wood?"#c69c6d":(paper?"#2a4570":undefined)} shadow={wood?"#8a6539":(paper?"#2a4570":undefined)}
         title={daily?`🗓️ ${t.daily}`:(mode==="reverse"?`⏳ ${t.reverseTile}`:(mode==="blind"?`🙈 ${t.blind}`:(mode==="motifs"?`🔤 ${t.motifs}`:`🎯 ${t.faceTile}`)))}
-        sub={daily?new Date().toLocaleDateString():undefined}/>
+        sub={daily?new Date().toLocaleDateString(t.dateLoc):undefined}/>
 
       {ph==="ready"&&!daily&&!forceMode&&(
         <div style={{display:"flex",gap:8,width:"100%",maxWidth:340,marginBottom:14}}>
@@ -2991,6 +3038,7 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
 
       {ph==="playing"&&face&&(
         <>
+          {(mode!=="blind"||daily||hidden)&&<TapStop onStop={stop}/>}
           <div style={{marginBottom:12,width:"100%",display:"flex",justifyContent:"center"}}>
             <Hint th={th} color={color} icon={hidden?"🙈":"⚡"}>
               {mode==="reverse"&&!daily?t.ctxReverse:(mode==="blind"?(hidden?t.ctxBlindHidden:t.ctxBlindMemo):t.ctxPlaying)}
@@ -3007,9 +3055,9 @@ function ChallengeScreen({ onBack, t, skin, daily, forceMode }){
           ) : (
             <CubeFace cells={face} size={Math.min(300,window.innerWidth-60)} glow={neon?SKINS.sudoku.color:(wood?"#c69c6d":color)} sprites={sprites} onClick={mode==="blind"?undefined:stop} dark={neon} light={wood}/>
           )}
-          <div style={{marginTop:14,fontSize:16,color:th?(th.pageInk||th.ink):"#ffffff",fontWeight:700}}>
+          {(mode!=="blind"||daily||hidden)&&<div style={{marginTop:14,fontSize:16,color:th?(th.pageInk||th.ink):"#ffffff",fontWeight:700}}>
             {t.tapGrid}{isDesktop&&<span style={{opacity:.8,fontSize:13,fontWeight:600}}> {t.spaceStop}</span>}
-          </div>
+          </div>}
         </>
       )}
 
@@ -3211,6 +3259,7 @@ function ChronoScreen({ onBack, t, skin:skin0, pick }){
       )}
       {ph==="playing"&&(
         <>
+          <TapStop onStop={stop}/>
           <SkinSpinCube skin={skin} size={Math.min(170,window.innerWidth*.42)} glow={PAL.blue} onClick={stop}/>
           <div style={{marginTop:8,fontSize:18,color:"#ffffff",fontWeight:700}}>{t.cubePlay}</div>
           <div style={{fontSize:15,color:"#ffffff",fontWeight:600,marginTop:6,opacity:.9}}>
@@ -3245,6 +3294,28 @@ const SPLIT_BUDGET = 60000;
 const SPLIT_STAGE_KEYS = ["cross","firstLayer","f2l","oll","pll"];
 const SPLIT_STAGE_ICONS = ["➕","🔲","🧩","🟡","🏁"];
 const SPLIT_STAGE_COLORS = ["#ffd23f","#4ea8ff","#3ddc84","#ff5ea8","#9d6cff"]; // gold, bleu, vert, rose, violet — une couleur par étape
+/* objectif de temps par étape (total 60 s) et étape du tutoriel correspondante */
+const SPLIT_TARGET = [10000,12000,14000,10000,14000];
+const SPLIT_TUTO = [1,2,3,4,7];
+/* l'étape la plus « lente » = la plus loin de son objectif (moyenne des 5 derniers temps) */
+function splitWeakest(stages){
+  let w=null, wr=0;
+  SPLIT_STAGE_KEYS.forEach((k,i)=>{ const tm=(stages[k]||{}).times||[]; if(!tm.length) return;
+    const last=tm.slice(-5), avg=last.reduce((a,b)=>a+b,0)/last.length, r=avg/SPLIT_TARGET[i]; if(w==null||r>wr){ w=i; wr=r; } });
+  return w;
+}
+/* mini-courbe des derniers temps */
+function MiniCurve({ times, color, w=86, h=26 }){
+  const v=(times||[]).slice(-5); if(v.length<2) return <span style={{fontSize:10.5,color:PAL.textFaint,fontWeight:700}}>—</span>;
+  const mx=Math.max(...v), mn=Math.min(...v), sp=mx-mn||1;
+  const pts=v.map((x,i)=>[i/(v.length-1)*(w-6)+3, 3+(x-mn)/sp*(h-6)]);
+  return <svg width={w} height={h} style={{display:"block"}}><polyline points={pts.map(p=>p.join(",")).join(" ")} fill="none" stroke={color} strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round"/>
+    <circle cx={pts[pts.length-1][0]} cy={pts[pts.length-1][1]} r="3.2" fill={color}/></svg>;
+}
+/* objectif du jour pour l'entraînement */
+const drillToday = ()=>{ try{ const d=JSON.parse(localStorage.getItem("rurucube_drill_day")||"{}"); return d.date===todayKey()?(d.n||0):0; }catch(e){ return 0; } };
+const drillTodayAdd = ()=>{ try{ const n=drillToday()+1; localStorage.setItem("rurucube_drill_day",JSON.stringify({date:todayKey(),n})); }catch(e){} };
+const DRILL_DAILY = 5;
 
 /* Petit cube 3D CSS (3 faces visibles) — décoratif, teinté selon l'étape en cours */
 const CUBE3D_UNSOLVED = "#1a1a1a";
@@ -3392,7 +3463,7 @@ function StageProgress({ stageIdx, labels }){
   );
 }
 
-function SplitRaceScreen({ onBack, t }){
+function SplitRaceScreen({ onBack, t, onDrill }){
   const wide = useWide();
   const labels = [t.stgCross,t.stgFirstLayer,t.stgF2l,t.stgOll,t.stgPll];
 
@@ -3439,10 +3510,12 @@ function SplitRaceScreen({ onBack, t }){
     beginStage(idx);
   }
 
+  /* on annonce l'étape (nom, objectif) ; le chrono ne part qu'au GO */
+  function announce(idx){ clearInterval(timer.current); setStageIdx(idx); setPendingIdx(idx); setElapsedCur(0); setPh("ready"); }
   function startRun(){
     setSplits({}); setNewPbFlags({}); setUsedMs(0); usedMsRef.current=0;
     setTotalIsPb(false); setLastRun(null);
-    startCountdownFor(0);
+    announce(0);
   }
 
   function completeStage(){
@@ -3466,7 +3539,7 @@ function SplitRaceScreen({ onBack, t }){
   function nextStage(){
     setAnalyzeOpen(false);
     if(stageIdx>=SPLIT_STAGE_KEYS.length-1) finishResults();
-    else startCountdownFor(stageIdx+1);
+    else announce(stageIdx+1);
   }
 
   function finishResults(){
@@ -3490,17 +3563,21 @@ function SplitRaceScreen({ onBack, t }){
 
   function retry(){ setPh("start"); }
   function newScramble(){ setScramble(genScramble()); setPh("start"); }
+  const [askQuit,setAskQuit] = useState(false);
   function handleExit(){
-    if((ph==="count"||ph==="stage"||ph==="break") && !window.confirm(t.splitRaceExitConfirm)) return;
+    if(ph==="ready"||ph==="stage"||ph==="break"){ setAskQuit(true); return; }
     clearInterval(timer.current);
     onBack();
   }
+  function quitNow(){ clearInterval(timer.current); setAskQuit(false); onBack(); }
 
   useSpaceKey(()=>{
+    if(askQuit) return;
     if(ph==="start") startRun();
+    else if(ph==="ready") beginStage(stageIdx);
     else if(ph==="stage") completeStage();
     else if(ph==="break") nextStage();
-  }, ph==="start"||ph==="stage"||ph==="break");
+  }, ph==="start"||ph==="ready"||ph==="stage"||ph==="break");
 
   const stats = statsRef.current;
   const key = SPLIT_STAGE_KEYS[stageIdx];
@@ -3508,37 +3585,82 @@ function SplitRaceScreen({ onBack, t }){
 
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <Header onBack={handleExit} t={t} color={PAL.red} title={`🏁 ${t.splitRace}`} sub={ph==="start"?t.splitRaceSub:undefined}/>
+      {ph==="start"
+        ? <div style={{width:"100%",maxWidth:wide?520:400,display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+            <GhostBtn onClick={handleExit} color={PAL.red}>{t.menu}</GhostBtn><span style={{marginLeft:"auto"}}><PlayerBadge t={t}/></span></div>
+        : <Header onBack={handleExit} t={t} color={PAL.red} title={`🏁 ${t.splitRace}`}/>}
 
-      {ph==="start"&&(
-        <div style={{display:"flex",flexDirection:wide?"row":"column",gap:wide?36:0,alignItems:wide?"flex-start":"center",justifyContent:"center",width:"100%",maxWidth:wide?720:undefined,flexWrap:"wrap"}}>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",flex:wide?"0 1 340px":undefined}}>
-            <div style={{marginBottom:10}}><Cube3D color={PAL.red} stageIdx={0}/></div>
-            <div style={{marginBottom:14,width:"100%",display:"flex",justifyContent:"center"}}>
-              <Hint color={PAL.red} icon="🏁">{t.splitRaceTagline}</Hint>
-            </div>
-            <div style={{width:"100%",maxWidth:340,background:PAL.card,borderRadius:16,padding:"13px 15px",marginBottom:16,
-              boxShadow:`0 0 0 2px ${PAL.cardHi}`,display:"flex",alignItems:"center",gap:12,textAlign:"left"}}>
-              <span style={{fontSize:30,lineHeight:1,flexShrink:0}}>🎲</span>
-              <div>
-                <div style={{fontSize:11,fontWeight:700,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{t.randomScrambleTitle}</div>
-                <div style={{fontSize:14,fontWeight:700,color:PAL.text,lineHeight:1.45}}>{t.randomScramble}</div>
-              </div>
-            </div>
-            <div style={{width:"100%",maxWidth:300}}>
-              <CandyBtn onClick={startRun} color={PAL.red}>{t.go}</CandyBtn>
-            </div>
-            {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint}}>{t.spaceStart}</div>}
+      {ph==="start"&&(()=>{ const weak=splitWeakest(stats.stages||{}); return (
+        <div style={{width:"100%",maxWidth:wide?520:400,display:"flex",flexDirection:"column",alignItems:"stretch"}}>
+          <img src={HC_TH_SPLITRACE} alt={t.splitRace} draggable={false} style={{width:"100%",maxWidth:250,alignSelf:"center",borderRadius:20,marginBottom:12,
+            boxShadow:"0 0 0 2px #8a5cff, 0 8px 22px rgba(138,92,255,.35)"}}/>
+          <div style={{fontSize:13.5,fontWeight:700,color:PAL.text,textAlign:"center",lineHeight:1.45,marginBottom:12}}>{t.splitRaceTagline}</div>
+          {/* mes stats */}
+          <div style={{display:"flex",gap:8,marginBottom:16}}>
+            {[["🏆",fmt2(stats.bestTotal),t.splitRacePB],["🏁",stats.totalRuns||0,t.splitRaceRuns],["✅",stats.completedRuns||0,t.splitRaceCompletedRuns]].map(([ic,v,l],i)=>(
+              <div key={i} style={{flex:1,minWidth:0,background:PAL.card,borderRadius:14,padding:"9px 4px",textAlign:"center",boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
+                <div style={{fontWeight:800,fontSize:16,color:PAL.text,fontVariantNumeric:"tabular-nums"}}>{ic} {v}</div>
+                <div style={{fontSize:10.5,fontWeight:700,color:PAL.textDim,marginTop:2}}>{l}</div>
+              </div>))}
           </div>
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",flex:wide?"1 1 300px":undefined,maxWidth:340,marginTop:wide?0:18}}>
+          {/* les 5 étapes, avec objectif et record */}
+          <div style={{fontSize:11.5,fontWeight:800,letterSpacing:1.4,color:PAL.textDim,marginBottom:8}}>{t.srSteps.toUpperCase()}</div>
+          <div style={{display:"flex",flexDirection:"column",gap:7,marginBottom:14}}>
+            {SPLIT_STAGE_KEYS.map((k,i)=>{ const best=(stats.stages[k]||{}).best, c=SPLIT_STAGE_COLORS[i]; return (
+              <div key={k} style={{display:"flex",alignItems:"center",gap:10,background:PAL.card,borderRadius:14,padding:"6px 10px 6px 6px",
+                boxShadow:`0 0 0 2px ${weak===i?PAL.orange:c+"88"}`}}>
+                <span style={{width:24,height:24,borderRadius:8,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:12.5,background:c,color:"#1a1228"}}>{i+1}</span>
+                <div style={{width:44,height:42,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                  {(TUTO_STATES[SPLIT_TUTO[i]]||{}).goal&&<TutoCube state={TUTO_STATES[SPLIT_TUTO[i]].goal} size={26}/>}
+                </div>
+                <div style={{flex:1,minWidth:0,fontWeight:800,fontSize:13,color:c}}>{labels[i]}
+                  {weak===i&&<span style={{marginLeft:6,fontSize:9.5,color:PAL.orange}}>⚠ {t.drWeak}</span>}</div>
+                <div style={{textAlign:"right",flexShrink:0}}>
+                  <div style={{fontSize:10,fontWeight:700,color:PAL.textFaint}}>{t.srGoal} {(SPLIT_TARGET[i]/1000).toFixed(0)} s</div>
+                  <div style={{fontSize:12.5,fontWeight:800,color:best!=null?PAL.text:PAL.textFaint,fontVariantNumeric:"tabular-nums"}}>{best!=null?"🏆 "+fmt2(best):"—"}</div>
+                </div>
+              </div>); })}
+          </div>
+          {/* conseil */}
+          <div style={{background:PAL.card,borderRadius:16,padding:"11px 13px",marginBottom:14,boxShadow:`0 0 0 2px ${PAL.orange}88`}}>
+            <div style={{fontSize:11,fontWeight:800,letterSpacing:1.2,color:PAL.orange,marginBottom:4}}>💡 {t.srTip.toUpperCase()}</div>
+            <div style={{fontSize:13,fontWeight:700,color:PAL.text,lineHeight:1.4}}>{weak==null?t.srTipNone:t.srTipTxt.replace("{s}",labels[weak])}</div>
+            {weak!=null&&onDrill&&<button onClick={()=>onDrill(weak)} style={{marginTop:9,border:"none",cursor:"pointer",borderRadius:11,padding:"8px 12px",fontFamily:"inherit",
+              fontWeight:800,fontSize:12.5,color:"#1a1228",background:SPLIT_STAGE_COLORS[weak]}}>🎯 {t.srTrain} ›</button>}
+          </div>
+          <div style={{fontSize:12,fontWeight:600,color:PAL.textDim,textAlign:"center",marginBottom:12}}>🎲 {t.randomScramble}</div>
+          <div style={{width:"100%",maxWidth:300,alignSelf:"center"}}><CandyBtn onClick={startRun} color={PAL.red}>{t.go}</CandyBtn></div>
+          {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint,textAlign:"center"}}>{t.spaceStart}</div>}
+        </div>); })()}
+
+      {askQuit&&(
+        <div style={{position:"fixed",inset:0,zIndex:60,background:"rgba(0,0,0,.65)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+          <div style={{width:"100%",maxWidth:320,background:PAL.card,borderRadius:20,padding:"18px 16px",textAlign:"center",boxShadow:`0 0 0 2px ${PAL.red}`}}>
+            <div style={{fontWeight:800,fontSize:18,color:PAL.text}}>{t.srQuitTitle}</div>
+            <div style={{fontSize:13,fontWeight:600,color:PAL.textDim,margin:"6px 0 16px"}}>{t.splitRaceExitConfirm}</div>
             <div style={{display:"flex",gap:10}}>
-              <StatChip label={t.splitRacePB} value={fmt2(stats.bestTotal)} color={PAL.red}/>
-              <StatChip label={t.splitRaceRuns} value={stats.totalRuns||0} color={PAL.green}/>
-              <StatChip label={t.splitRaceCompletedRuns} value={stats.completedRuns||0} color={PAL.blue}/>
+              <button onClick={()=>setAskQuit(false)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"11px 6px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:PAL.bg2,color:PAL.text}}>{t.srQuitNo}</button>
+              <button onClick={quitNow} style={{flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"11px 6px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:PAL.red,color:"#fff"}}>{t.srQuitYes}</button>
             </div>
           </div>
         </div>
       )}
+
+      {ph==="ready"&&(()=>{ const c=SPLIT_STAGE_COLORS[stageIdx]; return (
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",maxWidth:380}}>
+          <div style={{marginBottom:16,width:"100%",display:"flex",justifyContent:"center"}}><StageProgress stageIdx={stageIdx} labels={labels}/></div>
+          <div style={{fontSize:12,fontWeight:800,letterSpacing:1.5,color:PAL.textDim}}>{t.srReadyOf.replace("{n}",stageIdx+1).toUpperCase()}</div>
+          <div style={{fontWeight:800,fontSize:30,color:c,margin:"4px 0 6px",textAlign:"center",animation:"pop .35s ease-out"}}>{SPLIT_STAGE_ICONS[stageIdx]} {labels[stageIdx]}</div>
+          <div style={{margin:"4px 0 10px"}}><Cube3D size={100} color={c} spin={false} stageIdx={stageIdx}/></div>
+          <div style={{display:"flex",gap:10,marginBottom:14}}>
+            <StatChip label={t.srGoal} value={`${(SPLIT_TARGET[stageIdx]/1000).toFixed(0)} s`} color={c}/>
+            <StatChip label={t.srBudgetLeft} value={fmt2(SPLIT_BUDGET-usedMs)} color={PAL.green}/>
+            {(stats.stages[SPLIT_STAGE_KEYS[stageIdx]]||{}).best!=null&&<StatChip label={t.splitRacePB} value={fmt2(stats.stages[SPLIT_STAGE_KEYS[stageIdx]].best)} color={PAL.gold}/>}
+          </div>
+          <div style={{fontSize:13,fontWeight:700,color:PAL.textDim,textAlign:"center",marginBottom:14}}>{t.srReadyHint}</div>
+          <div style={{width:"100%",maxWidth:300}}><CandyBtn onClick={()=>beginStage(stageIdx)} color={c}>{t.go}</CandyBtn></div>
+          {isDesktop&&<div style={{marginTop:8,fontSize:12,fontWeight:600,color:PAL.textFaint}}>{t.spaceStart}</div>}
+        </div>); })()}
 
       {ph==="count"&&(
         <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
@@ -3554,7 +3676,8 @@ function SplitRaceScreen({ onBack, t }){
       )}
 
       {ph==="stage"&&(
-        <div onClick={completeStage} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",cursor:"pointer"}}>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",cursor:"pointer"}}>
+          {!askQuit&&<TapStop onStop={completeStage}/>}
           <div style={{marginBottom:16}}><StageProgress stageIdx={stageIdx} labels={labels}/></div>
           <div style={{fontWeight:800,fontSize:22,color:SPLIT_STAGE_COLORS[stageIdx],letterSpacing:1,marginBottom:10}}>{SPLIT_STAGE_ICONS[stageIdx]} {labels[stageIdx]}</div>
           <div style={{marginBottom:10}}><Cube3D size={100} color={SPLIT_STAGE_COLORS[stageIdx]} stageIdx={stageIdx}/></div>
@@ -3621,7 +3744,7 @@ function SplitRaceScreen({ onBack, t }){
             )}
             <div style={{width:"100%",maxWidth:300,display:"flex",flexDirection:"column",gap:10}}>
               <GhostBtn onClick={()=>setAnalyzeOpen(o=>!o)} color={PAL.red}>{t.splitRaceAnalyze}</GhostBtn>
-              <CandyBtn onClick={nextStage} color={PAL.red}>{isLast?t.splitRaceSeeResults:t.splitRaceNextStage}</CandyBtn>
+              <CandyBtn onClick={nextStage} color={isLast?PAL.red:SPLIT_STAGE_COLORS[stageIdx+1]}>{isLast?t.splitRaceSeeResults:t.srNextIs.replace("{s}",labels[stageIdx+1])+" →"}</CandyBtn>
             </div>
           </>
         );
@@ -3652,6 +3775,14 @@ function SplitRaceScreen({ onBack, t }){
               {isTimeout&&<StatChip label={t.splitRaceLastCompleted} value={done.length?done[done.length-1].label:"—"} color={PAL.orange}/>}
             </div>
 
+            {done.length>0&&<div style={{width:"100%",maxWidth:360,marginBottom:14}}>
+              <div style={{fontWeight:800,fontSize:12,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:7,textAlign:"left"}}>{t.srShare}</div>
+              <div style={{display:"flex",height:22,borderRadius:8,overflow:"hidden",boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
+                {entries.map((e,i)=>e.ms==null?null:<div key={e.k} title={e.label} style={{width:`${e.ms/SPLIT_BUDGET*100}%`,background:SPLIT_STAGE_COLORS[i],
+                  display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#1a1228",overflow:"hidden"}}>{e.ms>=5000?i+1:""}</div>)}
+                <div style={{flex:1,background:PAL.bg2}}/>
+              </div>
+            </div>}
             <div style={{width:"100%",maxWidth:360,background:PAL.card,borderRadius:18,padding:"14px 16px",marginBottom:16,
               boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
               <div style={{fontWeight:800,fontSize:12,color:PAL.textDim,letterSpacing:1,textTransform:"uppercase",marginBottom:8,textAlign:"left"}}>{t.splitRaceSplits}</div>
@@ -3660,6 +3791,8 @@ function SplitRaceScreen({ onBack, t }){
                   <span style={{fontSize:13,color:PAL.text,fontWeight:700,textAlign:"left"}}>{e.icon} {e.label}</span>
                   <span style={{fontSize:14,fontWeight:800,color:e.ms==null?PAL.textFaint:(best&&e.k===best.k?PAL.gold:PAL.text)}}>
                     {e.ms==null?t.splitRaceNotCompleted:fmt2(e.ms)}
+                    {e.ms!=null&&(()=>{ const pb=(stats.stages[e.k]||{}).best; if(pb==null||pb===e.ms) return null; const d=e.ms-pb;
+                      return <span style={{fontSize:11,fontWeight:700,marginLeft:6,color:d>0?PAL.orange:PAL.green}}>({d>0?"+":""}{(d/1000).toFixed(1)})</span>; })()}
                   </span>
                 </div>
               ))}
@@ -3680,6 +3813,10 @@ function SplitRaceScreen({ onBack, t }){
               </div>
             )}
 
+            {(()=>{ const w=splitWeakest(stats.stages||{}); return w!=null&&onDrill&&(
+              <button onClick={()=>onDrill(w)} style={{width:"100%",maxWidth:360,marginBottom:14,border:"none",cursor:"pointer",borderRadius:14,padding:"11px 12px",fontFamily:"inherit",
+                textAlign:"left",background:PAL.card,boxShadow:`0 0 0 2px ${SPLIT_STAGE_COLORS[w]}`,color:PAL.text,fontWeight:700,fontSize:13}}>
+                💡 {t.srTipTxt.replace("{s}",labels[w])} <span style={{color:SPLIT_STAGE_COLORS[w],fontWeight:800}}>🎯 {t.srTrain} ›</span></button>); })()}
             <div style={{width:"100%",maxWidth:300,display:"flex",flexDirection:"column",gap:10}}>
               <CandyBtn onClick={retry} color={PAL.red}>{t.splitRaceRetry}</CandyBtn>
               <GhostBtn onClick={onBack} color={PAL.textDim}>{t.splitRaceExit}</GhostBtn>
@@ -3709,6 +3846,7 @@ function saveDrillRep(key, ms){
   const s = d.stageDrill || emptyDrillStats();
   const e = s[key] || (s[key]={best:null,times:[]});
   e.times = [...(e.times||[]), ms].slice(-50);
+  drillTodayAdd();
   const isPb = e.best==null || ms<e.best;
   if(isPb) e.best = ms;
   d.stageDrill = s; saveS(d);
@@ -3716,35 +3854,66 @@ function saveDrillRep(key, ms){
 }
 
 /* Écran de sélection : une tuile par étape */
-function StageDrillPicker({ onBack, t, openDrill, openProgress }){
+function StageDrillPicker({ onBack, t, openDrill, openProgress, openTuto }){
   const wide = useWide();
   const labels = [t.stgCross,t.stgFirstLayer,t.stgF2l,t.stgOll,t.stgPll];
   const stats = loadDrillStats();
+  const weak = splitWeakest(stats);
+  const bests = SPLIT_STAGE_KEYS.map(k=>stats[k]?.best);
+  const nDone = bests.filter(b=>b!=null).length;
+  const sumB = nDone===5 ? bests.reduce((a,b)=>a+b,0) : null;
+  const today = drillToday();
+  const W = wide?720:400;
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <Header onBack={onBack} t={t} color={PAL.purple} title={`🎯 ${t.drillTitle}`} sub={t.drillSub}/>
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 110px",minHeight:"100vh",position:"relative",zIndex:1}}>
+      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+        <GhostBtn onClick={onBack} color={PAL.purple}>{t.menu}</GhostBtn><span style={{marginLeft:"auto"}}><PlayerBadge t={t}/></span>
+      </div>
+      <img src={HC_TH_DRILLS} alt={t.drillTitle} draggable={false} style={{width:"100%",maxWidth:250,borderRadius:20,marginBottom:10,
+        boxShadow:"0 0 0 2px #ff3fa0, 0 8px 22px rgba(255,63,160,.3)"}}/>
+      <div style={{fontSize:13,fontWeight:700,color:PAL.textDim,textAlign:"center",marginBottom:12}}>{t.drillSub}</div>
 
-      <button onClick={openProgress} style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,border:"none",cursor:"pointer",
-        borderRadius:999,padding:"10px 20px",marginBottom:16,background:`linear-gradient(180deg,${shade(PAL.purple,30)},${PAL.purple})`,
-        color:"#fff",fontWeight:800,fontSize:14,boxShadow:`0 4px 0 ${shade(PAL.purple,-40)}`}}>
-        📊 {t.drillProgress}
+      {/* mes stats → progression */}
+      <button onClick={openProgress} style={{width:"100%",maxWidth:W,border:"none",background:"transparent",padding:0,cursor:"pointer",fontFamily:"inherit",marginBottom:12}}>
+        <div style={{display:"flex",gap:8}}>
+          {[["🏆",sumB!=null?fmt2(sumB):"—",t.drSumBests],["✅",nDone+"/5",t.drStagesDone],["🔁",SPLIT_STAGE_KEYS.reduce((a,k)=>a+(stats[k]?.times?.length||0),0),t.drillTotalReps]].map(([ic,v,l],i)=>(
+            <div key={i} style={{flex:1,minWidth:0,background:PAL.card,borderRadius:14,padding:"9px 4px",textAlign:"center",boxShadow:`0 0 0 2px ${PAL.cardHi}`}}>
+              <div style={{fontWeight:800,fontSize:16,color:PAL.text,fontVariantNumeric:"tabular-nums"}}>{ic} {v}</div>
+              <div style={{fontSize:10.5,fontWeight:700,color:PAL.textDim,marginTop:2}}>{l}</div>
+            </div>))}
+        </div>
+        <div style={{fontSize:12,fontWeight:800,color:PAL.purple,textAlign:"right",marginTop:7}}>📊 {t.drillProgress} ›</div>
       </button>
 
-      <div style={{width:"100%",maxWidth:wide?720:380,display:wide?"grid":"flex",
-        gridTemplateColumns:wide?"1fr 1fr":undefined,flexDirection:wide?undefined:"column",gap:12}}>
-        {SPLIT_STAGE_KEYS.map((k,i)=>(
-          <button key={k} onClick={()=>openDrill(i)} style={{display:"flex",alignItems:"center",gap:14,border:"none",cursor:"pointer",
-            borderRadius:18,padding:"14px 16px",textAlign:"left",background:PAL.card,boxShadow:`0 0 0 2px ${SPLIT_STAGE_COLORS[i]}`}}>
-            <span style={{fontSize:28,flexShrink:0}}>{SPLIT_STAGE_ICONS[i]}</span>
-            <div style={{flex:1,minWidth:0}}>
-              <div style={{fontWeight:800,fontSize:15,color:SPLIT_STAGE_COLORS[i]}}>{labels[i]}</div>
-              <div style={{fontSize:12,color:PAL.textDim,fontWeight:600,marginTop:2}}>
-                {t.drillPB} {fmt2(stats[k]?.best)}
+      {/* objectif du jour */}
+      <div style={{width:"100%",maxWidth:W,background:PAL.card,borderRadius:16,padding:"10px 13px",marginBottom:16,boxShadow:`0 0 0 2px ${today>=DRILL_DAILY?PAL.green:PAL.cardHi}`,boxSizing:"border-box"}}>
+        <div style={{display:"flex",justifyContent:"space-between",fontSize:12.5,fontWeight:800,color:today>=DRILL_DAILY?PAL.green:PAL.text,marginBottom:7}}>
+          <span>{today>=DRILL_DAILY?t.drDailyDone:"🎯 "+t.drDaily.replace("{n}",DRILL_DAILY)}</span><span>{Math.min(today,DRILL_DAILY)}/{DRILL_DAILY}</span></div>
+        <div style={{display:"flex",gap:4}}>{Array.from({length:DRILL_DAILY},(_,i)=><div key={i} style={{flex:1,height:7,borderRadius:99,background:i<today?PAL.green:PAL.bg2}}/>)}</div>
+      </div>
+
+      <div style={{width:"100%",maxWidth:W,display:"grid",gridTemplateColumns:wide?"1fr 1fr":"1fr",gap:12}}>
+        {SPLIT_STAGE_KEYS.map((k,i)=>{ const st=stats[k]||{}, c=SPLIT_STAGE_COLORS[i], isNew=!(st.times||[]).length; return (
+          <div key={k} style={{background:PAL.card,borderRadius:18,padding:"10px 12px",boxShadow:`0 0 0 2px ${weak===i?PAL.orange:c}`,position:"relative"}}>
+            {(weak===i||isNew)&&<span style={{position:"absolute",top:-9,right:12,fontSize:10.5,fontWeight:800,borderRadius:999,padding:"3px 9px",
+              background:weak===i?PAL.orange:"#ffffff",color:"#1a1228"}}>{weak===i?"⚠ "+t.drWeak:"✨ "+t.drNew}</span>}
+            <button onClick={()=>openDrill(i)} style={{display:"flex",alignItems:"center",gap:10,width:"100%",border:"none",background:"transparent",cursor:"pointer",padding:0,textAlign:"left",fontFamily:"inherit"}}>
+              <div style={{width:54,height:52,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                {(TUTO_STATES[SPLIT_TUTO[i]]||{}).goal&&<TutoCube state={TUTO_STATES[SPLIT_TUTO[i]].goal} size={32}/>}
               </div>
-            </div>
-            <span style={{fontSize:18,color:SPLIT_STAGE_COLORS[i],fontWeight:800}}>›</span>
-          </button>
-        ))}
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontWeight:800,fontSize:15,color:c}}>{i+1}. {labels[i]}</div>
+                <div style={{fontSize:12,color:PAL.textDim,fontWeight:700,marginTop:2}}>🏆 {fmt2(st.best)}</div>
+              </div>
+              <div style={{flexShrink:0,textAlign:"right"}}>
+                <MiniCurve times={st.times} color={c}/>
+                <div style={{fontSize:9.5,fontWeight:700,color:PAL.textFaint,marginTop:2}}>{t.drLast}</div>
+              </div>
+              <span style={{fontSize:20,color:c,fontWeight:800,flexShrink:0}}>›</span>
+            </button>
+            {openTuto&&<button onClick={()=>openTuto(SPLIT_TUTO[i])} style={{marginTop:7,border:"none",background:"transparent",cursor:"pointer",padding:0,fontFamily:"inherit",
+              fontSize:12,fontWeight:800,color:PAL.textDim}}>📖 {t.drMethod} ›</button>}
+          </div>); })}
       </div>
     </div>
   );
@@ -3868,13 +4037,16 @@ function StageDrillScreen({ onBack, t, targetIdx }){
   }
 
   function newRep(){ setScramble(genScramble()); beginRep(); }
+  const [askQuit,setAskQuit] = useState(false);
   function handleExit(){
-    if((ph==="count"||ph==="stage") && !window.confirm(t.splitRaceExitConfirm)) return;
+    if(ph==="stage"){ setAskQuit(true); return; }
     clearInterval(timer.current);
     onBack();
   }
+  function quitNow(){ clearInterval(timer.current); setAskQuit(false); onBack(); }
 
   useSpaceKey(()=>{
+    if(askQuit) return;
     if(ph==="start") beginRep();
     else if(ph==="stage") complete();
     else if(ph==="done") newRep();
@@ -3886,7 +4058,18 @@ function StageDrillScreen({ onBack, t, targetIdx }){
 
   return (
     <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <Header onBack={handleExit} t={t} color={color} title={`🎯 ${labels[targetIdx]}`} sub={ph==="start"?t.drillSub:undefined}/>
+      <Header onBack={handleExit} t={t} color={color} title={`🎯 ${labels[targetIdx]}`}/>
+      {askQuit&&(
+        <div style={{position:"fixed",inset:0,zIndex:60,background:"rgba(0,0,0,.65)",display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+          <div style={{width:"100%",maxWidth:320,background:PAL.card,borderRadius:20,padding:"18px 16px",textAlign:"center",boxShadow:`0 0 0 2px ${color}`}}>
+            <div style={{fontWeight:800,fontSize:18,color:PAL.text,marginBottom:16}}>{t.srQuitTitle}</div>
+            <div style={{display:"flex",gap:10}}>
+              <button onClick={()=>setAskQuit(false)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"11px 6px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:PAL.bg2,color:PAL.text}}>{t.srQuitNo}</button>
+              <button onClick={quitNow} style={{flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"11px 6px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:PAL.red,color:"#fff"}}>{t.srQuitYes}</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {ph==="start"&&(
         <div style={{display:"flex",flexDirection:wide?"row":"column",gap:wide?36:0,alignItems:wide?"flex-start":"center",justifyContent:"center",width:"100%",maxWidth:wide?720:undefined,flexWrap:"wrap"}}>
@@ -3938,7 +4121,8 @@ function StageDrillScreen({ onBack, t, targetIdx }){
       )}
 
       {ph==="stage"&&(
-        <div onClick={complete} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",cursor:"pointer"}}>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%",cursor:"pointer"}}>
+          {!askQuit&&<TapStop onStop={complete}/>}
           <div style={{fontWeight:800,fontSize:22,color,letterSpacing:1,marginBottom:10}}>{SPLIT_STAGE_ICONS[targetIdx]} {labels[targetIdx]}</div>
           <div style={{marginBottom:10}}><Cube3D size={100} color={color} stageIdx={targetIdx}/></div>
           <div style={{fontWeight:700,fontSize:52,color:PAL.text,lineHeight:1,margin:"2px 0 10px",
@@ -4101,7 +4285,7 @@ function DuelScreen({ onBack, t, skin, full }){
         flexDirection:wide?"row":"column",gap:14,alignItems:"stretch"}}>
       {[{k:"a",label:t.playerOne,val:idA,set:setIdA,autre:idB,color:PAL.blue},
         {k:"b",label:t.playerTwo,val:idB,set:setIdB,autre:idA,color:PAL.pink}].map(col=>(
-        <div key={col.k} style={{width:"100%",flex:wide?1:undefined,marginBottom:wide?0:14,
+        <div key={col.k} style={{width:"100%",boxSizing:"border-box",flex:wide?1:undefined,marginBottom:wide?0:14,
           background:neon?"#1c1745":(wood?"#fffaf0":(paper?"#ffffff":PAL.card)),
           borderRadius:18,padding:"13px 13px 14px",
           boxShadow:`0 0 0 2px ${col.color}`}}>
@@ -4461,221 +4645,296 @@ const CIVI = [
 
 
 /* ═══ ÉCRAN COFFRET DES SCIENTIFIQUES ══════════════════════════ */
-function SavantsScreen({ onBack, t, kids, toggleKids, onChrono, on3d }){
+/* ═══ COFFRETS « DÉCOUVERTE » (Scientifiques, Civilisations) ═══════════
+   Une page commune : bannière + collection à compléter, fiches avec
+   symboles découverts (✓), panneau de définition qui glisse du bas,
+   et un quiz de 4 questions construit à partir des vraies fiches. */
+const discLoad = key=>{ try{ return JSON.parse(localStorage.getItem(key)||"{}"); }catch(e){ return {}; } };
+const discSave = (key,v)=>{ try{ localStorage.setItem(key,JSON.stringify(v)); }catch(e){} };
+const shuffleArr = a=>{ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; };
+/* position (0-8) sur la face de chaque fiche (index 0-7) */
+const discPos = s=>{ const p={}; for(let i=0;i<9;i++){ const ix = s.order ? s.order[i] : (i===4?-1:(i<4?i:i-1)); if(ix>=0) p[ix]=i; } return p; };
+/* 4 questions : « quel symbole représente X ? » (3 images) ou « comment s'appelle ce symbole ? » (3 noms).
+   La bonne réponse est toujours la fiche elle-même : image et nom viennent de la même entrée. */
+/* symboles qui se ressemblent (image ou nom) : jamais proposés ensemble dans une même question */
+const DISC_CONFUSE = { egypt:[[2,5]], galilee:[[3,5]], meso:[[4,5]], einstein:[[1,4]], tesla:[[1,3]] };
+const discClash = (id,a,b)=>(DISC_CONFUSE[id]||[]).some(([x,y])=>(x===a&&y===b)||(x===b&&y===a));
+function discMakeQuiz(s){
+  const n=s.items.length, picks=shuffleArr([...Array(n).keys()]).slice(0,4);
+  return picks.map((idx,k)=>{
+    const others=[];
+    for(const j of shuffleArr([...Array(n).keys()].filter(j=>j!==idx))){
+      if(others.length>=2) break;
+      if(discClash(s.id,idx,j)||others.some(o=>discClash(s.id,o,j))) continue;
+      others.push(j);
+    }
+    return { idx, type: (k%2===0 ? "img" : "name"), choices: shuffleArr([idx,...others]) };
+  });
+}
+
+function DiscoverScreen({ kind, list, photo, title, sub, intro, icon, shopUrl, onBack, t, kids, toggleKids, onChrono, on3d }){
   const wide = useWide();
   const W = wide?760:420;
+  const KS = "rurucube_disc_seen_"+kind, KQ = "rurucube_disc_quiz_"+kind;
   const [sel,setSel] = useState(null);
-  const [open,setOpen] = useState(null);
-  const s = SAVANTS.find(x=>x.id===sel);
+  const [open,setOpen] = useState(null);          /* index de fiche ouverte, ou "bio" */
+  const [seen,setSeen] = useState(()=>discLoad(KS));
+  const [quizBest,setQuizBest] = useState(()=>discLoad(KQ));
+  const [quiz,setQuiz] = useState(null);          /* {qs, i, picked, score, done} */
+  const s = list.find(x=>x.id===sel);
+  useEffect(()=>{ window.scrollTo(0,0); setOpen(null); setQuiz(null); },[sel]);
 
-  const lvl = (()=>{ const i = t.ageToggleHint.indexOf(":");
-    return i>0 ? [t.ageToggleHint.slice(0,i+1), t.ageToggleHint.slice(i+1).trim()] : [t.ageToggleHint,""]; })();
+  const markSeen = (id,idx)=>{ setSeen(prev=>{ const cur=prev[id]||[]; if(cur.includes(idx)) return prev; const nx={...prev,[id]:[...cur,idx]}; discSave(KS,nx); return nx; }); };
+  const openItem = idx=>{ setOpen(idx); if(idx!=="bio"&&idx!=null&&s) markSeen(s.id,idx); };
+  const totalSyms = list.reduce((a,x)=>a+x.items.length,0);
+  const seenSyms = list.reduce((a,x)=>a+Math.min(x.items.length,(seen[x.id]||[]).length),0);
+  const quizOk = list.filter(x=>(quizBest[x.id]||0)>=3).length;
+  const lvl = (()=>{ const i = t.ageToggleHint.indexOf(":"); return i>0 ? t.ageToggleHint.slice(0,i) : t.ageToggleHint; })();
+  const ink="#132a4d", dim="#4a6a96";
 
+  /* bascule Ado & Adulte / Enfant (collée en haut) */
+  const ageToggle = (dark)=>(
+    <div style={{width:"100%",maxWidth:W,display:"flex",gap:8,position:"sticky",top:0,zIndex:6,padding:"8px 0",boxSizing:"border-box",
+      background:dark?"#1a120bee":"#e8f2fcee",backdropFilter:"blur(6px)",WebkitBackdropFilter:"blur(6px)",borderRadius:"0 0 16px 16px",marginBottom:10}}>
+      {[{v:false,label:t.teenLabel},{v:true,label:t.kidsLabel}].map(o=>{ const on=kids===o.v; return (
+        <button key={String(o.v)} onClick={()=>toggleKids(o.v)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:14,padding:"10px 6px",fontFamily:"inherit",
+          background:on?"linear-gradient(180deg,#ffe27a,#f5bd1f)":(dark?"#2a1f14":"#ffffff"),color:on?ink:(dark?"#e8dcc8":ink),fontWeight:800,fontSize:14,
+          boxShadow:on?`0 3px 0 #c98f0a, 0 0 0 2px ${ink}`:(dark?"0 0 0 1.5px #5a4530":`0 3px 0 #c4d6e8, 0 0 0 2px ${ink}`)}}>{o.label}</button>); })}
+    </div>);
+
+  /* ───────── page du coffret ───────── */
   if(!s) return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"18px 14px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"linear-gradient(180deg,#f4faff 0%,#e4f1fd 55%,#d9eafa 100%)"}}/>
-
-      {/* En-tête : retour + titre */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
-        <GhostBtn onClick={onBack} color="#132a4d" bg="#ffffff" border="#2a4570" shadow="#2a4570">{t.menu}</GhostBtn>
-        <div style={{flex:1,minWidth:0,textAlign:"right"}}>
-          <div style={{display:"flex",alignItems:"center",justifyContent:"flex-end",gap:8}}>
-            <span style={{fontSize:26,lineHeight:1}}>🔬</span>
-            <span style={{fontWeight:800,fontSize:19,lineHeight:1.1,color:"#ffcf3f",
-              textShadow:"2px 0 0 #132a4d, -2px 0 0 #132a4d, 0 2px 0 #132a4d, 0 -2px 0 #132a4d, 0 5px 10px rgba(19,42,77,.3)"}}>{t.savants}</span>
-          </div>
-          <div style={{fontSize:12.5,fontWeight:600,color:"#4a6a96",marginTop:6}}>{t.savantsSub}</div>
-        </div>
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"18px 14px 110px",minHeight:"100vh",position:"relative",zIndex:1,boxSizing:"border-box",overflowX:"hidden"}}>
+      <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",background:"linear-gradient(180deg,#f4faff 0%,#e4f1fd 55%,#d9eafa 100%)"}}/>
+      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+        <GhostBtn onClick={onBack} color={ink} bg="#ffffff" border="#2a4570" shadow="#2a4570">{t.menu}</GhostBtn>
       </div>
 
-      {/* Visuel du coffret */}
-      <img src={SAVANTS_PHOTO} alt={t.savants} draggable={false}
-        style={{width:"100%",maxWidth:W,borderRadius:20,marginBottom:14,display:"block",
-          boxShadow:"0 0 0 3px #ffcf3f, 0 6px 18px rgba(19,42,77,.25)"}}/>
+      {/* bannière : photo + titre + collection */}
+      <div style={{width:"100%",maxWidth:W,borderRadius:22,overflow:"hidden",position:"relative",marginBottom:4,
+        boxShadow:"0 0 0 3px #ffcf3f, 0 6px 18px rgba(19,42,77,.25)"}}>
+        <img src={photo} alt={title} draggable={false} style={{width:"100%",height:"auto",display:"block"}}/>
+        <div style={{padding:"11px 14px 13px",color:"#fff",background:"linear-gradient(180deg,#1d3a66,#132a4d)"}}>
+          <div style={{fontWeight:800,fontSize:22,lineHeight:1.1,color:"#ffcf3f",textShadow:"0 2px 6px rgba(0,0,0,.6)"}}>{icon} {title}</div>
+          <div style={{fontSize:12,fontWeight:700,opacity:.9,marginTop:3}}>{sub}</div>
+          <div style={{display:"flex",gap:8,marginTop:9,flexWrap:"wrap"}}>
+            <span style={{fontSize:11.5,fontWeight:800,borderRadius:999,padding:"4px 10px",background:"#ffffffee",color:ink}}>🔎 {t.discTotal.replace("{n}",seenSyms).replace("{t}",totalSyms)}</span>
+            <span style={{fontSize:11.5,fontWeight:800,borderRadius:999,padding:"4px 10px",background:"#ffcf3f",color:ink}}>⭐ {t.discQuizDone.replace("{n}",quizOk).replace("{t}",list.length)}</span>
+          </div>
+        </div>
+      </div>
+      <div style={{width:"100%",maxWidth:W,height:6,borderRadius:99,background:"#c4d6e8",overflow:"hidden",margin:"8px 0 4px"}}>
+        <div style={{width:`${Math.round(seenSyms/totalSyms*100)}%`,height:"100%",background:"linear-gradient(90deg,#3ddc84,#1fb36b)",transition:"width .4s"}}/>
+      </div>
+      <div style={{width:"100%",maxWidth:W,fontSize:12.5,fontWeight:600,color:dim,lineHeight:1.45,margin:"6px 0 4px"}}>{intro}</div>
 
-      {/* Résoudre le cube : chrono résolution complète + cube 3D */}
+      <div style={{width:"100%",maxWidth:W,fontSize:11,fontWeight:800,letterSpacing:1.4,color:dim,margin:"8px 0 0"}}>🎓 {lvl.toUpperCase()}</div>
+      {ageToggle(false)}
+
+      {/* les 6 fiches */}
+      <div className="stagger" style={{width:"100%",maxWidth:W,display:"grid",gridTemplateColumns:wide?"1fr 1fr 1fr":"1fr 1fr",gap:12}}>
+        {list.map(sv=>{ const cc=sv.color, nS=Math.min(sv.items.length,(seen[sv.id]||[]).length), star=(quizBest[sv.id]||0)>=3; return (
+          <button key={sv.id} onClick={()=>setSel(sv.id)} style={{border:"none",cursor:"pointer",padding:0,background:"transparent",display:"block",height:"100%",fontFamily:"inherit"}}>
+            <div style={{position:"relative",overflow:"hidden",borderRadius:20,padding:"12px 10px 10px",height:"100%",boxSizing:"border-box",textAlign:"left",
+              background:`linear-gradient(135deg,${shade(cc,22)},${shade(cc,-22)})`,
+              boxShadow:`0 5px 0 ${shade(cc,-80)}, 0 0 0 2.5px ${ink}, 0 6px 16px rgba(19,42,77,.22)`}}>
+              {star&&<span style={{position:"absolute",right:7,top:6,fontSize:18}}>⭐</span>}
+              <div style={{display:"flex",alignItems:"center",gap:9}}>
+                <div style={{width:56,height:56,borderRadius:"50%",overflow:"hidden",flexShrink:0,boxShadow:`0 0 0 3px ${ink}`}}>
+                  {sv.tiles?<img src={sv.tiles[4]} alt={sv.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>:sv.emoji}
+                </div>
+                <div style={{flex:1,minWidth:0}}>
+                  <div style={{fontWeight:800,fontSize:13.5,color:ink,lineHeight:1.15}}>{sv.name}</div>
+                  <div style={{fontSize:10.5,color:"#2a4570",fontWeight:600,lineHeight:1.25,marginTop:3}}>{sv.tag}</div>
+                </div>
+              </div>
+              <div style={{display:"flex",alignItems:"center",gap:6,marginTop:9}}>
+                <div style={{flex:1,height:6,borderRadius:99,background:"#ffffff88",overflow:"hidden"}}>
+                  <div style={{width:`${nS/sv.items.length*100}%`,height:"100%",background:nS===sv.items.length?"#1fb36b":ink}}/>
+                </div>
+                <span style={{fontSize:10.5,fontWeight:800,color:ink,fontVariantNumeric:"tabular-nums"}}>{nS}/{sv.items.length}</span>
+              </div>
+            </div>
+          </button>); })}
+      </div>
+
+      {/* résoudre le cube */}
+      <div style={{height:16}}/>
       <KnowSolveModes t={t} W={W} onChrono={onChrono} on3d={on3d}/>
 
-      {/* Mode d'emploi */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"flex-start",gap:11,marginBottom:12,
-        background:"linear-gradient(180deg,#fff9e3,#fdefc6)",borderRadius:18,padding:"14px 15px",
-        boxShadow:"0 0 0 2px #f0c33c, 0 4px 12px rgba(19,42,77,.12)"}}>
-        <span style={{fontSize:26,flexShrink:0,lineHeight:1.1}}>💡</span>
-        <span style={{fontSize:13.5,color:"#132a4d",fontWeight:700,lineHeight:1.5,textAlign:"left"}}>{t.savantsIntro}</span>
-      </div>
-
-      {/* Niveau de lecture */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"flex-start",gap:11,marginBottom:12,
-        background:"linear-gradient(180deg,#ecf7ff,#dcefff)",borderRadius:18,padding:"14px 15px",
-        boxShadow:"0 0 0 2px #6bb6f0, 0 4px 12px rgba(19,42,77,.1)"}}>
-        <span style={{fontSize:26,flexShrink:0,lineHeight:1.1}}>🎓</span>
-        <div style={{textAlign:"left"}}>
-          <div style={{fontSize:14,fontWeight:800,color:"#132a4d",lineHeight:1.3}}>{lvl[0]}</div>
-          {lvl[1]&&<div style={{fontSize:12.5,fontWeight:600,color:"#4a6a96",lineHeight:1.45,marginTop:3}}>{lvl[1]}</div>}
+      {/* boutique */}
+      {shopUrl&&<a href={shopUrl} target="_blank" rel="noopener noreferrer" style={{textDecoration:"none",width:"100%",maxWidth:W}}>
+        <div style={{display:"flex",alignItems:"center",gap:12,background:"#ffffff",borderRadius:18,padding:10,boxShadow:`0 4px 0 #c4d6e8, 0 0 0 2.5px ${ink}`}}>
+          <img src={photo} alt="" draggable={false} style={{width:62,height:62,borderRadius:12,objectFit:"contain",background:"#eef4fb",flexShrink:0}}/>
+          <div style={{flex:1,minWidth:0,textAlign:"left"}}>
+            <div style={{fontWeight:800,fontSize:14.5,color:ink}}>🎁 {t.discShopTitle}</div>
+            <div style={{fontSize:11.5,fontWeight:600,color:dim,marginTop:2}}>{t.discShopSub}</div>
+          </div>
+          <span style={{flexShrink:0,fontSize:12,fontWeight:800,color:ink,background:"#ffcf3f",borderRadius:10,padding:"8px 10px"}}>{t.discShopBtn}</span>
         </div>
-      </div>
-
-      {/* Bascule Ado&Adulte / Enfant */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",gap:10,marginBottom:14}}>
-        {[{v:false,label:t.teenLabel},{v:true,label:t.kidsLabel}].map(o=>{
-          const on = kids===o.v;
-          return (
-            <button key={String(o.v)} onClick={()=>toggleKids(o.v)}
-              style={{flex:1,border:"none",cursor:"pointer",borderRadius:16,padding:"13px 6px",
-                background:on?"linear-gradient(180deg,#ffe27a,#f5bd1f)":"#ffffff",
-                color:"#132a4d",fontWeight:800,fontSize:14.5,
-                boxShadow:on?"0 4px 0 #c98f0a, 0 0 0 2.5px #132a4d":"0 4px 0 #c4d6e8, 0 0 0 2.5px #132a4d",
-                transition:"all .12s"}}>{o.label}</button>
-          );
-        })}
-      </div>
-
-      {/* Les six savants */}
-      <div className="stagger" style={{width:"100%",maxWidth:W,display:"grid",gridTemplateColumns:wide?"1fr 1fr 1fr":"1fr 1fr",gap:12}}>
-        {SAVANTS.map(sv=>{
-          /* la carte prend la couleur du savant : Einstein en jaune, Marie Curie en blanc */
-          const cc = sv.color;
-          return (
-          <button key={sv.id} onClick={()=>{setSel(sv.id);setOpen(null);}}
-            style={{border:"none",cursor:"pointer",padding:0,background:"transparent",display:"block",height:"100%"}}>
-            <div style={{position:"relative",overflow:"hidden",borderRadius:20,padding:"12px 10px",
-              display:"flex",alignItems:"center",gap:9,minHeight:112,height:"100%",boxSizing:"border-box",
-              background:`linear-gradient(135deg,${shade(cc,22)},${shade(cc,-22)})`,
-              boxShadow:`0 5px 0 ${shade(cc,-80)}, 0 0 0 2.5px #132a4d, 0 6px 16px rgba(19,42,77,.22)`}}>
-              <span style={{position:"absolute",right:6,top:4,fontSize:30,opacity:.22,pointerEvents:"none"}}>{sv.emoji}</span>
-              <div style={{width:68,height:68,borderRadius:"50%",overflow:"hidden",flexShrink:0,
-                display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,
-                background:sv.tiles?"transparent":`linear-gradient(180deg,${shade(cc,30)},${cc} 55%)`,
-                boxShadow:`0 0 0 3px #132a4d, 0 3px 8px rgba(19,42,77,.3)`}}>
-                {sv.tiles
-                  ? <img src={sv.tiles[4]} alt={sv.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
-                  : sv.emoji}
-              </div>
-              <div style={{flex:1,minWidth:0,position:"relative",textAlign:"left"}}>
-                <div style={{fontWeight:800,fontSize:13.5,color:"#132a4d",lineHeight:1.2}}>{sv.name}</div>
-                <div style={{fontSize:10.5,color:"#2a4570",fontWeight:600,lineHeight:1.3,marginTop:3}}>{sv.tag}</div>
-                <div style={{fontSize:11,color:shade(cc,-105),fontWeight:800,marginTop:7}}>8 {t.symbols} →</div>
-              </div>
-            </div>
-          </button>
-          );
-        })}
-      </div>
-
-      <a href="https://rurucube.com/le-coffret-des-scientifiques" target="_blank" rel="noopener noreferrer"
-        style={{textDecoration:"none",marginTop:20,width:"100%",maxWidth:W}}>
-        <div style={{background:"#ffffff",borderRadius:16,padding:"13px 20px",textAlign:"center",
-          boxShadow:"0 4px 0 #c4d6e8, 0 0 0 2.5px #132a4d"}}>
-          <span style={{fontSize:13.5,fontWeight:800,color:"#132a4d"}}>{t.seeOnSite}</span>
-        </div>
-      </a>
+      </a>}
     </div>
   );
 
-  const posOfIdx = {};
-  for(let i=0;i<9;i++){ const ix = s.order ? s.order[i] : (i===4?-1:(i<4?i:i-1)); if(ix>=0) posOfIdx[ix]=i; }
+  /* ───────── fiche d'un savant / d'une civilisation ───────── */
+  const pos = discPos(s), mySeen = seen[s.id]||[], col = s.color;
+  const bio = (kids && s.bioKid) ? s.bioKid : s.bio;
+  const defOf = i=> (kids && s.items[i].dKid) ? s.items[i].dKid : s.items[i].d;
+  const order8 = [...Array(s.items.length).keys()];
+  const stepOpen = d=>{ if(open==="bio"){ openItem(d>0?0:order8.length-1); return; } const k=(open+d+order8.length)%order8.length; openItem(k); };
+  const faceW = Math.min(300, (typeof window!=="undefined"?window.innerWidth:390)-60);
 
+  /* quiz */
+  const startQuiz = ()=>{ setOpen(null); setQuiz({qs:discMakeQuiz(s), i:0, picked:null, score:0, done:false}); };
+  const pick = c=>{ if(!quiz||quiz.picked!=null) return; const ok = c===quiz.qs[quiz.i].idx; setQuiz({...quiz,picked:c,score:quiz.score+(ok?1:0)}); };
+  const nextQ = ()=>{ if(quiz.i+1>=quiz.qs.length){ const sc=quiz.score; setQuiz({...quiz,done:true});
+      if(sc>(quizBest[s.id]||0)){ const nx={...quizBest,[s.id]:sc}; setQuizBest(nx); discSave(KQ,nx); } }
+    else setQuiz({...quiz,i:quiz.i+1,picked:null}); };
+
+  const card = {background:"#2a1f14",borderRadius:18,padding:"13px 14px",boxShadow:`0 0 0 2px ${col}66`,boxSizing:"border-box",width:"100%"};
   return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
-      <div style={{width:"100%",maxWidth:380,display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
-        <GhostBtn onClick={()=>setSel(null)} color={s.color}>←</GhostBtn>
-        <div style={{display:"flex",alignItems:"center",gap:10}}>
-          <div style={{width:48,height:48,borderRadius:"50%",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,
-            background:s.tiles?"transparent":`linear-gradient(180deg,${shade(s.color,30)},${s.color} 55%)`,
-            boxShadow:`0 3px 0 ${shade(s.color,-40)}, 0 0 0 2.5px ${s.color}`}}>
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"18px 14px 120px",minHeight:"100vh",position:"relative",zIndex:1,boxSizing:"border-box",overflowX:"hidden"}}>
+      <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
+      <div style={{width:"100%",maxWidth:460}}>
+        {/* en-tête */}
+        <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:12}}>
+          <GhostBtn onClick={()=>setSel(null)} color={col}>←</GhostBtn>
+          <div style={{width:46,height:46,borderRadius:"50%",overflow:"hidden",flexShrink:0,boxShadow:`0 0 0 2.5px ${col}`}}>
             {s.tiles?<img src={s.tiles[4]} alt={s.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>:s.emoji}
           </div>
-          <div>
-            <div style={{fontWeight:700,fontSize:19,color:s.color,lineHeight:1.1}}>{s.name}</div>
-            <div style={{fontSize:11,color:PAL.textFaint,fontWeight:600}}>{s.tag}</div>
+          <div style={{flex:1,minWidth:0}}>
+            <div style={{fontWeight:800,fontSize:18,color:col,lineHeight:1.1}}>{s.name}</div>
+            <div style={{fontSize:11,color:"#cbb89a",fontWeight:600,marginTop:2}}>{s.tag}</div>
           </div>
         </div>
-      </div>
 
-      {/* Grille des 8 symboles + le génie au centre, et sa définition */}
-      <div style={{display:"flex",flexDirection:wide?"row":"column",alignItems:wide?"flex-start":"center",
-        justifyContent:"center",gap:24,width:"100%",maxWidth:wide?720:undefined,flexWrap:"wrap"}}>
-      <div style={{width:Math.min(300,window.innerWidth-60),background:"#171327",borderRadius:22,padding:6,
-        display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:6,marginBottom:18,boxShadow:"0 10px 30px rgba(0,0,0,.45)",flexShrink:0}}>
-        {Array.from({length:9},(_,i)=>{
-          // Position i de la face. s.order[i] = index de la fiche (-1 = centre)
-          const idx = s.order ? s.order[i] : (i===4 ? -1 : (i<4 ? i : i-1));
-          const tile = s.tiles ? s.tiles[i] : null;
-          if(idx===-1){
-            const isBioOpen = open==="bio";
-            return (
-            <button key={i} type="button" onClick={()=>setOpen(isBioOpen?null:"bio")}
-              style={{border:"none",cursor:"pointer",padding:0,margin:0,WebkitAppearance:"none",appearance:"none",
-              width:"100%",aspectRatio:"1",borderRadius:12,overflow:"hidden",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",fontSize:30,
-              background:tile?"transparent":`linear-gradient(180deg,${shade(s.color,30)},${s.color} 55%)`,
-              boxShadow:isBioOpen?`0 0 0 3px ${s.color} inset`:(tile?"none":"inset 0 2px 4px rgba(255,255,255,.45)"),
-              transition:"all .15s",transform:isBioOpen?"scale(0.94)":"scale(1)"}}>
-              {tile?<img src={tile} alt={s.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",filter:isBioOpen?"none":"saturate(.92)"}}/>:s.emoji}
-              <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:isBioOpen?s.color:"rgba(0,0,0,.6)",
-                color:isBioOpen?"#1a1228":"#fff",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>5</span>
-            </button>
-          );}
-          const isOpen = open===idx;
+        {/* mini-bio */}
+        {bio&&<button onClick={()=>openItem(open==="bio"?null:"bio")} style={{...card,border:"none",cursor:"pointer",textAlign:"left",fontFamily:"inherit",display:"block",marginBottom:12}}>
+          <div style={{fontSize:12.5,color:"#f3e7d3",fontWeight:600,lineHeight:1.45}}>🎂 {bio.birth}</div>
+          {bio.death&&<div style={{fontSize:12.5,color:"#cbb89a",fontWeight:600,lineHeight:1.45,marginTop:4}}>🕊️ {bio.death}</div>}
+          <div style={{fontSize:12,fontWeight:800,color:col,marginTop:7}}>📖 {t.discBioMore} ›</div>
+        </button>}
+
+        {ageToggle(true)}
+
+        {!quiz&&<>
+          {/* progression */}
+          <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
+            <div style={{flex:1,height:7,borderRadius:99,background:"#3a2c1d",overflow:"hidden"}}>
+              <div style={{width:`${mySeen.length/s.items.length*100}%`,height:"100%",background:col,transition:"width .3s"}}/>
+            </div>
+            <span style={{fontSize:12,fontWeight:800,color:"#f3e7d3"}}>{t.discSeen.replace("{n}",Math.min(mySeen.length,s.items.length)).replace("{t}",s.items.length)}</span>
+          </div>
+
+          {/* la face : 8 symboles + le personnage au centre */}
+          <div style={{width:faceW,margin:"0 auto 12px",background:"#171327",borderRadius:22,padding:6,display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:6,boxShadow:"0 10px 30px rgba(0,0,0,.45)"}}>
+            {Array.from({length:9},(_,i)=>{
+              const idx = s.order ? s.order[i] : (i===4?-1:(i<4?i:i-1)); const tile = s.tiles?s.tiles[i]:null;
+              const key = idx===-1?"bio":idx, on = open===key, vu = idx>=0 && mySeen.includes(idx);
+              return (
+                <button key={i} onClick={()=>openItem(on?null:key)} style={{border:"none",cursor:"pointer",padding:0,aspectRatio:"1",borderRadius:12,overflow:"hidden",position:"relative",
+                  background:tile?"transparent":`${col}33`,boxShadow:on?`0 0 0 3px ${col} inset`:"none",transform:on?"scale(.94)":"none",transition:"transform .15s"}}>
+                  {tile?<img src={tile} alt="" draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>:(idx===-1?s.emoji:i+1)}
+                  {vu&&<span style={{position:"absolute",top:3,left:4,width:17,height:17,borderRadius:"50%",background:"#1fb36b",color:"#fff",fontSize:11,fontWeight:800,
+                    display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 1px 3px rgba(0,0,0,.5)"}}>✓</span>}
+                  <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:on?col:"rgba(0,0,0,.6)",color:on?"#1a1228":"#fff",
+                    fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>{i+1}</span>
+                </button>); })}
+          </div>
+          {open==null&&<div style={{...card,display:"flex",alignItems:"center",gap:10,padding:"11px 13px"}}>
+            <span style={{fontSize:20}}>👆</span><span style={{fontSize:13.5,fontWeight:700,color:"#f3e7d3",lineHeight:1.4}}>{t.savantsTapHint}</span></div>}
+
+          {/* actions */}
+          <div style={{display:"flex",gap:10,marginTop:12}}>
+            {s.tiles&&<button onClick={startQuiz} style={{flex:1,border:"none",cursor:"pointer",borderRadius:16,padding:"12px 8px",fontFamily:"inherit",
+              background:`linear-gradient(180deg,${shade(col,25)},${col})`,color:"#1a1228",fontWeight:800,fontSize:14,boxShadow:`0 4px 0 ${shade(col,-60)}`}}>
+              🧠 {t.discQuizBtn}{(quizBest[s.id]||0)>=3?" ⭐":""}<div style={{fontSize:10.5,fontWeight:700,opacity:.75,marginTop:2}}>{t.discQuizSub}</div></button>}
+            <button onClick={on3d} style={{flex:1,border:"none",cursor:"pointer",borderRadius:16,padding:"12px 8px",fontFamily:"inherit",
+              background:"#2a1f14",color:"#f3e7d3",fontWeight:800,fontSize:14,boxShadow:`0 0 0 2px ${col}88`}}>
+              🧊 {t.disc3d}<div style={{fontSize:10.5,fontWeight:700,opacity:.7,marginTop:2}}>{t.cube3dSub}</div></button>
+          </div>
+        </>}
+
+        {/* ── le quiz ── */}
+        {quiz&&(()=>{ const q=quiz.qs[quiz.i];
+          if(quiz.done) return (
+            <div style={{...card,textAlign:"center",padding:"20px 16px"}}>
+              <div style={{fontSize:44}}>{quiz.score>=3?"🏆":"💪"}</div>
+              <div style={{fontWeight:800,fontSize:20,color:"#fff",marginTop:6}}>{t.discResult.replace("{n}",quiz.score)}</div>
+              <div style={{fontSize:13.5,fontWeight:700,color:quiz.score>=3?"#ffcf3f":"#cbb89a",marginTop:6}}>{quiz.score>=3?t.discStar:t.discAlmost}</div>
+              <div style={{display:"flex",gap:10,marginTop:16}}>
+                <button onClick={startQuiz} style={{flex:1,border:"none",cursor:"pointer",borderRadius:14,padding:"11px 8px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:col,color:"#1a1228"}}>↺ {t.discRetry}</button>
+                <button onClick={()=>setQuiz(null)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:14,padding:"11px 8px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:"#3a2c1d",color:"#f3e7d3"}}>{t.discBack}</button>
+              </div>
+            </div>);
+          const ok = quiz.picked!=null && quiz.picked===q.idx;
           return (
-            <button key={i} onClick={()=>setOpen(isOpen?null:idx)}
-              style={{border:"none",cursor:"pointer",borderRadius:12,padding:0,aspectRatio:"1",overflow:"hidden",position:"relative",
-                background:tile?"transparent":(isOpen?s.color:`${s.color}33`),color:isOpen?"#1a1228":PAL.text,
-                fontWeight:700,fontSize:12,display:"flex",alignItems:"center",justifyContent:"center",
-                boxShadow:isOpen?`0 0 0 3px ${s.color} inset`:"none",transition:"all .15s",
-                transform:isOpen?"scale(0.94)":"scale(1)"}}>
-              {tile
-                ? <>
-                    <img src={tile} alt="" draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",filter:isOpen?"none":"saturate(.92)"}}/>
-                    <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:isOpen?s.color:"rgba(0,0,0,.6)",
-                      color:"#fff",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>{i+1}</span>
-                  </>
-                : i+1}
-            </button>
-          );
-        })}
+            <div style={card}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+                <span style={{fontSize:12,fontWeight:800,color:col,letterSpacing:1}}>🧠 QUIZ · {quiz.i+1} / {quiz.qs.length}</span>
+                <button onClick={()=>setQuiz(null)} style={{border:"none",background:"transparent",color:"#cbb89a",fontSize:18,cursor:"pointer"}}>✕</button>
+              </div>
+              {q.type==="img" ? <>
+                <div style={{fontWeight:800,fontSize:16,color:"#fff",lineHeight:1.35,marginBottom:12}}>{t.discQImg.replace("{x}",s.items[q.idx].t)}</div>
+                <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8}}>
+                  {q.choices.map(c=>{ const isOk=c===q.idx, isPick=quiz.picked===c, show=quiz.picked!=null; return (
+                    <button key={c} onClick={()=>pick(c)} style={{border:"none",padding:0,cursor:show?"default":"pointer",borderRadius:14,overflow:"hidden",aspectRatio:"1",position:"relative",
+                      boxShadow:show&&isOk?"0 0 0 4px #1fb36b":(show&&isPick?"0 0 0 4px #ff5e5e":"0 0 0 2px #5a4530"),opacity:show&&!isOk&&!isPick?.5:1}}>
+                      <img src={s.tiles[pos[c]]} alt="" draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+                      {show&&(isOk||isPick)&&<span style={{position:"absolute",top:4,right:4,width:22,height:22,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",
+                        fontSize:13,fontWeight:800,color:"#fff",background:isOk?"#1fb36b":"#ff5e5e"}}>{isOk?"✓":"✕"}</span>}
+                    </button>); })}
+                </div>
+              </> : <>
+                <div style={{fontWeight:800,fontSize:16,color:"#fff",lineHeight:1.35,marginBottom:10}}>{t.discQName}</div>
+                <img src={s.tiles[pos[q.idx]]} alt="" draggable={false} style={{display:"block",width:130,height:130,objectFit:"cover",borderRadius:16,margin:"0 auto 12px",boxShadow:`0 0 0 3px ${col}`}}/>
+                <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                  {q.choices.map(c=>{ const isOk=c===q.idx, isPick=quiz.picked===c, show=quiz.picked!=null; return (
+                    <button key={c} onClick={()=>pick(c)} style={{border:"none",cursor:show?"default":"pointer",borderRadius:12,padding:"11px 12px",fontFamily:"inherit",textAlign:"left",
+                      fontWeight:800,fontSize:14,color:show&&(isOk||isPick)?"#fff":"#f3e7d3",
+                      background:show&&isOk?"#1fb36b":(show&&isPick?"#d94848":"#3a2c1d"),opacity:show&&!isOk&&!isPick?.55:1}}>
+                      {show&&isOk?"✓ ":(show&&isPick?"✕ ":"")}{s.items[c].t}</button>); })}
+                </div>
+              </>}
+              {quiz.picked!=null&&<div style={{marginTop:12,borderRadius:12,padding:"10px 12px",background:ok?"#1fb36b22":"#d9484822"}}>
+                <div style={{fontWeight:800,fontSize:14,color:ok?"#4be39a":"#ff8a8a"}}>{ok?t.discGood:t.discBad+" "+s.items[q.idx].t}</div>
+                <div style={{fontSize:12.5,color:"#e8dcc8",fontWeight:500,lineHeight:1.5,marginTop:4}}>{defOf(q.idx)}</div>
+                <button onClick={nextQ} style={{marginTop:10,width:"100%",border:"none",cursor:"pointer",borderRadius:12,padding:"10px",fontFamily:"inherit",fontWeight:800,fontSize:14,background:col,color:"#1a1228"}}>
+                  {quiz.i+1>=quiz.qs.length?t.discSeeScore:t.discNext} ›</button>
+              </div>}
+            </div>); })()}
       </div>
 
-      {/* Définition de la case sélectionnée, juste sous la face */}
-      <div style={{width:"100%",maxWidth:380,flex:wide?"1 1 300px":undefined}}>
-        {open==="bio" && s.bio ? (
-          <div style={{background:PAL.card,borderRadius:18,padding:"14px 18px",
-            boxShadow:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${s.color}`,animation:"pop .3s ease-out"}}>
-            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-              <span style={{width:28,height:28,borderRadius:9,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",
-                background:s.color,color:"#1a1228",fontWeight:700,fontSize:14}}>5</span>
-              {s.tiles&&<img src={s.tiles[4]} alt="" draggable={false} style={{width:34,height:34,borderRadius:9,objectFit:"cover",flexShrink:0}}/>}
-              <span style={{flex:1,fontWeight:700,fontSize:16,color:PAL.text,lineHeight:1.3}}>{s.name}</span>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",gap:8}}>
-              {(()=>{ const b = (kids && s.bioKid) ? s.bioKid : s.bio; return [["🎂",t.bioBirth,b.birth],["🕊️",t.bioDeath,b.death],["🧭",t.bioPath,b.path],["💡",t.bioVision,b.vision]]; })().map(([icon,label,val])=>(
-                <div key={label}>
-                  <div style={{fontSize:11,letterSpacing:1,fontWeight:700,color:s.color,textTransform:"uppercase",marginBottom:2}}>{icon} {label}</div>
-                  <div style={{fontSize:14,color:"#ffffff",fontWeight:500,lineHeight:1.5}}>{val}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : open!=null ? (
-          <div style={{background:PAL.card,borderRadius:18,padding:"14px 18px",
-            boxShadow:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${s.color}`,animation:"pop .3s ease-out"}}>
+      {/* panneau de définition qui monte du bas */}
+      {open!=null&&!quiz&&(
+        <div style={{position:"fixed",left:0,right:0,bottom:0,zIndex:40,display:"flex",justifyContent:"center",padding:"0 10px calc(env(safe-area-inset-bottom, 0px) + 74px)",pointerEvents:"none"}}>
+          <div style={{width:"100%",maxWidth:460,maxHeight:"52vh",overflowY:"auto",background:"#1d1510",borderRadius:20,padding:"12px 14px 14px",pointerEvents:"auto",
+            boxShadow:`0 -6px 30px rgba(0,0,0,.6), 0 0 0 2px ${col}`,animation:"pop .25s ease-out",boxSizing:"border-box"}}>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
-              <span style={{width:28,height:28,borderRadius:9,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",
-                background:s.color,color:"#1a1228",fontWeight:700,fontSize:14}}>{(posOfIdx[open]??open)+1}</span>
-              {s.tiles&&<img src={s.tiles[posOfIdx[open]]} alt="" draggable={false} style={{width:34,height:34,borderRadius:9,objectFit:"cover",flexShrink:0}}/>}
-              <span style={{flex:1,fontWeight:700,fontSize:16,color:PAL.text,lineHeight:1.3}}>{s.items[open].t}</span>
+              {s.tiles&&<img src={open==="bio"?s.tiles[4]:s.tiles[pos[open]]} alt="" draggable={false} style={{width:42,height:42,borderRadius:10,objectFit:"cover",flexShrink:0}}/>}
+              <span style={{flex:1,minWidth:0,fontWeight:800,fontSize:16,color:"#fff",lineHeight:1.25}}>{open==="bio"?s.name:s.items[open].t}</span>
+              <button onClick={()=>setOpen(null)} style={{border:"none",background:"#3a2c1d",color:"#f3e7d3",width:32,height:32,borderRadius:10,cursor:"pointer",fontSize:15,flexShrink:0}}>✕</button>
             </div>
-            <div style={{fontSize:15,color:"#ffffff",fontWeight:500,lineHeight:1.6}}>{(kids && s.items[open].dKid) ? s.items[open].dKid : s.items[open].d}</div>
+            {open==="bio" ? (
+              <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                {[["🎂",t.bioBirth,bio.birth],["🕊️",t.bioDeath,bio.death],["🧭",t.bioPath,bio.path],["💡",t.bioVision,bio.vision]].filter(x=>x[2]).map(([ic,l,v])=>(
+                  <div key={l}><div style={{fontSize:11,letterSpacing:1,fontWeight:800,color:col,textTransform:"uppercase",marginBottom:2}}>{ic} {l}</div>
+                    <div style={{fontSize:14,color:"#f3e7d3",fontWeight:500,lineHeight:1.5}}>{v}</div></div>))}
+              </div>
+            ) : <div style={{fontSize:14.5,color:"#f3e7d3",fontWeight:500,lineHeight:1.6}}>{defOf(open)}</div>}
+            <div style={{display:"flex",gap:8,marginTop:12}}>
+              <button onClick={()=>stepOpen(-1)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"9px",fontFamily:"inherit",fontWeight:800,fontSize:13.5,background:"#3a2c1d",color:"#f3e7d3"}}>‹ {t.discPrev}</button>
+              <button onClick={()=>stepOpen(1)} style={{flex:1,border:"none",cursor:"pointer",borderRadius:12,padding:"9px",fontFamily:"inherit",fontWeight:800,fontSize:13.5,background:col,color:"#1a1228"}}>{t.discNextSym} ›</button>
+            </div>
           </div>
-        ) : (
-          <Hint color={s.color} icon="👆">{t.savantsTapHint}</Hint>
-        )}
-      </div>
-      </div>
+        </div>
+      )}
     </div>
   );
+}
+function SavantsScreen(p){
+  return <DiscoverScreen kind="savants" list={SAVANTS} photo={SAVANTS_PHOTO} title={p.t.savants} sub={p.t.savantsSub} intro={p.t.savantsIntro} icon="🔬"
+    shopUrl="https://rurucube.com/le-coffret-des-scientifiques" {...p}/>;
 }
 
 /* ═══ ACCUEIL — tout sur un écran ═══════════════════════════════ */
@@ -5145,7 +5404,7 @@ function SolveurScreen({ onBack, t }){
 }
 
 /* Tuile de mode « bois » — visuel + titre traduit + chevron (univers Classique) */
-function WoodModeTile({ art, banner, title, sub, onClick }){
+function WoodModeTile({ art, banner, title, sub, onClick, compact, badge }){
   const [p,setP] = useState(false);
   const ink   = shade(banner,-150);
   const frame = "#16365e";
@@ -5154,34 +5413,40 @@ function WoodModeTile({ art, banner, title, sub, onClick }){
       onPointerDown={()=>setP(true)} onPointerUp={()=>setP(false)} onPointerLeave={()=>setP(false)}
       style={{width:"100%",border:"none",padding:0,cursor:"pointer",background:"transparent",
         transform:p?"translateY(3px)":"none",transition:"transform .12s"}}>
-      <div style={{display:"flex",alignItems:"stretch",borderRadius:20,overflow:"hidden",
+      <div style={{display:"flex",flexDirection:compact?"column":"row",alignItems:"stretch",borderRadius:20,overflow:"hidden",position:"relative",height:compact?"100%":undefined,
         background:`linear-gradient(180deg,${shade(banner,18)},${banner} 45%,${shade(banner,-22)})`,
         boxShadow:`0 0 0 3px ${frame}, 0 5px 0 ${shade(banner,-70)}, 0 9px 20px rgba(0,0,0,.35)`}}>
-
+        {badge&&compact&&<UniBadge {...badge}/>}
         <img src={art} alt="" draggable={false}
-          style={{width:"37%",maxWidth:150,objectFit:"cover",display:"block",flexShrink:0}}/>
+          style={compact?{width:"100%",height:"auto",display:"block"}:{width:"37%",maxWidth:150,objectFit:"cover",display:"block",flexShrink:0}}/>
 
-        <div style={{width:2,margin:"14px 0",background:`${ink}44`,borderRadius:2,flexShrink:0}}/>
+        {!compact&&<div style={{width:2,margin:"14px 0",background:`${ink}44`,borderRadius:2,flexShrink:0}}/>}
 
-        <div style={{flex:1,minWidth:0,textAlign:"left",padding:"10px 6px 10px 11px",
-          display:"flex",flexDirection:"column",justifyContent:"center"}}>
-          <div style={{fontWeight:800,fontSize:21,letterSpacing:.4,lineHeight:1.05,color:ink,
+        <div style={{flex:1,minWidth:0,textAlign:"left",padding:compact?"9px 10px 11px":"10px 6px 10px 11px",
+          display:"flex",flexDirection:"column",justifyContent:compact?"flex-start":"center"}}>
+          <div style={{fontWeight:800,fontSize:compact?16:21,letterSpacing:.4,lineHeight:1.05,color:ink,
             textShadow:`0 1px 0 ${shade(banner,60)}99`}}>{title}</div>
-          <div style={{fontWeight:600,fontSize:12.5,lineHeight:1.25,marginTop:4,color:`${ink}dd`}}>{sub}</div>
+          <div style={{fontWeight:600,fontSize:compact?11:12.5,lineHeight:1.25,marginTop:4,color:`${ink}dd`}}>{sub}</div>
+          {badge&&!compact&&<UniBadge {...badge} inline/>}
         </div>
 
-        <div style={{flexShrink:0,display:"flex",alignItems:"center",padding:"0 12px 0 4px"}}>
+        {!compact&&<div style={{flexShrink:0,display:"flex",alignItems:"center",padding:"0 12px 0 4px"}}>
           <span style={{width:30,height:30,borderRadius:9,display:"flex",alignItems:"center",justifyContent:"center",
             border:`3px solid ${frame}`,background:shade(banner,25),
             color:frame,fontSize:17,fontWeight:800,lineHeight:1,paddingBottom:2}}>›</span>
-        </div>
+        </div>}
       </div>
     </button>
   );
 }
 
 /* Tuile de mode « Monstro » — visuel monstre + dégradé pastel + cadre marine */
-function MonstroModeTile({ art, from, to, arrow, title, sub, onClick }){
+/* petite pastille en coin de tuile : record du joueur, ou « Nouveau » */
+function UniBadge({ text, gold, inline }){
+  return <span style={{...(inline?{alignSelf:"flex-start",marginTop:6,display:"inline-block"}:{position:"absolute",top:7,right:7,zIndex:2}),fontSize:10.5,fontWeight:800,borderRadius:999,padding:"3px 8px",
+    background:gold?"#ffd23f":"#ffffff",color:"#1a1228",boxShadow:"0 2px 6px rgba(0,0,0,.35)",whiteSpace:"nowrap"}}>{text}</span>;
+}
+function MonstroModeTile({ art, from, to, arrow, title, sub, onClick, compact, badge }){
   const [p,setP] = useState(false);
   const ink = "#132a4d";
   return (
@@ -5189,21 +5454,22 @@ function MonstroModeTile({ art, from, to, arrow, title, sub, onClick }){
       onPointerDown={()=>setP(true)} onPointerUp={()=>setP(false)} onPointerLeave={()=>setP(false)}
       style={{width:"100%",border:"none",padding:0,cursor:"pointer",background:"transparent",
         transform:p?"translateY(3px)":"none",transition:"transform .12s"}}>
-      <div style={{display:"flex",alignItems:"stretch",borderRadius:22,overflow:"hidden",
-        background:`linear-gradient(90deg,${from},${to})`,
+      <div style={{display:"flex",flexDirection:compact?"column":"row",alignItems:"stretch",borderRadius:22,overflow:"hidden",position:"relative",height:compact?"100%":undefined,
+        background:`linear-gradient(${compact?180:90}deg,${from},${to})`,
         boxShadow:`0 0 0 3px ${ink}, 0 5px 0 #0d1e38, 0 8px 18px rgba(0,0,0,.22)`}}>
-
+        {badge&&compact&&<UniBadge {...badge}/>}
         <img src={art} alt="" draggable={false}
-          style={{width:"33%",maxWidth:132,objectFit:"cover",display:"block",flexShrink:0}}/>
+          style={compact?{width:"100%",height:"auto",display:"block"}:{width:"33%",maxWidth:132,objectFit:"cover",display:"block",flexShrink:0}}/>
 
-        <div style={{flex:1,minWidth:0,textAlign:"left",padding:"12px 4px 12px 14px",
-          display:"flex",flexDirection:"column",justifyContent:"center"}}>
-          <div style={{fontWeight:800,fontSize:20,letterSpacing:.3,lineHeight:1.05,color:ink}}>{title}</div>
-          <div style={{fontWeight:600,fontSize:12.5,lineHeight:1.25,marginTop:4,color:"#2a4570"}}>{sub}</div>
+        <div style={{flex:1,minWidth:0,textAlign:"left",padding:compact?"9px 10px 11px":"12px 4px 12px 14px",
+          display:"flex",flexDirection:"column",justifyContent:compact?"flex-start":"center"}}>
+          <div style={{fontWeight:800,fontSize:compact?16:20,letterSpacing:.3,lineHeight:1.05,color:ink}}>{title}</div>
+          <div style={{fontWeight:600,fontSize:compact?11:12.5,lineHeight:1.25,marginTop:4,color:"#2a4570"}}>{sub}</div>
+          {badge&&!compact&&<UniBadge {...badge} inline/>}
         </div>
 
-        <div style={{flexShrink:0,display:"flex",alignItems:"center",padding:"0 16px 0 6px",
-          fontSize:26,fontWeight:800,color:arrow,lineHeight:1}}>›</div>
+        {!compact&&<div style={{flexShrink:0,display:"flex",alignItems:"center",padding:"0 16px 0 6px",
+          fontSize:26,fontWeight:800,color:arrow,lineHeight:1}}>›</div>}
       </div>
     </button>
   );
@@ -5235,32 +5501,33 @@ function MonstroHelpCard({ art, title, sub, onClick }){
 }
 
 /* Tuile de mode « Sudocube » — visuel néon sur fond noir + halo coloré */
-function SudoModeTile({ art, glow, title, sub, onClick }){
+function SudoModeTile({ art, glow, title, sub, onClick, compact, badge }){
   const [p,setP] = useState(false);
   return (
     <button onClick={onClick}
       onPointerDown={()=>setP(true)} onPointerUp={()=>setP(false)} onPointerLeave={()=>setP(false)}
       style={{width:"100%",border:"none",padding:0,cursor:"pointer",background:"transparent",
         transform:p?"translateY(3px)":"none",transition:"transform .12s"}}>
-      <div style={{display:"flex",alignItems:"stretch",borderRadius:22,overflow:"hidden",
-        background:`linear-gradient(100deg,${glow}40,#1c1745 52%,#161236)`,
+      <div style={{display:"flex",flexDirection:compact?"column":"row",alignItems:"stretch",borderRadius:22,overflow:"hidden",position:"relative",height:compact?"100%":undefined,
+        background:`linear-gradient(${compact?170:100}deg,${glow}40,#1c1745 52%,#161236)`,
         boxShadow:`0 0 0 2px ${glow}, 0 0 14px ${glow}88, 0 0 26px ${glow}44, inset 0 0 22px ${glow}22`}}>
-
+        {badge&&compact&&<UniBadge {...badge}/>}
         <img src={art} alt="" draggable={false}
-          style={{width:"38%",maxWidth:152,objectFit:"cover",display:"block",flexShrink:0}}/>
+          style={compact?{width:"100%",height:"auto",display:"block"}:{width:"38%",maxWidth:152,objectFit:"cover",display:"block",flexShrink:0}}/>
 
-        <div style={{width:2,margin:"16px 0",background:glow,borderRadius:2,flexShrink:0,
-          boxShadow:`0 0 8px ${glow}`}}/>
+        {!compact&&<div style={{width:2,margin:"16px 0",background:glow,borderRadius:2,flexShrink:0,
+          boxShadow:`0 0 8px ${glow}`}}/>}
 
-        <div style={{flex:1,minWidth:0,textAlign:"left",padding:"12px 4px 12px 13px",
-          display:"flex",flexDirection:"column",justifyContent:"center"}}>
-          <div style={{fontWeight:800,fontSize:20,letterSpacing:.4,lineHeight:1.05,color:glow,
+        <div style={{flex:1,minWidth:0,textAlign:"left",padding:compact?"9px 10px 11px":"12px 4px 12px 13px",
+          display:"flex",flexDirection:"column",justifyContent:compact?"flex-start":"center"}}>
+          <div style={{fontWeight:800,fontSize:compact?16:20,letterSpacing:.4,lineHeight:1.05,color:glow,
             textShadow:`0 0 10px ${glow}99, 0 2px 3px rgba(0,0,0,.9)`}}>{title}</div>
-          <div style={{fontWeight:600,fontSize:12.5,lineHeight:1.25,marginTop:5,color:"#ffffffcc"}}>{sub}</div>
+          <div style={{fontWeight:600,fontSize:compact?11:12.5,lineHeight:1.25,marginTop:5,color:"#ffffffcc"}}>{sub}</div>
+          {badge&&!compact&&<UniBadge {...badge} inline/>}
         </div>
 
-        <div style={{flexShrink:0,display:"flex",alignItems:"center",padding:"0 15px 0 6px",
-          fontSize:26,fontWeight:800,color:glow,lineHeight:1,textShadow:`0 0 10px ${glow}`}}>›</div>
+        {!compact&&<div style={{flexShrink:0,display:"flex",alignItems:"center",padding:"0 15px 0 6px",
+          fontSize:26,fontWeight:800,color:glow,lineHeight:1,textShadow:`0 0 10px ${glow}`}}>›</div>}
       </div>
     </button>
   );
@@ -5720,7 +5987,7 @@ async function carteResultat({ skin, face, sprites, ms, t }){
   g.fillStyle=th.ink; g.font=`800 62px ${police}`;
   g.fillText(t.daily.replace(/^[^A-Za-zÀ-ÿ]+/,"").toUpperCase(), W/2, 196);
   g.fillStyle=th.ink2; g.font=`600 34px ${police}`;
-  g.fillText(new Date().toLocaleDateString(), W/2, 250);
+  g.fillText(new Date().toLocaleDateString(t&&t.dateLoc), W/2, 250);
 
   /* la face du jour */
   const taille=470, x0=(W-taille)/2, y0=280, gap=14, cell=(taille-gap*2-24)/3;
@@ -5874,23 +6141,25 @@ function ShareDaily({ t, th, skin, face, sprites, ms }){
 }
 
 /* Tuile de mode « Illusion » — carte blanche, halo coloré, icône noire */
-function IllusionModeTile({ icon, color, title, sub, onClick }){
+function IllusionModeTile({ icon, color, title, sub, onClick, compact, badge }){
   const [p,setP] = useState(false);
   return (
     <button onClick={onClick}
       onPointerDown={()=>setP(true)} onPointerUp={()=>setP(false)} onPointerLeave={()=>setP(false)}
       style={{width:"100%",border:"none",padding:0,cursor:"pointer",background:"transparent",
         transform:p?"translateY(3px)":"none",transition:"transform .12s"}}>
-      <div style={{display:"flex",alignItems:"center",gap:14,borderRadius:22,padding:"14px 16px",
-        background:"#ffffff",
+      <div style={{display:"flex",flexDirection:compact?"column":"row",alignItems:compact?"flex-start":"center",gap:compact?8:14,borderRadius:22,padding:compact?"14px 12px":"14px 16px",
+        background:"#ffffff",position:"relative",height:compact?"100%":undefined,boxSizing:"border-box",
         boxShadow:`0 0 0 3px ${color}, 0 0 16px ${color}88, 0 6px 16px rgba(0,0,0,.3)`}}>
+        {badge&&compact&&<UniBadge {...badge}/>}
         <img src={icon} alt="" draggable={false}
           style={{width:46,height:46,flexShrink:0,objectFit:"contain"}}/>
         <div style={{flex:1,minWidth:0,textAlign:"left"}}>
-          <div style={{fontWeight:800,fontSize:20,letterSpacing:.3,lineHeight:1.05,color:"#0d0d0d"}}>{title}</div>
-          <div style={{fontWeight:600,fontSize:12.5,lineHeight:1.25,marginTop:4,color:"#5b6270"}}>{sub}</div>
+          <div style={{fontWeight:800,fontSize:compact?16:20,letterSpacing:.3,lineHeight:1.05,color:"#0d0d0d"}}>{title}</div>
+          <div style={{fontWeight:600,fontSize:compact?11:12.5,lineHeight:1.25,marginTop:4,color:"#5b6270"}}>{sub}</div>
+          {badge&&!compact&&<UniBadge {...badge} inline/>}
         </div>
-        <span style={{flexShrink:0,fontSize:26,fontWeight:800,color,lineHeight:1}}>›</span>
+        {!compact&&<span style={{flexShrink:0,fontSize:26,fontWeight:800,color,lineHeight:1}}>›</span>}
       </div>
     </button>
   );
@@ -6413,6 +6682,7 @@ function ChronoRevScreen({ onBack, t, skin }){
       )}
       {ph==="playing"&&(
         <>
+          <TapStop onStop={stop}/>
           <SkinSpinCube skin={skin} size={Math.min(170,window.innerWidth*.42)} glow={C} onClick={stop}/>
           <div style={{marginTop:8,fontSize:18,color:"#ffffff",fontWeight:700}}>{t.cubePlay}</div>
           <div style={{fontSize:15,color:"#ffffff",fontWeight:600,marginTop:6,opacity:.9}}>
@@ -6439,6 +6709,21 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
   const W = wide?760:380;
   const data = loadS();
   const dailyDone = data[skin]?.daily?.days?.[todayKey()] ?? null;
+  const sdU = data[skin] || {};
+  /* stats du joueur pour ce cube */
+  const STATK = { face:"challenge", reverse:"reverse", blind:"blind", chrono:"chrono", motifs:"motifs", duel:"duel", duelsolve:"duelsolve", cube3d:"cube3d",
+    chronorev:"chronorev", sudo3d:"cube3d", chess3d:"cube3d" };
+  const allSt = Object.values(STATK).filter((v,i,a)=>a.indexOf(v)===i).map(k=>sdU[k]||{}).concat([sdU.daily||{}]);
+  const uBest = allSt.reduce((a,st)=>(st.best!=null&&(a==null||st.best<a))?st.best:a, null);
+  const uGames = allSt.reduce((a,st)=>a+(st.games||0),0);
+  const uStreak = (()=>{ const days=(sdU.daily||{}).days||{}; let n=0; const d=new Date();
+    const key=x=>x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");
+    if(days[key(d)]==null) d.setDate(d.getDate()-1);
+    while(days[key(d)]!=null){ n++; d.setDate(d.getDate()-1); } return n; })();
+  const [nowT,setNowT] = useState(Date.now());
+  useEffect(()=>{ const iv=setInterval(()=>setNowT(Date.now()),30000); return ()=>clearInterval(iv); },[]);
+  const toMidnight = (()=>{ const m=new Date(nowT); m.setHours(24,0,0,0); const ms=m-nowT; return {h:Math.floor(ms/3600000), m:Math.floor(ms%3600000/60000)}; })();
+  const badgeFor = id=>{ const st=sdU[STATK[id]]||{}; if(st.best!=null) return {text:"🏆 "+fmt(st.best),gold:true}; if(!st.games) return {text:"✨ "+t.uNew}; return {text:"🎮 "+st.games}; };
   const defs = {
     classic:{ logo:CLASSIC_LOGO, label:t.speedFace, sub:t.speedFaceSub },
     monstro:{ logo:LOGO, label:t.monstro, sub:t.monstroSub },
@@ -6487,24 +6772,26 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
       {mono&&<div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
         background:"radial-gradient(circle at 50% -10%, #1c1c1e 0%, #0d0d0f 55%, #000000 100%)"}}/>}
       {paper ? (
-        <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:18}}>
+        <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:6}}>
           <GhostBtn onClick={onBack} color="#132a4d" bg="#ffffff" border="#2a4570" shadow="#2a4570">{t.menu}</GhostBtn>
-          <PlayerBadge tone="paper" t={t}/>
-          <img key={skin} src={cur.logo} alt={cur.label} draggable={false}
-            style={{flex:1,minWidth:0,maxHeight:92,objectFit:"contain",animation:"pop .3s ease-out",
-              filter:"drop-shadow(0 6px 14px rgba(19,42,77,.28))"}}/>
+          <span style={{marginLeft:"auto"}}><PlayerBadge tone="paper" t={t}/></span>
+          <button onClick={openHelp} aria-label={t.helpCardTitle} style={{width:38,height:38,flexShrink:0,borderRadius:12,border:"2px solid #2a4570",background:"#ffffff",
+            cursor:"pointer",fontSize:18,fontWeight:800,color:"#132a4d",boxShadow:"0 3px 0 #2a4570"}}>?</button>
         </div>
       ) : (
       <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:6}}>
         <GhostBtn onClick={onBack} color={mono?"#0d0d0d":(wood?"#4a3418":c)} bg={mono?"#ffffff":(wood?"#fbeed8":undefined)} border={mono?"#ffffff":(wood?"#c69c6d":undefined)} shadow={mono?"#8a8a8f":(wood?"#8a6539":undefined)}>{t.menu}</GhostBtn>
         <span style={{marginLeft:"auto"}}><PlayerBadge tone={wood?"wood":(neon?"neon":undefined)} t={t}/></span>
+        <button onClick={openHelp} aria-label={t.helpCardTitle} style={{width:38,height:38,flexShrink:0,borderRadius:12,cursor:"pointer",fontSize:18,fontWeight:800,
+          border:`2px solid ${mono?"#ffffff":(wood?"#c69c6d":(neon?c:PAL.gold))}`,background:mono?"#ffffff":(wood?"#fbeed8":(neon?"#161236":PAL.card)),
+          color:mono?"#0d0d0d":(wood?"#4a3418":(neon?c:PAL.gold))}}>?</button>
       </div>
       )}
 
       {/* Logo du cube courant */}
-      {!paper&&<div key={skin} style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",justifyContent:"center",minHeight:140,padding:"4px 0",animation:"pop .3s ease-out"}}>
+      {<div key={skin} style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",justifyContent:"center",minHeight:140,padding:"4px 0",animation:"pop .3s ease-out"}}>
         {cur.logo
-          ? <img src={cur.logo} alt={cur.label} draggable={false} style={{width:"100%",maxWidth:280,maxHeight:180,objectFit:"contain",filter:`drop-shadow(0 10px 26px rgba(0,0,0,.5)) drop-shadow(0 0 18px ${c}33)`}}/>
+          ? <img src={cur.logo} alt={cur.label} draggable={false} style={{width:"100%",maxWidth:280,maxHeight:180,objectFit:"contain",filter:paper?"drop-shadow(0 8px 18px rgba(19,42,77,.3))":`drop-shadow(0 10px 26px rgba(0,0,0,.5)) drop-shadow(0 0 18px ${c}33)`}}/>
           : <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
               <ClassicEmblem/>
               <div style={{fontWeight:700,fontSize:24,color:PAL.text,letterSpacing:1.5,textShadow:`0 3px 0 ${PAL.cardHi}`}}>{t.speedFace}</div>
@@ -6512,13 +6799,24 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
             </div>}
       </div>}
 
-      {paper
-        ? <MonstroHelpCard art={MN_HELP} title={t.helpCardTitle} sub={t.helpCardSub} onClick={openHelp}/>
-        : <button onClick={openHelp} style={{marginBottom:20,background:mono?"#ffffff":neon?"#161236":(wood?"#fbeed8":(paper?"#eef2f7":`linear-gradient(135deg,${PAL.purple}55,${PAL.card})`)),border:`2px solid ${mono?"#ffffff":neon?c:(wood?"#c69c6d":(paper?"#2a4570":PAL.gold))}`,borderRadius:16,padding:"12px 22px",color:mono?"#0d0d0d":wood?"#4a3418":(paper?"#132a4d":"#ffffff"),fontWeight:700,fontSize:15,cursor:"pointer",boxShadow:mono?"0 4px 0 #8a8a8f":neon?`0 4px 0 ${PAL.bg2}, 0 0 14px ${c}55`:(wood?`0 4px 0 #8a6539`:(paper?`0 4px 0 #2a4570`:`0 4px 0 ${PAL.bg2}`))}}>{t.howTo}</button>}
+      {/* mes stats sur ce cube (un appui ouvre la progression) */}
+      <button onClick={()=>launch("progress")} style={{width:"100%",maxWidth:W,border:"none",cursor:"pointer",padding:0,background:"transparent",marginBottom:4,fontFamily:"inherit"}}>
+        <div style={{display:"flex",gap:8}}>
+          {[["🏆",uBest!=null?fmt(uBest):"—",t.uBest],["🎮",uGames,t.uGames],["🔥",uStreak,t.uStreak]].map(([ic,v,l],i)=>(
+            <div key={i} style={{flex:1,minWidth:0,borderRadius:16,padding:"9px 6px",textAlign:"center",
+              background:paper?"#ffffff":wood?"#fffaf0":mono?"#ffffff":neon?"#1c1745":PAL.card,
+              boxShadow:paper?"0 0 0 2.5px #132a4d, 0 4px 0 #2a4570":wood?"0 0 0 2.5px #c69c6d, 0 4px 0 #8a6539":mono?"0 0 0 2.5px #ffffff":neon?`0 0 0 2px ${c}, 0 0 12px ${c}55`:`0 0 0 2px ${PAL.cardHi}`}}>
+              <div style={{fontSize:17,fontWeight:800,color:paper?"#132a4d":wood?"#4a3418":mono?"#0d0d0d":PAL.text,lineHeight:1.1,fontVariantNumeric:"tabular-nums"}}>{ic} {v}</div>
+              <div style={{fontSize:10.5,fontWeight:700,marginTop:3,color:paper?"#4a6a96":wood?"#8a6539":mono?"#5b6270":PAL.textDim}}>{l}</div>
+            </div>))}
+        </div>
+        <div style={{fontSize:12,fontWeight:800,marginTop:8,textAlign:"right",color:paper?"#1d5fbf":wood?"#8a6539":mono?"#ffffff":neon?c:PAL.gold}}>📊 {t.uSeeProgress} ›</div>
+      </button>
 
       {/* Bascule rapide entre les 3 cubes */}
-      <SectionLabel wood={wood}>{t.switchCube}</SectionLabel>
-      <div style={{display:"flex",gap:6,width:"100%",maxWidth:W,justifyContent:"center",flexWrap:"wrap"}}>
+      <SectionLabel wood={wood} paper={paper}>{t.switchCube}</SectionLabel>
+      <div style={{display:"flex",gap:6,width:"100%",maxWidth:W,justifyContent:"center",flexWrap:"wrap",position:"sticky",top:0,zIndex:5,padding:"8px 0 10px",
+        background:paper?"#eef1f4ee":wood?"#fbeed8ee":neon?"#120e30ee":mono?"#0d0d0fee":`${PAL.dark}ee`,backdropFilter:"blur(6px)",WebkitBackdropFilter:"blur(6px)",borderRadius:"0 0 16px 16px"}}>
         {["monstro","classic","sudoku","illusion"].map(id=>{
           const active = skin===id; const cc = SKINS[id].color;
           const label = id==="classic"?t.classic:(id==="monstro"?t.monstro:(id==="sudoku"?t.sudo:t.illusion));
@@ -6542,47 +6840,37 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
           <div style={{fontSize:11,color:"#ffffffcc",fontWeight:600}}>
             {dailyDone!=null?`${t.dailyDone} ${fmt(dailyDone)} ✓`:t.dailyTodo}
           </div>
+          <div style={{display:"inline-block",marginTop:5,fontSize:10.5,fontWeight:800,borderRadius:999,padding:"3px 9px",
+            background:dailyDone!=null?"#ffffff33":"#ffd23f",color:dailyDone!=null?"#ffffff":"#1a1228"}}>
+            {dailyDone!=null ? "⏳ "+t.uNextDaily.replace("{h}",toMidnight.h).replace("{m}",toMidnight.m) : "⚡ "+t.uDailyTodo}</div>
         </div>
         <span style={{fontSize:20,color:"#fff",opacity:dailyDone!=null?.6:1}}>→</span>
       </button>}
 
-      {/* Modes */}
-      <SectionLabel wood={wood}>{t.chooseMode}</SectionLabel>
-      <div className="stagger" style={{width:"100%",maxWidth:W,display:wide?"grid":"flex",
-        gridTemplateColumns:wide?"1fr 1fr":undefined,flexDirection:wide?undefined:"column",gap:12}}>
-        {modes.map(m=>(
-          wood
-            ? <WoodModeTile key={m.id} art={m.art} banner={m.banner} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
-            : paper
-              ? <MonstroModeTile key={m.id} art={m.mArt} from={m.mFrom} to={m.mTo} arrow={m.mArrow} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
-              : neon
-                ? <SudoModeTile key={m.id} art={m.sArt} glow={m.sGlow} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
-                : mono
-                  ? <IllusionModeTile key={m.id} icon={m.iIco} color={m.iCol} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
-                  : <ModeTile key={m.id} m={m} onClick={()=>launch(m.id)} neon={neon} wood={wood} paper={paper}/>
-        ))}
-      </div>
-
-      {/* Accès au tableau de progression de cet univers */}
-      {(paper||wood||mono) ? (
-        <div style={{width:"100%",maxWidth:W,marginTop:14}}>
-          <LogoBtn img={mono?PROG_ILLUSION:(paper?PROG_MONSTRO:PROG_PAPER)} alt={t.progressTitle} onClick={()=>launch("progress")}/>
-        </div>
-      ) : (
-      <button onClick={()=>launch("progress")}
-        style={{width:"100%",maxWidth:W,marginTop:16,border:"none",cursor:"pointer",borderRadius:18,
-          padding:"14px 18px",display:"flex",alignItems:"center",gap:11,
-          background:mono?"#ffffff":paper?"#ffffff":(wood?"#fffaf0":(neon?"#1c1745":PAL.card)),
-          color:mono?"#111111":paper?"#132a4d":(wood?"#4a3418":PAL.text),
-          boxShadow:mono?"0 4px 0 #111111, 0 0 0 2.5px #111111"
-                 :paper?"0 4px 0 #c4d6e8, 0 0 0 2.5px #132a4d"
-                 :(wood?"0 4px 0 #8a6539, 0 0 0 2.5px #c69c6d"
-                 :(neon?`0 0 0 2px ${c}, 0 0 14px ${c}77`:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${PAL.gold}`))}}>
-        <span style={{fontSize:22,flexShrink:0}}>📊</span>
-        <span style={{flex:1,minWidth:0,textAlign:"left",fontWeight:800,fontSize:15}}>{t.progressTitle}</span>
-        <span style={{fontSize:20,opacity:.7}}>›</span>
-      </button>
-      )}
+      {/* Modes, rangés par famille, en 2 colonnes */}
+      {[["solo",t.uGroupSolo,["face","reverse","blind","motifs","chrono","chronorev"]],
+        ["duo",t.uGroupDuo,["duel","duelsolve"]],
+        ["disc",t.uGroupDisc,["cube3d","sudo3d","chess3d"]]].map(([gid,glabel,ids])=>{
+        const gm = modes.filter(m=>ids.includes(m.id));
+        if(!gm.length) return null;
+        return (
+          <React.Fragment key={gid}>
+            <SectionLabel wood={wood} paper={paper}>{glabel}</SectionLabel>
+            <div className="stagger" style={{width:"100%",maxWidth:W,display:"grid",gridTemplateColumns:wide?"repeat(2,minmax(0,1fr))":"minmax(0,1fr)",gap:12,alignItems:"stretch"}}>
+              {gm.map(m=>{ const bd=badgeFor(m.id); return (
+                wood
+                  ? <WoodModeTile key={m.id} badge={bd} art={m.art} banner={m.banner} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
+                  : paper
+                    ? <MonstroModeTile key={m.id} badge={bd} art={m.mArt} from={m.mFrom} to={m.mTo} arrow={m.mArrow} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
+                    : neon
+                      ? <SudoModeTile key={m.id} badge={bd} art={m.sArt} glow={m.sGlow} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
+                      : mono
+                        ? <IllusionModeTile key={m.id} badge={bd} icon={m.iIco} color={m.iCol} title={m.title} sub={m.sub} onClick={()=>launch(m.id)}/>
+                        : <ModeTile key={m.id} m={m} badge={bd} onClick={()=>launch(m.id)} neon={neon} wood={wood} paper={paper}/>
+              ); })}
+            </div>
+          </React.Fragment>);
+      })}
 
       {paper&&(
         <img src={MONSTRO_PHOTO} alt={t.monstro} style={{width:"100%",maxWidth:280,borderRadius:18,marginTop:22,
@@ -6595,235 +6883,31 @@ function UniversScreen({ t, skin, setSkin, launch, onBack, openHelp }){
     </div>
   );
 }
-function ModeTile({ m, onClick, neon, wood, paper, mono }){
+function ModeTile({ m, onClick, neon, wood, paper, mono, badge }){
   const [press,setPress]=useState(false);
   const ring = mono ? "#111111" : (neon ? SKINS.sudoku.color : (wood ? "#c69c6d" : (paper ? "#2a4570" : PAL.gold)));
   return (
     <button onClick={onClick} onPointerDown={()=>setPress(true)} onPointerUp={()=>setPress(false)} onPointerLeave={()=>setPress(false)}
       style={{width:"100%",border:"none",cursor:"pointer",background:mono?`linear-gradient(135deg,${m.color}55,#ffffff)`:neon?`linear-gradient(135deg,${m.color}33,#161236)`:(wood?`linear-gradient(135deg,${m.color}33,#fffaf0)`:(paper?`linear-gradient(135deg,${m.color}4d,#f3f6fa)`:`linear-gradient(135deg,${m.color}1f,${PAL.card})`)),
-        borderRadius:20,padding:"16px 18px",display:"flex",alignItems:"center",gap:14,textAlign:"left",
+        borderRadius:20,padding:"16px 18px",display:"flex",alignItems:"center",gap:14,textAlign:"left",position:"relative",boxSizing:"border-box",minWidth:0,
         boxShadow:press?`0 2px 0 ${mono?"#111111":wood?"#8a6539":(paper?"#2a4570":PAL.bg2)}, 0 0 0 ${paper?3:2}px ${ring}`:`0 6px 0 ${mono?"#111111":wood?"#8a6539":(paper?"#2a4570":PAL.bg2)}, 0 0 0 ${paper||mono?3:2}px ${ring}${neon?", 0 0 16px "+ring+"66":""}`,
         transform:press?"translateY(4px)":"none",transition:"all .1s"}}>
       <div style={{width:54,height:54,borderRadius:16,background:`linear-gradient(180deg,${shade(m.color,30)},${m.color} 50%)`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:27,flexShrink:0,boxShadow:`0 4px 0 ${shade(m.color,-40)}, inset 0 2px 3px rgba(255,255,255,.5)`,transform:press?"scale(.93)":"scale(1)",transition:"transform .1s"}}>{m.icon}</div>
       <div style={{flex:1,minWidth:0}}>
-        <div style={{fontWeight:700,fontSize:18,color:mono?"#111111":wood?"#4a3418":(paper?"#132a4d":PAL.text),letterSpacing:.5}}>{m.title}</div>
+        <div style={{fontWeight:700,fontSize:19,lineHeight:1.1,color:mono?"#111111":wood?"#4a3418":(paper?"#132a4d":PAL.text),letterSpacing:.4,overflowWrap:"anywhere"}}>{m.title}</div>
         <div style={{fontSize:12,color:mono?"#555555":wood?"#8a6539":(paper?"#2a4570":PAL.textDim),fontWeight:500,marginTop:2}}>{m.sub}</div>
+          {badge&&<UniBadge {...badge} inline/>}
       </div>
-      <span style={{fontSize:20,color:m.color}}>→</span>
+            <span style={{fontSize:20,color:m.color,flexShrink:0}}>→</span>
     </button>
   );
 }
 
 
 /* ═══ ÉCRAN CIVILISATION ANCIENNE ═══════════════════════════════ */
-function CiviScreen({ onBack, t, kids, toggleKids, onChrono, on3d }){
-  const wide = useWide();
-  const W = wide?760:420;
-  const [sel,setSel] = useState(null);
-  const [open,setOpen] = useState(null);
-  const s = CIVI.find(x=>x.id===sel);
-
-  const lvl = (()=>{ const i = t.ageToggleHint.indexOf(":");
-    return i>0 ? [t.ageToggleHint.slice(0,i+1), t.ageToggleHint.slice(i+1).trim()] : [t.ageToggleHint,""]; })();
-
-  if(!s) return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"18px 14px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"linear-gradient(180deg,#f4faff 0%,#e4f1fd 55%,#d9eafa 100%)"}}/>
-
-      {/* En-tête : retour + titre */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
-        <GhostBtn onClick={onBack} color="#132a4d" bg="#ffffff" border="#2a4570" shadow="#2a4570">{t.menu}</GhostBtn>
-        <div style={{flex:1,minWidth:0,textAlign:"right"}}>
-          <div style={{display:"flex",alignItems:"center",justifyContent:"flex-end",gap:8}}>
-            <span style={{fontSize:26,lineHeight:1}}>🏛️</span>
-            <span style={{fontWeight:800,fontSize:22,lineHeight:1.1,color:"#ffcf3f",
-              textShadow:"2px 0 0 #132a4d, -2px 0 0 #132a4d, 0 2px 0 #132a4d, 0 -2px 0 #132a4d, 0 5px 10px rgba(19,42,77,.3)"}}>{t.civi}</span>
-          </div>
-          <div style={{fontSize:12.5,fontWeight:600,color:"#4a6a96",marginTop:6}}>{t.civiSub}</div>
-        </div>
-      </div>
-
-      {/* Visuel du cube */}
-      <img src={CIVI_PHOTO} alt={t.civi} draggable={false}
-        style={{width:"100%",maxWidth:W,borderRadius:20,marginBottom:14,display:"block",
-          boxShadow:"0 0 0 3px #ffcf3f, 0 6px 18px rgba(19,42,77,.25)"}}/>
-
-      {/* Résoudre le cube : chrono résolution complète + cube 3D */}
-      <KnowSolveModes t={t} W={W} onChrono={onChrono} on3d={on3d}/>
-
-      {/* Mode d'emploi */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"flex-start",gap:11,marginBottom:12,
-        background:"linear-gradient(180deg,#fff9e3,#fdefc6)",borderRadius:18,padding:"14px 15px",
-        boxShadow:"0 0 0 2px #f0c33c, 0 4px 12px rgba(19,42,77,.12)"}}>
-        <span style={{fontSize:26,flexShrink:0,lineHeight:1.1}}>💡</span>
-        <span style={{fontSize:13.5,color:"#132a4d",fontWeight:700,lineHeight:1.5,textAlign:"left"}}>
-          {t.civiIntro.replace("🌍 ","")}
-        </span>
-      </div>
-
-      {/* Niveau de lecture */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",alignItems:"flex-start",gap:11,marginBottom:12,
-        background:"linear-gradient(180deg,#ecf7ff,#dcefff)",borderRadius:18,padding:"14px 15px",
-        boxShadow:"0 0 0 2px #6bb6f0, 0 4px 12px rgba(19,42,77,.1)"}}>
-        <span style={{fontSize:26,flexShrink:0,lineHeight:1.1}}>🎓</span>
-        <div style={{textAlign:"left"}}>
-          <div style={{fontSize:14,fontWeight:800,color:"#132a4d",lineHeight:1.3}}>{lvl[0]}</div>
-          {lvl[1]&&<div style={{fontSize:12.5,fontWeight:600,color:"#4a6a96",lineHeight:1.45,marginTop:3}}>{lvl[1]}</div>}
-        </div>
-      </div>
-
-      {/* Bascule Ado&Adulte / Enfant */}
-      <div style={{width:"100%",maxWidth:W,display:"flex",gap:10,marginBottom:14}}>
-        {[{v:false,label:t.teenLabel},{v:true,label:t.kidsLabel}].map(o=>{
-          const on = kids===o.v;
-          return (
-            <button key={String(o.v)} onClick={()=>toggleKids(o.v)}
-              style={{flex:1,border:"none",cursor:"pointer",borderRadius:16,padding:"13px 6px",
-                background:on?"linear-gradient(180deg,#ffe27a,#f5bd1f)":"#ffffff",
-                color:"#132a4d",fontWeight:800,fontSize:14.5,
-                boxShadow:on?"0 4px 0 #c98f0a, 0 0 0 2.5px #132a4d":"0 4px 0 #c4d6e8, 0 0 0 2.5px #132a4d",
-                transition:"all .12s"}}>{o.label}</button>
-          );
-        })}
-      </div>
-
-      {/* Les six civilisations */}
-      <div className="stagger" style={{width:"100%",maxWidth:W,display:"grid",gridTemplateColumns:wide?"1fr 1fr 1fr":"1fr 1fr",gap:12}}>
-        {CIVI.map(sv=>{
-          /* la carte prend la couleur de la civilisation : Rapa Nui en blanc, Maya en jaune */
-          const cc = sv.color;
-          return (
-          <button key={sv.id} onClick={()=>{setSel(sv.id);setOpen(null);}}
-            style={{border:"none",cursor:"pointer",padding:0,background:"transparent",display:"block",height:"100%"}}>
-            <div style={{position:"relative",overflow:"hidden",borderRadius:20,padding:"12px 10px",
-              display:"flex",alignItems:"center",gap:9,minHeight:112,height:"100%",boxSizing:"border-box",
-              background:`linear-gradient(135deg,${shade(cc,22)},${shade(cc,-22)})`,
-              boxShadow:`0 5px 0 ${shade(cc,-80)}, 0 0 0 2.5px #132a4d, 0 6px 16px rgba(19,42,77,.22)`}}>
-              <span style={{position:"absolute",right:6,top:4,fontSize:30,opacity:.22,pointerEvents:"none"}}>{sv.emoji}</span>
-              <div style={{width:68,height:68,borderRadius:"50%",overflow:"hidden",flexShrink:0,
-                display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,
-                background:sv.tiles?"transparent":`linear-gradient(180deg,${shade(cc,30)},${cc} 55%)`,
-                boxShadow:`0 0 0 3px #132a4d, 0 3px 8px rgba(19,42,77,.3)`}}>
-                {sv.tiles
-                  ? <img src={sv.tiles[4]} alt={sv.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
-                  : sv.emoji}
-              </div>
-              <div style={{flex:1,minWidth:0,position:"relative",textAlign:"left"}}>
-                <div style={{fontWeight:800,fontSize:13.5,color:"#132a4d",lineHeight:1.2}}>{sv.name}</div>
-                <div style={{fontSize:10.5,color:"#2a4570",fontWeight:600,lineHeight:1.3,marginTop:3}}>{sv.tag}</div>
-                <div style={{fontSize:11,color:shade(cc,-105),fontWeight:800,marginTop:7}}>8 {t.symbols} →</div>
-              </div>
-            </div>
-          </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-
-  const posOfIdx = {};
-  for(let i=0;i<9;i++){ const ix = s.order ? s.order[i] : (i===4?-1:(i<4?i:i-1)); if(ix>=0) posOfIdx[ix]=i; }
-
-  return (
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 16px 44px",minHeight:"100vh",position:"relative",zIndex:1}}>
-      <div style={{position:"fixed",inset:0,zIndex:-1,pointerEvents:"none",
-        background:"radial-gradient(circle at 50% -8%, #4a3520 0%, #241a10 50%, #120c07 100%)"}}/>
-      <div style={{width:"100%",maxWidth:380,display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
-        <GhostBtn onClick={()=>setSel(null)} color={s.color}>←</GhostBtn>
-        <div style={{display:"flex",alignItems:"center",gap:10}}>
-          <div style={{width:48,height:48,borderRadius:"50%",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,
-            background:s.tiles?"transparent":`linear-gradient(180deg,${shade(s.color,30)},${s.color} 55%)`,
-            boxShadow:`0 3px 0 ${shade(s.color,-40)}, 0 0 0 2.5px ${s.color}`}}>
-            {s.tiles?<img src={s.tiles[4]} alt={s.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>:s.emoji}
-          </div>
-          <div>
-            <div style={{fontWeight:700,fontSize:19,color:s.color,lineHeight:1.1}}>{s.name}</div>
-            <div style={{fontSize:11,color:PAL.textFaint,fontWeight:600}}>{s.tag}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Grille des 8 symboles + l'emblème central, et sa définition */}
-      <div style={{display:"flex",flexDirection:wide?"row":"column",alignItems:wide?"flex-start":"center",
-        justifyContent:"center",gap:24,width:"100%",maxWidth:wide?720:undefined,flexWrap:"wrap"}}>
-      <div style={{width:Math.min(300,window.innerWidth-60),background:"#171327",borderRadius:22,padding:6,
-        display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:6,marginBottom:18,boxShadow:"0 10px 30px rgba(0,0,0,.45)",flexShrink:0}}>
-        {Array.from({length:9},(_,i)=>{
-          const idx = s.order ? s.order[i] : (i===4 ? -1 : (i<4 ? i : i-1));
-          const tile = s.tiles ? s.tiles[i] : null;
-          if(idx===-1){
-            const isBioOpen = open==="bio";
-            return (
-            <button key={i} type="button" onClick={()=>setOpen(isBioOpen?null:"bio")}
-              style={{border:"none",cursor:"pointer",padding:0,margin:0,WebkitAppearance:"none",appearance:"none",
-              width:"100%",aspectRatio:"1",borderRadius:12,overflow:"hidden",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",fontSize:30,
-              background:tile?"transparent":`linear-gradient(180deg,${shade(s.color,30)},${s.color} 55%)`,
-              boxShadow:isBioOpen?`0 0 0 3px ${s.color} inset`:(tile?"none":"inset 0 2px 4px rgba(255,255,255,.45)"),
-              transition:"all .15s",transform:isBioOpen?"scale(0.94)":"scale(1)"}}>
-              {tile?<img src={tile} alt={s.name} draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",filter:isBioOpen?"none":"saturate(.92)"}}/>:s.emoji}
-              <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:isBioOpen?s.color:"rgba(0,0,0,.6)",
-                color:isBioOpen?"#1a1228":"#fff",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>5</span>
-            </button>
-          );}
-          const isOpen = open===idx;
-          return (
-            <button key={i} onClick={()=>setOpen(isOpen?null:idx)}
-              style={{border:"none",cursor:"pointer",borderRadius:12,padding:0,aspectRatio:"1",overflow:"hidden",position:"relative",
-                background:tile?"transparent":(isOpen?s.color:`${s.color}33`),color:isOpen?"#1a1228":PAL.text,
-                fontWeight:700,fontSize:12,display:"flex",alignItems:"center",justifyContent:"center",
-                boxShadow:isOpen?`0 0 0 3px ${s.color} inset`:"none",transition:"all .15s",
-                transform:isOpen?"scale(0.94)":"scale(1)"}}>
-              {tile
-                ? <>
-                    <img src={tile} alt="" draggable={false} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",filter:isOpen?"none":"saturate(.92)"}}/>
-                    <span style={{position:"absolute",bottom:3,right:4,width:17,height:17,borderRadius:5,background:isOpen?s.color:"rgba(0,0,0,.6)",
-                      color:"#fff",fontSize:11,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>{i+1}</span>
-                  </>
-                : i+1}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Définition de la case sélectionnée, juste sous la face */}
-      <div style={{width:"100%",maxWidth:380,flex:wide?"1 1 300px":undefined}}>
-        {open==="bio" && s.bio ? (
-          <div style={{background:PAL.card,borderRadius:18,padding:"14px 18px",
-            boxShadow:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${s.color}`,animation:"pop .3s ease-out"}}>
-            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-              <span style={{width:28,height:28,borderRadius:9,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",
-                background:s.color,color:"#1a1228",fontWeight:700,fontSize:14}}>5</span>
-              {s.tiles&&<img src={s.tiles[4]} alt="" draggable={false} style={{width:34,height:34,borderRadius:9,objectFit:"cover",flexShrink:0}}/>}
-              <span style={{flex:1,fontWeight:700,fontSize:16,color:PAL.text,lineHeight:1.3}}>{s.name}</span>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",gap:8}}>
-              {(()=>{ const b = (kids && s.bioKid) ? s.bioKid : s.bio; return [["🎂",t.bioBirth,b.birth],["🕊️",t.bioDeath,b.death],["🧭",t.bioPath,b.path],["💡",t.bioVision,b.vision]]; })().map(([icon,label,val])=>(
-                <div key={label}>
-                  <div style={{fontSize:11,letterSpacing:1,fontWeight:700,color:s.color,textTransform:"uppercase",marginBottom:2}}>{icon} {label}</div>
-                  <div style={{fontSize:14,color:"#ffffff",fontWeight:500,lineHeight:1.5}}>{val}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : open!=null ? (
-          <div style={{background:PAL.card,borderRadius:18,padding:"14px 18px",
-            boxShadow:`0 4px 0 ${PAL.bg2}, 0 0 0 2px ${s.color}`,animation:"pop .3s ease-out"}}>
-            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
-              <span style={{width:28,height:28,borderRadius:9,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",
-                background:s.color,color:"#1a1228",fontWeight:700,fontSize:14}}>{(posOfIdx[open]??open)+1}</span>
-              {s.tiles&&<img src={s.tiles[posOfIdx[open]]} alt="" draggable={false} style={{width:34,height:34,borderRadius:9,objectFit:"cover",flexShrink:0}}/>}
-              <span style={{flex:1,fontWeight:700,fontSize:16,color:PAL.text,lineHeight:1.3}}>{s.items[open].t}</span>
-            </div>
-            <div style={{fontSize:15,color:"#ffffff",fontWeight:500,lineHeight:1.6}}>{(kids && s.items[open].dKid) ? s.items[open].dKid : s.items[open].d}</div>
-          </div>
-        ) : (
-          <Hint color={s.color} icon="👆">{t.savantsTapHint}</Hint>
-        )}
-      </div>
-      </div>
-    </div>
-  );
+function CiviScreen(p){
+  return <DiscoverScreen kind="civi" list={CIVI} photo={CIVI_PHOTO} title={p.t.civi} sub={p.t.civiSub} intro={(p.t.civiIntro||"").replace("🌍 ","")} icon="🏛️"
+    shopUrl="https://rurucube.com" {...p}/>;
 }
 
 /* Boutons « Résous le cube » des pages Scientifiques et Civilisations */
@@ -6864,6 +6948,7 @@ export default function App(){
   const [showProfiles,setShowProfiles] = useState(false);
   const [profTick,setProfTick] = useState(0);
   const [drillIdx,setDrillIdx] = useState(0);
+  const [tutoStart,setTutoStart] = useState(null);   /* étape du tutoriel à ouvrir directement (depuis l'Entraînement) */
   const [kSkin,setKSkin] = useState("savants");   /* page Savoir d'où l'on vient (chrono / cube 3D) */
   const t = TR[lang];
 
@@ -6943,20 +7028,21 @@ export default function App(){
           onChrono={()=>{ setKSkin("civi"); setScreen("kchrono"); }} on3d={()=>{ setKSkin("civi"); setScreen("k3d"); }}/>}
         {screen==="chrono"&&<ChronoScreen onBack={FULL_SOLVE.includes(skin)?toUnivers:back} t={t} skin={skin}/>}
         {screen==="hchrono"&&<ChronoScreen onBack={back} t={t} skin={skin} pick/>}
-        {screen==="splitrace"&&<SplitRaceScreen onBack={back} t={t}/>}
+        {screen==="splitrace"&&<SplitRaceScreen onBack={back} t={t} onDrill={(i)=>{ setDrillIdx(i); setScreen("drill"); }}/>}
         {screen==="chess3d"&&<ChessCubeScreen onBack={toUnivers} t={t}/>}
         {screen==="cube3d"&&(skin==="classic" ? <ClassicCubeScreen onBack={toUnivers} t={t}/> : <TilesCubeScreen key={skin} onBack={toUnivers} t={t} id={skin}/>)}
         {screen==="chronorev"&&<ChronoRevScreen onBack={toUnivers} t={t} skin={skin}/>}
         {screen==="duelsolve"&&<DuelScreen onBack={toUnivers} t={t} skin={skin} full/>}
         {screen==="sudo3d"&&<SudoMonoCubeScreen onBack={toUnivers} t={t}/>}
-        {screen==="drills"&&<StageDrillPicker onBack={back} t={t} openDrill={(i)=>{ setDrillIdx(i); setScreen("drill"); }} openProgress={()=>setScreen("drillProgress")}/>}
+        {screen==="drills"&&<StageDrillPicker onBack={back} t={t} openDrill={(i)=>{ setDrillIdx(i); setScreen("drill"); }} openProgress={()=>setScreen("drillProgress")}
+          openTuto={(k)=>{ setTutoStart(k); setScreen("tuto"); }}/>}
         {screen==="drillProgress"&&<DrillProgressScreen onBack={()=>setScreen("drills")} t={t}/>}
         {screen==="drill"&&<StageDrillScreen onBack={()=>setScreen("drills")} t={t} targetIdx={drillIdx}/>}
         {screen==="savants"&&<SavantsScreen onBack={back} t={t} kids={kids} toggleKids={toggleKids}
           onChrono={()=>{ setKSkin("savants"); setScreen("kchrono"); }} on3d={()=>{ setKSkin("savants"); setScreen("k3d"); }}/>}
         {screen==="kchrono"&&<ChronoScreen onBack={()=>setScreen(kSkin)} t={t} skin={kSkin}/>}
         {screen==="k3d"&&<TilesCubeScreen onBack={()=>setScreen(kSkin)} t={t} id={kSkin}/>}
-        {screen==="tuto"&&<TutoScreen onBack={back} t={t} onSolveur={()=>setScreen("solveur")}/>}
+        {screen==="tuto"&&<TutoScreen key={"tuto"+tutoStart} onBack={()=>{ const from=tutoStart; setTutoStart(null); if(from!=null) setScreen("drills"); else back(); }} t={t} onSolveur={()=>setScreen("solveur")} startStep={tutoStart}/>}
         {screen==="solveur"&&<SolveurScreen onBack={()=>setScreen("home")} t={t}/>}
         {screen==="progress"&&<ProgressScreen t={t} skin={skin} onBack={toUnivers} launch={setScreen}/>}
       </div>
